@@ -5,12 +5,25 @@ const routes: Routes = [
   
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
+  
   {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    path: 'login',
+    loadChildren: () => import('./pages/common/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/customer/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'admin-view-dietitian',
+    loadChildren: () => import('./pages/admin/admin-view-dietitian/admin-view-dietitian.module').then( m => m.AdminViewDietitianPageModule)
+  },
+  {
+    path: 'admin-add-dietitian',
+    loadChildren: () => import('./pages/admin/admin-add-dietitian/admin-add-dietitian.module').then( m => m.AdminAddDietitianPageModule)
   },
 ];
 

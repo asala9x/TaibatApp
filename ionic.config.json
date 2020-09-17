@@ -1,5 +1,7 @@
 {
   "name": "TaibatApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
