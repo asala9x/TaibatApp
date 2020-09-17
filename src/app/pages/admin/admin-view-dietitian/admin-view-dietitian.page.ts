@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminViewDietitianPage implements OnInit {
 
+  //defult arry ditiain data
+  private dietitian=[
+    {
+      "image":"../../../../assets/icon/Profile.png",
+      "name":"Image",
+      "Dec":"This Image Describe Dietitian about ....",
+      "phone":"99882230",
+      "email":"abc@gmail.com"
+    }
+    
+  ];
   constructor() { }
 
   ngOnInit() {
   }
+
+
 
 }
