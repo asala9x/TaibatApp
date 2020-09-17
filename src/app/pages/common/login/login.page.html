@@ -4,15 +4,30 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <img src="../../../assets/icon/background.png" >
+<ion-content align="center">
+  <img src="../../../assets/icon/background.png">
 
-  <div class="logindivstyle">
-    <ion-list> 
-      <ion-item >  
-    <ion-label class="lblcolor" position="floating" >Email</ion-label>
-    <ion-input type="email" >  </ion-input>
-  </ion-item>
-  </ion-list>
+  <div class="logindivstyle" align="center">
+    <ion-list>
+      <ion-item>
+        <ion-label class="lblcolor" position="floating">Email</ion-label>
+        <ion-input type="email"> </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label class="lblcolor" position="floating">Password</ion-label>
+        <ion-input type="Password"> </ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-text color="secondary" slot="end" class="forgotPassStyle"> Forgot Password? </ion-text>
+      </ion-item>
+    </ion-list>
   </div>
+
+  <ion-button color="primary" class="buttStyle"> LOGIN </ion-button>
+
+  <div>
+    <ion-text color="secondary" class="singUpStyle"> You don't have account? <b>singUp</b> </ion-text>
+ </div>
+
 </ion-content>

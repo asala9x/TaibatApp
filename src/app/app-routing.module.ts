@@ -5,7 +5,7 @@ const routes: Routes = [
   
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'admin-view-dietitian',
     pathMatch: 'full'
   },
   
