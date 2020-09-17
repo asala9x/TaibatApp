@@ -1,15 +1,39 @@
 .lblcolor{
-    --color: #c7c6c6;
-  
+    --color: #94a9bd;
+  padding-bottom: 15px;
+  width: 50%;
+
 }
+
 .logindivstyle{
-    margin-top: 0px !important;
-    margin-bottom: 19px;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding-left: 5px !important;
+    
+    margin-top: -40px !important;
+    margin-bottom: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
+    padding-left: 9px !important;
     padding-right: 12px !important;
     padding-bottom: 20px !important;
-    // border: 1px solid rebeccapurple;
+    
+   // box-shadow: 0px 3px 15px #dbd7d7;
+    // margin-top: -15px !important;
+   // border: 1px solid #dbd7d7;
   
+}
+
+.buttStyle{
+    
+    margin-top: -65px;
+  padding: 0px !important;
+  text-align: center;
+    height: 32px;
+    width: 50%;
+
+}
+.forgotPassStyle{
+    font-size: 16px;
+}
+.singUpStyle{
+    padding: 0px !important;
+    margin-top: 0px !important;
 }
