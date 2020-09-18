@@ -2,19 +2,54 @@
   <ion-toolbar color="primary">
     <ion-title>Dietitian</ion-title>
   </ion-toolbar>
+  <ion-toolbar  lines="none">
+    
+    <ion-searchbar class="searchstyle" >
+      
+    </ion-searchbar>
+    <!-- <ion-fab vertical="Top" horizontal="end" slot="start">
+      <ion-fab-button class="recordbutton" (click)="startStopListening()">
+      
+        <ion-icon [name]="isRecording?'mic-outline':'mic-off-outline'" class="iconcolor"></ion-icon>
+      </ion-fab-button>
+    </ion-fab> -->
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
 <!-- no details-->
-<ion-card color="light" *ngIf="">
+<ion-card color="light" *ngIf="dietitian.length==0">
   <ion-card-content color="primary" >
     No dietitians added yet. please click on 'Add Dietitian' tab to add one.
   </ion-card-content>
   <!-- card with details-->
 </ion-card>
-<ion-card color="primary" *ngIf="">
-  <ion-card-content>
-    
-  </ion-card-content>
+<ion-list> 
+  <ion-card class="dietitiancarstyle" *ngIf="dietitian.length>0">
+    <ion-row>
+      <ion-col>
+<ion-card  class="cardimgstyle">
+      <ion-card-content>
+        <img src="../../../../assets/shapes.svg" >
+      </ion-card-content>
+    </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card-content *ngFor="let i of dietitian">
+          <ion-label >
+            <ion-text >
+              <h2>Name: </h2>
+            </ion-text>
+            <h1>{{i.name}}</h1>
+          </ion-label>
+          <br />
+      </ion-card-content>
+
+      </ion-col>
+    </ion-row>
+  
 </ion-card>
+</ion-list>
+
+
 </ion-content>
