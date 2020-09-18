@@ -16,6 +16,8 @@ import{AngularFireDatabaseModule}from'@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 //Ionic Storage 
 import { IonicStorageModule } from '@ionic/storage';
+//Atho import
+import {AngularFireAuthModule} from '@angular/fire/auth';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -24,6 +26,7 @@ import { IonicStorageModule } from '@ionic/storage';
     AngularFireModule.initializeApp(environment.key),
     AngularFireDatabaseModule,//for DB
      AngularFireStorageModule, //for storage
+    AngularFireAuthModule,//for Atho
     IonicModule.forRoot(), AppRoutingModule,
     IonicStorageModule.forRoot()
   ],

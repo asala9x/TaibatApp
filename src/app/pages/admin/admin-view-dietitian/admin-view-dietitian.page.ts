@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController,LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 //import fire DB
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 //Alertservice
@@ -20,22 +20,22 @@ export class AdminViewDietitianPage implements OnInit {
   //     "phone":"99882230",
   //     "email":"abc@gmail.com"
   //   }
-    
+
   // ];
 
   private dietitianArray: any[] = [];
   private matches: string[] = [];
   private tempArray: any[] = [];
   constructor(public alertController: AlertController,
-    private afData: AngularFireDatabase, 
+    private afData: AngularFireDatabase,
     public loadingController: LoadingController,
     private alert: AlertserviceService,
-    ){ }
+  ) { }
 
   ngOnInit() {
     this.retrieveDataFromFirebase();
   }
-// Method for retrieve data from firebase
+  // Method for retrieve data from firebase
 
   async retrieveDataFromFirebase() {
     const loading = await this.loadingController.create({
