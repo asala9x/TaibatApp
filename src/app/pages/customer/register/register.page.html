@@ -12,26 +12,26 @@
 
       <ion-item>
         <ion-label class="lblcolor" position="floating">Name</ion-label>
-        <ion-input type="text"> </ion-input>
+        <ion-input type="text" [(ngModel)]="customerDetails.Name"> </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label class="lblcolor" position="floating">Email</ion-label>
-        <ion-input type="email"> </ion-input>
+        <ion-input type="email" [(ngModel)]="customerDetails.Email"> </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label class="lblcolor" position="floating">Password</ion-label>
-        <ion-input type="Password"> </ion-input>
+        <ion-input type="Password" [(ngModel)]="customerDetails.password"> </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label class="lblcolor" position="floating">Confirm Password</ion-label>
-        <ion-input type="Password"> </ion-input>
+        <ion-input type="Password" [(ngModel)]="Confirmpassword"> </ion-input>
       </ion-item>
 
       </ion-list>
       </div>
       
-      <ion-button color="primary" class="buttStyle"> register </ion-button>
+      <ion-button color="primary" class="buttStyle" (click)="registerUserInFB()"> register </ion-button>
 </ion-content>

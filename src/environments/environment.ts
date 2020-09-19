@@ -4,14 +4,15 @@
 
 export const environment = {
   production: false,
-  key:{apiKey: "AIzaSyCKJsezEjmLi0SGgzeU7zu4MmUYaFx2v2g",
-  authDomain: "taibat-d8298.firebaseapp.com",
-  databaseURL: "https://taibat-d8298.firebaseio.com",
-  projectId: "taibat-d8298",
-  storageBucket: "taibat-d8298.appspot.com",
-  messagingSenderId: "316858259729",
-  appId: "1:316858259729:web:d26abd1791df5374e5d4b0"}
-};
+  key:{
+    apiKey: "AIzaSyBjM6sqmT-Du05rFE7DpAhkHDSKFYsotfA",
+    authDomain: "taibatapp.firebaseapp.com",
+    databaseURL: "https://taibatapp.firebaseio.com",
+    projectId: "taibatapp",
+    storageBucket: "taibatapp.appspot.com",
+    messagingSenderId: "861535889607",
+    appId: "1:861535889607:web:4cf85cd0e6e9dbf19a36e2"
+} }
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

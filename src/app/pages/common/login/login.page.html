@@ -11,12 +11,12 @@
     <ion-list>
       <ion-item>
         <ion-label class="lblcolor" position="floating">Email</ion-label>
-        <ion-input type="email"> </ion-input>
+        <ion-input type="email" [(ngModel)]="data.email">  </ion-input>
       </ion-item>
-
+      
       <ion-item>
         <ion-label class="lblcolor" position="floating">Password</ion-label>
-        <ion-input type="Password"> </ion-input>
+        <ion-input type="Password" [(ngModel)]="data.password"> </ion-input>
       </ion-item>
       <ion-item lines="none">
         <ion-text color="secondary" slot="end" class="forgotPassStyle"> Forgot Password? </ion-text>
@@ -24,7 +24,7 @@
     </ion-list>
   </div>
 
-  <ion-button color="primary" class="buttStyle"> LOGIN </ion-button>
+  <ion-button color="primary" class="buttStyle" (click)="loginWithFBdetails()"> LOGIN </ion-button>
 
   <div>
     <ion-text color="secondary" class="singUpStyle"> You don't have account? <b>singUp</b> </ion-text>
