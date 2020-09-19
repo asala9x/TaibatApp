@@ -8,22 +8,32 @@
     margin-top: 7px;
     margin-left: 5px !important;  
 }
-.iconstyle{
-    color: black;
-    font-size:medium;
-}
+
 .cardimgstyle{
+    width: 100px;
+     height: 100px;
+}
+.imgstyle{
     width: 70px;
-    height: 70px;
+     height: 70px;
 }
 .dietitiancarstyle{
     border-radius: 10px;
      box-shadow: 0px 3px 15px #dbd7d7;
+     
 }
+
 .iconcolor{
     color: #357abe;
+    font-size:17px ;
 }
 .iconcolorstyle{
     color: #e2e2e2;
 }
-
+.colstyle{
+    margin-left: -120px !important;
+}
+.divstyle{
+    text-align:right;
+    font-size: 30px;
+}

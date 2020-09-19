@@ -31,7 +31,7 @@
       <ion-col size="4">
 <ion-card  class="cardimgstyle">
       <ion-card-content>
-        <img [src]=i.img  />
+        <img [src]=i.img class="imgstyle" />
       </ion-card-content>
     </ion-card>
       </ion-col>
@@ -39,44 +39,46 @@
  <ion-card-content>
    <ion-row>
             <ion-col>
-            <ion-icon name="person" class="iconstyle"></ion-icon>
+            <ion-icon name="person" class="iconcolor"></ion-icon>
           </ion-col> 
-          <ion-col >
+          <ion-col class="colstyle" >
             <p>{{i.name}}</p> 
           </ion-col>
         </ion-row>
           <ion-row>
           <ion-col>
-            <ion-icon name="call" class="iconstyle"></ion-icon>
+            <ion-icon name="call" class="iconcolor"></ion-icon>
           </ion-col> 
-          <ion-col >
+          <ion-col class="colstyle" >
             <p>{{i.phone}}</p> 
           </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
-              <ion-icon name="mail" class="iconstyle"></ion-icon>
+              <ion-icon name="mail" class="iconcolor"></ion-icon>
             </ion-col> 
-            <ion-col >
+            <ion-col class="colstyle" >
               <p>{{i.email}}</p> 
             </ion-col>
             </ion-row>
             <ion-row>
               <ion-col>
-                <ion-icon name="newspaper" class="iconstyle"></ion-icon>
+                <ion-icon name="newspaper" class="iconcolor"></ion-icon>
               </ion-col> 
-              <ion-col >
+              <ion-col class="colstyle" >
                 <p>{{i.descripion}}</p> 
               </ion-col>
               </ion-row>
           </ion-card-content></ion-col>
           </ion-row>
+          <div class="divstyle">
           <ion-col>
-            <ion-icon name="create" (click)="updateDietitianAlert(i)"></ion-icon>
+            <ion-icon name="create" class="iconcolorstyle" (click)="updateDietitianAlert(i)"></ion-icon>
           </ion-col>
           <ion-col>
-            <ion-icon name="trash" (click)="deleteDietitianAlert(i)"></ion-icon>
+            <ion-icon name="trash" class="iconcolorstyle" (click)="deleteDietitianAlert(i)"></ion-icon>
           </ion-col>
+        </div>
 </ion-card>
 </ion-item-sliding>
 </ion-list>
