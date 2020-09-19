@@ -61,5 +61,51 @@ export class LoginPage implements OnInit {
         await alert.present();
       }
 
-
+ //Forget Password
+ async ForgetPassword() {
+  this.ForgetPasswordAlert();
 }
+
+//Alert for Forget Password
+async ForgetPasswordAlert() {
+  const alerttest = await this.alertController.create({
+    header: 'Forgot Password',
+    cssClass: 'forgetpasswordalertstyle',
+    subHeader: 'You will receive a link in your email to reset your password',
+    inputs: [
+      {
+        name: 'email',
+        type: 'email',
+        placeholder: 'Enter email'
+      }
+    ],
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'forgetpasswordalertstyle',
+        handler: () => {
+          console.log('Confirm Cancel');
+        }
+      }, {
+        text: 'Ok',
+        cssClass: 'forgetpasswordalertstyle',
+        handler: (LoginDetails) => {
+          console.log(LoginDetails.email);
+          this.fbauth.sendPasswordResetEmail(LoginDetails.email).then((secc) => {
+            this.alert.presentAlert("please check your email for Rest your password");
+           //this.presentAlert("please check your email for Rest your password");
+          }
+          ).catch((error) => {
+            this.alert.presentAlert(error.message);
+            //this.presentAlert(error.message);
+          })
+        }
+      }
+    ]
+  });
+
+  await alerttest.present();
+}
+}
+
