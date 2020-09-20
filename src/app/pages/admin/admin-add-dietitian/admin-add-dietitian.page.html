@@ -1,9 +1,43 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>AdminAddDietitian</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Add Dietitian</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div class="adddietitiandivstyle" >
+    
+    <ion-list  class="liststyle" align="center">
+      <img [src]="base64Img" class="dietitianimg" (click)="selectDietitianImage()" />
+      <ion-item>
+        <ion-label class="lblcolor" position="floating">Name</ion-label>
+        <ion-input type="text" [(ngModel)]="dietitianObj.name"> </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="lblcolor" position="floating"> Phone Number</ion-label>
+        <ion-input type="number" [(ngModel)]="dietitianObj.phone">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="lblcolor" position="floating"> Email</ion-label>
+        <ion-input type="email" [(ngModel)]="dietitianObj.email"> </ion-input>
+      </ion-item>
+       <ion-item>
+        <ion-label class="lblcolor" position="floating"> Descripion</ion-label>
+        <ion-textarea [(ngModel)]="dietitianObj.descripion"></ion-textarea> 
+      </ion-item>
+    </ion-list>
+      <div align="center">
+      <ion-row>
+        <ion-col>
+           <ion-button color="primary" expand="block" class="btnadd" align="left" (click)="addDietitian()"> ADD </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block" class="btncancel"  (click)="Cancel()"> Cancel </ion-button>
+       </ion-col>
+      </ion-row>
+    </div>
+    
+    </div>
+  
 </ion-content>
