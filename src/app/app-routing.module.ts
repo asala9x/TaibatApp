@@ -22,9 +22,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/admin/admin-view-dietitian/admin-view-dietitian.module').then( m => m.AdminViewDietitianPageModule)
   },
   {
-    path: 'admin-add-dietitian',
-    loadChildren: () => import('./pages/admin/admin-add-dietitian/admin-add-dietitian.module').then( m => m.AdminAddDietitianPageModule)
+    path: 'dietitian-list',
+    loadChildren: () => import('./pages/customer/dietitian-list/dietitian-list.module').then( m => m.DietitianListPageModule)
   },
+  
+ 
+ 
+  
+  
 ];
 
 @NgModule({

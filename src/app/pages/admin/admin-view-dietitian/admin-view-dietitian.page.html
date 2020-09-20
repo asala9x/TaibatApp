@@ -2,10 +2,10 @@
   <ion-toolbar color="primary">
     <ion-title>Dietitian</ion-title>
   </ion-toolbar>
-  <ion-toolbar  lines="none">
-    
-    <ion-searchbar class="searchstyle" >
-      
+  <ion-toolbar lines="none">
+
+    <ion-searchbar class="searchstyle">
+
     </ion-searchbar>
     <!-- <ion-fab vertical="Top" horizontal="end" slot="start">
       <ion-fab-button class="recordbutton" (click)="startStopListening()">
@@ -17,71 +17,75 @@
 </ion-header>
 
 <ion-content>
-<!-- no details-->
-<ion-card color="light" *ngIf="tempArray.length==0">
-  <ion-card-content color="primary" >
-    No dietitians added yet. please click on 'Add Dietitian' tab to add one.
-  </ion-card-content>
-  <!-- card with details-->
-</ion-card>
-<ion-list *ngIf="tempArray.length>0"> 
-  <ion-item-sliding *ngFor="let i of tempArray"> 
-  <ion-card class="dietitiancarstyle">
-    <ion-row>
-      <ion-col size="4">
-<ion-card  class="cardimgstyle">
-      <ion-card-content>
-        <img [src]=i.img class="imgstyle" />
-      </ion-card-content>
-    </ion-card>
-      </ion-col>
-    <ion-col size="8">
- <ion-card-content>
-   <ion-row>
-            <ion-col>
-            <ion-icon name="person" class="iconcolor"></ion-icon>
-          </ion-col> 
-          <ion-col class="colstyle" >
-            <p>{{i.name}}</p> 
+  <!-- no details-->
+  <ion-card color="light" *ngIf="dietitian.length==0">
+    <ion-card-content color="primary">
+      No dietitians added yet. please click on 'Add Dietitian' tab to add one.
+    </ion-card-content>
+    <!-- card with details-->
+  </ion-card>
+  <ion-list *ngIf="dietitian.length>0">
+    <ion-item-sliding *ngFor="let i of dietitian">
+      <ion-card class="dietitiancarstyle">
+        <ion-row>
+          <ion-col size="4">
+            <ion-card class="cardimgstyle" align="center" >
+              
+                <div align="center" class="imgestyle">
+                  <img [src]=i.image />
+                </div>
+              
+            </ion-card>
+          </ion-col>
+          <ion-col size="8">
+            <ion-card-content>
+              <ion-row>
+                <ion-col>
+                  <ion-icon name="person" class="iconcolor"></ion-icon>
+                </ion-col>
+                <ion-col class="colstyle">
+                  <p>{{i.name}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-icon name="call" class="iconcolor"></ion-icon>
+                </ion-col>
+                <ion-col class="colstyle">
+                  <p>{{i.phone}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-icon name="mail" class="iconcolor"></ion-icon>
+                </ion-col>
+                <ion-col class="colstyle">
+                  <p>{{i.email}}</p>
+                </ion-col>
+              </ion-row>
+            
+              <!--<div class="desstyle">-->
+              <ion-row>
+                <ion-col>
+                  <ion-icon name="newspaper" class="iconcolor"></ion-icon>
+                </ion-col>
+                <ion-col class="colstyle">
+                  <p>{{i.descripion}}</p>
+                </ion-col>
+              </ion-row>
+           <!--</div>-->
+            </ion-card-content>
           </ion-col>
         </ion-row>
-          <ion-row>
-          <ion-col>
-            <ion-icon name="call" class="iconcolor"></ion-icon>
-          </ion-col> 
-          <ion-col class="colstyle" >
-            <p>{{i.phone}}</p> 
+        <div class="divstyle">
+          <ion-col class="iconcolorstyle1">
+            <ion-icon name="create"  (click)="updateDietitianAlert(i)"></ion-icon>
           </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-icon name="mail" class="iconcolor"></ion-icon>
-            </ion-col> 
-            <ion-col class="colstyle" >
-              <p>{{i.email}}</p> 
-            </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-icon name="newspaper" class="iconcolor"></ion-icon>
-              </ion-col> 
-              <ion-col class="colstyle" >
-                <p>{{i.descripion}}</p> 
-              </ion-col>
-              </ion-row>
-          </ion-card-content></ion-col>
-          </ion-row>
-          <div class="divstyle">
-          <ion-col>
-            <ion-icon name="create" class="iconcolorstyle" (click)="updateDietitianAlert(i)"></ion-icon>
-          </ion-col>
-          <ion-col>
-            <ion-icon name="trash" class="iconcolorstyle" (click)="deleteDietitianAlert(i)"></ion-icon>
+          <ion-col class="iconcolorstyle">
+            <ion-icon name="trash"  (click)="deleteDietitianAlert(i)"></ion-icon>
           </ion-col>
         </div>
-</ion-card>
-</ion-item-sliding>
-</ion-list>
-
-
+      </ion-card>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
