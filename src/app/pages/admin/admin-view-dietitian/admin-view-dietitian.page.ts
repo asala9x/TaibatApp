@@ -54,6 +54,4 @@ export class AdminViewDietitianPage implements OnInit {
 
   }
 
-
-
 }
