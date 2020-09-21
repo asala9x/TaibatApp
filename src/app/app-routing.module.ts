@@ -5,7 +5,7 @@ const routes: Routes = [
   
   {
     path: '',
-    redirectTo: 'admin-view-dietitian',
+    redirectTo: 'dietitian-details',
     pathMatch: 'full'
   },
   
@@ -25,6 +25,14 @@ const routes: Routes = [
     path: 'dietitian-list',
     loadChildren: () => import('./pages/customer/dietitian-list/dietitian-list.module').then( m => m.DietitianListPageModule)
   },  
+  {
+  path: 'admin-add-dietitian',
+  loadChildren: () => import('./pages/admin/admin-add-dietitian/admin-add-dietitian.module').then( m => m.AdminAddDietitianPageModule)
+  },
+  {
+    path: 'dietitian-details',
+    loadChildren: () => import('./pages/customer/dietitian-details/dietitian-details.module').then( m => m.DietitianDetailsPageModule)
+  }
 ];
 
 

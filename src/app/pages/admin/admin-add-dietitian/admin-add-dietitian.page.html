@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Add Dietitian</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+<div class="mainSivStyle" align="center" >
+  <div  class="divimageStyle">
+    <img src="../../../../assets/icon/AddImage.png" class="imageStyle">
+  </div>
+  <div class="inputDivStyle">
+  <ion-list>
+    <ion-item>
+      <ion-label class="lblcolor" position="floating">Dietitian name</ion-label>
+      <ion-input type="text" [(ngModel)]="dietitianObj.name"> </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="lblcolor" position="floating" >Phone Number</ion-label>
+     <ion-input type="Phone" [(ngModel)]="dietitianObj.phone"> </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="lblcolor" position="floating" >Email</ion-label>
+     <ion-input type="Email" [(ngModel)]="dietitianObj.email"> </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="lblcolor" position="floating" >Descrption</ion-label>
+     <ion-input type="text" [(ngModel)]="dietitianObj.descripion"> </ion-input>
+    </ion-item>
+    </ion-list>
+  </div>
+    <br/>
+    <br/>
+    <div class="buttDivStyle">
+    <ion-button color="primary"  class="CancelbuttStyle" [routerLink]="['/admin-view-dietitian']"> Cancel </ion-button>
+    <ion-button color="primary"  class="CancelbuttStyle" (click)="addDietitian()"> ADD </ion-button>
+  </div>
+</div>
+</ion-content>
