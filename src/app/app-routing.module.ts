@@ -24,13 +24,9 @@ const routes: Routes = [
   {
     path: 'dietitian-list',
     loadChildren: () => import('./pages/customer/dietitian-list/dietitian-list.module').then( m => m.DietitianListPageModule)
-  },
-  
- 
- 
-  
-  
+  },  
 ];
+
 
 @NgModule({
   imports: [
