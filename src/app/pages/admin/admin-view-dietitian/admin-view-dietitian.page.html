@@ -29,10 +29,12 @@
       <ion-card class="dietitiancarstyle">
         <ion-row>
           <ion-col size="4">
-            <ion-card class="cardimgstyle">
-              <ion-card-content>
-                <img [src]=i.image class="imgstyle" />
-              </ion-card-content>
+            <ion-card class="cardimgstyle" align="center" >
+              
+                <div align="center" class="imgestyle">
+                  <img [src]=i.image />
+                </div>
+              
             </ion-card>
           </ion-col>
           <ion-col size="8">
@@ -76,11 +78,11 @@
           </ion-col>
         </ion-row>
         <div class="divstyle">
-          <ion-col>
-            <ion-icon name="create" class="iconcolorstyle" (click)="updateDietitianAlert(i)"></ion-icon>
+          <ion-col class="iconcolorstyle1">
+            <ion-icon name="create"  (click)="updateDietitianAlert(i)"></ion-icon>
           </ion-col>
-          <ion-col>
-            <ion-icon name="trash" class="iconcolorstyle" (click)="deleteDietitianAlert(i)"></ion-icon>
+          <ion-col class="iconcolorstyle">
+            <ion-icon name="trash"  (click)="deleteDietitianAlert(i)"></ion-icon>
           </ion-col>
         </div>
       </ion-card>
