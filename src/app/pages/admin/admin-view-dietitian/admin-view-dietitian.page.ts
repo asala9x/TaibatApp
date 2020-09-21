@@ -13,32 +13,32 @@ export class AdminViewDietitianPage implements OnInit {
 
 
   //defult arry ditiain data
-  private dietitian = [
-    {
-      "image": "../../../../assets/icon/dietition.png",
+  // private dietitian = [
+  //   {
+  //     "image": "../../../../assets/icon/Dietitian3.jpg",
 
-      "name": "Image",
-      "descripion": "This Image Describe Dietitian about ....",
-      "phone": "99882230",
-      "email": "abc@gmail.com"
-    },
-    {
-      "image": "../../../../assets/icon/Dietitian3.jpg",
+  //     "name": "Image",
+  //     "descripion": "This Image Describe Dietitian about ....",
+  //     "phone": "99882230",
+  //     "email": "abc@gmail.com"
+  //   },
+  //   {
+  //     "image": "../../../../assets/icon/Dietitian3.jpg",
       
-      "name": "Image",
-      "descripion": "She is graduate of Sultan Qaboos University majoring in human nutrition",
-      "phone": "9988223",
-      "email": "Asma@gmail.com"
-    },
-    {
-      "image": "../../../../assets/icon/Dietitian3.jpg",
-      "name": "Image",
-      "descripion": "This Image Describe Dietitian about ....",
-      "phone": "99882230",
-      "email": "abc@gmail.com"
-    }
+  //     "name": "Image",
+  //     "descripion": "She is graduate of Sultan Qaboos University majoring in human nutrition",
+  //     "phone": "9988223",
+  //     "email": "Asma@gmail.com"
+  //   },
+  //   {
+  //     "image": "../../../../assets/icon/Dietitian3.jpg",
+  //     "name": "Image",
+  //     "descripion": "This Image Describe Dietitian about ....",
+  //     "phone": "99882230",
+  //     "email": "abc@gmail.com"
+  //   }
 
-  ];
+  // ];
 
   private dietitianArray: any[] = [];
   private matches: string[] = [];
