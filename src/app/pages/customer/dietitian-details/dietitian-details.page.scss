@@ -11,10 +11,32 @@
     width: 100%;
     height: 50%;
     padding: 20px;
-   // border-radius: 14px 14px 0px 0px;
-   // box-shadow: -15px -15px 150px #b9b8b8;
+   border-radius: 14px 14px 0px 0px;
+//    background-color: red;
+//    margin-top: -10px;
+ //box-shadow: -15px -15px 15px #b9b8b8;
 }
 .nameStyle{
-    font-size: 25px;
+    font-size: 30px;
     margin-left: 40px;
+}
+.detailsStyle{
+    width: 100%;
+    height: 70%;
+    
+}
+.cardStyle{
+    width: 100%;
+    height: 100%;
+  
+}
+.paddingitem{
+    padding: 0px;
+    margin-left: 10px;
+}
+.iconcolor{
+    color: #357abe;
+    width: 20px;
+    height: 20px;
+    
 }
