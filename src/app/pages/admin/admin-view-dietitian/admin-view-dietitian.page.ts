@@ -70,5 +70,80 @@ export class AdminViewDietitianPage implements OnInit {
     })
 
   }
+   //update 
+   async updateDietitian(dietitianObj,data) {
+
+    //DietitianObj.dietitiankey - key to update the item inside the table
+    // data=>{"name":"","des":""}
+
+    data.test="Dietitian";
+
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+
+    this.afData.list('dietitian').update(dietitianObj.dietitiankey,data).then(()=>{
+      loading.dismiss();
+      this.alert.presentAlert("Dietitian data updated successfully");
+      //this.presentAlert("Dietitian data updated successfully");
+    }).catch((error)=>{
+      loading.dismiss();
+      this.alert.presentAlert(error.message);
+      //this.presentAlert(error.message);
+    });
+    
+  }
+  //name - get the data from the input fields in alert
+  //value - set the data to the input field of alert
+
+  async  updateDietitianAlert(dietitianObj) {
+    const alertprompt = await this.alertController.create({
+      header: 'Update Dietitian',
+      inputs: [
+        {
+          name: 'name',
+          value: dietitianObj.name,
+          type: 'text',
+          placeholder: 'Dietitian Name'
+        },
+        {
+          name: 'email',
+          value: dietitianObj.email,
+          type: 'email',
+          placeholder: 'Dietitian Email'
+        },
+        {
+          name: 'phone',
+          value: dietitianObj.phone,
+          type: 'number',
+          placeholder: 'Dietitian Phone'
+        },
+        {
+          name: 'descripion',
+          value: dietitianObj.descripion,
+          type: 'text',
+          placeholder: 'Descripion'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data) => {
+            this.updateDietitian(dietitianObj,data);
+          }
+        }
+      ]
+    });
+
+    await alertprompt.present();
+  }
 
 }
