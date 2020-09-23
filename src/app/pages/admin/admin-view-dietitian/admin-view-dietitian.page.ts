@@ -145,5 +145,52 @@ export class AdminViewDietitianPage implements OnInit {
 
     await alertprompt.present();
   }
+  //delete
+async deleteDietitian(dietitianObj) {
+
+  const loading = await this.loadingController.create({
+    message: 'Please wait...',
+  });
+  await loading.present();
+
+  // when you want to make the table empty (All the objects will be deleted) 
+  // this.afData.list('dietitian').remove();
+
+  //when you want to delete only 1 item
+  this.afData.list('dietitian').remove(dietitianObj.dietitiankey).then(() => {
+    loading.dismiss();
+     this.alert.presentAlert("dietitian deleted successfully");
+    //this.presentAlert("dietitian deleted successfully");
+  }).catch((error) => {
+    loading.dismiss();
+    this.alert.presentAlert(error.message);
+    //this.presentAlert(error.message);
+  });
+
+}
+async deleteDietitianAlert(dietitianObj) {
+    const alert = await this.alertController.create({
+      header: 'Taibat App',
+      message: 'Are you sure you want to delete '+dietitianObj.name+' ?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.deleteDietitian(dietitianObj);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
 
 }
