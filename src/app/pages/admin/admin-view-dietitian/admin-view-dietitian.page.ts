@@ -100,6 +100,7 @@ export class AdminViewDietitianPage implements OnInit {
   async  updateDietitianAlert(dietitianObj) {
     const alertprompt = await this.alertController.create({
       header: 'Update Dietitian',
+      cssClass:  'headerstyle',
       inputs: [
         {
           name: 'name',
@@ -130,7 +131,7 @@ export class AdminViewDietitianPage implements OnInit {
         {
           text: 'Cancel',
           role: 'cancel',
-          cssClass: 'secondary',
+          cssClass: 'headerstyle',
           handler: () => {
             console.log('Confirm Cancel');
           }
@@ -170,13 +171,15 @@ async deleteDietitian(dietitianObj) {
 }
 async deleteDietitianAlert(dietitianObj) {
     const alert = await this.alertController.create({
+      cssClass: 'headerstyle',
       header: 'Taibat App',
       message: 'Are you sure you want to delete '+dietitianObj.name+' ?',
+      
       buttons: [
         {
           text: 'Cancel',
           role: 'cancel',
-          cssClass: 'secondary',
+          cssClass: 'headerstyle',
           handler: (blah) => {
             console.log('Confirm Cancel: blah');
           }
