@@ -33,7 +33,11 @@ const routes: Routes = [
   {
     path: 'customer-tab',
     loadChildren: () => import('./pages/tabs/customer-tab/customer-tab.module').then( m => m.CustomerTabPageModule)
+  },  {
+    path: 'admin-tab',
+    loadChildren: () => import('./pages/tabs/admin-tab/admin-tab.module').then( m => m.AdminTabPageModule)
   },
+
   
 ];
 
