@@ -5,7 +5,7 @@ const routes: Routes = [
   
   {
     path: '',
-    redirectTo: 'dietitian-details',
+    redirectTo: 'customer-tab',
     pathMatch: 'full'
   },
   
@@ -21,10 +21,7 @@ const routes: Routes = [
     path: 'admin-view-dietitian',
     loadChildren: () => import('./pages/admin/admin-view-dietitian/admin-view-dietitian.module').then( m => m.AdminViewDietitianPageModule)
   },
-  {
-    path: 'dietitian-list',
-    loadChildren: () => import('./pages/customer/dietitian-list/dietitian-list.module').then( m => m.DietitianListPageModule)
-  },  
+  
   {
   path: 'admin-add-dietitian',
   loadChildren: () => import('./pages/admin/admin-add-dietitian/admin-add-dietitian.module').then( m => m.AdminAddDietitianPageModule)
@@ -32,7 +29,12 @@ const routes: Routes = [
   {
     path: 'dietitian-details',
     loadChildren: () => import('./pages/customer/dietitian-details/dietitian-details.module').then( m => m.DietitianDetailsPageModule)
-  }
+  },
+  {
+    path: 'customer-tab',
+    loadChildren: () => import('./pages/tabs/customer-tab/customer-tab.module').then( m => m.CustomerTabPageModule)
+  },
+  
 ];
 
 
