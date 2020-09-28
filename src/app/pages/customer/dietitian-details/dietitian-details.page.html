@@ -1,14 +1,15 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-back-button class="backiconstyle" slot="start"> </ion-back-button>
     <ion-title>Dietitian Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="divImagStyle" *ngFor="let i of tempArray">
+  <div class="divImagStyle" *ngFor="let i of dietitianArray">
     <img class="imageStyle" [src]=i.img />
   </div>
-  <ion-card *ngFor="let i of tempArray" class="detailsStyle">
+  <ion-card *ngFor="let i of dietitianArray" class="detailsStyle">
     <ion-card-content>
       <ion-text color="primary">
         <ion-label class="nameStyle">
