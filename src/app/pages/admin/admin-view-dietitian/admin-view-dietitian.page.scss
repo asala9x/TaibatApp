@@ -33,12 +33,16 @@
      width: 340px;
      
 }
- .desstyle{
-    overflow-y: scroll;
-    overflow-x: hidden;
-    width:5px;
-    height:5px;
- }
+.desstyle{
+    overflow:scroll;
+    overflow-y: hidden;
+    white-space:nowrap;
+    height: 100%;
+    width: 100%;
+}
+.descstyle{
+    padding-left: 30px !important;
+}
 
 .iconcolor{
     color: #357abe;
