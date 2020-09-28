@@ -1,9 +1,35 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>AdminTab</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <ion-tabs >
+    
+    <ion-tab-bar slot="bottom" color="tertiary" class="tabBarStyle" >
+      <ion-tab-button tab="admin-view-advice" class="tabIconStyle" >
+        <ion-icon name="images" ></ion-icon>
+        <ion-label>Advice</ion-label>
+      </ion-tab-button>
 
+        <ion-tab-button tab="admin-view-dietitian" class="tabIconStyle">
+          <ion-icon name="people"></ion-icon>
+          <ion-label>Dietitian</ion-label>
+        </ion-tab-button>
+
+    
+      <ion-tab-button tab="admin-view-event" class="tabIconStyle">
+        <ion-icon name="videocam"></ion-icon>
+        <ion-label>Event</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="admin-view-product" class="tabIconStyle">
+        <ion-icon name="cart"></ion-icon>
+        <ion-label>Shop</ion-label>
+      </ion-tab-button>
+
+    </ion-tab-bar>
+  </ion-tabs>
+  
+      
+  <ion-fab    class="fabstyle" vertical="center" horizontal="center" edge slot="fixed" >
+    <ion-fab-button [routerLink]="['/admin-add-dietitian']">
+      <ion-icon name="add" class="addiconstyle"></ion-icon>
+    </ion-fab-button> 
+</ion-fab>
 </ion-content>

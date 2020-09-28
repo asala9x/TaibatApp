@@ -1,5 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-back-button class="backiconstyle" slot="start"> </ion-back-button>
     <ion-title>Add Dietitian</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -7,7 +8,7 @@
 <ion-content >
 <div class="mainSivStyle" align="center" >
   <div  class="divimageStyle">
-    <img src="../../../../assets/icon/AddImage.png" class="imageStyle">
+    <img src="../../../../assets/icon/AddImage.png" class="imageStyle" (click)="selectDietitianImage()">
   </div>
   <div class="inputDivStyle">
   <ion-list>

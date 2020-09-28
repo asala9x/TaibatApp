@@ -79,7 +79,7 @@ export class DietitianListPage implements OnInit {
     let NavExtras: NavigationExtras = {
         queryParams: dietitiankey
       }
-    this.navCtr.navigateForward('customer-dietitian-details', NavExtras);
+    this.navCtr.navigateForward('dietitian-details', NavExtras);
   }
 
 }
