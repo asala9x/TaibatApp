@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-//Atho
+// Auth
 import { AngularFireAuth } from '@angular/fire/auth';
+// DB
+import { AngularFireDatabase } from '@angular/fire/database';
 //loding
 import { LoadingController } from '@ionic/angular';
 //alert
@@ -9,6 +11,8 @@ import { AlertController } from '@ionic/angular';
 import { AlertserviceService } from '../../../services/alertservice.service';
 //cantroal
 import { NavController } from '@ionic/angular';
+//services
+import { ServiceService  } from '../../../services/service.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +27,8 @@ export class LoginPage implements OnInit {
   }
   constructor(private fbauth: AngularFireAuth, private loadingController: LoadingController,
     private alertController: AlertController, private alert: AlertserviceService
-    ,public navController:NavController) {}
+    ,public navCtrl:NavController, public authService: ServiceService,
+    public afDatabase: AngularFireDatabase ) {}
 
   
 
@@ -32,34 +37,68 @@ export class LoginPage implements OnInit {
 
   //login
   async loginWithFBdetails() {
-     //shoe lodaing
-     const loading = await this.loadingController.create({
+      //show lodaing
+    const loading = await this.loadingController.create({
       message: 'Please wait...',
     });
-    await loading.present(); 
+    await loading.present();
+    if(this.data.email=="")
+{
+  loading.dismiss();
+this.alert.presentAlert("plaes enter your Email");
+}
+else if(this.data.password=="") {
+  loading.dismiss();
+  this.alert.presentAlert("plaes enter your Password");
+} 
 
+else{
     this.fbauth.signInWithEmailAndPassword(this.data.email, this.data.password)
       .then((authData) => {
-        
-        loading.dismiss();
-        this.alert.presentAlert("Login");
+        if (authData.user.emailVerified) {
+          this.afDatabase.object("user/" + authData.user.uid).valueChanges()
+            .subscribe((userDatafromDB: any) => {
+              loading.dismiss();
+              userDatafromDB.uid=authData.user.uid;
+              this.authService.setDatatoStorage(userDatafromDB).then(() => { 
+                if(userDatafromDB.userType=='Admin'){
+                  this.navCtrl.navigateForward('/admin-tab/admin-view-dietitian');
+                }else if(userDatafromDB.userType=='customer'){
+                  this.navCtrl.navigateForward('/customer-tab/dietitian-list');
+                }else{
+                  // page
+                }
+              }).catch((error) => {
+                this.alert.presentAlert("Unable to storage data to storage");
+             //   this.presentAlert("Unable to storage data to storage");
+              })
+            }, (userdberror) => {
+              loading.dismiss();
+              this.alert.presentAlert(userdberror.message);
+             // this.presentAlert(userdberror.message);
+            });
+        } else {
+          this.alert.presentAlert("Please verify your email")
+         // this.presentAlert("Please verify your email");
+        }
       }).catch((authError) => {
-
         loading.dismiss();
-        this.presentAlert(authError.message);
+        this.alert.presentAlert(authError.message);
+      //  this.presentAlert(authError.message);
       })
-  }
+}
+}
 
   //Massage Alert
-  async presentAlert(msg) {
-        const alert = await this.alertController.create({
-          header: 'Talabat App',
-          message: msg,
-          buttons: ['OK']
-        });
+  // async presentAlert(msg) {
+  //       const alert = await this.alertController.create({
+  //         header: 'Talabat App',
+  //         message: msg,
+  //         buttons: ['OK']
+  //       });
     
-        await alert.present();
-      }
+  //       await alert.present();
+  //     }
 
  //Forget Password
  async ForgetPassword() {

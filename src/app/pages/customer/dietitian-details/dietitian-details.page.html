@@ -5,17 +5,17 @@
 </ion-header>
 
 <ion-content>
-  <div class="divImagStyle" *ngFor="let i of tempArray">
+  <div class="divImagStyle" *ngFor="let i of dietitianArray">
 <img class="imageStyle"  [src]=i.img/>
 
 </div>
-<div class="detailsStyle"  *ngFor="let i of tempArray">
+<div class="detailsStyle"  *ngFor="let i of dietitianArray">
 <ion-text color="primary" > 
   <ion-label class="nameStyle"> 
     {{i.name}}
  </ion-label>
  </ion-text>
- <div class="detailsStyle" *ngFor="let i of tempArray">
+ <div class="detailsStyle" *ngFor="let i of dietitianArray">
   <ion-list class="paddingitem" > 
     <ion-item-sliding >
       

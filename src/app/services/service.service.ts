@@ -8,11 +8,11 @@ export class ServiceService {
   constructor(private storage: Storage) { }
   
   setDatatoStorage(userobj) {
-    return this.storage.set('userdetails', userobj);
+    return this.storage.set('data', userobj);
     }
 
     getDataFromStorage(){
-      return this.storage.get('userdetails');
+      return this.storage.get('data');
     }
     clear(){
       

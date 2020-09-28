@@ -5,7 +5,7 @@ const routes: Routes = [
   
   {
     path: '',
-    redirectTo: 'customer-tab',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   
@@ -18,13 +18,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/customer/register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'admin-view-dietitian',
-    loadChildren: () => import('./pages/admin/admin-view-dietitian/admin-view-dietitian.module').then( m => m.AdminViewDietitianPageModule)
-  },
-  
-  {
   path: 'admin-add-dietitian',
   loadChildren: () => import('./pages/admin/admin-add-dietitian/admin-add-dietitian.module').then( m => m.AdminAddDietitianPageModule)
+  },
+  {
+    path: 'admin-add-event',
+    loadChildren: () => import('./pages/admin/admin-add-event/admin-add-event.module').then( m => m.AdminAddEventPageModule)
   },
   {
     path: 'dietitian-details',
@@ -33,12 +32,24 @@ const routes: Routes = [
   {
     path: 'customer-tab',
     loadChildren: () => import('./pages/tabs/customer-tab/customer-tab.module').then( m => m.CustomerTabPageModule)
-  },  {
+  },
+  {
     path: 'admin-tab',
     loadChildren: () => import('./pages/tabs/admin-tab/admin-tab.module').then( m => m.AdminTabPageModule)
   },
+  {
+    path: 'admin-add-advice',
+    loadChildren: () => import('./pages/admin/admin-add-advice/admin-add-advice.module').then( m => m.AdminAddAdvicePageModule)
+  },
+  {
+    path: 'admin-add-product',
+    loadChildren: () => import('./pages/admin/admin-add-product/admin-add-product.module').then( m => m.AdminAddProductPageModule)
+  },
+  {
+    path: 'admin-view-dietitian',
+    loadChildren: () => import('./pages/admin/admin-view-dietitian/admin-view-dietitian.module').then( m => m.AdminViewDietitianPageModule)
+  }
 
-  
 ];
 
 
