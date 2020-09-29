@@ -6,5 +6,45 @@
 </ion-header>
 
 <ion-content>
-
+  <div class="mainSivStyle" align="center">
+    <div class="divimageStyle">
+      <img  [src]="base64Img" class="imageStyle" (click)="selectEventsImage()">
+    </div>
+    <div class="inputDivStyle">
+      <ion-list>
+        <ion-item>
+          <ion-label class="lblcolor" position="floating">Title</ion-label>
+          <ion-input type="text" [(ngModel)]="eventsObj.Title"> </ion-input>
+        </ion-item>
+        <ion-item>
+         
+              <ion-label position="floating" class="lblcolor">Time</ion-label>
+              <ion-datetime [(ngModel)]="eventsObj.Time" display-format="hh:mm A"></ion-datetime>
+        </ion-item>
+        <ion-item>
+              <ion-label class="lblcolor" position="floating"> Date</ion-label>
+              <ion-datetime displayFormat="D MMM YYYY " min="2020" max="2040" value="D MMM YYYY"
+                [(ngModel)]="eventsObj.Date"></ion-datetime>
+        </ion-item>
+           <ion-item>
+              <ion-label class="lblcolor" position="floating">Place</ion-label>
+              <ion-input type="text" [(ngModel)]="eventsObj.place" color="primary"> </ion-input>
+            </ion-item>
+             <ion-item>
+              <ion-label class="lblcolor" position="floating">Price</ion-label>
+              <ion-input type="text" [(ngModel)]="eventsObj.price" color="primary"> </ion-input>
+            </ion-item>
+        <ion-item>
+          <ion-label class="lblcolor" position="floating">NO of people Allow</ion-label>
+          <ion-input type="number" [(ngModel)]="eventsObj.people" color="primary"> </ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+    <br />
+    <br />
+    <div class="buttDivStyle">
+      <ion-button color="primary" class="CancelbuttStyle" [routerLink]="['/admin-view-event']"> Cancel </ion-button>
+      <ion-button color="primary" class="CancelbuttStyle" (click)="addEvents()"> ADD </ion-button>
+    </div>
+  </div>
 </ion-content>
