@@ -30,7 +30,7 @@
           <ion-col size="6" *ngFor="let i of tempArray">
             <ion-card class="cardstyle" *ngIf="tempArray.length>0">
               <div align="center" class="imgestyle">
-                <img [src]=i.img />
+                <img [src]=i.img (click)="customerdietitiandetails(i)"/>
               </div>
               <ion-card-content class="cardcontentstyle">
                 <ion-button color="primary" class="dietitianNameStyle" (click)="customerdietitiandetails(i)" > 
