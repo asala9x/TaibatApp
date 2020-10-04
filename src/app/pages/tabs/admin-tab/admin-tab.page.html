@@ -28,7 +28,8 @@
   
       
   <ion-fab    class="fabstyle" vertical="center" horizontal="center" edge slot="fixed" >
-    <ion-fab-button [routerLink]="['/admin-add-dietitian']">
+    <!-- <ion-fab-button [routerLink]="['/admin-add-dietitian']"> -->
+      <ion-fab-button (click)="addingdata()">
       <ion-icon name="add" class="addiconstyle"></ion-icon>
     </ion-fab-button> 
 </ion-fab>

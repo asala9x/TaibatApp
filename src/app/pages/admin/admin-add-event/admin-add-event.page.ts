@@ -22,15 +22,14 @@ export class AdminAddEventPage implements OnInit {
     "Title": "",
     "descripion": "",
     "place": "",
-    "Date": "",
-    "Time": "",
+    "datetime": "",
     "price": "",
     "people": "",
     "img": "",
     "time": ""
   }
   //decler var for image 
-  private base64Img: string = "../../../assets/icon/camera.png";
+  private base64Img: string = "../../../../assets/icon/AddImage.png";
   constructor(public actionSheetController: ActionSheetController,
     private camera: Camera,
     private afstorage: AngularFireStorage,
@@ -51,16 +50,11 @@ export class AdminAddEventPage implements OnInit {
       loading.dismiss();
       this.alert.presentAlert("Please Enter Event Title");
     }
-
-    else if (this.eventsObj.about == "") {
-      loading.dismiss();
-      this.alert.presentAlert("Please Enter Event About");
-    }
     else if (this.eventsObj.place == "") {
       loading.dismiss();
       this.alert.presentAlert("Please Enter Event Place");
     }
-    else if (this.eventsObj.DateTime == "") {
+    else if (this.eventsObj.datetime == "") {
       loading.dismiss();
       this.alert.presentAlert("Please Enter Event DateTime");
     }

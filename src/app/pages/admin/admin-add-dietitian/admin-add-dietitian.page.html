@@ -10,30 +10,38 @@
   <div  class="divimageStyle">
     <img src="../../../../assets/icon/AddImage.png" class="imageStyle" (click)="selectDietitianImage()">
   </div>
+  <br/>
   <div class="inputDivStyle">
   <ion-list>
     <ion-item>
-      <ion-label class="lblcolor" position="floating">Dietitian name</ion-label>
-      <ion-input type="text" [(ngModel)]="dietitianObj.name"> </ion-input>
+      <ion-icon name="person" class="iconcolor" slot="start"></ion-icon>
+      <!-- <ion-label class="lblcolor">Dietitian name</ion-label> -->
+      <ion-input type="text" [(ngModel)]="dietitianObj.name" placeholder="Dietitian name"> </ion-input>
     </ion-item>
+    <br/>
     <ion-item>
-      <ion-label class="lblcolor" position="floating" >Phone Number</ion-label>
-     <ion-input type="Phone" [(ngModel)]="dietitianObj.phone"> </ion-input>
+      <ion-icon name="call" class="iconcolor" slot="start"></ion-icon>
+      <!-- <ion-label class="lblcolor" >Phone Number</ion-label> -->
+     <ion-input type="Phone" [(ngModel)]="dietitianObj.phone" placeholder="Phone Number"> </ion-input>
     </ion-item>
+    <br/>
     <ion-item>
-      <ion-label class="lblcolor" position="floating" >Email</ion-label>
-     <ion-input type="Email" [(ngModel)]="dietitianObj.email"> </ion-input>
+      <ion-icon name="mail" class="iconcolor" slot="start"></ion-icon>
+      <!-- <ion-label class="lblcolor">Email</ion-label> -->
+     <ion-input type="Email" [(ngModel)]="dietitianObj.email" placeholder="Email"> </ion-input>
     </ion-item>
+    <br/>
     <ion-item>
-      <ion-label class="lblcolor" position="floating" >Descrption</ion-label>
-     <ion-input type="text" [(ngModel)]="dietitianObj.descripion"> </ion-input>
+      <ion-icon name="newspaper" class="iconcolor" slot="start"></ion-icon>
+      <!-- <ion-label class="lblcolor"  >Descrption</ion-label> -->
+     <ion-input type="text" [(ngModel)]="dietitianObj.descripion" placeholder="Descrption"> </ion-input>
     </ion-item>
     </ion-list>
   </div>
     <br/>
     <br/>
     <div class="buttDivStyle">
-    <ion-button color="primary"  class="CancelbuttStyle" [routerLink]="['/admin-view-dietitian']"> Cancel </ion-button>
+    <ion-button color="primary"  class="CancelbuttStyle" fill="outline" [routerLink]="['/admin-view-dietitian']"> Cancel </ion-button>
     <ion-button color="primary"  class="CancelbuttStyle" (click)="addDietitian()"> ADD </ion-button>
   </div>
 </div>
