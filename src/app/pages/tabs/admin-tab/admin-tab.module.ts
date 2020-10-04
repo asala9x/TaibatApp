@@ -17,4 +17,6 @@ import { AdminTabPage } from './admin-tab.page';
   ],
   declarations: [AdminTabPage]
 })
+
+
 export class AdminTabPageModule {}

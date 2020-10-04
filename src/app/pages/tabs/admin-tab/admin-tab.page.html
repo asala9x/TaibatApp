@@ -1,5 +1,5 @@
 <ion-content>
-  <ion-tabs >
+  <ion-tabs #tabs (ionTabsDidChange)="setCurrentTab()">
     
     <ion-tab-bar slot="bottom" color="tertiary" class="tabBarStyle" >
       <ion-tab-button tab="admin-view-advice" class="tabIconStyle" >
@@ -18,7 +18,7 @@
         <ion-label>Event</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button tab="admin-view-product" class="tabIconStyle">
+      <ion-tab-button tab="admin-view-product" class="tabIconStyle" >
         <ion-icon name="cart"></ion-icon>
         <ion-label>Shop</ion-label>
       </ion-tab-button>

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 //cantroal
-import { NavController } from '@ionic/angular';
+import { NavController, IonTabs } from '@ionic/angular';
+
 @Component({
   selector: 'app-admin-tab',
   templateUrl: './admin-tab.page.html',
@@ -8,23 +9,36 @@ import { NavController } from '@ionic/angular';
 })
 export class AdminTabPage implements OnInit {
 
-  private tabs:any={
-  "dietitian":"",
-  "events":"",
-  "advice":"",
-  "product":""}
-  constructor(public navCtrl:NavController) { }
+  @ViewChild('tabs', { static: false }) tabstoDisplay: IonTabs;
+  private selectedTab: any;
+
+  private tabs: any = {
+    "dietitian": "",
+    "events": "",
+    "advice": "",
+    "product": ""
+  }
+
+
+  constructor(public navCtrl: NavController) { }
 
   ngOnInit() {
   }
-  addingdata(){
-    if(this.tabs.dietitian=='admin-tab/admin-view-dietitian'){
+
+
+
+  setCurrentTab() {
+    this.selectedTab = this.tabstoDisplay.getSelected();
+  }
+
+  addingdata() {
+    if (this.selectedTab == 'admin-view-dietitian') {
       this.navCtrl.navigateForward('admin-add-dietitian');
     }
-    else if (this.tabs.events=='admin-tab/admin-view-event'){
+    else if (this.selectedTab == 'admin-view-event') {
       this.navCtrl.navigateForward('admin-add-event');
     }
-    else if (this.tabs.advice=='admin-tab/admin-view-advice'){
+    else if (this.selectedTab == 'admin-view-advice') {
       this.navCtrl.navigateForward('admin-add-advice');
     }
     else {

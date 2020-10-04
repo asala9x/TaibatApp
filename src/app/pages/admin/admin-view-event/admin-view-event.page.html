@@ -35,13 +35,13 @@
                   <p>{{i.Title}}</p>
                 </ion-col>
               </ion-row>
-              
+              <br/>
               <ion-row>
                 <ion-col>
                   <ion-icon name="calendar" class="iconcolor"></ion-icon>
                 </ion-col>
                 <ion-col class="colstyle">
-                  <p>{{i.datetime}}</p>
+                  <p>{{i.datetime | date:'MMM d, y, h:mm a'}}</p>
                 </ion-col>
               </ion-row>
               <ion-row>
