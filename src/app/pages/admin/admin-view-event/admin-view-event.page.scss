@@ -11,11 +11,11 @@
 
 .cardimgstyle{
     width: 103px;
-     height: 103px;
+     height: 150px;
      border-radius: 10px;
     padding: 0px !important;
     text-align: center;
-    margin-top: 25%;
+    margin-top: 27%;
     box-shadow: 3px 3px 15px #dbd7d7;
 }
 .imgstyle{
@@ -25,7 +25,6 @@
     padding: 0px !important;
     text-align: center;
 }
-
 .eventcarstyle{
      border-radius: 10px;
      box-shadow: 3px 3px 15px #dbd7d7;
@@ -49,10 +48,10 @@
     width: 18px;
     height: 18px;
 }
-.iconcolorstyle{
+.deleteiconstyle{
     color: #BDBDBD;
-    width: 20px;
-    height: 20px;
+    width: 21px;
+    height: 21px;
     font-size: 25px;
     margin-top: 5px !important;
     
@@ -60,14 +59,22 @@
     margin-left: 0px !important;
     padding: 0px !important ;
 }
-.iconcolorstyle1{
+.updateiconstyle{
     color: #BDBDBD;
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
     font-size: 25px;
     margin-top: 5px !important;
-    
   margin-right: 0px !important;
+  padding: 0px !important ;
+}
+.peopleiconstyle{
+    color: #BDBDBD;
+    width: 10px !important;
+    height: 10px !important;
+    font-size: 25px;
+    margin-top: 20px !important;
+  margin-right: 5px !important;
   padding: 0px !important ;
 }
 .colstyle{
@@ -78,4 +85,5 @@
 .divstyle{
     text-align:right;
     font-size: 30px;
+    padding: 0px !important;
 }

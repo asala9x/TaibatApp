@@ -8,16 +8,17 @@ import { NavController, IonTabs } from '@ionic/angular';
   styleUrls: ['./admin-tab.page.scss'],
 })
 export class AdminTabPage implements OnInit {
-
+//CurrentTab static statm
   @ViewChild('tabs', { static: false }) tabstoDisplay: IonTabs;
+  //declear CurrentTab
   private selectedTab: any;
 
-  private tabs: any = {
-    "dietitian": "",
-    "events": "",
-    "advice": "",
-    "product": ""
-  }
+  // private tabs: any = {
+  //   "dietitian": "",
+  //   "events": "",
+  //   "advice": "",
+  //   "product": ""
+  // }
 
 
   constructor(public navCtrl: NavController) { }
