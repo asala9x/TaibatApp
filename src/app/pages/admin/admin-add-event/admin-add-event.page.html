@@ -21,8 +21,15 @@
         <br/>
         <ion-item>
           <ion-icon name="calendar" class="iconcolor"  slot="start"></ion-icon>
-          <!-- <ion-label class="lblcolor">Select Date & Time</ion-label> -->
-          <ion-datetime displayFormat="D MMM YYYY H:mm A" min="2020" max="2040" value="D MMM YYYY H:mm A" placeholder="Select Date & Time" [(ngModel)]="eventsObj.datetime" class="datatimestyle">   
+          <!-- <ion-label class="lblcolor">Select Date </ion-label> -->
+          <ion-datetime displayFormat="D MMM YYYY " min="2020" max="2040" value="D MMM YYYY" placeholder="Select Date" [(ngModel)]="eventsObj.date" class="datatimestyle">   
+          </ion-datetime>
+        </ion-item>
+        <br/>
+        <ion-item>
+          <ion-icon name="time" class="iconcolor"  slot="start"></ion-icon>
+          <!-- <ion-label class="lblcolor">Select  Time</ion-label> -->
+          <ion-datetime displayFormat=" H:mm A"  value="H:mm A" placeholder="Select Time" [(ngModel)]="eventsObj.timer" class="datatimestyle">   
           </ion-datetime>
         </ion-item>
         <br/>

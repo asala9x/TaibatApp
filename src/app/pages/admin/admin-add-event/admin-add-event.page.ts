@@ -20,9 +20,9 @@ export class AdminAddEventPage implements OnInit {
   //object for name & descripion
   private eventsObj: any = {
     "Title": "",
-    "descripion": "",
     "place": "",
-    "datetime": "",
+    "date": "",
+    "timer":"",
     "price": "",
     "people": "",
     "img": "",

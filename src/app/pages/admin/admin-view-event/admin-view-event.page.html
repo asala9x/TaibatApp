@@ -41,7 +41,15 @@
                   <ion-icon name="calendar" class="iconcolor"></ion-icon>
                 </ion-col>
                 <ion-col class="colstyle">
-                  <p>{{i.datetime | date:'MMM d, y, h:mm a'}}</p>
+                  <p>{{i.date | date:'mm/dd/yyyy'}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-icon name="time" class="iconcolor"></ion-icon>
+                </ion-col>
+                <ion-col class="colstyle">
+                  <p>{{i.timer | date:'h:mm a'}}</p>
                 </ion-col>
               </ion-row>
               <ion-row>
