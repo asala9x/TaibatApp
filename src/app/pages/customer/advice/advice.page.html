@@ -1,9 +1,45 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>advice</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+<div class="maindivStyle">
+  
+  <ion-slides pager="true" class="slidesStyle">
+    <ion-slide>
+      <img src="../../../../assets/icon/advice.jpg" class="imgestyle"/>
+    </ion-slide>
+    <ion-slide>
+      <img src="../../../../assets/icon/advice.jpg" class="imgestyle"/>
+    </ion-slide>
+  </ion-slides> 
+  <div>
+    <ion-list lines="none" class="datastyle" >
+      <ion-item >
+        <ion-icon (click)="showpass=(!showpass)" [name]="showpass?'heart':'heart-outline'" class="likestyle"></ion-icon>
+        <ion-text color="primary"> Breakfast  </ion-text>
+      </ion-item>
+      <ion-item>
+        <p class="desstyle">
+          hi hi hi hi hi
+          hi hi hi hi hi
+          hi hi hi hi hi
+          hi hi hi hi hi
+          hi hi hi hi hi
+          hi hi hi hi hi
+          hi hi hi hi hi
+          hi hi hi hi hi
+          hi hi hi hi hi
+        </p>
+      </ion-item>
+      </ion-list>
+  </div>
+
+</div>
+
+
+
 
 </ion-content>
