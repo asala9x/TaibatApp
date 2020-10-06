@@ -5,7 +5,7 @@ const routes: Routes = [
   
   {
     path: '',
-    redirectTo: 'admin-add-event',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   
@@ -48,7 +48,8 @@ const routes: Routes = [
   {
     path: 'admin-view-dietitian',
     loadChildren: () => import('./pages/admin/admin-view-dietitian/admin-view-dietitian.module').then( m => m.AdminViewDietitianPageModule)
-  },  {
+  },
+  {
     path: 'event-details',
     loadChildren: () => import('./pages/customer/event-details/event-details.module').then( m => m.EventDetailsPageModule)
   }

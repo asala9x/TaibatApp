@@ -1,3 +1,47 @@
 .backiconstyle{
     color:white;
 }
+.mainSivStyle{
+    box-shadow: 3px 5px 15px #dbd7d7;
+    height: 560px ;
+    width: 340px;
+    margin: 10px !important;
+    border-radius: 10px;
+    padding-top: 25px;
+   
+}
+.adviceimg{
+    width: 150px;
+    height: 150px;
+    padding:3px ;
+    
+}
+.inputDivStyle{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    margin-bottom: 0px;
+}
+.lblcolor{
+    --color: #94a9bd;
+  margin-top: 18px;
+  width: 50%;
+}
+.CancelbuttStyle{
+    // border: 1px solid #357Abe;
+    // color : #357Abe !important;
+    width: 140px;
+    border-radius: 10px;
+    margin-left: 10px;
+    
+    
+}
+.buttDivStyle{
+    margin-left: 0px;
+    margin-right: 9px;
+}
+.iconcolor{
+    color: #357abe;
+    width: 25px;
+    height: 25px;
+}
