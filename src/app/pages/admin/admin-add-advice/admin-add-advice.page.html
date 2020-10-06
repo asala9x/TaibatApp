@@ -6,5 +6,36 @@
 </ion-header>
 
 <ion-content>
-
+  <div class="mainSivStyle" align="center" >
+      <img *ngIf="imagesarray.length<2" src="../../../assets/icon/AddImage.png" class="adviceimg"
+        (click)="selectAdviceImage()" />
+      <div *ngIf="imagesarray.length>0">
+        <img *ngFor="let i of imagesarray" [src]="i" class="adviceimg" />
+      </div>
+    <br/>
+    <br/>
+    <br/>
+    <div class="inputDivStyle">
+    <ion-list>
+      <ion-item>
+        <ion-icon name="pencil" class="iconcolor" slot="start"></ion-icon>
+        <!-- <ion-label class="lblcolor">Dietitian name</ion-label> -->
+        <ion-input type="text" [(ngModel)]="adviceObj.name" placeholder="Title"> </ion-input>
+      </ion-item>
+      <br/>
+      <ion-item>
+        <ion-icon name="newspaper" class="iconcolor" slot="start"></ion-icon>
+        <!-- <ion-label class="lblcolor"  >Descrption</ion-label> -->
+        <ion-textarea  [(ngModel)]="adviceObj.descripion" placeholder="Descrption">  </ion-textarea>
+       <!-- <ion-input type="text" [(ngModel)]="adviceObj.descripion" placeholder="Descrption"> </ion-input> -->
+      </ion-item>
+      </ion-list>
+    </div>
+      <br/>
+      <br/>
+      <div class="buttDivStyle">
+      <ion-button color="primary"  class="CancelbuttStyle" fill="outline" [routerLink]="['/admin-tab/admin-view-advice']"> Cancel </ion-button>
+      <ion-button color="primary"  class="CancelbuttStyle" (click)="addAdvice()"> ADD </ion-button>
+    </div>
+  </div>
 </ion-content>
