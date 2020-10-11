@@ -1,9 +1,105 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>shop</ion-title>
   </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar>
+
+    </ion-searchbar>
+  </ion-toolbar>
+
+  <ion-toolbar >
+    <div class="scrollx">
+      <!-- *ngFor="let i of catArray" (click)="filterRestData(i.value)" -->
+      <ion-card  *ngFor="let i of catogryArray" class="cardStyle" >
+        <ion-card-content>
+          <img [src]="i.img" class="iconStyle"/>
+          <ion-label class="ion-text-wrap" >{{i.name}}</ion-label>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  
+  <div align="center" class="maindivStyle">
+    <ion-grid class="gridstyle">
+      <ion-row>
+        <!-- *ngFor="let i of tempArray" -->
+        <ion-col size="4" >
+          <!-- *ngIf="tempArray.length>0" -->
+          <ion-card class="cardstyle" >
+            <div align="center" class="imgestyle">
+              <!-- (click)="customerdietitiandetails(i)" -->
+              <img src="../../../../assets/icon/food.jpg" />
+            </div>
+            <ion-card-content class="cardcontentstyle">
+              <!-- (click)="customerdietitiandetails(i)" -->
+              <ion-button color="primary" class="productNameStyle"  > 
+                Food
+                 </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+
+        <ion-col size="4" >
+          <!-- *ngIf="tempArray.length>0" -->
+          <ion-card class="cardstyle" >
+            <div align="center" class="imgestyle">
+              <!-- (click)="customerdietitiandetails(i)" -->
+              <img src="../../../../assets/icon/food.jpg" />
+            </div>
+            <ion-card-content class="cardcontentstyle">
+              <!-- (click)="customerdietitiandetails(i)" -->
+              <ion-button color="primary" class="productNameStyle"  > 
+                Food
+                 </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="4" >
+          <!-- *ngIf="tempArray.length>0" -->
+          <ion-card class="cardstyle" >
+            <div align="center" class="imgestyle">
+              <!-- (click)="customerdietitiandetails(i)" -->
+              <img src="../../../../assets/icon/food.jpg" />
+            </div>
+            <ion-card-content class="cardcontentstyle">
+              <!-- (click)="customerdietitiandetails(i)" -->
+              <ion-button color="primary" class="productNameStyle"  > 
+                Food
+                 </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-col> 
+
+        <ion-col size="4" >
+          <!-- *ngIf="tempArray.length>0" -->
+          <ion-card class="cardstyle" >
+            <div align="center" class="imgestyle">
+              <!-- (click)="customerdietitiandetails(i)" -->
+              <img src="../../../../assets/icon/food.jpg" />
+            </div>
+            <ion-card-content class="cardcontentstyle">
+              <!-- (click)="customerdietitiandetails(i)" -->
+              <ion-button color="primary" class="productNameStyle"  > 
+                Food
+                 </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+
+      </ion-row>
+    </ion-grid>
+  </div>
 
 </ion-content>
+
+<footer>
+  <ion-button color="light" class="buttStyle" Expand="block" > View basket </ion-button>
+</footer>

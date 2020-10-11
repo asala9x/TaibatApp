@@ -1,0 +1,72 @@
+.scrollx{
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    
+}
+.cardStyle{
+    width:100px;
+    display: inline-block;
+    margin-right: 1px !important;
+    background-color: #EFEEEE;
+    text-align: center;
+    
+    
+}
+.iconStyle {
+    width: 60px;
+    height: 60px;
+  }
+
+
+  .cardStyle:focus{
+      background-color: white;
+      border: 1px solid blue;
+  }
+
+  .cardstyle{
+    height: 125px;
+    width: 100px;
+    border-radius: 10px;
+    padding: 0px !important;
+   
+}
+
+  .maindivStyle{
+    
+    text-align: center;
+    padding-right: 23px !important;
+    padding-left: 6px !important;
+}
+
+.imgestyle{
+    height: 80%;
+    width: 100%;
+    margin: 0px !important;
+    border-radius: 10px;
+}
+
+.gridstyle{
+    padding: 0px !important;
+   
+}
+
+
+.cardcontentstyle{
+    color:  #FFFF;
+    padding: 0px !important;
+}
+
+.productNameStyle{
+    background-color: #357abe;
+    height: 30px;
+    width: 100%;
+    text-align: center;
+    margin: 0px !important;
+   
+}
+
+// .buttStyle{
+//     color:red !important;
+   
+// }

@@ -1,4 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController, LoadingController } from '@ionic/angular';
+//Alertservice
+import { AlertserviceService } from '../../../services/alertservice.service';
+//import fire DB
+import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
+//NavigationExtras
+import { NavigationExtras } from '@angular/router';
+//NavController
+import { NavController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-advice',
@@ -7,9 +17,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdvicePage implements OnInit {
 
-  constructor() { }
+
+  private adviceArray: any[] = [];
+  private matches: string[] = [];
+  private tempArray: any[] = [];
+
+  constructor(public alertController: AlertController,
+    private alert: AlertserviceService,
+    private afData: AngularFireDatabase,
+    public navCtr: NavController,
+    public loadingController: LoadingController) { }
 
   ngOnInit() {
+    this.retrieveDataFromFirebase();
+  }
+
+  // Method for retrieve data from firebase
+  async retrieveDataFromFirebase() {
+
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+
+    this.afData.list('advice').valueChanges().subscribe((adviceArray,) => {
+
+      loading.dismiss();
+      this.adviceArray = adviceArray;
+      this.tempArray = adviceArray;
+
+    }, (databaseError) => {
+
+      loading.dismiss();
+      this.alert.presentAlert(databaseError.message);
+      
+    })
+
   }
 
 }

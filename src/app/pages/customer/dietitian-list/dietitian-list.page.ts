@@ -73,6 +73,8 @@ export class DietitianListPage implements OnInit {
     })
 
   }
+
+  
   customerdietitiandetails(dietitiankey) {
 
     //alert(JSON.stringify(dietitiankey)); 

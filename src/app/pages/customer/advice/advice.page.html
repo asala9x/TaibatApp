@@ -5,33 +5,25 @@
 </ion-header>
 
 <ion-content>
-<div class="maindivStyle">
+<div class="maindivStyle" *ngFor="let i of tempArray">
   
   <ion-slides pager="true" class="slidesStyle">
     <ion-slide>
-      <img src="../../../../assets/icon/advice.jpg" class="imgestyle"/>
+      <img [src]=i.img1 class="imgestyle"/>
     </ion-slide>
     <ion-slide>
-      <img src="../../../../assets/icon/advice.jpg" class="imgestyle"/>
+      <img [src]=i.img2 class="imgestyle"/>
     </ion-slide>
   </ion-slides> 
   <div>
     <ion-list lines="none" class="datastyle" >
       <ion-item >
         <ion-icon (click)="showpass=(!showpass)" [name]="showpass?'heart':'heart-outline'" class="likestyle"></ion-icon>
-        <ion-text color="primary"> Breakfast  </ion-text>
+        <ion-text color="primary"> {{i.name}}  </ion-text>
       </ion-item>
       <ion-item>
         <p class="desstyle">
-          hi hi hi hi hi
-          hi hi hi hi hi
-          hi hi hi hi hi
-          hi hi hi hi hi
-          hi hi hi hi hi
-          hi hi hi hi hi
-          hi hi hi hi hi
-          hi hi hi hi hi
-          hi hi hi hi hi
+         {{i.descripion}}
         </p>
       </ion-item>
       </ion-list>
