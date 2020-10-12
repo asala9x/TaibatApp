@@ -28,72 +28,24 @@
     <ion-grid class="gridstyle">
       <ion-row>
         <!-- *ngFor="let i of tempArray" -->
-        <ion-col size="4" >
+        <ion-col size="4" *ngFor="let i of tempArray">
           <!-- *ngIf="tempArray.length>0" -->
-          <ion-card class="cardstyle" >
+          <ion-card class="cardstyle" *ngIf="tempArray.length>0">
             <div align="center" class="imgestyle">
               <!-- (click)="customerdietitiandetails(i)" -->
-              <img src="../../../../assets/icon/food.jpg" />
+              <img [src]=i.Productimg />
             </div>
             <ion-card-content class="cardcontentstyle">
               <!-- (click)="customerdietitiandetails(i)" -->
               <ion-button color="primary" class="productNameStyle"  > 
-                Food
+               {{i.ProductName}}
                  </ion-button>
             </ion-card-content>
           </ion-card>
         </ion-col>
 
 
-        <ion-col size="4" >
-          <!-- *ngIf="tempArray.length>0" -->
-          <ion-card class="cardstyle" >
-            <div align="center" class="imgestyle">
-              <!-- (click)="customerdietitiandetails(i)" -->
-              <img src="../../../../assets/icon/food.jpg" />
-            </div>
-            <ion-card-content class="cardcontentstyle">
-              <!-- (click)="customerdietitiandetails(i)" -->
-              <ion-button color="primary" class="productNameStyle"  > 
-                Food
-                 </ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-
-        <ion-col size="4" >
-          <!-- *ngIf="tempArray.length>0" -->
-          <ion-card class="cardstyle" >
-            <div align="center" class="imgestyle">
-              <!-- (click)="customerdietitiandetails(i)" -->
-              <img src="../../../../assets/icon/food.jpg" />
-            </div>
-            <ion-card-content class="cardcontentstyle">
-              <!-- (click)="customerdietitiandetails(i)" -->
-              <ion-button color="primary" class="productNameStyle"  > 
-                Food
-                 </ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ion-col> 
-
-        <ion-col size="4" >
-          <!-- *ngIf="tempArray.length>0" -->
-          <ion-card class="cardstyle" >
-            <div align="center" class="imgestyle">
-              <!-- (click)="customerdietitiandetails(i)" -->
-              <img src="../../../../assets/icon/food.jpg" />
-            </div>
-            <ion-card-content class="cardcontentstyle">
-              <!-- (click)="customerdietitiandetails(i)" -->
-              <ion-button color="primary" class="productNameStyle"  > 
-                Food
-                 </ion-button>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-
-
+        
       </ion-row>
     </ion-grid>
   </div>

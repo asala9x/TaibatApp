@@ -78,6 +78,7 @@ else{
              // this.presentAlert(userdberror.message);
             });
         } else {
+          loading.dismiss();
           this.alert.presentAlert("Please verify your email")
          // this.presentAlert("Please verify your email");
         }

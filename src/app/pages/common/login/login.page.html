@@ -10,13 +10,14 @@
   <div class="logindivstyle" align="center">
     <ion-list>
       <ion-item>
-        <ion-label class="lblcolor" position="floating">Email</ion-label>
-        <ion-input type="email" [(ngModel)]="data.email"> </ion-input>
+        <ion-input type="email" placeholder="Email" [(ngModel)]="data.email"> </ion-input>
       </ion-item>
-
+      <br />
       <ion-item>
-        <ion-label class="lblcolor" position="floating">Password</ion-label>
-        <ion-input type="Password" [(ngModel)]="data.password"> </ion-input>
+        <ion-icon slot="end" (click)="showpass=(!showpass)" [name]="showpass?'eye-outline':'eye-off-outline'"
+          class="iconcolor">
+        </ion-icon>
+        <ion-input [type]="showpass?'text':'password'" placeholder="password" [(ngModel)]="data.password"> </ion-input>
       </ion-item>
       <ion-item lines="none">
         <ion-text color="primary" slot="end" class="forgotPassStyle" (click)="ForgetPassword()"> Forgot Password?
@@ -25,7 +26,7 @@
     </ion-list>
   </div>
 
-  <ion-button color="primary" class="buttStyle" (click)="loginWithFBdetails()"> LOGIN </ion-button>
+  <ion-button color="primary" class="loginbuttStyle" (click)="loginWithFBdetails()"> LOGIN </ion-button>
 
   <div>
     <ion-text color="primary" class="singUpStyle" [routerLink]="['/register']"> You don't have account? <b>singUp</b>
