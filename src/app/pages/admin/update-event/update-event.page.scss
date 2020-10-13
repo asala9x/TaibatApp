@@ -1,26 +1,28 @@
-.backiconstyle{
-    color:white;
-}
-.mainDivStyle{
+.mainSivStyle{
     box-shadow: 3px 5px 15px #dbd7d7;
-    height: 560px ;
+    height: 650px ;
     width: 340px;
     margin: 10px !important;
     border-radius: 10px;
     padding-top: 25px;
    
 }
-.adviceimg{
-    width: 150px;
-    height: 150px;
-    padding:3px ;
-    
+.backiconstyle{
+    color:white;
 }
 .inputDivStyle{
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 10px;
     margin-bottom: 0px;
+}
+.imageStyle{
+    height: 100%;
+    width: 100%;
+}
+.divimageStyle{
+    height: 110px;
+    width: 110px;
 }
 .lblcolor{
     --color: #94a9bd;
@@ -34,14 +36,16 @@
     border-radius: 10px;
     margin-left: 10px;
     
-    
 }
 .buttDivStyle{
     margin-left: 0px;
     margin-right: 9px;
 }
-.iconcolor{
+  .iconcolor{
     color: #357abe;
     width: 25px;
     height: 25px;
+}
+.datatimestyle{
+    padding-left:0px !important ;
 }

@@ -52,7 +52,11 @@ const routes: Routes = [
   {
     path: 'event-details',
     loadChildren: () => import('./pages/customer/event-details/event-details.module').then( m => m.EventDetailsPageModule)
+  },  {
+    path: 'update-event',
+    loadChildren: () => import('./pages/admin/update-event/update-event.module').then( m => m.UpdateEventPageModule)
   }
+
 
 
 ];
