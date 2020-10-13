@@ -15,7 +15,7 @@
       <ion-card  *ngFor="let i of catogryArray" class="cardStyle" >
         <ion-card-content>
           <img [src]="i.img" class="iconStyle"/>
-          <ion-label class="ion-text-wrap" >{{i.ProductName}}</ion-label>
+          <ion-label class="ion-text-wrap" >{{i.name}}</ion-label>
         </ion-card-content>
       </ion-card>
     </div>
@@ -28,9 +28,9 @@
     <ion-grid class="gridstyle"*ngFor="let i of tempArray">
       <ion-row>
         <!-- *ngFor="let i of tempArray" -->
-        <ion-col size="4" *ngFor="let i of tempArray">
+        <ion-col size="4" >
           <!-- *ngIf="tempArray.length>0" -->
-          <ion-card class="cardstyle" *ngIf="tempArray.length>0">
+          <ion-card class="cardstyle" >
             <div align="center" class="imgestyle">
               <!-- (click)="customerdietitiandetails(i)" -->
               <img [src]="i.img" />
