@@ -1,17 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-// Action for camera 
 import { ActionSheetController } from '@ionic/angular';
-//import camera
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-//import Fire Storage
 import { AngularFireStorage } from '@angular/fire/storage';
-//imoprt loading and alert
 import { LoadingController } from '@ionic/angular';
-//imoprt  alert
-//import {AlertController } from '@ionic/angular';
-//Alertservice
 import { AlertserviceService } from '../../../services/alertservice.service';
-//imoprt Fire Database
 import { AngularFireDatabase } from '@angular/fire/database';
 @Component({
   selector: 'app-admin-add-advice',
@@ -19,7 +11,6 @@ import { AngularFireDatabase } from '@angular/fire/database';
   styleUrls: ['./admin-add-advice.page.scss'],
 })
 export class AdminAddAdvicePage implements OnInit {
-//object for name & descripion
 private adviceObj: any = {
   "name": "",
   "img1": "",

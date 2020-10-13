@@ -1,15 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-// Action for camera 
 import { ActionSheetController } from '@ionic/angular';
-//import camera
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-//import Fire Storage
 import { AngularFireStorage } from '@angular/fire/storage';
-//imoprt loading and alert
 import { LoadingController, AlertController } from '@ionic/angular';
-//imoprt Fire Database
 import { AngularFireDatabase } from '@angular/fire/database';
-//Alertservice
 import { AlertserviceService } from '../../../services/alertservice.service';
 @Component({
   selector: 'app-admin-add-dietitian',
@@ -70,18 +64,17 @@ export class AdminAddDietitianPage implements OnInit {
         this.afData.list("dietitian/" + dataresposeobj.key).set("dietitiankey", dataresposeobj.key).then(() => {
           loading.dismiss();
           this.alert.presentAlert("Dietitian data inserted successfully");
-          //this.presentAlert("Dietitian data inserted successfully");
+          
 
         }).catch((error) => {
           loading.dismiss();
           this.alert.presentAlert(error.message);
-          // this.presentAlert(storageError.message);
+          
         });
 
       }).catch((storageError) => {
         loading.dismiss();
         this.alert.presentAlert(storageError.message);
-        // this.presentAlert(storageError.message);
       });
 
     }
@@ -100,17 +93,17 @@ export class AdminAddDietitianPage implements OnInit {
               this.afData.list("dietitian/" + dataresposeobj.key).set("dietitiankey", dataresposeobj.key).then(() => {
                 loading.dismiss();
                 this.alert.presentAlert("Dietitian data inserted successfully");
-                //this.presentAlert("Dietitian data inserted successfully");
+
               }).catch((error) => {
                 loading.dismiss();
                 this.alert.presentAlert(error.message);
-                //this.presentAlert(error.message);
+
               });
 
             }).catch((databaseError) => {
               loading.dismiss();
               this.alert.presentAlert(databaseError.message);
-              //this.presentAlert(databaseError.message);
+
             });
 
           });
@@ -118,7 +111,7 @@ export class AdminAddDietitianPage implements OnInit {
         }).catch((storageError) => {
           loading.dismiss();
           this.alert.presentAlert(storageError.message);
-          // this.presentAlert(storageError.message);
+
         })
 
     }
