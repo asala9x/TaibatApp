@@ -25,10 +25,10 @@
 <ion-content>
   
   <div align="center" class="maindivStyle" >
-    <ion-grid class="gridstyle"*ngFor="let i of tempArray">
+    <ion-grid class="gridstyle" >
       <ion-row>
         <!-- *ngFor="let i of tempArray" -->
-        <ion-col size="4" >
+        <ion-col size="4" *ngFor="let i of tempArray">
           <!-- *ngIf="tempArray.length>0" -->
           <ion-card class="cardstyle" >
             <div align="center" class="imgestyle">

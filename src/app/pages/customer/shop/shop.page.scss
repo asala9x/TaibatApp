@@ -9,34 +9,34 @@
     display: inline-block;
     margin-right: 1px !important;
     background-color: #EFEEEE;
-    text-align: center;
-    
-    
+    text-align: center;  
 }
+
 .iconStyle {
     width: 60px;
     height: 60px;
   }
 
 
-  .cardStyle:focus{
-      background-color: white;
-      border: 1px solid blue;
-  }
+//   .cardStyle:focus{
+//       background-color: white;
+//       border: 1px solid blue;
+//   }
 
   .cardstyle{
     height: 125px;
-    width: 100px;
+    width: 110px;
     border-radius: 10px;
     padding: 0px !important;
+    margin: 0px !important;
    
 }
 
   .maindivStyle{
     
     text-align: center;
-    padding-right: 23px !important;
-    padding-left: 6px !important;
+    //  padding-right: 8px !important;
+    // padding-left: 6px !important;
 }
 
 .imgestyle{
@@ -48,7 +48,8 @@
 
 .gridstyle{
     padding: 0px !important;
-   
+    
+  
 }
 
 
