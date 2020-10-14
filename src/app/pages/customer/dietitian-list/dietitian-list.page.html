@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>dietitian List</ion-title>
+    <ion-title>Dietitian</ion-title>
   </ion-toolbar>
   <ion-toolbar>
 
-    <ion-searchbar >
+    <ion-searchbar>
 
     </ion-searchbar>
     <!-- <ion-fab vertical="Top" horizontal="end" slot="start">
@@ -17,7 +17,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-content >
+  <ion-content>
     <!-- *ngIf="tempArray.length==0" -->
     <ion-card color="light" *ngIf="tempArray.length==0">
       <ion-card-content color="primary">
@@ -30,12 +30,12 @@
           <ion-col size="6" *ngFor="let i of tempArray">
             <ion-card class="cardstyle" *ngIf="tempArray.length>0">
               <div align="center" class="imgestyle">
-                <img [src]=i.img (click)="customerdietitiandetails(i)"/>
+                <img [src]=i.img (click)="customerdietitiandetails(i)" />
               </div>
               <ion-card-content class="cardcontentstyle">
-                <ion-button color="primary" class="dietitianNameStyle" (click)="customerdietitiandetails(i)" > 
+                <ion-button color="primary" class="dietitianNameStyle" (click)="customerdietitiandetails(i)">
                   {{i.name}}
-                   </ion-button>
+                </ion-button>
               </ion-card-content>
             </ion-card>
           </ion-col>

@@ -16,12 +16,12 @@
         <ion-item>
           <ion-icon name="pencil" class="iconcolor" slot="start"></ion-icon>
           
-          <ion-input type="text" [(ngModel)]="productsObj.ProductName" placeholder="Product Name"> </ion-input>
+          <ion-input type="text" color="primary" [(ngModel)]="productsObj.ProductName" placeholder="Product Name"> </ion-input>
         </ion-item>
         <br/>
         <ion-item>
           <ion-icon name="grid" class="iconcolor" slot="start"></ion-icon>
-          <ion-select [(ngModel)]="productsObj.category"  placeholder="Category">
+          <ion-select [(ngModel)]="productsObj.category" color="primary" placeholder="Category">
             <ion-select-option value="Foods">Foods</ion-select-option>
             <ion-select-option value="Machines">Machines</ion-select-option>
             <ion-select-option value="Books">Books</ion-select-option>
@@ -31,12 +31,12 @@
         <br/>
         <ion-item>
           <ion-icon name="newspaper" class="iconcolor" slot="start"></ion-icon>
-          <ion-textarea [(ngModel)]="productsObj.Description" placeholder="Description">  </ion-textarea>
+          <ion-textarea color="primary" [(ngModel)]="productsObj.Description" placeholder="Description">  </ion-textarea>
         </ion-item>
         <br/>
         <ion-item>
           <ion-icon name="pricetag" class="iconcolor" slot="start"></ion-icon>
-          <ion-input type="text" [(ngModel)]="productsObj.price" placeholder="Price"> </ion-input>
+          <ion-input type="text" color="primary" [(ngModel)]="productsObj.price" placeholder="Price"> </ion-input>
         </ion-item>
       </ion-list>
     </div>

@@ -40,7 +40,7 @@ export class AdminViewDietitianPage implements OnInit {
 
   // ];
 
-  private dietitianArray: any[] = [];
+  //private dietitianArray: any[] = [];
   private matches: string[] = [];
   private tempArray: any[] = [];
   constructor(public alertController: AlertController,
@@ -62,7 +62,7 @@ export class AdminViewDietitianPage implements OnInit {
 
     this.afData.list('dietitian').valueChanges().subscribe((dieArray) => {
       loading.dismiss();
-      this.dietitianArray = dieArray;
+      //this.dietitianArray = dieArray;
       this.tempArray = dieArray;
     }, (databaseError) => {
       loading.dismiss();

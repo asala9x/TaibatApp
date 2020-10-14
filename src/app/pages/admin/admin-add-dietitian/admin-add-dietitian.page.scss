@@ -1,8 +1,13 @@
 .mainDivStyle{
     box-shadow: 3px 5px 15px #dbd7d7;
-    height: 560px ;
+    height: 570px ;
     width: 340px;
-    margin: 10px !important;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
     border-radius: 10px;
     padding-top: 25px;
    
@@ -30,13 +35,12 @@
   width: 50%;
 }
 .CancelbuttStyle{
-    // border: 1px solid #357Abe;
+   // border: 2px solid #357Abe;
     // color : #357Abe !important;
-    width: 140px;
+    width: 150px;
+    height: 42px;
     border-radius: 10px;
     margin-left: 10px;
-    
-    
 }
 .buttDivStyle{
     margin-left: 0px;

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>event list</ion-title>
+    <ion-title>Event</ion-title>
   </ion-toolbar>
 
   <ion-toolbar>
@@ -13,36 +13,8 @@
     </ion-fab> -->
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-content >
-    
-    <!-- <ion-card color="light" *ngIf="tempArray.length==0">
-      <ion-card-content color="primary">
-        No Results yet.
-      </ion-card-content>
-    </ion-card>
-    <div align="center" class="maindivStyle">
-      <ion-grid class="gridstyle">
-        <ion-row>
-          <ion-col size="6" *ngFor="let i of tempArray">
-            <ion-card class="cardstyle" *ngIf="tempArray.length>0">
-              <div align="center" class="imgestyle">
-                <img [src]=i.img (click)="customereventdetails(i)" />
-              </div>
-              <ion-card-content class="cardcontentstyle">
-               
-                <ion-button color="primary" class="EventNameStyle"  (click)="customereventdetails(i)" > 
-                 <ion-text class="ion-text-wrap" >{{i.Title}}</ion-text> 
-                   </ion-button>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div> -->
-
-     <!-- *ngIf="tempArray.length==0" -->
      <ion-card color="light" *ngIf="tempArray.length==0">
       <ion-card-content color="primary">
         No Results yet.
@@ -52,9 +24,9 @@
       <ion-grid class="gridstyle">
         <ion-row>
           <ion-col size="6" *ngFor="let i of tempArray">
-            <ion-card class="cardstyle" *ngIf="tempArray.length>0">
+            <ion-card class="cardstyle" (click)="customereventdetails(i)" *ngIf="tempArray.length>0">
               <div align="center" class="imgestyle">
-                <img [src]=i.img (click)="customereventdetails(i)" />
+                <img [src]=i.img  />
               </div>
               <ion-card-content class="cardcontentstyle">
                 <ion-button color="primary" class="EventNameStyle" (click)="customereventdetails(i)" > 

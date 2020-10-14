@@ -38,30 +38,21 @@ export class AdminAddEventPage implements OnInit {
     const loading = await this.loadingController.create({
       message: 'Please wait...',
     });
-    await loading.present();
+    //await loading.present();
     if (this.eventsObj.Title == "") {
-      loading.dismiss();
       this.alert.presentAlert("Please Enter Event Title");
-    }
-    else if (this.eventsObj.place == "") {
-      loading.dismiss();
+    }else if (this.eventsObj.place == "") {
       this.alert.presentAlert("Please Enter Event Place");
-    }
-    else if (this.eventsObj.datetime == "") {
-      loading.dismiss();
+    }else if (this.eventsObj.datetime == "") {
       this.alert.presentAlert("Please Enter Event DateTime");
-    }
-    else if (this.eventsObj.people == "") {
-      loading.dismiss();
+    }else if (this.eventsObj.people == "") {
       this.alert.presentAlert("Please Enter  People Alawed for This Event");
-    }
-    else {
+    }else {
+      await loading.present();
       let filename = Math.floor(Date.now() / 1000);
       let imagepath = filename + '.jpg';
-
       this.afstorage.ref(imagepath).putString(this.base64Img, 'data_url')
         .then((storageSuccess) => {
-
           let ref = this.afstorage.ref(imagepath);
           ref.getDownloadURL().subscribe((url) => {
             this.eventsObj.img = url;
@@ -141,7 +132,6 @@ export class AdminAddEventPage implements OnInit {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
-
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
