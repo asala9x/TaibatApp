@@ -6,7 +6,6 @@
 </ion-header>
 
 <ion-content>
-
   <div class="divImagStyle" *ngFor="let i of eventArray">
     <img class="imageStyle" [src]="i.img" />
   </div>
@@ -17,8 +16,7 @@
           {{i.Title}}
         </ion-label>
       </ion-text>
-
-      <ion-list >
+      <ion-list>
         <div class="divdatielsStyle">
           <ion-item-sliding>
             <ion-row>
@@ -64,8 +62,6 @@
                       <p>{{i.price}}</p>
                     </ion-col>
                   </ion-row>
-
-
                 </ion-card-content>
               </ion-col>
             </ion-row>
@@ -78,6 +74,6 @@
     </ion-card-content>
 
     <!-- (click)="eventregister(i.people)" -->
-    <ion-button color="primary" class="buttStyle" (click)="eventregister(i.people)"> Resave a set </ion-button>
+    <ion-button color="primary" class="buttStyle" (click)="eventregister(i.people)"> Reserve a seat </ion-button>
   </ion-card>
 </ion-content>
