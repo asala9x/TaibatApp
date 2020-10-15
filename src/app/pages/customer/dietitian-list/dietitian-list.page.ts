@@ -15,32 +15,7 @@ import { NavController } from '@ionic/angular';
 })
 export class DietitianListPage implements OnInit {
 
-  //  private dietitian=[
-  //   {
-  //     "image":"../../../../assets/icon/Dietitian4.jpg",
-  //     "Name":"dietitian Name"
-  //   },
-  //   {
-  //     "image":"../../../../assets/icon/Dietitian3.jpg",
-  //     "Name":"dietitian Name"
-  //   },
-  //   {
-  //     "image":"../../../../assets/icon/Dietitian3.jpg",
-  //     "Name":"dietitian Name"
-  //   },
-  //   {
-  //     "image":"../../../../assets/icon/Dietitian4.jpg",
-  //     "Name":"dietitian Name"
-  //   },
-  //   {
-  //     "image":"../../../../assets/icon/Dietitian3.jpg",
-  //     "Name":"dietitian Name"
-  //   },
-  //   {
-  //     "image":"../../../../assets/icon/Dietitian4.jpg",
-  //     "Name":"dietitian Name"
-  //   },
-  // ];
+
 
   private dietitianArray: any[] = [];
   private matches: string[] = [];
@@ -63,24 +38,23 @@ export class DietitianListPage implements OnInit {
     await loading.present();
     this.afData.list('dietitian').valueChanges().subscribe((dieArray,) => {
       loading.dismiss();
-      // console.log(JSON.stringify(dieArray));
-      this.dietitianArray = dieArray;
+      // this.dietitianArray = dieArray;
       this.tempArray = dieArray;
     }, (databaseError) => {
       loading.dismiss();
       this.alert.presentAlert(databaseError.message);
-      //this.presentAlert(databaseError.message);
+
     })
 
   }
 
-  
+
   customerdietitiandetails(dietitiankey) {
 
     //alert(JSON.stringify(dietitiankey)); 
     let NavExtras: NavigationExtras = {
-        queryParams: dietitiankey
-      }
+      queryParams: dietitiankey
+    }
     this.navCtr.navigateForward('dietitian-details', NavExtras);
   }
 

@@ -66,7 +66,7 @@ export class EventListPage implements OnInit {
 
     this.afData.list('event', ref => ref.orderByChild('time')).valueChanges().subscribe((eveArray) => {
       loading.dismiss();
-      this.eventArray = eveArray;
+     // this.eventArray = eveArray;
       this.tempArray = eveArray;
     }, (databaseError) => {
       loading.dismiss();

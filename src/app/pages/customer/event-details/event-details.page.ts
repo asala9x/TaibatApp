@@ -41,7 +41,7 @@ export class EventDetailsPage implements OnInit {
    }
 
   ngOnInit() {
-   // this.retrieveDataFromFirebase();
+    this.retrieveDataFromFirebase();
   }
 
   // Method for retrieve data from firebase

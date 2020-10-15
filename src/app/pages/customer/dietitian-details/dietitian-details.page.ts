@@ -29,6 +29,7 @@ export class DietitianDetailsPage implements OnInit {
          this.retrieveDataFromFirebase();
        });
     }
+    
   ngOnInit() {
     this.retrieveDataFromFirebase();
   }
