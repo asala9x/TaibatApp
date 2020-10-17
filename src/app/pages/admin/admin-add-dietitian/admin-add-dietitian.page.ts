@@ -1,15 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-// Action for camera 
 import { ActionSheetController } from '@ionic/angular';
-//import camera
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-//import Fire Storage
 import { AngularFireStorage } from '@angular/fire/storage';
-//imoprt loading and alert
 import { LoadingController, AlertController } from '@ionic/angular';
-//imoprt Fire Database
 import { AngularFireDatabase } from '@angular/fire/database';
-//Alertservice
 import { AlertserviceService } from '../../../services/alertservice.service';
 @Component({
   selector: 'app-admin-add-dietitian',
@@ -34,93 +28,62 @@ export class AdminAddDietitianPage implements OnInit {
     public alertController: AlertController,
     private afData: AngularFireDatabase,
     private alert: AlertserviceService) { }
-
   ngOnInit() {
   }
   //Method to add Dietitian to firebase
   async addDietitian() {
-
     const loading = await this.loadingController.create({
       message: 'Please wait...',
     });
-    await loading.present();
-
     if (this.dietitianObj.name == "") {
-      loading.dismiss();
       this.alert.presentAlert("Please Enter Dietitian Name");
-    }
-
-    else if (this.dietitianObj.descripion == "") {
-      loading.dismiss();
+    }else if (this.dietitianObj.descripion == "") {
       this.alert.presentAlert("Please Enter Dietitian Descripion");
-    }
-    else if (this.dietitianObj.phone == "") {
-      loading.dismiss();
+    }else if (this.dietitianObj.phone == "") {
       this.alert.presentAlert("Please Enter Dietitian Phone Number");
-    }
-    else if (this.dietitianObj.email == "") {
-      loading.dismiss();
+    }else if (this.dietitianObj.email == "") {
       this.alert.presentAlert("Please Enter Dietitian Email");
-    }
-    else if (this.base64Img == "../../../../assets/icon/camera.png") {
-
+    }else if (this.base64Img == "../../../../assets/icon/camera.png") {
+     await loading.present();
       this.dietitianObj.img = this.tempbase64Img;
       this.afData.list("dietitian").push(this.dietitianObj).then((dataresposeobj) => {
-
         this.afData.list("dietitian/" + dataresposeobj.key).set("dietitiankey", dataresposeobj.key).then(() => {
           loading.dismiss();
           this.alert.presentAlert("Dietitian data inserted successfully");
-          //this.presentAlert("Dietitian data inserted successfully");
-
         }).catch((error) => {
           loading.dismiss();
           this.alert.presentAlert(error.message);
-          // this.presentAlert(storageError.message);
         });
-
       }).catch((storageError) => {
         loading.dismiss();
         this.alert.presentAlert(storageError.message);
-        // this.presentAlert(storageError.message);
       });
-
     }
     else {
       let filename = Math.floor(Date.now() / 1000);
       let imagepath = filename + '.jpg';
-
       this.afstorage.ref(imagepath).putString(this.base64Img, 'data_url')
         .then((storageSuccess) => {
-
           let ref = this.afstorage.ref(imagepath);
           ref.getDownloadURL().subscribe((url) => {
             this.dietitianObj.img = url;
             this.afData.list("dietitian").push(this.dietitianObj).then((dataresposeobj) => {
-
               this.afData.list("dietitian/" + dataresposeobj.key).set("dietitiankey", dataresposeobj.key).then(() => {
                 loading.dismiss();
                 this.alert.presentAlert("Dietitian data inserted successfully");
-                //this.presentAlert("Dietitian data inserted successfully");
               }).catch((error) => {
                 loading.dismiss();
                 this.alert.presentAlert(error.message);
-                //this.presentAlert(error.message);
               });
-
             }).catch((databaseError) => {
               loading.dismiss();
               this.alert.presentAlert(databaseError.message);
-              //this.presentAlert(databaseError.message);
             });
-
           });
-
         }).catch((storageError) => {
           loading.dismiss();
           this.alert.presentAlert(storageError.message);
-          // this.presentAlert(storageError.message);
         })
-
     }
   }
   // Action for add image for  Advices from Camera or Gallery

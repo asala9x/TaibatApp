@@ -13,13 +13,6 @@ export class AdminTabPage implements OnInit {
   //declear CurrentTab
   private selectedTab: any;
 
-  // private tabs: any = {
-  //   "dietitian": "",
-  //   "events": "",
-  //   "advice": "",
-  //   "product": ""
-  // }
-
 
   constructor(public navCtrl: NavController) { }
 

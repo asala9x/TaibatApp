@@ -8,14 +8,13 @@
     margin-top: 7px;
     margin-left: 5px !important;  
 }
-
 .cardimgstyle{
     width: 103px;
      height: 103px;
      border-radius: 10px;
     padding: 0px !important;
     text-align: center;
-    margin-top: 25%;
+    margin-top: 20%;
     box-shadow: 3px 3px 15px #dbd7d7;
 }
 .imgstyle{
@@ -25,20 +24,17 @@
     padding: 0px !important;
     text-align: center;
 }
-
 .dietitiancarstyle{
      border-radius: 10px;
      box-shadow: 3px 3px 15px #dbd7d7;
      height: 210px;
-     width: 340px;
-     
+     width: 340px;   
 }
-.desstyle{
-    overflow-x:scroll;
-    overflow-y: hidden;
-    white-space:nowrap;
-    height: 100%;
-    width: 100%;
+.desdivStyle{
+    height: 45px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    white-space: nowrap;
 }
 .descstyle{
     padding-left: 30px !important;
@@ -49,26 +45,24 @@
     width: 18px;
     height: 18px;
 }
-.iconcolorstyle{
+.deleteiconcolorstyle{
     color: #BDBDBD;
     width: 20px;
     height: 20px;
     font-size: 25px;
     margin-top: 5px !important;
-    
     margin-right: 10px;
-    margin-left: 0px !important;
+    margin-left: 12px !important;
     padding: 0px !important ;
 }
-.iconcolorstyle1{
+.updateiconcolorstyle{
     color: #BDBDBD;
     width: 15px;
     height: 15px;
     font-size: 25px;
     margin-top: 5px !important;
-    
-  margin-right: 0px !important;
-  padding: 0px !important ;
+   margin-right: 0px !important;
+   padding: 0px !important ;
 }
 .colstyle{
     margin-left: -120px !important;

@@ -15,7 +15,7 @@ import { NavigationExtras } from '@angular/router';
 })
 export class AdminViewEventPage implements OnInit {
   //private today: string[] = [];
-  private eventArray: any[] = [];
+  //private eventArray: any[] = [];
   private matches: string[] = [];
   private tempArray: any[] = [];
   constructor(public alertController: AlertController,
@@ -41,7 +41,7 @@ export class AdminViewEventPage implements OnInit {
     this.afData.list('event', ref => ref.orderByChild('time')).valueChanges().subscribe((eveArray) => {
       loading.dismiss();
       // console.log(JSON.stringify(advArray));
-      this.eventArray = eveArray;
+      //this.eventArray = eveArray;
       this.tempArray = eveArray;
     }, (databaseError) => {
       loading.dismiss();
@@ -66,93 +66,6 @@ export class AdminViewEventPage implements OnInit {
 
     }
   }
-  // async updateEvent(eventObj,data) {
-
-  //   //eventObj.eventkey - key to update the item inside the table
-  //   // data=>{"name":"","des":""}
-
-  //   data.test="Event";
-
-  //   const loading = await this.loadingController.create({
-  //     message: 'Please wait...',
-  //   });
-  //   await loading.present();
-
-  //   this.afData.list('event').update(eventObj.eventkey,data).then(()=>{
-  //     loading.dismiss();
-  //     this.alert.presentAlert("Event data updated successfully");
-  //   }).catch((error)=>{
-  //     loading.dismiss();
-  //     this.alert.presentAlert(error.message);
-  //     //this.presentAlert(error.message);
-  //   });
-
-  // }
-  // //name - get the data from the input fields in alert
-  // //value - set the data to the input field of alert
-
-  // async  updateEventAlert(eventObj) {
-  //   const alertprompt = await this.alertController.create({
-  //     header: 'Update Event',
-  //     cssClass:  'headerstyle',
-  //     inputs: [
-  //       {
-  //         name: 'Title',
-  //         value: eventObj.Title,
-  //         type: 'text',
-  //         placeholder: 'Event Title'
-  //       },
-  //       {
-  //         name: 'date',
-  //         value: eventObj.date,
-  //         type: 'date',
-  //         placeholder: 'Event Date'
-  //       },
-  //       {
-  //         name: 'time',
-  //         value: eventObj.timer,
-  //         type: 'time',
-  //         placeholder: 'Event Time'
-  //       },
-  //       {
-  //         name: 'place',
-  //         value: eventObj.place,
-  //         type: 'text',
-  //         placeholder: 'Event Place'
-  //       },
-  //       {
-  //         name: 'price',
-  //         value: eventObj.price,
-  //         type: 'text',
-  //         placeholder: 'Event Price'
-  //       },
-  //       {
-  //         name: 'people',
-  //         value: eventObj.people,
-  //         type: 'number',
-  //         placeholder: 'Number of People'
-  //       }
-  //     ],
-  //     buttons: [
-  //       {
-  //         text: 'Cancel',
-  //         role: 'cancel',
-  //         cssClass: 'headerstyle',
-  //         handler: () => {
-  //           console.log('Confirm Cancel');
-  //         }
-  //       }, {
-  //         text: 'Ok',
-  //         handler: (data) => {
-  //           this.updateEvent(eventObj,data);
-  //         }
-  //       }
-  //     ]
-  //   });
-
-  //   await alertprompt.present();
-  // }
-
   //delete
   async deleteEvent(eventObj) {
 
@@ -174,7 +87,6 @@ export class AdminViewEventPage implements OnInit {
       this.alert.presentAlert(error.message);
       //this.presentAlert(error.message);
     });
-
   }
   async deleteEventAlert(eventObj) {
     if (this.checkEvent(eventObj)) {
@@ -182,7 +94,7 @@ export class AdminViewEventPage implements OnInit {
     } else {
       const alert = await this.alertController.create({
         header: 'Taibat App',
-        message: 'Are you sure you want to delete ' + eventObj.Title + ' ?',
+        message:'Are you sure you want to delete ' + eventObj.Title + ' ?',
         buttons: [
           {
             text: 'Cancel',
@@ -199,12 +111,9 @@ export class AdminViewEventPage implements OnInit {
           }
         ]
       });
-
       await alert.present();
     }
   }
-
-
   checkEvent(obj) {
     let showalert: boolean = false;
     let currentdate = new Date();

@@ -15,44 +15,37 @@
       <ion-list>
         <ion-item>
           <ion-icon name="pencil" class="iconcolor" slot="start"></ion-icon>
-          <!-- <ion-label class="lblcolor">Title</ion-label> -->
-          <ion-input type="text" [(ngModel)]="eventsObj.Title" placeholder="Title"> </ion-input>
+          <ion-input  type="text" color="primary" [(ngModel)]="eventsObj.Title" placeholder="Title"> </ion-input>
         </ion-item>
         <br/>
         <ion-item>
           <ion-icon name="calendar" class="iconcolor"  slot="start"></ion-icon>
-          <!-- <ion-label class="lblcolor">Select Date </ion-label> -->
-          <ion-datetime displayFormat="D MMM YYYY " min="2020" max="2040" value="D MMM YYYY" placeholder="Select Date" [(ngModel)]="eventsObj.date" class="datatimestyle">   
+          <ion-datetime  color="primary" displayFormat="D MMM YYYY " min="2020" max="2040" value="D MMM YYYY" placeholder="Select Date" [(ngModel)]="eventsObj.date" class="datatimestyle">   
           </ion-datetime>
         </ion-item>
         <br/>
         <ion-item>
           <ion-icon name="time" class="iconcolor"  slot="start"></ion-icon>
-          <!-- <ion-label class="lblcolor">Select  Time</ion-label> -->
-          <ion-datetime displayFormat=" H:mm A"  value="H:mm A" placeholder="Select Time" [(ngModel)]="eventsObj.timer" class="datatimestyle">   
+          <ion-datetime color="primary" displayFormat=" H:mm A"  value="H:mm A" placeholder="Select Time" [(ngModel)]="eventsObj.timer" class="datatimestyle">   
           </ion-datetime>
         </ion-item>
         <br/>
         <ion-item>
           <ion-icon name="location" class="iconcolor" slot="start"></ion-icon>
-          <!-- <ion-label class="lblcolor">Place</ion-label> -->
-          <ion-input type="text" [(ngModel)]="eventsObj.place" placeholder="Place"> </ion-input>
+          <ion-input type="text" color="primary" [(ngModel)]="eventsObj.place" placeholder="Place"> </ion-input>
         </ion-item>
         <br/>
         <ion-item>
           <ion-icon name="pricetag" class="iconcolor" slot="start"></ion-icon>
-          <!-- <ion-label class="lblcolor">Price</ion-label> -->
-          <ion-input type="text" [(ngModel)]="eventsObj.price" placeholder="Price"> </ion-input>
+          <ion-input type="text" color="primary" [(ngModel)]="eventsObj.price" placeholder="Price"> </ion-input>
         </ion-item>
         <br/>
         <ion-item>
           <ion-icon name="people" class="iconcolor" slot="start"></ion-icon>
-          <!-- <ion-label class="lblcolor" >NO of people Allow</ion-label> -->
-          <ion-input type="number" [(ngModel)]="eventsObj.people" placeholder="NO of people Allow"> </ion-input>
+          <ion-input type="number" color="primary" [(ngModel)]="eventsObj.people" placeholder="NO of people Allow"> </ion-input>
         </ion-item>
       </ion-list>
     </div>
-
     <div class="buttDivStyle">
       <ion-button color="primary" class="CancelbuttStyle" fill="outline" [routerLink]="['/admin-tab/admin-view-event']"> Cancel </ion-button>
       <ion-button color="primary" class="CancelbuttStyle" (click)="addEvents()"> ADD </ion-button>

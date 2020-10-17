@@ -1,17 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-// Action for camera 
 import { ActionSheetController } from '@ionic/angular';
-//import camera
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-//import Fire Storage
 import { AngularFireStorage } from '@angular/fire/storage';
-//imoprt loading and alert
 import { LoadingController } from '@ionic/angular';
-//imoprt  alert
-//import {AlertController } from '@ionic/angular';
-//Alertservice
 import { AlertserviceService } from '../../../services/alertservice.service';
-//imoprt Fire Database
 import { AngularFireDatabase } from '@angular/fire/database';
 @Component({
   selector: 'app-admin-add-advice',
@@ -19,7 +11,6 @@ import { AngularFireDatabase } from '@angular/fire/database';
   styleUrls: ['./admin-add-advice.page.scss'],
 })
 export class AdminAddAdvicePage implements OnInit {
-//object for name & descripion
 private adviceObj: any = {
   "name": "",
   "img1": "",
@@ -54,30 +45,22 @@ private imagesarray: any[] = [];
 
     this.afData.list("advice").push(this.adviceObj).then((dataresposeobj) => {
       this.afData.list("advice/" + dataresposeobj.key).set("advicekey", dataresposeobj.key).then(() => {
-
-
         let filename1 = Math.floor(Date.now() / 1000);
         let imagepath1 = filename1 + '.jpg';
         let tempobj: any = {};
-
         this.afstorage.ref(imagepath1).putString(this.imagesarray[0], 'data_url')
           .then((storageSuccess) => {
-
             let ref1 = this.afstorage.ref(imagepath1);
             ref1.getDownloadURL().subscribe((url) => {
               tempobj.img1 = url
-
-
               let filename2 = Math.floor(Date.now() / 1000);
               let imagepath2 = filename2 + '.jpg';
 
               this.afstorage.ref(imagepath2).putString(this.imagesarray[1], 'data_url')
                 .then((storageSuccess) => {
-
                   let ref2 = this.afstorage.ref(imagepath2);
                   ref2.getDownloadURL().subscribe((url) => {
                     tempobj.img2 = url;
-
                     this.afData.list("advice").update(dataresposeobj.key, tempobj).then(() => {
                       loading.dismiss();
                       this.alert.presentAlert("Advice data inserted successfully");
@@ -85,30 +68,23 @@ private imagesarray: any[] = [];
                       loading.dismiss();
                       this.alert.presentAlert(updateerror.message);
                     })
-
                   });
-
                 }).catch((storageError) => {
                   loading.dismiss();
                   this.alert.presentAlert(storageError.message);
                 })
             });
-
           }).catch((storageError) => {
             loading.dismiss();
             this.alert.presentAlert(storageError.message);
-            
           })
       }).catch((error) => {
         loading.dismiss();
         this.alert.presentAlert(error.message);
-    
       });
-
     }).catch((databaseError) => {
       loading.dismiss();
       this.alert.presentAlert(databaseError.messagee);
-      
     });
 
   }

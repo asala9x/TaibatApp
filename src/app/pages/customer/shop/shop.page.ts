@@ -15,31 +15,30 @@ import { NavController } from '@ionic/angular';
 })
 export class ShopPage implements OnInit {
 
-  private catogryArray:any[]=[
+  private catogryArray: any[] = [
     {
-      "name":"Food",
-      // "value":"freedelivery",
-      "img":"../../../../assets/icon/food.png"
+      "name": "Foods",
+      "value": "Foods",
+      "img": "../../../../assets/icon/food.png"
+    },
+    {
+      "name": "Machines",
+      "value": "Machines",
+      "img": "../../../../assets/icon/mac.png"
     }
-  ,
-  {
-    "name":"Machines",
-    // "value":"freedelivery",
-    "img":"../../../../assets/icon/mac.png"
-  }
-  ,
-  {
-    "name":"Book",
-    // "value":"freedelivery",
-    "img":"../../../../assets/icon/book.png"
-  }
-  ,
-  {
-    "name":"onther",
-    // "value":"freedelivery",
-    "img":"../../../../assets/icon/onther.png"
-  }
-  
+    ,
+    {
+      "name": "Books",
+      "value": "Books",
+      "img": "../../../../assets/icon/book.png"
+    }
+    ,
+    {
+      "name": "Another",
+      "value": "Another",
+      "img": "../../../../assets/icon/onther.png"
+    }
+
   ];
 
  private productArray: any[] = [];
@@ -69,5 +68,22 @@ export class ShopPage implements OnInit {
       this.alert.presentAlert(databaseError.message);
     })
 
+  }
+  async filterProductData(productskey) {
+
+    this.tempArray = [];
+
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+
+    this.afData.list('products', ref => ref.orderByChild('category').equalTo(productskey)).valueChanges().subscribe((proArray) => {
+      loading.dismiss();
+      this.tempArray = proArray;
+    }, (databaseError) => {
+      loading.dismiss();
+      this.alert.presentAlert(databaseError.message);
+    })
   }
 }

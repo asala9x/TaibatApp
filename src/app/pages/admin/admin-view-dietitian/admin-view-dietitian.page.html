@@ -29,12 +29,10 @@
       <ion-card class="dietitiancarstyle">
         <ion-row>
           <ion-col size="4">
-            <ion-card class="cardimgstyle" align="center" >
-              
-                <div align="center" class="imgestyle">
-                  <img [src]=i.img />
-                </div>
-              
+            <ion-card class="cardimgstyle" align="center">
+              <div align="center" class="imgestyle">
+                <img [src]=i.img />
+              </div>
             </ion-card>
           </ion-col>
           <ion-col size="8">
@@ -63,31 +61,31 @@
                   <p>{{i.email}}</p>
                 </ion-col>
               </ion-row>
-            
-              <div class="desstyle">
+
+
               <ion-row>
-                
+
                 <ion-col>
                   <ion-icon name="newspaper" class="iconcolor"></ion-icon>
                 </ion-col>
-                
+
                 <ion-col class="colstyle">
-                  
-                 <p class="descstyle">{{i.descripion}}</p> 
-                
+                  <div class="desdivStyle">
+                    <p class="ion-text-wrap">{{i.descripion}}</p>
+                  </div>
                 </ion-col>
-               
+
               </ion-row>
-        </div>
+
             </ion-card-content>
           </ion-col>
         </ion-row>
         <div class="divstyle">
-          <ion-col class="iconcolorstyle1">
-            <ion-icon name="create"  (click)="updateDietitianAlert(i)"></ion-icon>
+          <ion-col class="updateiconcolorstyle">
+            <ion-icon name="create" (click)="updateDietitianAlert(i)"></ion-icon>
           </ion-col>
-          <ion-col class="iconcolorstyle">
-            <ion-icon name="trash"  (click)="deleteDietitianAlert(i)"></ion-icon>
+          <ion-col class="deleteiconcolorstyle">
+            <ion-icon name="trash" (click)="deleteDietitianAlert(i)"></ion-icon>
           </ion-col>
         </div>
       </ion-card>

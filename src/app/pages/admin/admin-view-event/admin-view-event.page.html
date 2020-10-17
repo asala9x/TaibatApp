@@ -35,13 +35,12 @@
                   <p>{{i.Title}}</p>
                 </ion-col>
               </ion-row>
-              <br/>
               <ion-row>
                 <ion-col>
                   <ion-icon name="calendar" class="iconcolor"></ion-icon>
                 </ion-col>
                 <ion-col class="colstyle">
-                  <p>{{i.date | date:'mm/dd/yyyy'}}</p>
+                  <p>{{i.date | date:'MM/dd/yyyy'}}</p>
                 </ion-col>
               </ion-row>
               <ion-row>
@@ -83,10 +82,10 @@
           <ion-col class="peopleiconstyle">
             <ion-icon name="person" (click)="peopleRegister(i)"></ion-icon>
           </ion-col>
-          <ion-col class="updateiconstyle">
+          <ion-col class="updateiconcolorstyle">
             <ion-icon name="create" (click)="updateEvent(i)"></ion-icon>
           </ion-col>
-          <ion-col class="deleteiconstyle">
+          <ion-col class="deleteiconcolorstyle">
             <ion-icon name="trash" (click)="deleteEventAlert(i)"></ion-icon>
           </ion-col>
         </div>

@@ -29,8 +29,12 @@ margin-left: 18px;
 margin-top: 0px !important;
 
 }
-.datastyle{
-    
-    padding: 0px !important;
-    margin-top: 0px !important;
+.desdivStyle{
+    padding-top: 0px !important;
+    margin-top: -10px !important;
+    margin-left: 10px !important;
+    height: 80px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    white-space: nowrap;
 }

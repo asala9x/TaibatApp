@@ -12,7 +12,7 @@
   <ion-toolbar >
     <div class="scrollx">
       <!-- *ngFor="let i of catArray" (click)="filterRestData(i.value)" -->
-      <ion-card  *ngFor="let i of catogryArray" class="cardStyle" >
+      <ion-card  *ngFor="let i of catogryArray" class="cardStyle" (click)="filterProductData(i.value)">
         <ion-card-content>
           <img [src]="i.img" class="iconStyle"/>
           <ion-label class="ion-text-wrap" >{{i.name}}</ion-label>
