@@ -18,11 +18,19 @@
   }
 
 
-//   .cardStyle:focus{
-//       background-color: white;
-//       border: 1px solid blue;
-//   }
+  .cardStyle:active{
+      background-color: white;
+      border: 1px solid blue;
+  }
 
+// .cardStyle:visited{
+//     background-color: white;
+//     border: 1px solid blue;
+// }
+.cardStyle:focus{
+    background-color: white;
+    border: 1px solid blue;
+}
   .cardstyle{
     height: 125px;
     width: 110px;
