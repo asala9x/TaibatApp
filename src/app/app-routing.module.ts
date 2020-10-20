@@ -55,6 +55,10 @@ const routes: Routes = [
   },  {
     path: 'update-event',
     loadChildren: () => import('./pages/admin/update-event/update-event.module').then( m => m.UpdateEventPageModule)
+  },
+  {
+    path: 'product-details',
+    loadChildren: () => import('./pages/customer/product-details/product-details.module').then( m => m.ProductDetailsPageModule)
   }
 
 
