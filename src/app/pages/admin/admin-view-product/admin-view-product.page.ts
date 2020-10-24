@@ -82,5 +82,107 @@ export class AdminViewProductPage implements OnInit {
       this.alert.presentAlert(databaseError.message);
     })
   }
+//delete
+async deleteProduct(productObj) {
 
+  const loading = await this.loadingController.create({
+    message: 'Please wait...',
+  });
+  await loading.present();
+
+  this.afData.list('products').remove(productObj.productskey).then(() => {
+    loading.dismiss();
+     this.alert.presentAlert("Product deleted successfully");
+  }).catch((error) => {
+    loading.dismiss();
+    this.alert.presentAlert(error.message);
+    //this.presentAlert(error.message);
+  });
+
+}
+async deleteProductAlert(productObj) {
+    const alert = await this.alertController.create({
+      cssClass: 'headerstyle',
+      header: 'Taibat App',
+      message: 'Are you sure you want to delete '+productObj.ProductName+' ?',
+      
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'headerstyle',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ok',
+          handler: () => {
+            this.deleteProduct(productObj);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+   //update 
+   async updateProduct(productObj,data) {
+    data.test="Product";
+
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+
+    this.afData.list('products').update(productObj.productskey,data).then(()=>{
+      loading.dismiss();
+      this.alert.presentAlert("Product data updated successfully");
+    }).catch((error)=>{
+      loading.dismiss();
+      this.alert.presentAlert(error.message);
+    }); 
+  }
+  async  updateProductAlert(productObj) {
+    const alertprompt = await this.alertController.create({
+      header: 'Update Product',
+      cssClass:  'headerstyle',
+      inputs: [
+        {
+          name: 'name',
+          value: productObj.ProductName,
+          type: 'text',
+          placeholder: 'Product Name'
+        },
+        {
+          name: 'price',
+          value: productObj.price,
+          type: 'text',
+          placeholder: 'Product Price'
+        },
+        {
+          name: 'Description',
+          value: productObj.Description,
+          type: 'text',
+          placeholder: 'Product Description'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'headerstyle',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data) => {
+            this.updateProduct(productObj,data);
+          }
+        }
+      ]
+    });
+
+    await alertprompt.present();
+  }
 }

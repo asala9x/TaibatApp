@@ -52,14 +52,19 @@ const routes: Routes = [
   {
     path: 'event-details',
     loadChildren: () => import('./pages/customer/event-details/event-details.module').then( m => m.EventDetailsPageModule)
-  },  {
+  },
+  {
     path: 'update-event',
     loadChildren: () => import('./pages/admin/update-event/update-event.module').then( m => m.UpdateEventPageModule)
   },
   {
     path: 'product-details',
     loadChildren: () => import('./pages/customer/product-details/product-details.module').then( m => m.ProductDetailsPageModule)
+  },  {
+    path: 'basket',
+    loadChildren: () => import('./pages/customer/basket/basket.module').then( m => m.BasketPageModule)
   }
+
 
 
 
