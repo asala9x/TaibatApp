@@ -86,4 +86,5 @@ export class ShopPage implements OnInit {
       this.alert.presentAlert(databaseError.message);
     })
   }
+  
 }

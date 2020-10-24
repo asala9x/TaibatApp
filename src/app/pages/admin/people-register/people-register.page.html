@@ -1,9 +1,58 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>PeopleRegister</ion-title>
+  <ion-toolbar color="primary">
+    <ion-back-button class="backiconstyle" slot="start"> </ion-back-button>
+    <ion-title>People Register</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+<!-- no details-->
+ <ion-card color="light" *ngIf="peopleRegisterdArray.length==0">
+  <ion-card-content color="primary">
+    No People Register yet in this Event.
+  </ion-card-content> 
+  <!-- card with details-->
+</ion-card>
+<ion-list  *ngIf="peopleRegisterdArray.length>0">
+  <ion-item-sliding *ngFor="let i of peopleRegisterdArray">
+    <ion-card class="peoplecarstyle">
+      <ion-row>
+        <ion-col size="4">
+          <ion-card class="cardimgstyle" align="center">
+            <div align="center" class="imgestyle">
+              <img src="../../../../assets/icon/Profile.png" />
+            </div>
+          </ion-card>
+        </ion-col>
+        <br/>
+        <ion-col size="8">
+          <ion-card-content>
+            <br/>
+            <ion-row>
+              <ion-col >
+                <ion-icon name="person" class="iconcolor"></ion-icon>
+              </ion-col>
+              <ion-col class="colstyle">
+                <p>{{i.Name}}</p>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-icon name="mail" class="iconcolor"></ion-icon>
+              </ion-col>
+              <ion-col  class="colstyle">
+                <p class="ion-text-wrap">{{i.Email}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-col>
+      </ion-row>
+      <div class="divstyle">  
+       <ion-col  class="sendiconcolorstyle"> 
+           <ion-icon name="send"></ion-icon> 
+        </ion-col> 
+      </div>
+    </ion-card>
+  </ion-item-sliding>
+</ion-list> 
 </ion-content>

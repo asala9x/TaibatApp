@@ -138,6 +138,12 @@ export class AdminViewEventPage implements OnInit {
     return showalert;
 
   }
-
+  peopleRegistr(eventkey) {
+    //alert(JSON.stringify(eventkey)); 
+    let NavExtras: NavigationExtras = {
+        queryParams: eventkey
+      }
+    this.navCtrl.navigateForward('people-register', NavExtras);
+ }
 
 }
