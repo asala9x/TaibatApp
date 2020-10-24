@@ -5,10 +5,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngFor="let i of tempArray">
   <!-- *ngFor="let i of dietitianArray" -->
   <div class="divImagStyle">
-    <img class="imageStyle" src="../../../../assets/icon/greentea.jpg" />
+    <img class="imageStyle" [src]=i.img />
   </div>
 
   <!-- *ngFor="let i of dietitianArray" -->
@@ -24,11 +24,10 @@
       <ion-card-content>
         <ion-text color="primary">
           <ion-label class="nameStyle">
-            <!-- {{i.name}} -->
-            green tea
+            {{i.ProductName}}
           </ion-label>
 
-          <ion-label class="priceStyle"> 4.99 OMR </ion-label>
+          <ion-label class="priceStyle">{{i.price}} </ion-label>
         </ion-text>
 
         <ion-list class="paddingitem">
@@ -41,22 +40,11 @@
                       <ion-icon name="newspaper" class="iconcolor"></ion-icon>
                     </ion-col>
                     <ion-col size="10.5">
-                      <!-- <p>{{i.phone}}</p> -->
                       <div class="desStyle">
-                      <p class="ion-text-wrap">hello desStyle desStyle desStyle desStyle desStyle
-                        desStyle
-                        desStyle
-                        desStyle
-                        desStyle v desStyle desStyle desStyle
-                        desStyle
-                        hello desStyle desStyle desStyle desStyle desStyle
-                        desStyle
-                        desStyle
-                        desStyle
-                        desStyle v desStyle desStyle desStyle
-                        desStyle
-                      </p>
-                    </div>
+                        <p class="ion-text-wrap">
+                          {{i.Description}}
+                        </p>
+                      </div>
                     </ion-col>
                   </ion-row>
                 </ion-card-content>
