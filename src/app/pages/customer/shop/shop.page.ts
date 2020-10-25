@@ -86,5 +86,13 @@ export class ShopPage implements OnInit {
       this.alert.presentAlert(databaseError.message);
     })
   }
-  
+
+  // move to details
+  customerproductdetails(productskey) {
+ 
+    let NavExtras: NavigationExtras = {
+        queryParams: productskey
+      }
+    this.navCtr.navigateForward('product-details', NavExtras);
+  }
 }
