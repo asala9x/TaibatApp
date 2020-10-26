@@ -95,4 +95,12 @@ export class ShopPage implements OnInit {
       }
     this.navCtr.navigateForward('product-details', NavExtras);
   }
+
+  //view basket
+  basket(productskey) {
+    let NavExtras: NavigationExtras = {
+        queryParams: productskey
+      }
+    this.navCtr.navigateForward('basket', NavExtras);
+ }
 }

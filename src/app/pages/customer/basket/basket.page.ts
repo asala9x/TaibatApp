@@ -12,17 +12,20 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./basket.page.scss'],
 })
 export class BasketPage implements OnInit {
+  private productsArray: any[] = [];
   private tempArray: any[] = [];
   private productskey: string = "";
+  private basketArray: any[] = [];
+
   constructor(private afData: AngularFireDatabase,
     public loadingController: LoadingController,
     private alert: AlertserviceService,
     private route: ActivatedRoute) {
-
     this.route.queryParams.subscribe((data) => {
       // alert(JSON.stringify(data));
       this.productskey = data.productskey;
     });
+    this.tempArray = this.basketArray;
   }
 
   ngOnInit() {
@@ -36,13 +39,14 @@ export class BasketPage implements OnInit {
     await loading.present();
 
     // this.afData.list('products').valueChanges().subscribe((proArray) => {
-    this.afData.list('products', ref => ref.orderByChild("productskey").equalTo(this.productskey)).valueChanges().subscribe((proArray) => {
+    this.afData.list('products/' + this.productskey + '/orders').valueChanges().subscribe((proArray) => {
+      this.basketArray = proArray;
       loading.dismiss();
-      this.tempArray = proArray;
     }, (databaseError) => {
       loading.dismiss();
       this.alert.presentAlert(databaseError.message);
     })
 
   }
+
 }
