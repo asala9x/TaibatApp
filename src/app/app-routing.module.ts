@@ -63,6 +63,10 @@ const routes: Routes = [
   },  {
     path: 'basket',
     loadChildren: () => import('./pages/customer/basket/basket.module').then( m => m.BasketPageModule)
+  },
+  {
+    path: 'people-register',
+    loadChildren: () => import('./pages/admin/people-register/people-register.module').then( m => m.PeopleRegisterPageModule)
   }
 
 
