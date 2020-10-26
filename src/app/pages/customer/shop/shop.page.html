@@ -48,6 +48,8 @@
     </ion-grid>
   </div>
 </ion-content>
-<footer>
-  <ion-button color="light" class="buttStyle" Expand="block" > View basket </ion-button>
-</footer>
+
+<ion-footer *ngFor="let i of tempArray">
+  
+  <ion-button color="light" class="buttStyle" Expand="block" (click)="basket(i)" > View basket </ion-button>
+</ion-footer>
