@@ -5,7 +5,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngFor="let i of tempArray">
   <ion-text color="primary">
     <h2 class="headerStyle">Your Products:</h2>
   </ion-text>
@@ -13,6 +13,15 @@
 
     <ion-row>
       <ion-col>
+        {{i.ProductName}}
+      </ion-col>
+      <ion-col>
+        {{i.price}}
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row>
+      <ion-col>
         Green tea
       </ion-col>
       <ion-col>
@@ -45,16 +54,7 @@
       <ion-col>
         4.99 OMR
       </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        Green tea
-      </ion-col>
-      <ion-col>
-        4.99 OMR
-      </ion-col>
-    </ion-row>
+    </ion-row> -->
 
   </div>
   <br />

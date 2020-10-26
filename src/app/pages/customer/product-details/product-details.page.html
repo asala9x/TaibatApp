@@ -15,19 +15,19 @@
   <div>
 
     <ion-fab vertical="buttom" horizontal="start" class="cartfab" edge slot="fixed">
-      <ion-fab-button>
-        <ion-icon name="cart" class="carticon"></ion-icon>
+      <ion-fab-button >
+        <ion-icon name="cart" class="carticon" (click)="AddToCart(i.ProductName,i.price)"></ion-icon>
       </ion-fab-button>
     </ion-fab>
 
-    <ion-card class="detailsStyle">
-      <ion-card-content>
+    <ion-card class="detailsStyle" >
+      <ion-card-content >
         <ion-text color="primary">
-          <ion-label class="nameStyle">
+          <ion-label class="nameStyle" >
             {{i.ProductName}}
           </ion-label>
 
-          <ion-label class="priceStyle">{{i.price}} </ion-label>
+          <ion-label class="priceStyle" >{{i.price}} </ion-label>
         </ion-text>
 
         <ion-list class="paddingitem">
@@ -50,9 +50,15 @@
                 </ion-card-content>
               </ion-col>
             </ion-row>
+            <div class="divstyleqty" >
+              <ion-icon  name="remove" (click)="decrementQty()" class="removeiconstyle" ></ion-icon>
+              <ion-label class="lblstyle" >{{qty}}</ion-label>
+              <ion-icon name="add" (click)="incrementQty()" class="addiconstyle" ></ion-icon>
+            </div>
 
           </ion-item-sliding>
         </ion-list>
+
       </ion-card-content>
     </ion-card>
   </div>

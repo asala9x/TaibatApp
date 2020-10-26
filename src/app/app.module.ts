@@ -21,6 +21,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 //import camera
 import { Camera } from '@ionic-native/camera/ngx';
 import {  IonTabs } from '@ionic/angular';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -31,7 +32,7 @@ import {  IonTabs } from '@ionic/angular';
      AngularFireStorageModule, //for storage
     AngularFireAuthModule,//for Atho
     IonicModule.forRoot(), AppRoutingModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
   ],
   providers: [
     StatusBar,
