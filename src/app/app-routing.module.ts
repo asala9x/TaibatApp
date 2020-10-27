@@ -67,6 +67,14 @@ const routes: Routes = [
   {
     path: 'people-register',
     loadChildren: () => import('./pages/admin/people-register/people-register.module').then( m => m.PeopleRegisterPageModule)
+  },
+  {
+    path: 'location',
+    loadChildren: () => import('./pages/customer/location/location.module').then( m => m.LocationPageModule)
+  },
+  {
+    path: 'address',
+    loadChildren: () => import('./pages/customer/address/address.module').then( m => m.AddressPageModule)
   }
 
 

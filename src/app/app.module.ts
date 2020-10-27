@@ -21,6 +21,8 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 //import camera
 import { Camera } from '@ionic-native/camera/ngx';
 import {  IonTabs } from '@ionic/angular';
+//map
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +39,7 @@ import {  IonTabs } from '@ionic/angular';
   providers: [
     StatusBar,
     SplashScreen,
+    Geolocation,
     Camera,
      IonTabs,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

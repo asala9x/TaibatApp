@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-back-button class="backiconstyle" slot="start"> </ion-back-button>
+    <ion-title>Location</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <!-- <ion-list >
+      <ion-item >
+        <ion-input color="primary" type="text" [(ngModel)]="data.source" placeholder="Source"> </ion-input>
+      </ion-item>
+      <ion-item >
+        <ion-input color="primary" type="text" [(ngModel)]="data.destination" placeholder="Destination"> </ion-input>
+      </ion-item>
+      </ion-list> -->
+  <div id="map" #map class="map">
+  </div>
+  <ion-button expand="block" class="buttStyle" (click)="displayDirectionsinMap()">
+    Select
+  </ion-button>
+</ion-content>

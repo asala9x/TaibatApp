@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-back-button class="backiconstyle" slot="start"> </ion-back-button>
+    <ion-title  >Address</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-paddind">
+  <div>
+<img src="../../../../assets/icon/map.png" class="imgmapstyle"/>
+<div class="bntdiv">
+<ion-button color="primary" class="buttStyle" Expand="block" fill="outline"  [routerLink]="['/location']">
+  <ion-icon name="location" slot="start">
+    </ion-icon> 
+    Select Location
+</ion-button>
+</div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <div class="ordiv">
+    <p><span>Or Add Manually</span></p>
+  </div>
+  <div class="inputDivStyle">
+    <ion-list >
+      <ion-item >
+        <ion-icon name="location" class="iconcolor" slot="start"></ion-icon>
+        <ion-input color="primary" type="text"  placeholder="Area"> </ion-input>
+      </ion-item>
+      <br/>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-icon name="subway" class="iconcolor" slot="start"></ion-icon>
+            <ion-input color="primary" type="text"  placeholder="Street"> </ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-icon name="home" class="iconcolor" slot="start"></ion-icon>
+            <ion-input color="primary" type="text"  placeholder="Home Number"> </ion-input>
+          </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-item>
+      <ion-icon name="call" class="iconcolor" slot="start"></ion-icon>
+      <ion-input color="primary" type="text"  placeholder="Phone Number"> </ion-input>
+    </ion-item>
+    <br/>
+    <ion-button color="primary"  Expand="block" class="okbuttStyle"   [routerLink]="['/location']">
+       Ok
+    </ion-button>
+      </ion-list>
+    </div>
+</ion-content>
