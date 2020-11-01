@@ -24,11 +24,11 @@
 
 <ion-content>
   
-  <div align="center" class="maindivStyle" >
+  <div align="center" class="maindivStyle" *ngFor="let i of tempArray" >
     <ion-grid class="gridstyle" >
       <ion-row>
        
-        <ion-col size="4" *ngFor="let i of tempArray">
+        <ion-col size="4"  >
          
           <ion-card class="cardstyle" >
             <div align="center" class="imgestyle">
@@ -46,10 +46,11 @@
         
       </ion-row>
     </ion-grid>
+    
   </div>
 </ion-content>
 
-<ion-footer *ngFor="let i of tempArray">
-  
+<ion-footer>
+  <!-- (click)="basket(i)" -->
   <ion-button color="light" class="buttStyle" Expand="block" (click)="basket(i)" > View basket </ion-button>
 </ion-footer>

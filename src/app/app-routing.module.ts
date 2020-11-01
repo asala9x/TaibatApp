@@ -75,6 +75,10 @@ const routes: Routes = [
   {
     path: 'address',
     loadChildren: () => import('./pages/customer/address/address.module').then( m => m.AddressPageModule)
+  },
+  {
+    path: 'checkout',
+    loadChildren: () => import('./pages/customer/checkout/checkout.module').then( m => m.CheckoutPageModule)
   }
 
 
