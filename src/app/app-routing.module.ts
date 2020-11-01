@@ -75,6 +75,10 @@ const routes: Routes = [
   {
     path: 'address',
     loadChildren: () => import('./pages/customer/address/address.module').then( m => m.AddressPageModule)
+  },
+  {
+    path: 'admin-menu',
+    loadChildren: () => import('./pages/menu/admin-menu/admin-menu.module').then( m => m.AdminMenuPageModule)
   }
 
 

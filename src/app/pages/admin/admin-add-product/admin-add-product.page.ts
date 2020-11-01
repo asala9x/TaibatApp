@@ -22,6 +22,7 @@ private productsObj: any = {
   "ProductName": "",
   "price": "",
   "category": "",
+  "qty":"",
   "img": "",
   "Description": ""
 }
@@ -32,7 +33,9 @@ private productsObj: any = {
     public loadingController: LoadingController,
     public alertController: AlertController,
     private afData: AngularFireDatabase,
-    private alert: AlertserviceService) { }
+    private alert: AlertserviceService) {
+      this.productsObj.qty=1;
+     }
 
   ngOnInit() {
   }
@@ -160,5 +163,19 @@ private productsObj: any = {
       // Handle error
     });
   }
+// increment product qty
+incrementQty() {
+  console.log(this.productsObj.qty+1);
+  this.productsObj.qty += 1;
+  }
+  decrementQty() {
+    if( this.productsObj.qty-1 < 1 ){
+      this.productsObj.qty = 1
+    console.log("1->"+ this.productsObj.qty);
+    }else{
+      this.productsObj.qty -= 1;
+    console.log("2->"+ this.productsObj.qty);
 
+    }  
+  }
 }
