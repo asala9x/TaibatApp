@@ -5,11 +5,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngFor="let i of basketArray">
+<ion-content>
   <ion-text color="primary">
     <h2 class="headerStyle">Your Products:</h2>
   </ion-text>
-  <div class="divProductsStyle">
+  <div class="divProductsStyle"  *ngFor="let i of basketArray">
 
     <ion-row>
       <ion-col>
