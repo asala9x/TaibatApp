@@ -33,7 +33,7 @@
         Basket total
       </ion-col>
       <ion-col>
-        414.98 OMR
+        {{totalPrice}} OMR
       </ion-col>
     </ion-row>
 
@@ -60,8 +60,10 @@
     <ion-col size="8" class="headerServiceChargeStyle">
      <b>Total amount:</b> 
     </ion-col>
-    <ion-col size="4" class="serviceChargeStyle">
-      2300 OMR
+    <!-- [(ngModel)]="finaltotal" -->
+    <ion-col size="4" class="serviceChargeStyle" >
+      <!-- 2300 OMR -->
+      {{finaltotal}} OMR
     </ion-col>
   </ion-row>
 </div>
@@ -69,8 +71,8 @@
 <br/>
 <br/>
 <div class="buttDivStyle">
-  <ion-button color="primary" class="CancelbuttStyle" fill="outline"> Add more </ion-button>
-  <ion-button color="light" class="CancelbuttStyle" (click)="addEvents()"> Checkout </ion-button>
+  <ion-button color="primary" class="CancelbuttStyle" fill="outline"  (click)="tot()" > Add more </ion-button>
+  <ion-button color="light" class="CancelbuttStyle" (click)="checkOut()"> Checkout </ion-button>
 </div>
 
 </ion-content>
