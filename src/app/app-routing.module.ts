@@ -77,8 +77,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/customer/address/address.module').then( m => m.AddressPageModule)
   },
   {
+<<<<<<< HEAD
+    path: 'admin-menu',
+    loadChildren: () => import('./pages/menu/admin-menu/admin-menu.module').then( m => m.AdminMenuPageModule)
+=======
     path: 'checkout',
     loadChildren: () => import('./pages/customer/checkout/checkout.module').then( m => m.CheckoutPageModule)
+>>>>>>> f15a08c5d041ed667b233786a8de2c2246e9e80e
   }
 
 

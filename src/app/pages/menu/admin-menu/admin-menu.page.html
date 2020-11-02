@@ -1,0 +1,21 @@
+<ion-split-pane contentId="content">
+  <ion-menu contentId="content">
+    <ion-header >
+      <ion-toolbar color="primary">
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-item (click)="Logout()">
+          <ion-icon name="log-out-outline" slot="start" class="iconcolor"></ion-icon>
+          <ion-label color="primary" class="labelname">
+            <h2> LogOut</h2>
+          </ion-label>
+        </ion-item>
+        </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="content"></ion-router-outlet>
+</ion-split-pane>

@@ -26,29 +26,29 @@
     <ion-list >
       <ion-item >
         <ion-icon name="location" class="iconcolor" slot="start"></ion-icon>
-        <ion-input color="primary" type="text"  placeholder="Area"> </ion-input>
+        <ion-input color="primary" type="text" [(ngModel)]="ordersObj.Area"  placeholder="Area"> </ion-input>
       </ion-item>
       <br/>
       <ion-row>
         <ion-col>
           <ion-item>
             <ion-icon name="subway" class="iconcolor" slot="start"></ion-icon>
-            <ion-input color="primary" type="text"  placeholder="Street"> </ion-input>
+            <ion-input color="primary" type="text" [(ngModel)]="ordersObj.Street"  placeholder="Street"> </ion-input>
           </ion-item>
         </ion-col>
         <ion-col>
           <ion-item>
             <ion-icon name="home" class="iconcolor" slot="start"></ion-icon>
-            <ion-input color="primary" type="text"  placeholder="Home Number"> </ion-input>
+            <ion-input color="primary" type="Number" [(ngModel)]="ordersObj.HomeNumber" placeholder="Home Number"> </ion-input>
           </ion-item>
         </ion-col>
     </ion-row>
     <ion-item>
       <ion-icon name="call" class="iconcolor" slot="start"></ion-icon>
-      <ion-input color="primary" type="text"  placeholder="Phone Number"> </ion-input>
+      <ion-input color="primary" type="text"  placeholder="Phone Number" [(ngModel)]="ordersObj.PhoneNumber"> </ion-input>
     </ion-item>
     <br/>
-    <ion-button color="primary"  Expand="block" class="okbuttStyle"   [routerLink]="['/location']">
+    <ion-button color="primary"  Expand="block" class="okbuttStyle"   (click)="addOrder()">
        Ok
     </ion-button>
       </ion-list>
