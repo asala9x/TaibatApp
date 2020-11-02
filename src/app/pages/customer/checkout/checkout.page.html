@@ -8,7 +8,7 @@
 <ion-content>
   <div align="center" class="div">
     <img class="imgestyle" src="../../../../assets/icon/map3.jpg" />
-    <ion-button  color="tertiary" class="SelectLocationbut"> Select Location </ion-button>
+    <ion-button   fill="outline" class="SelectLocationbut" [routerLink]="['/address']"> Select Location </ion-button>
   </div>
 
   <ion-text color="primary">
@@ -22,7 +22,7 @@
         Total amount
       </ion-col>
       <ion-col>
-        414.98 OMR
+        {{total}}
       </ion-col>
     </ion-row>
 
