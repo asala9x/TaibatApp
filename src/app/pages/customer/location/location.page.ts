@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ActivatedRoute } from '@angular/router';
+import { AlertserviceService } from '../../../services/alertservice.service';
 declare var google;
 
 @Component({
@@ -17,8 +18,8 @@ export class LocationPage implements OnInit {
   private data: any = {
     // "source": "",
     // "destination": ""
-    "longitude":"",
-    "latitude":""
+    "longitude": "",
+    "latitude": ""
   };
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
@@ -26,7 +27,9 @@ export class LocationPage implements OnInit {
   // private userdata:any={};
 
 
-  constructor(private geolocation: Geolocation, private route: ActivatedRoute) {
+  constructor(private geolocation: Geolocation,
+    private route: ActivatedRoute,
+    private alert: AlertserviceService) {
     // this.route.queryParams.subscribe(receiveddata=>{
     //     this.userdata=receiveddata;
     // });
@@ -48,36 +51,38 @@ export class LocationPage implements OnInit {
   }
 
   displayDirectionsinMap() {
-  //   this.directionsService.route({
-  //     origin: this.data.source,
-  //     destination: this.data.destination,
-  //     travelMode: 'DRIVING'
-  //   }, (response, status) => {
-  //     if (status === 'OK') {
-  //       this.directionsDisplay.setDirections(response);
-  //     } else {
-  //       window.alert('Directions request failed due to ' + status);
-  //     }
-  //   });
+    //   this.directionsService.route({
+    //     origin: this.data.source,
+    //     destination: this.data.destination,
+    //     travelMode: 'DRIVING'
+    //   }, (response, status) => {
+    //     if (status === 'OK') {
+    //       this.directionsDisplay.setDirections(response);
+    //     } else {
+    //       window.alert('Directions request failed due to ' + status);
+    //     }
+    //   });
 
-  this.geolocation.getCurrentPosition(
-    {maximumAge: 1000, timeout: 5000,
-     enableHighAccuracy: true }
+    this.geolocation.getCurrentPosition(
+      {
+        maximumAge: 1000, timeout: 5000,
+        enableHighAccuracy: true
+      }
     ).then((resp) => {
-          // resp.coords.latitude
-          // resp.coords.longitude
-          //alert("r succ"+resp.coords.latitude)
-          alert(JSON.stringify( resp.coords));
-    
-          this.data.latitude=resp.coords.latitude
-          this.data.longitude=resp.coords.longitude
-          },er=>{
-            //alert("error getting location")
-            alert('Can not retrieve Location')
-          }).catch((error) => {
-          //alert('Error getting location'+JSON.stringify(error));
-          alert('Error getting location - '+JSON.stringify(error))
-          })
+      // resp.coords.latitude
+      // resp.coords.longitude
+      //alert("r succ"+resp.coords.latitude)
+      //alert(JSON.stringify( resp.coords));
+      this.alert.presentAlert("your location has been added");
+      this.data.latitude = resp.coords.latitude
+      this.data.longitude = resp.coords.longitude
+    }, er => {
+      //alert("error getting location")
+      alert('Can not retrieve Location')
+    }).catch((error) => {
+      //alert('Error getting location'+JSON.stringify(error));
+      alert('Error getting location - ' + JSON.stringify(error))
+    })
   }
 
 
