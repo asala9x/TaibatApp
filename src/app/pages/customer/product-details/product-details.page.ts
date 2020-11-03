@@ -19,16 +19,17 @@ export class ProductDetailsPage implements OnInit {
 
   // private matches: string[] = [];
   private tempArray: any[] = [];
-  // private tempArray1: any[] = [];
+  private tempArray1: any[] = [];
   qty: any;
   private productskey: string = "";
+  private uid: string = "";
 
 
   private order = {
     "ProductName": "",
     "price": "",
     "qty": "",
-    "CustomerId": ""
+    "productid":""
   };
 
 
@@ -45,6 +46,7 @@ export class ProductDetailsPage implements OnInit {
       this.productskey = data.productskey;
       this.retrieveDataFromFirebase(this.productskey);
     });
+
     this.qty = 1;
   }
 
@@ -73,6 +75,7 @@ export class ProductDetailsPage implements OnInit {
 
 
 
+
   // increment product qty
   incrementQty() {
     console.log(this.qty + 1);
@@ -92,12 +95,16 @@ export class ProductDetailsPage implements OnInit {
 
 
   //not sure
-  viewProductData() {
+  async viewProductData() {
 
-    this.afData.list("products/" + this.productskey + "/order").valueChanges().subscribe((suceess) => {
+
+    this.afData.list("user/" + this.uid + "/cart").valueChanges().subscribe((suceess) => {
 
       console.log(suceess);
       let temp2 = suceess;
+
+      
+
       let temp: any[] = [];
       for (let i = 0; i < temp2.length; i++) {
         console.log(temp2);
@@ -106,7 +113,7 @@ export class ProductDetailsPage implements OnInit {
 
       console.log(temp);
 
-      
+
 
       console.log(suceess);
     }, (error) => {
@@ -120,18 +127,89 @@ export class ProductDetailsPage implements OnInit {
 
   //AddToCart
   async AddToCart(order) {
+    //add order in products (older code)
+
+    // let temp2;
+    // let temp: any[] = [];
+
+    // this.afData.list("products/" + this.productskey + "/orders").valueChanges().subscribe((suceess) => {
+
+    //   console.log(suceess);
+    //   temp2 = suceess;
+
+    //   for (let i = 0; i < temp2.length; i++) {
+    //     console.log(temp2);
+    //     temp.push(temp2[i]);
+    //   }
+
+    //   console.log(temp);
+
+    //   console.log(suceess);
+    // }, (error) => {
+
+    // });
+
+
+    // let orderObj = {
+    //   "ProductName": this.order.ProductName,
+    //   "price": this.order.price,
+    //   "qty": this.order.qty,
+    //   "CustomerId": this.order.CustomerId
+
+    // };
+    // orderObj.ProductName = this.tempArray[0].ProductName;
+    // orderObj.price = this.tempArray[0].price;
+    // orderObj.qty = this.qty;
+
+
+    // const loading = await this.loadingController.create({
+    //   message: 'Please wait...',
+    // });
+    // await loading.present();
+
+
+    // this.authService.getDataFromStorage().then((userdata) => {
+
+
+    //   orderObj.CustomerId = userdata.uid;
+    //   temp.push(orderObj);
+    //   console.log(temp);
+    //   this.afData.list('/products/' + this.productskey).update("orders", temp).then((sucess) => {
+    //     loading.dismiss();
+    //     this.alert.presentAlert("you have successfully added for the cart");
+    //   }).catch((err) => {
+    //     loading.dismiss();
+    //     this.alert.presentAlert(err.message);
+    //   });
+    //   loading.dismiss();
+
+
+    // }).catch((storageerror) => {
+    //   loading.dismiss();
+    //   this.alert.presentAlert("Unable to get data from storage");
+    // })
+
+
+
+    //add cart in user (new code)
+
     let temp2;
     let temp: any[] = [];
 
-    this.afData.list("products/" + this.productskey + "/orders").valueChanges().subscribe((suceess) => {
+    this.afData.list("user/" + this.uid + "/cart").valueChanges().subscribe((suceess) => {
 
       console.log(suceess);
       temp2 = suceess;
+       alert(JSON.stringify(temp2))
 
+
+      // i = 0 ,       0 < 0
       for (let i = 0; i < temp2.length; i++) {
         console.log(temp2);
         temp.push(temp2[i]);
+        
       }
+
 
       console.log(temp);
 
@@ -145,12 +223,13 @@ export class ProductDetailsPage implements OnInit {
       "ProductName": this.order.ProductName,
       "price": this.order.price,
       "qty": this.order.qty,
-      "CustomerId": this.order.CustomerId
+      "productid": this.order.productid
 
     };
     orderObj.ProductName = this.tempArray[0].ProductName;
     orderObj.price = this.tempArray[0].price;
     orderObj.qty = this.qty;
+    orderObj.productid=this.productskey;
 
 
     const loading = await this.loadingController.create({
@@ -158,14 +237,15 @@ export class ProductDetailsPage implements OnInit {
     });
     await loading.present();
 
-    
+
     this.authService.getDataFromStorage().then((userdata) => {
+      this.uid = userdata.uid;
+      //orderObj.CustomerId = userdata.uid;
 
-
-      orderObj.CustomerId = userdata.uid;
       temp.push(orderObj);
       console.log(temp);
-      this.afData.list('/products/' + this.productskey).update("orders", temp).then((sucess) => {
+      this.afData.list('/user/' + this.uid).update("cart", temp).then((sucess) => {
+        // temp.push(orderObj);
         loading.dismiss();
         this.alert.presentAlert("you have successfully added for the cart");
       }).catch((err) => {
@@ -173,12 +253,16 @@ export class ProductDetailsPage implements OnInit {
         this.alert.presentAlert(err.message);
       });
       loading.dismiss();
-     
+
 
     }).catch((storageerror) => {
       loading.dismiss();
       this.alert.presentAlert("Unable to get data from storage");
     })
-    
+
+
+
+   
   }
+
 }
