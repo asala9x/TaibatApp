@@ -10,11 +10,7 @@ import { ServiceService } from '../../../services/service.service';
 // import { privateEncrypt } from 'crypto';
 // import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
-<<<<<<< HEAD
 //import { runInThisContext } from 'vm';
-=======
-// import { runInThisContext } from 'vm';
->>>>>>> 8edcc1d53a890a0ca2e6aac6debc1618b082e88e
 
 import { Router } from '@angular/router';
 

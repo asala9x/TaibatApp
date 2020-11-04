@@ -17,17 +17,20 @@ export class DietitianDetailsPage implements OnInit {
   private matches: string[] = [];
   private tempArray: any[] = [];
   private dieticiankey: string = "";
+
   constructor(public alertController: AlertController,
     private afData: AngularFireDatabase,
     public loadingController: LoadingController,
     private alert: AlertserviceService, 
     private alertservice: AlertserviceService,
     private route: ActivatedRoute) { 
+
       this.route.queryParams.subscribe((data) => {
         // alert(JSON.stringify(data));
          this.dieticiankey = data.dietitiankey;
          this.retrieveDataFromFirebase();
        });
+       
     }
     
   ngOnInit() {
