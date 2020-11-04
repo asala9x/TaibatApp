@@ -10,7 +10,11 @@ import { ServiceService } from '../../../services/service.service';
 // import { privateEncrypt } from 'crypto';
 // import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
+<<<<<<< HEAD
 //import { runInThisContext } from 'vm';
+=======
+// import { runInThisContext } from 'vm';
+>>>>>>> 8edcc1d53a890a0ca2e6aac6debc1618b082e88e
 
 import { Router } from '@angular/router';
 
@@ -26,7 +30,7 @@ export class BasketPage implements OnInit {
   private basketArray: any[] = [];
   private orderArr: any[] = [];
   private finaltotal = 0;
-private servicechaarge = 2;
+  private servicechaarge = 2;
   private totalPrice = 0;
 
   constructor(private afData: AngularFireDatabase,
@@ -93,7 +97,7 @@ private servicechaarge = 2;
             }
 
           }
-        
+
           loading.dismiss();
 
 
@@ -120,19 +124,14 @@ private servicechaarge = 2;
 
   tot() {
 
-
-    // 0           0 < 3                         1
-    //1            1<3                           2
-    //2            2<3                            3
-    //3            3<3                            F End
     for (let total = 0; total < this.basketArray.length; total++) {
-      this.totalPrice = (Number(this.basketArray[total].price) * Number(this.basketArray[total].qty)) + Number(this.totalPrice ) ; //0 = (20 + 0) = 20 * 2 = 40
+      this.totalPrice = (Number(this.basketArray[total].price) * Number(this.basketArray[total].qty)) + Number(this.totalPrice); //0 = (20 + 0) = 20 * 2 = 40
 
     }
 
-this.finaltotal = Number(this.totalPrice) + Number(this.servicechaarge ); 
+    this.finaltotal = Number(this.totalPrice) + Number(this.servicechaarge);
 
-    // alert(JSON.stringify(this.totalPrice));
+
 
   }
 
@@ -140,6 +139,6 @@ this.finaltotal = Number(this.totalPrice) + Number(this.servicechaarge );
 
   checkOut() {
 
-    this.Router.navigate(['checkout'], { queryParams: {amount:this.finaltotal} });
+    this.Router.navigate(['checkout'], { queryParams: { amount: this.finaltotal } });
   }
 }
