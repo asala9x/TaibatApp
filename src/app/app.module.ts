@@ -23,11 +23,13 @@ import { Camera } from '@ionic-native/camera/ngx';
 import {  IonTabs } from '@ionic/angular';
 //map
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-
+//sms
+import { SMS } from '@ionic-native/sms/ngx';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule,
+  imports: [BrowserModule,HttpClientModule,
     AngularFireModule, //new for firebases
     AngularFireModule.initializeApp(environment.key),
     AngularFireDatabaseModule,//for DB
@@ -42,6 +44,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     Geolocation,
     Camera,
      IonTabs,
+     SMS,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

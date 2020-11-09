@@ -1,5 +1,5 @@
 <ion-split-pane contentId="content">
-  <ion-menu contentId="content">
+  <ion-menu contentId="content" side="start" menuId="first" >
     <ion-header >
       <ion-toolbar color="primary">
         <ion-title>Menu</ion-title>
@@ -7,14 +7,21 @@
     </ion-header>
 
     <ion-content>
-      <ion-list>
+        <ion-menu-toggle >
+            <ion-button (click)="Logout()">
+                <ion-icon slot="start" name="log-out" color="light"></ion-icon>
+                <!-- <ion-label color="light" (click)="Logout()" > Log Out</ion-label> -->
+                Log Out
+  </ion-button>
+   </ion-menu-toggle>
+      <!-- <ion-list>
         <ion-item (click)="Logout()">
           <ion-icon name="log-out-outline" slot="start" class="iconcolor"></ion-icon>
           <ion-label color="primary" class="labelname">
             <h2> LogOut</h2>
           </ion-label>
         </ion-item>
-        </ion-list>
+        </ion-list> -->
     </ion-content>
   </ion-menu>
   <ion-router-outlet id="content"></ion-router-outlet>
