@@ -15,8 +15,11 @@
       <ion-col>
         {{i.ProductName}}
       </ion-col>
+      <ion-col >
+        {{i.price*i.qty}} 
+      </ion-col>
       <ion-col>
-        {{i.price}}
+        {{i.qty}}
       </ion-col>
     </ion-row>
 
@@ -70,8 +73,9 @@
 
 <br/>
 <br/>
-<div class="buttDivStyle">
-  <ion-button color="primary" class="CancelbuttStyle" fill="outline"  (click)="tot()" > Add more </ion-button>
+<div class="buttDivStyle"> 
+ 
+  <ion-button color="primary" class="CancelbuttStyle" fill="outline"  [routerLink]="['/customer-tab/shop']" > Add more </ion-button>
   <ion-button color="light" class="CancelbuttStyle" (click)="checkOut()"> Checkout </ion-button>
 </div>
 

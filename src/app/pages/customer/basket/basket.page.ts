@@ -23,6 +23,7 @@ export class BasketPage implements OnInit {
   private productsArray: any[] = [];
   private tempArray: any[] = [];
   private productskey: string = "";
+  private uid: string = "";
   private basketArray: any[] = [];
   private orderArr: any[] = [];
   private finaltotal = 0;
@@ -39,6 +40,7 @@ export class BasketPage implements OnInit {
     this.route.queryParams.subscribe((data) => {
 
       this.productskey = data.productskey;
+      this.uid = data.uid;
     });
     this.tempArray = this.basketArray;
 
@@ -53,70 +55,45 @@ export class BasketPage implements OnInit {
   }
 
   async retrieveDataFromFirebase() {
+    let cartArray: any[] = [];
+    
+
+
+
+
     let OrderArrayTemp: any[] = [];
     const loading = await this.loadingController.create({
       message: 'Please wait...',
     });
     await loading.present();
+   this.authService.getDataFromStorage().then((userdata) => {
+    this.uid = userdata.uid;
+     let userCartPath = "user/" + this.uid + "/cart"
+    loading.dismiss;
+//alert(userCartPath)
 
-    this.afData.list('products').valueChanges().subscribe((orderArray) => {
-      this.basketArray = orderArray;
-      console.log(this.basketArray);
-
-
-      this.authService.getDataFromStorage().then((userdata) => {
-
-
-
-
-        for (let i = 0; i < this.basketArray.length; i++) {
-          this.orderArr = this.basketArray[i].orders;
-          console.log(this.basketArray[i].orders);
-
-
-          if (this.basketArray[i].orders != undefined) {
-
-
-
-            for (let index = 0; index < this.basketArray[i].orders.length; index++) {
-              OrderArrayTemp.push(this.basketArray[i].orders[index]);
-
-            }
-
-            for (let z = 0; z < OrderArrayTemp.length; z++) {
-
-
-
-              if (OrderArrayTemp[z].CustomerId != userdata.uid) {
-                OrderArrayTemp.splice(z, 1);
-              }
-            }
-
-          }
-
-          loading.dismiss();
-
-
-        }
-
-        console.log(OrderArrayTemp);
-        this.basketArray = OrderArrayTemp;
-
-        loading.dismiss();
-      }).catch((storageerror) => {
-        loading.dismiss();
-        this.alert.presentAlert("Unable to get data from storage");
-      })
-
-
-    }, (databaseError) => {
-      loading.dismiss();
-      this.alert.presentAlert(databaseError.message);
-    })
-
-
+const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((orderArray) => {
+  loading.dismiss;
+  console.log(orderArray);
+  userCartlist.unsubscribe();
+  this.basketArray  = orderArray;
+  for (let i = 0; i <   this.basketArray .length; i++) {
+      cartArray.push(  this.basketArray [i]);
   }
-
+ // alert(JSON.stringify(cartArray));
+  this.tot();
+         loading.dismiss();
+  
+      }, (databaseError) => {
+        loading.dismiss();
+        this.alert.presentAlert(databaseError.message);
+      })
+    }).catch((storageerror) => {
+          loading.dismiss();
+          this.alert.presentAlert("Unable to get data from storage");
+        })
+        
+    }
 
   tot() {
 
