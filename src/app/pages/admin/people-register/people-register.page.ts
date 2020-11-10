@@ -6,6 +6,7 @@ import { AlertserviceService } from '../../../services/alertservice.service';
 import { AlertController } from '@ionic/angular';
 //sms
 import { SMS } from '@ionic-native/sms/ngx';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 @Component({
     selector: 'app-people-register',
@@ -15,11 +16,13 @@ import { SMS } from '@ionic-native/sms/ngx';
 export class PeopleRegisterPage implements OnInit {
 
     private eventArray: any[] = [];
+    //private email:string = "fatmaalbrashdi.1995@gmail.com";
     private eventkey: string = "";
     private matches: string[] = [];
     private tempArray: any[] = [];
     private peopleRegisterdArray: any[] = [];
     constructor(
+        private emailComposer: EmailComposer,
         public alertController: AlertController,
         private afData: AngularFireDatabase,
         private route: ActivatedRoute,
@@ -44,6 +47,7 @@ export class PeopleRegisterPage implements OnInit {
         this.afData.list('event/' + this.eventkey + '/peopleregistered').valueChanges().subscribe((peopleregArray) => {
             this.peopleRegisterdArray = peopleregArray;
             loading.dismiss();
+            //alert(JSON.stringify(this.peopleRegisterdArray));
         }, (databaseError) => {
             loading.dismiss();
             this.alert.presentAlert(databaseError.message);
@@ -51,58 +55,15 @@ export class PeopleRegisterPage implements OnInit {
 
     }
 
-    // send sms
-    sendsms() {
-        this.sms.send('97163202', 'Hello world!')
-        .then(()=>{
-                  console.log('sms worked')
-              }).catch((err)=>{
-                  alert(JSON.stringify(err))
-              });
-              
-        //   let options:{
-        //       replaceLineBreaks: true,
-        //       android: {
-        //         intent:'INTENT'
-        //       }
-        //   }
-        //   this.sms.send('97163202', 'Message', options).then(()=>{
-        //       console.log('sms worked')
-        //   }).catch((err)=>{
-        //       alert(JSON.stringify(err))
-        //   });
+    // send email
+    sendemail() {
 
-
-        // var options = {
-
-        //     replaceLineBreaks: false, // true to replace \n by a new line, false by default
-
-        //     android: {
-
-        //         //intent: 'INTENT' // send SMS with the native android SMS messaging
-
-        //         intent: '' // send SMS without open any other app
-
-        //     }
-
-        // };
-
-
-        // this.sms.send('97163202', 'SMS content', options)
-
-        //     .then(function () {
-
-        //         // Success! SMS was sent
-
-        //         alert("sent");
-
-        //     }, function (error) {
-
-        //         // An error occurred
-
-        //         alert("can't sent");
-
-        //     });
+    this.emailComposer.open({
+    to:this.peopleRegisterdArray[0].Email,
+     subject: 'Cordova Icons',
+     body: 'How are you? ',
+     })
+   
 
     }
 

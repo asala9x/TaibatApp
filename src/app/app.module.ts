@@ -26,6 +26,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 //sms
 import { SMS } from '@ionic-native/sms/ngx';
 import { HttpClientModule } from '@angular/common/http';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -45,6 +46,7 @@ import { HttpClientModule } from '@angular/common/http';
     Camera,
      IonTabs,
      SMS,
+     EmailComposer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
