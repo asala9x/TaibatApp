@@ -85,7 +85,11 @@ const routes: Routes = [
   {
     path: 'checkout',
     loadChildren: () => import('./pages/customer/checkout/checkout.module').then( m => m.CheckoutPageModule)
+  },  {
+    path: 'popover-component',
+    loadChildren: () => import('./pages/popover/popover-component/popover-component.module').then( m => m.PopoverComponentPageModule)
   }
+
 
 
 
