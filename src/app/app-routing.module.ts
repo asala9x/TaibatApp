@@ -78,17 +78,17 @@ const routes: Routes = [
     loadChildren: () => import('./pages/customer/address/address.module').then( m => m.AddressPageModule)
   },
   {
-
-    path: 'admin-menu',
-    loadChildren: () => import('./pages/menu/admin-menu/admin-menu.module').then( m => m.AdminMenuPageModule)
-  },
-  {
     path: 'checkout',
     loadChildren: () => import('./pages/customer/checkout/checkout.module').then( m => m.CheckoutPageModule)
-  },  {
+  },
+  {
     path: 'popover-component',
     loadChildren: () => import('./pages/popover/popover-component/popover-component.module').then( m => m.PopoverComponentPageModule)
+  },  {
+    path: 'customer-popover',
+    loadChildren: () => import('./pages/popover/customer-popover/customer-popover.module').then( m => m.CustomerPopoverPageModule)
   }
+
 
 
 

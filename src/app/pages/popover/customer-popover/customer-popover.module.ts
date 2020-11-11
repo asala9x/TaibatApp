@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AdminMenuPageRoutingModule } from './admin-menu-routing.module';
+import { CustomerPopoverPageRoutingModule } from './customer-popover-routing.module';
 
-import { AdminMenuPage } from './admin-menu.page';
+import { CustomerPopoverPage } from './customer-popover.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AdminMenuPageRoutingModule
+    CustomerPopoverPageRoutingModule
   ],
-  declarations: [AdminMenuPage]
+  declarations: [CustomerPopoverPage]
 })
-export class AdminMenuPageModule {}
+export class CustomerPopoverPageModule {}

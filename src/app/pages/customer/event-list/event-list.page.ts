@@ -8,41 +8,14 @@ import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/da
 import { NavigationExtras } from '@angular/router';
 //NavController
 import { NavController } from '@ionic/angular';
-
+import { PopoverController } from '@ionic/angular';
+import { CustomerPopoverPage } from '../../popover/customer-popover/customer-popover.page';
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.page.html',
   styleUrls: ['./event-list.page.scss'],
 })
 export class EventListPage implements OnInit {
-
-  //  private event=[
-  //   {
-  //     "image":"../../../../assets/icon/event1.jpg",
-  //     "Name":"event Name"
-  //   },
-  //   {
-  //     "image":"../../../../assets/icon/event1.jpg",
-  //     "Name":"even Name"
-  //   },
-  //   {
-  //     "image":"../../../../assets/icon/event1.jpg",
-  //     "Name":"event Name"
-  //   },
-  //   {
-  //     "image":"../../../../assets/icon/event1.jpg",
-  //     "Name":"event Name"
-  //   },
-  //   {
-  //     "image":"../../../../assets/icon/event1.jpg",
-  //     "Name":"event Name"
-  //   },
-  //   {
-  //     "image":"../../../../assets/icon/event1.jpg",
-  //     "Name":"event Name"
-  //   },
-  //  ];
-
   private eventArray: any[] = [];
   private matches: string[] = [];
   private tempArray: any[] = [];
@@ -51,7 +24,8 @@ export class EventListPage implements OnInit {
     private alert: AlertserviceService,
     private afData: AngularFireDatabase,
     public navCtr: NavController,
-    public loadingController: LoadingController) { }
+    public loadingController: LoadingController,
+    private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.retrieveDataFromFirebase();
@@ -83,5 +57,14 @@ export class EventListPage implements OnInit {
       }
     this.navCtr.navigateForward('event-details', NavExtras);
   }
-
+  async CreatePopOver(ev: any) {
+    const popover = await this.popoverController.create({
+      component:CustomerPopoverPage,
+      cssClass: 'my-custom-class1',
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
+  }
+  
 }

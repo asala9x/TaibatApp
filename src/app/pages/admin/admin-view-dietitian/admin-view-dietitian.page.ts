@@ -169,13 +169,6 @@ export class AdminViewDietitianPage implements OnInit {
         await alert.present();
     }
 
-
-    // CreatePopOver() {
-    //     this.popoverController.create({ component: PopoverComponentPage, showBackdrop: false }).then((popoverElement) => {
-    //         popoverElement.present();
-    //     })
-    // }
-
     async CreatePopOver(ev: any) {
         const popover = await this.popoverController.create({
           component: PopoverComponentPage,

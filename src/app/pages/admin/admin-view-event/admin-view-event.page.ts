@@ -8,6 +8,8 @@ import { AlertserviceService } from '../../../services/alertservice.service';
 import { NavController } from '@ionic/angular';
 //NavigationExtras
 import { NavigationExtras } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
+import { PopoverComponentPage } from '../../popover/popover-component/popover-component.page';
 @Component({
   selector: 'app-admin-view-event',
   templateUrl: './admin-view-event.page.html',
@@ -22,7 +24,8 @@ export class AdminViewEventPage implements OnInit {
     private afData: AngularFireDatabase,
     public loadingController: LoadingController,
     private alert: AlertserviceService,
-    public navCtrl: NavController) { }
+    public navCtrl: NavController,
+    private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.retrieveDataFromFirebase();
@@ -146,4 +149,14 @@ export class AdminViewEventPage implements OnInit {
     this.navCtrl.navigateForward('people-register', NavExtras);
  }
 
+
+ async CreatePopOver(ev: any) {
+    const popover = await this.popoverController.create({
+      component: PopoverComponentPage,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
+  }
 }

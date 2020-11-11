@@ -8,6 +8,8 @@ import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/da
 import { NavigationExtras } from '@angular/router';
 //NavController
 import { NavController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
+import { CustomerPopoverPage } from '../../popover/customer-popover/customer-popover.page';
 
 
 @Component({
@@ -26,7 +28,8 @@ export class AdvicePage implements OnInit {
     private alert: AlertserviceService,
     private afData: AngularFireDatabase,
     public navCtr: NavController,
-    public loadingController: LoadingController) { }
+    public loadingController: LoadingController,
+    private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.retrieveDataFromFirebase();
@@ -55,4 +58,14 @@ export class AdvicePage implements OnInit {
 
   }
 
+  async CreatePopOver(ev: any) {
+    const popover = await this.popoverController.create({
+      component:CustomerPopoverPage,
+      cssClass: 'my-custom-class1',
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
+  }
+  
 }

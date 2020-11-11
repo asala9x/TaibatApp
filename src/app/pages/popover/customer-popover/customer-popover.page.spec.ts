@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AdminMenuPage } from './admin-menu.page';
+import { CustomerPopoverPage } from './customer-popover.page';
 
-describe('AdminMenuPage', () => {
-  let component: AdminMenuPage;
-  let fixture: ComponentFixture<AdminMenuPage>;
+describe('CustomerPopoverPage', () => {
+  let component: CustomerPopoverPage;
+  let fixture: ComponentFixture<CustomerPopoverPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminMenuPage ],
+      declarations: [ CustomerPopoverPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AdminMenuPage);
+    fixture = TestBed.createComponent(CustomerPopoverPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

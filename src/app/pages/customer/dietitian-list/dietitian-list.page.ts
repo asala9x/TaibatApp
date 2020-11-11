@@ -8,6 +8,8 @@ import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/da
 import { NavigationExtras } from '@angular/router';
 //NavController
 import { NavController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
+import { CustomerPopoverPage } from '../../popover/customer-popover/customer-popover.page';
 @Component({
   selector: 'app-dietitian-list',
   templateUrl: './dietitian-list.page.html',
@@ -24,7 +26,8 @@ export class DietitianListPage implements OnInit {
     private alert: AlertserviceService,
     private afData: AngularFireDatabase,
     public navCtr: NavController,
-    public loadingController: LoadingController) { }
+    public loadingController: LoadingController,
+    private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.retrieveDataFromFirebase();
@@ -57,5 +60,14 @@ export class DietitianListPage implements OnInit {
     }
     this.navCtr.navigateForward('dietitian-details', NavExtras);
   }
-
+  async CreatePopOver(ev: any) {
+    const popover = await this.popoverController.create({
+      component:CustomerPopoverPage,
+      cssClass: 'my-custom-class1',
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
+  }
+  
 }

@@ -3,11 +3,11 @@ import { PopoverController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import{ServiceService} from '../../../services/service.service';
 @Component({
-  selector: 'app-popover-component',
-  templateUrl: './popover-component.page.html',
-  styleUrls: ['./popover-component.page.scss'],
+  selector: 'app-customer-popover',
+  templateUrl: './customer-popover.page.html',
+  styleUrls: ['./customer-popover.page.scss'],
 })
-export class PopoverComponentPage implements OnInit {
+export class CustomerPopoverPage implements OnInit {
 
   constructor(public popoverController: PopoverController,
     public navCtrl: NavController,
@@ -18,6 +18,9 @@ export class PopoverComponentPage implements OnInit {
   Logout(){
     this.storage.clear();
     this.navCtrl.navigateRoot('/login');
+      this.popoverController.dismiss();
+  }
+  Profile(){
       this.popoverController.dismiss();
   }
 }

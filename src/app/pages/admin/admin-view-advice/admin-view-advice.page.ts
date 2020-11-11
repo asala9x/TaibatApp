@@ -3,6 +3,8 @@ import { LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { AlertserviceService } from '../../../services/alertservice.service';
+import { PopoverController } from '@ionic/angular';
+import { PopoverComponentPage } from '../../popover/popover-component/popover-component.page';
 @Component({
   selector: 'app-admin-view-advice',
   templateUrl: './admin-view-advice.page.html',
@@ -16,7 +18,8 @@ export class AdminViewAdvicePage implements OnInit {
   constructor(public alertController: AlertController,
     private afData: AngularFireDatabase,
     private alert: AlertserviceService,
-    public loadingController: LoadingController) { }
+    public loadingController: LoadingController,
+    private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.retrieveDataFromFirebase();
@@ -137,5 +140,15 @@ export class AdminViewAdvicePage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async CreatePopOver(ev: any) {
+    const popover = await this.popoverController.create({
+      component: PopoverComponentPage,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
   }
 }

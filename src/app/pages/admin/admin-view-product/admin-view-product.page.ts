@@ -4,6 +4,8 @@ import { AlertserviceService } from '../../../services/alertservice.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 //import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
+import { PopoverComponentPage } from '../../popover/popover-component/popover-component.page';
 @Component({
   selector: 'app-admin-view-product',
   templateUrl: './admin-view-product.page.html',
@@ -43,7 +45,8 @@ export class AdminViewProductPage implements OnInit {
     private alert: AlertserviceService,
     private afData: AngularFireDatabase,
     public navCtr: NavController,
-    public loadingController: LoadingController) { }
+    public loadingController: LoadingController,
+    private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.retrieveDataFromFirebase();
@@ -184,5 +187,15 @@ async deleteProductAlert(productObj) {
     });
 
     await alertprompt.present();
+  }
+
+  async CreatePopOver(ev: any) {
+    const popover = await this.popoverController.create({
+      component: PopoverComponentPage,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
   }
 }

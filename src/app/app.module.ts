@@ -28,11 +28,13 @@ import { SMS } from '@ionic-native/sms/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { PopoverComponentPageModule } from './../app/pages/popover/popover-component/popover-component.module';
+import { CustomerPopoverPageModule } from './pages/popover/customer-popover/customer-popover.module';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule,HttpClientModule,
     PopoverComponentPageModule,
+    CustomerPopoverPageModule,
     AngularFireModule, //new for firebases
     AngularFireModule.initializeApp(environment.key),
     AngularFireDatabaseModule,//for DB
