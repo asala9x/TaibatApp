@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import {AlertController, LoadingController } from '@ionic/angular';
 //import fire DB
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 //Alertservice
@@ -13,6 +13,7 @@ import { NavController } from '@ionic/angular';
 //import { runInThisContext } from 'vm';
 
 import { Router } from '@angular/router';
+import { timeStamp } from 'console';
 
 @Component({
   selector: 'app-basket',
@@ -36,7 +37,8 @@ export class BasketPage implements OnInit {
     private route: ActivatedRoute,
     private authService: ServiceService,
     public navCtr: NavController,
-    public Router: Router) {
+    public Router: Router,
+    public alertController: AlertController) {
     this.route.queryParams.subscribe((data) => {
 
       this.productskey = data.productskey;
@@ -44,33 +46,31 @@ export class BasketPage implements OnInit {
     });
     this.tempArray = this.basketArray;
 
-    // this.tot();
+    
 
   }
 
   ngOnInit() {
     this.retrieveDataFromFirebase();
 
-    // this.tot();
+   
   }
 
   async retrieveDataFromFirebase() {
     let cartArray: any[] = [];
     
-
-
-
-
     let OrderArrayTemp: any[] = [];
     const loading = await this.loadingController.create({
       message: 'Please wait...',
     });
     await loading.present();
+
+    
    this.authService.getDataFromStorage().then((userdata) => {
     this.uid = userdata.uid;
      let userCartPath = "user/" + this.uid + "/cart"
     loading.dismiss;
-//alert(userCartPath)
+
 
 const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((orderArray) => {
   loading.dismiss;
@@ -80,8 +80,9 @@ const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((or
   for (let i = 0; i <   this.basketArray .length; i++) {
       cartArray.push(  this.basketArray [i]);
   }
- // alert(JSON.stringify(cartArray));
-  this.tot();
+  
+   this.tot();
+
          loading.dismiss();
   
       }, (databaseError) => {
@@ -95,8 +96,11 @@ const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((or
         
     }
 
-  tot() {
-
+  async tot() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
     for (let total = 0; total < this.basketArray.length; total++) {
       this.totalPrice = (Number(this.basketArray[total].price) * Number(this.basketArray[total].qty)) + Number(this.totalPrice); //0 = (20 + 0) = 20 * 2 = 40
 
@@ -104,14 +108,94 @@ const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((or
 
     this.finaltotal = Number(this.totalPrice) + Number(this.servicechaarge);
 
-
+    let userPath = "/user/" + this.uid 
+    let totalOBJ={
+      "finalTotal": this.finaltotal
+    }
+    this.afData.list(userPath).set("total", totalOBJ ).then((itemArray) => {
+        loading.dismiss();
+    }).catch((err) => {
+        loading.dismiss();
+        this.alert.presentAlert(err.message);
+    });
 
   }
 
 
+ 
 
-  checkOut() {
 
-    this.Router.navigate(['checkout'], { queryParams: { amount: this.finaltotal } });
-  }
+
+//delete
+  async deleteproduct(product) {
+
+    const loading = await this.loadingController.create({
+        message: 'Please wait...',
+    });
+    await loading.present();
+
+
+    this.authService.getDataFromStorage().then((userdata) => {
+      this.uid = userdata.uid;
+
+              this.basketArray.forEach( (item, index) => {
+                if(item === product) this.basketArray.splice(index,1);
+                loading.dismiss;
+              });
+
+
+              //  alert(JSON.stringify(this.basketArray))
+
+              let userPath = "/user/" + this.uid
+              this.afData.list(userPath).set("cart", this.basketArray ).then((itemArray) => {
+                  loading.dismiss();
+                  this.alert.presentAlert("Successfully added");
+              }).catch((err) => {
+                  loading.dismiss();
+                  this.alert.presentAlert(err.message);
+              });
+
+     
+           this.tot();
+            
+
+  }, (databaseError) => {
+    loading.dismiss();
+    this.alert.presentAlert(databaseError.message);
+  })
+ 
+
+}
+
+  async deleteProductAlert(product) {
+    const alert = await this.alertController.create({
+        cssClass: 'headerstyle',
+        header: 'Taibat App',
+        message: 'Are you sure you want to delete ' + product.ProductName + ' ?',
+
+        buttons: [
+            {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'headerstyle',
+                handler: (blah) => {
+                    console.log('Confirm Cancel: blah');
+                }
+            }, {
+                text: 'Okay',
+                handler: () => {
+                  
+                    this.deleteproduct(product);
+                
+          
+                }
+            }
+        ]
+    });
+
+    await alert.present();
+}
+
+
+
 }

@@ -15,14 +15,14 @@
     <h2 class="headerStyle">Payment summary:</h2>
   </ion-text>
 
-  <div class="divPaymentStyle">
+  <div class="divPaymentStyle" *ngFor="let i of  totalArray  ">
 
     <ion-row>
       <ion-col>
         Total amount
       </ion-col>
       <ion-col>
-        {{total}}
+        {{i}}
       </ion-col>
     </ion-row>
 

@@ -9,22 +9,37 @@
   <ion-text color="primary">
     <h2 class="headerStyle">Your Products:</h2>
   </ion-text>
-  <div class="divProductsStyle"  *ngFor="let i of basketArray">
+  <div class="divProductsStyle">
 
-    <ion-row>
-      <ion-col>
+    <!-- old -->
+    <ion-row *ngFor="let i of basketArray">
+      <ion-col class="fontsize">
         {{i.ProductName}}
       </ion-col>
-      <ion-col >
-        {{i.price*i.qty}} 
-      </ion-col>
-      <ion-col>
+
+      <ion-col class="fontsize">
+        <!-- <ion-icon name="basket" class="basketicon"></ion-icon> -->
+        <ion-icon name="grid" class="qtyStyle"></ion-icon>
         {{i.qty}}
+      </ion-col>
+
+      <ion-col class="fontsize" >
+        <ion-icon name="card" class="priceStyle"></ion-icon>
+        {{i.price*i.qty}}
+      </ion-col>
+
+      <ion-col>
+        <ion-icon  name="trash" class="trashicon"  (click)="deleteProductAlert(i)"></ion-icon>
       </ion-col>
     </ion-row>
 
+
+
+
+
+
   </div>
-  <br />
+ 
 
   <ion-text color="primary">
     <h2 class="headerStyle">Payment summary:</h2>
@@ -32,7 +47,7 @@
   <div class="divPaymentStyle">
 
     <ion-row>
-      <ion-col>
+      <ion-col class="fontsize">
         Basket total
       </ion-col>
       <ion-col>
@@ -41,42 +56,43 @@
     </ion-row>
 
   </div>
-  
-  <br/>
+
+  <br />
 
   <div class="divServiceStyle">
 
-  <ion-row>
-    <ion-col size="8" class="headerServiceChargeStyle">
-     <b>Service Charge:</b> 
-    </ion-col>
-    <ion-col size="4" class="serviceChargeStyle">
-      2000 OMR
-    </ion-col>
-  </ion-row>
-</div>
+    <ion-row>
+      <ion-col size="8" class="headerServiceChargeStyle">
+        <b>Service Charge:</b>
+      </ion-col>
+      <ion-col size="4" class="serviceChargeStyle">
+        2 OMR
+      </ion-col>
+    </ion-row>
+  </div>
 
-<br/>
-<div class="divServiceStyle">
+  <br />
+  <div class="divServiceStyle">
 
-  <ion-row>
-    <ion-col size="8" class="headerServiceChargeStyle">
-     <b>Total amount:</b> 
-    </ion-col>
-    <!-- [(ngModel)]="finaltotal" -->
-    <ion-col size="4" class="serviceChargeStyle" >
-      <!-- 2300 OMR -->
-      {{finaltotal}} OMR
-    </ion-col>
-  </ion-row>
-</div>
+    <ion-row>
+      <ion-col size="8" class="headerServiceChargeStyle">
+        <b>Total amount:</b>
+      </ion-col>
+      <!-- [(ngModel)]="finaltotal" -->
+      <ion-col size="4" class="serviceChargeStyle">
+        <!-- 2300 OMR -->
+        {{finaltotal}} OMR
+      </ion-col>
+    </ion-row>
+  </div>
 
-<br/>
-<br/>
-<div class="buttDivStyle"> 
- 
-  <ion-button color="primary" class="CancelbuttStyle" fill="outline"  [routerLink]="['/customer-tab/shop']" > Add more </ion-button>
-  <ion-button color="light" class="CancelbuttStyle" (click)="checkOut()"> Checkout </ion-button>
-</div>
+  <br />
+  <br />
+  <div class="buttDivStyle">
+
+    <ion-button color="primary" class="CancelbuttStyle" fill="outline" [routerLink]="['/customer-tab/shop']"> Add more
+    </ion-button>
+    <ion-button color="light" class="CancelbuttStyle" [routerLink]="['/checkout']"> Checkout </ion-button>
+  </div>
 
 </ion-content>
