@@ -5,6 +5,8 @@ import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/da
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { PopoverController } from '@ionic/angular';
 import { PopoverComponentPage } from '../../popover/popover-component/popover-component.page';
+//import SpeechRecognition
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 @Component({
   selector: 'app-admin-view-advice',
   templateUrl: './admin-view-advice.page.html',
@@ -15,11 +17,25 @@ export class AdminViewAdvicePage implements OnInit {
   private adviceArray: any[] = [];
   //temp Array
   private tempArray: any[] = [];
+  private isRecording: boolean = false;
+  private matches: string[] = []; //to get the results
+private searchtxt;
   constructor(public alertController: AlertController,
     private afData: AngularFireDatabase,
     private alert: AlertserviceService,
     public loadingController: LoadingController,
-    private popoverController: PopoverController) { }
+    private popoverController: PopoverController ,
+    private speechRecognition: SpeechRecognition) 
+    {
+    this.speechRecognition.hasPermission()
+      .then((hasPermission: boolean) => {
+        //if user not give any permission
+        if (!hasPermission) { //permission not there
+          this.speechRecognition.requestPermission();
+        }
+      });
+    this.tempArray = this.adviceArray;
+  }
 
   ngOnInit() {
     this.retrieveDataFromFirebase();
@@ -150,5 +166,82 @@ export class AdminViewAdvicePage implements OnInit {
       translucent: true
     });
     return await popover.present();
+  }
+
+
+  //Search
+  startSearch() {
+    this.tempArray = [];
+    for(let i=0; i<this.adviceArray.length;i++){
+      if(this.adviceArray[i].name.toLowerCase().startsWith(this.searchtxt.toLowerCase())){
+        this.tempArray.push(this.adviceArray[i]);
+      }
+    }
+  }
+  ///startStopListening
+  startStopListening() {
+    //to on and off Recording 
+    this.isRecording = (!this.isRecording);
+    if (this.isRecording) {
+      //which language
+      let options = {
+        language: "en-US",
+        matches: 5 //give me max 5 results 
+      } // Start the recognition process 
+      this.speechRecognition.startListening(options).subscribe(
+        (matches: string[]) => {
+          this.matches = matches;
+          //alert(JSON.stringify(matches));
+          this.presentAlertRadio();
+        },
+         (onerror) => 
+         console.log('error:', onerror))
+    }
+    else {
+      // Stop the recognition process (iOS only)
+      this.speechRecognition.stopListening()
+    }
+  }
+
+  //Falter presentAlertRadio
+
+  async presentAlertRadio() {
+    let inputArray: any[] = [];
+    this.matches.forEach(match => {
+      let matcheOBJ = {
+        name: match,
+        label: match,
+        type: 'radio',
+        value: match
+      }
+      inputArray.push(matcheOBJ);
+    });
+    const alertradio = await this.alertController.create({
+      header: 'Select product name: ',
+      inputs: inputArray,
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          console.log('Confirm Cancel');
+        }
+      },
+      {
+        text: 'Ok',
+        handler: (data: string) => {
+         // alert(JSON.stringify(data));
+         this.tempArray = [];
+         for(let i=0; i<this.adviceArray.length;i++){
+           if(this.adviceArray[i].name.toLowerCase().startsWith(data)){
+             this.tempArray.push(this.adviceArray[i]);
+            }
+          }
+                }
+              }
+            ]
+          });
+          await alertradio.present();
+    
   }
 }

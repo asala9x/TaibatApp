@@ -10,6 +10,7 @@ import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
 import { CustomerPopoverPage } from '../../popover/customer-popover/customer-popover.page';
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.page.html',
@@ -43,15 +44,28 @@ export class ShopPage implements OnInit {
 
   ];
 
- private productArray: any[] = [];
+  private productArray: any[] = [];
   private matches: string[] = [];
   private tempArray: any[] = [];
+  private isRecording: boolean = false;
+  private searchtxt;
   constructor(public alertController: AlertController,
     private alert: AlertserviceService,
     private afData: AngularFireDatabase,
     public navCtr: NavController,
     public loadingController: LoadingController,
-    private popoverController: PopoverController) { }
+    private popoverController: PopoverController,
+    private speechRecognition: SpeechRecognition) 
+  {
+    this.tempArray = this.productArray;
+    this.speechRecognition.hasPermission()
+      .then((hasPermission: boolean) => {
+        if (!hasPermission) {
+          this.speechRecognition.requestPermission();
+        }
+      });  
+    }
+
 
   ngOnInit() {
     this.retrieveDataFromFirebase();
@@ -116,4 +130,75 @@ export class ShopPage implements OnInit {
     });
     return await popover.present();
   }
+
+  
+  startSearch() {
+    this.tempArray = [];
+    for(let i=0; i<this.productArray.length;i++){
+      if(this.productArray[i].Title.toLowerCase().startsWith(this.searchtxt.toLowerCase())){
+        this.tempArray.push(this.productArray[i]);
+      }
+    }
+  }
+  startStopListening() {
+    this.isRecording = (!this.isRecording);
+    if (this.isRecording) {
+      let options = {
+        language: "en-US",
+        matches: 5
+      }
+      this.speechRecognition.startListening(options)
+        .subscribe(
+          (matches: string[]) => {
+            this.matches = matches;
+  
+            this.presentAlertRadio();
+          },
+          (onerror) => console.log('error:', onerror)
+        )
+    }
+    else {
+      this.speechRecognition.stopListening()
+    }
+  }
+  //presentAlertRadio
+  async presentAlertRadio() {
+  
+    let inputsArray: any[] = [];
+    this.matches.forEach(match => {
+      let matchObj = {
+        name: match,
+        label: match,
+        type: 'radio',
+        value: match
+      }
+      inputsArray.push(matchObj);
+    });
+    const alertradio = await this.alertController.create({
+      header: 'Select Advice Name',
+      inputs: inputsArray,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data: string) => {
+            this.tempArray = [];
+            for(let i=0; i<this.productArray.length;i++){
+              if(this.productArray[i].ProductName.toLowerCase().startsWith(data)){
+                this.tempArray.push(this.productArray[i]);
+              }
+            }
+                  }
+                }
+              ]
+            });
+            await alertradio.present();
+      
+    }
 }
