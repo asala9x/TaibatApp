@@ -10,6 +10,8 @@ import { NavController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { PopoverComponentPage } from '../../popover/popover-component/popover-component.page';
+//import SpeechRecognition
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 @Component({
   selector: 'app-admin-view-event',
   templateUrl: './admin-view-event.page.html',
@@ -17,15 +19,27 @@ import { PopoverComponentPage } from '../../popover/popover-component/popover-co
 })
 export class AdminViewEventPage implements OnInit {
   //private today: string[] = [];
-  //private eventArray: any[] = [];
+  private eventArray: any[] = [];
   private matches: string[] = [];
   private tempArray: any[] = [];
+  private isRecording: boolean = false;
+  private searchtxt;
   constructor(public alertController: AlertController,
     private afData: AngularFireDatabase,
     public loadingController: LoadingController,
     private alert: AlertserviceService,
     public navCtrl: NavController,
-    private popoverController: PopoverController) { }
+    private popoverController: PopoverController,
+    private speechRecognition: SpeechRecognition) 
+    {
+      this.tempArray = this.eventArray;
+      this.speechRecognition.hasPermission()
+        .then((hasPermission: boolean) => {
+          if (!hasPermission) {
+            this.speechRecognition.requestPermission();
+          }
+        });  
+      }
 
   ngOnInit() {
     this.retrieveDataFromFirebase();
@@ -44,7 +58,7 @@ export class AdminViewEventPage implements OnInit {
     this.afData.list('event', ref => ref.orderByChild('time')).valueChanges().subscribe((eveArray) => {
       loading.dismiss();
       // console.log(JSON.stringify(advArray));
-      //this.eventArray = eveArray;
+      this.eventArray = eveArray;
       this.tempArray = eveArray;
     }, (databaseError) => {
       loading.dismiss();
@@ -159,4 +173,75 @@ export class AdminViewEventPage implements OnInit {
     });
     return await popover.present();
   }
+
+  startSearch() {
+    this.tempArray = [];
+    for(let i=0; i<this.eventArray.length;i++){
+      if(this.eventArray[i].Title.toLowerCase().startsWith(this.searchtxt.toLowerCase())){
+        this.tempArray.push(this.eventArray[i]);
+      }
+    }
+  }
+  startStopListening() {
+    this.isRecording = (!this.isRecording);
+    if (this.isRecording) {
+      let options = {
+        language: "en-US",
+        matches: 5
+      }
+      this.speechRecognition.startListening(options)
+        .subscribe(
+          (matches: string[]) => {
+            this.matches = matches;
+  
+            this.presentAlertRadio();
+          },
+          (onerror) => console.log('error:', onerror)
+        )
+    }
+    else {
+      this.speechRecognition.stopListening()
+    }
+  }
+  //presentAlertRadio
+  async presentAlertRadio() {
+  
+    let inputsArray: any[] = [];
+    this.matches.forEach(match => {
+      let matchObj = {
+        name: match,
+        label: match,
+        type: 'radio',
+        value: match
+      }
+      inputsArray.push(matchObj);
+    });
+    const alertradio = await this.alertController.create({
+      header: 'Select Advice Name',
+      inputs: inputsArray,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data: string) => {
+            this.tempArray = [];
+            for(let i=0; i<this.eventArray.length;i++){
+              if(this.eventArray[i].Title.toLowerCase().startsWith(data)){
+                this.tempArray.push(this.eventArray[i]);
+              }
+            }
+                  }
+                }
+              ]
+            });
+            await alertradio.present();
+      
+    }
+ 
 }

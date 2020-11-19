@@ -6,22 +6,32 @@ import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/da
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { PopoverController } from '@ionic/angular';
 import { PopoverComponentPage } from '../../popover/popover-component/popover-component.page';
-
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 @Component({
     selector: 'app-admin-view-dietitian',
     templateUrl: './admin-view-dietitian.page.html',
     styleUrls: ['./admin-view-dietitian.page.scss'],
 })
 export class AdminViewDietitianPage implements OnInit {
-    //private dietitianArray: any[] = [];
+    private dietitianArray: any[] = [];
+    private isRecording: boolean = false;
     private matches: string[] = [];
+    private searchtxt;
     private tempArray: any[] = [];
     constructor(public alertController: AlertController,
         private afData: AngularFireDatabase,
         public loadingController: LoadingController,
         private alert: AlertserviceService,
-        private popoverController: PopoverController
-    ) { }
+        private popoverController: PopoverController,
+        private speechRecognition: SpeechRecognition) {
+        this.tempArray = this.dietitianArray;
+        this.speechRecognition.hasPermission()
+        .then((hasPermission: boolean) => {
+          if (!hasPermission) {
+            this.speechRecognition.requestPermission();
+          }
+        });
+    }
 
     ngOnInit() {
         this.retrieveDataFromFirebase();
@@ -36,7 +46,7 @@ export class AdminViewDietitianPage implements OnInit {
 
         this.afData.list('dietitian').valueChanges().subscribe((dieArray) => {
             loading.dismiss();
-            //this.dietitianArray = dieArray;
+            this.dietitianArray = dieArray;
             this.tempArray = dieArray;
         }, (databaseError) => {
             loading.dismiss();
@@ -171,12 +181,89 @@ export class AdminViewDietitianPage implements OnInit {
 
     async CreatePopOver(ev: any) {
         const popover = await this.popoverController.create({
-          component: PopoverComponentPage,
-          cssClass: 'my-custom-class',
-          event: ev,
-          translucent: true
+            component: PopoverComponentPage,
+            cssClass: 'my-custom-class',
+            event: ev,
+            translucent: true
         });
         return await popover.present();
-      }
     }
+
+    //Search
+    startSearch() {
+        this.tempArray = [];
+        for (let i = 0; i < this.dietitianArray.length; i++) {
+            if (this.dietitianArray[i].name.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
+                this.tempArray.push(this.dietitianArray[i]);
+            }
+        }
+    }
+
+    //startStopListening
+
+ startStopListening() {
+    this.isRecording = (!this.isRecording);
+    if (this.isRecording) {
+      let options = {
+        language: "en-US",
+        matches: 5
+      }
+      this.speechRecognition.startListening(options)
+        .subscribe(
+          (matches: string[]) => {
+            this.matches = matches;
+  
+            this.presentAlertRadio();
+          },
+          (onerror) => console.log('error:', onerror)
+        )
+  
+    }
+    else {
+      this.speechRecognition.stopListening()
+    }
+  }
+  //presentAlertRadio
+  async presentAlertRadio() {
+  
+    let inputsArray: any[] = [];
+    this.matches.forEach(match => {
+      let matchObj = {
+        name: match,
+        label: match,
+        type: 'radio',
+        value: match
+      }
+      inputsArray.push(matchObj);
+    });
+  
+  
+    const alertradio = await this.alertController.create({
+      header: 'Select Dietitian Name',
+      inputs: inputsArray,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data: string) => {
+            this.tempArray = [];
+      for(let i=0; i<this.dietitianArray.length;i++){
+        if(this.dietitianArray[i].name.toLowerCase().startsWith(data)){
+          this.tempArray.push(this.dietitianArray[i]);
+        }
+      }
+            }
+          }
+        ]
+      });
+      await alertradio.present();
+  
+  }
+}
 

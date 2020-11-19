@@ -29,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { PopoverComponentPageModule } from './../app/pages/popover/popover-component/popover-component.module';
 import { CustomerPopoverPageModule } from './pages/popover/customer-popover/customer-popover.module';
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -48,6 +49,7 @@ import { CustomerPopoverPageModule } from './pages/popover/customer-popover/cust
     SplashScreen,
     Geolocation,
     Camera,
+    SpeechRecognition,
      IonTabs,
      SMS,
      EmailComposer,
