@@ -15,18 +15,18 @@
     <h2 class="headerStyle">Payment summary:</h2>
   </ion-text>
 
-  <div class="divPaymentStyle" *ngFor="let i of  totalArray  ">
+  <div class="divPaymentStyle" >
 
     <ion-row>
       <ion-col>
         Total amount
       </ion-col>
-      <ion-col>
-        {{i}}
+      <ion-col >
+         {{total}}
       </ion-col>
     </ion-row>
 
   </div>
 
-  <ion-button  color="secondary" class="orderbut">Order</ion-button>
+  <ion-button  color="secondary" class="orderbut" (click)="order()">Order</ion-button>
 </ion-content>

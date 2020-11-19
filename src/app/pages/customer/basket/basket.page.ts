@@ -52,7 +52,7 @@ export class BasketPage implements OnInit {
 
   ngOnInit() {
     this.retrieveDataFromFirebase();
-
+    
    
   }
 
@@ -108,11 +108,9 @@ const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((or
 
     this.finaltotal = Number(this.totalPrice) + Number(this.servicechaarge);
 
-    let userPath = "/user/" + this.uid 
-    let totalOBJ={
-      "finalTotal": this.finaltotal
-    }
-    this.afData.list(userPath).set("total", totalOBJ ).then((itemArray) => {
+    let userPath = "user/" + this.uid 
+
+    this.afData.list(userPath).set("total", this.finaltotal ).then((itemArray) => {
         loading.dismiss();
     }).catch((err) => {
         loading.dismiss();
@@ -146,7 +144,7 @@ const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((or
 
               //  alert(JSON.stringify(this.basketArray))
 
-              let userPath = "/user/" + this.uid
+              let userPath = "user/" + this.uid 
               this.afData.list(userPath).set("cart", this.basketArray ).then((itemArray) => {
                   loading.dismiss();
                   this.alert.presentAlert("Successfully added");
