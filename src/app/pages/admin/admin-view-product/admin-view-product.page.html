@@ -6,13 +6,12 @@
   <ion-toolbar lines="none">
 
     <ion-searchbar class="searchstyle" [(ngModel)]="searchtxt" (ngModelChange)="startSearch()">
-        <!-- <ion-icon [name]="isRecording?'mic-outline':'mic-off-outline'" class="iconcolor" (click)="startStopListening()"></ion-icon> -->
     </ion-searchbar>
     <ion-fab vertical="Top" horizontal="end" slot="start">
-        <ion-fab-button class="recordbutton" (click)="startStopListening()">
-            <ion-icon [name]="isRecording?'mic-outline':'mic-off-outline'" class="iconcolor"
+        <!-- <ion-fab-button class="recordbutton" (click)="startStopListening()"> -->
+            <ion-icon [name]="isRecording?'mic':'mic-off'" class="micicon"
                 (click)="startStopListening()"></ion-icon>
-        </ion-fab-button>
+        <!-- </ion-fab-button> -->
     </ion-fab>
 </ion-toolbar>
 </ion-header>

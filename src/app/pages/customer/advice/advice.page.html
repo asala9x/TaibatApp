@@ -1,44 +1,49 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-icon name="ellipsis-vertical" class="iconstyle" slot="end" (click)="CreatePopOver($event)" ></ion-icon>
-    <ion-title>Advice</ion-title>
-  </ion-toolbar>
-  <ion-toolbar >
-       <ion-searchbar class="searchstyle" [(ngModel)]="searchtxt" (ngModelChange)="startSearch()"></ion-searchbar> 
-      <ion-fab vertical="Top" horizontal="end" slot="start" > 
-        <ion-fab-button class="recordbutton" (click)="startStopListening()"> 
-          <ion-icon [name]="isRecording?'mic-outline':'mic-off-outline'" class="iconcolor" ></ion-icon>
-       </ion-fab-button> 
-      </ion-fab>
+    <ion-toolbar color="primary">
+        <ion-icon name="ellipsis-vertical" class="iconstyle" slot="end" (click)="CreatePopOver($event)"></ion-icon>
+        <ion-title>Advice</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar class="searchstyle" [(ngModel)]="searchtxt" (ngModelChange)="startSearch()">
+        </ion-searchbar>
+         <ion-fab vertical="Top" horizontal="end" slot="start">
+            <!--<ion-fab-button class="recordbutton" (click)="startStopListening()"> -->
+                <ion-icon [name]="isRecording?'mic':'mic-off'" class="micicon" (click)="startStopListening()">
+                </ion-icon>
+            <!-- </ion-fab-button>-->
+        </ion-fab> 
+        </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<div class="maindivStyle" *ngFor="let i of tempArray">
-  
-  <ion-slides pager="true" class="slidesStyle">
-    <ion-slide>
-      <img [src]=i.img1 class="imgestyle"/>
-    </ion-slide>
-    <ion-slide>
-      <img [src]=i.img2 class="imgestyle"/>
-    </ion-slide>
-  </ion-slides> 
-  <div>
-    <ion-list lines="none" class="datastyle" >
-      <ion-item >
-        <ion-icon (click)="showpass=(!showpass)" [name]="showpass?'heart':'heart-outline'" class="likestyle"></ion-icon>
-        <ion-text color="primary"> {{i.name}}  </ion-text>
-      </ion-item>
-      <ion-item>
-        <div class="desdivStyle" >
-        <p class="ion-text-wrap">
-         {{i.descripion}}
-        </p></div>
-      </ion-item>
-      </ion-list>
-  </div>
+    <div class="maindivStyle" *ngFor="let i of tempArray">
 
-</div>
+        <ion-slides pager="true" class="slidesStyle">
+            <ion-slide>
+                <img [src]=i.img1 class="imgestyle" />
+            </ion-slide>
+            <ion-slide>
+                <img [src]=i.img2 class="imgestyle" />
+            </ion-slide>
+        </ion-slides>
+        <div>
+            <ion-list lines="none" class="datastyle">
+                <ion-item>
+                    <ion-icon (click)="showpass=(!showpass)" [name]="showpass?'heart':'heart-outline'"
+                        class="likestyle"></ion-icon>
+                    <ion-text color="primary"> {{i.name}} </ion-text>
+                </ion-item>
+                <ion-item>
+                    <div class="desdivStyle">
+                        <p class="ion-text-wrap">
+                            {{i.descripion}}
+                        </p>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </div>
+
+    </div>
 
 
 
