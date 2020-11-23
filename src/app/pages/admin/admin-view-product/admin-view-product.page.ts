@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
-//import { NavigationExtras } from '@angular/router';
+import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
 import { PopoverComponentPage } from '../../popover/popover-component/popover-component.page';
@@ -282,4 +282,14 @@ async deleteProductAlert(productObj) {
             await alertradio.present();
       
     }
+
+///view order
+viewOrder(uid) {
+        //alert(JSON.stringify(uid)); 
+        let NavExtras: NavigationExtras = {
+            queryParams:uid
+          }
+        this.navCtr.navigateForward('view-order', NavExtras);
+     }
+    
 }

@@ -88,9 +88,17 @@ const routes: Routes = [
   {
     path: 'customer-popover',
     loadChildren: () => import('./pages/popover/customer-popover/customer-popover.module').then( m => m.CustomerPopoverPageModule)
-  },  {
+  },
+  {
     path: 'states',
-    loadChildren: () => import('./pages/customer/states/states.module').then( m => m.StatesPageModule)
+    loadChildren: () => import('./pages/customer/states/states.module').then( m => m.StatesPageModule)},
+    {
+    path: 'customer-popover',
+    loadChildren: () => import('./pages/popover/customer-popover/customer-popover.module').then( m => m.CustomerPopoverPageModule)
+  },
+  {
+    path: 'view-order',
+    loadChildren: () => import('./pages/Admin/view-order/view-order.module').then( m => m.ViewOrderPageModule)
   }
 
 

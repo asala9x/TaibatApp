@@ -20,32 +20,33 @@
   <br/>
   <br/>
   <div class="ordiv">
-    <p><span>Or Add Manually</span></p>
+    <p><span>Complat your details</span></p>
   </div>
-  <div class="inputDivStyle">
+  <div class="inputDivStyle" >
+    <!-- *ngFor="let i of address" -->
     <ion-list >
       <ion-item >
         <ion-icon name="location" class="iconcolor" slot="start"></ion-icon>
-        <ion-input color="primary" type="text" [(ngModel)]="ordersObj.Area"  placeholder="Area"> </ion-input>
+        <ion-input color="primary" type="text" [(ngModel)]="address.Area"  placeholder="Area"> </ion-input>
       </ion-item>
       <br/>
       <ion-row>
         <ion-col>
           <ion-item>
             <ion-icon name="subway" class="iconcolor" slot="start"></ion-icon>
-            <ion-input color="primary" type="text" [(ngModel)]="ordersObj.Street"  placeholder="Street"> </ion-input>
+            <ion-input color="primary" type="text" [(ngModel)]="address.Street"  placeholder="Street"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col>
           <ion-item>
             <ion-icon name="home" class="iconcolor" slot="start"></ion-icon>
-            <ion-input color="primary" type="Number" [(ngModel)]="ordersObj.HomeNumber" placeholder="Home Number"> </ion-input>
+            <ion-input color="primary" type="Number" [(ngModel)]="address.HomeNumber" placeholder="Home Number"></ion-input>
           </ion-item>
         </ion-col>
     </ion-row>
     <ion-item>
       <ion-icon name="call" class="iconcolor" slot="start"></ion-icon>
-      <ion-input color="primary" type="text"  placeholder="Phone Number" [(ngModel)]="ordersObj.PhoneNumber"> </ion-input>
+      <ion-input color="primary" type="text"  placeholder="Phone Number" [(ngModel)]="address.PhoneNumber"></ion-input>
     </ion-item>
     <br/>
     <ion-button color="primary"  Expand="block" class="okbuttStyle"   (click)="addOrder()">

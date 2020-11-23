@@ -18,7 +18,6 @@ export class PeopleRegisterPage implements OnInit {
     private eventArray: any[] = [];
     //private email:string = "fatmaalbrashdi.1995@gmail.com";
     private eventkey: string = "";
-    private matches: string[] = [];
     private tempArray: any[] = [];
     private peopleRegisterdArray: any[] = [];
     constructor(

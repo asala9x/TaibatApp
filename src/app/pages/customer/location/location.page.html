@@ -5,16 +5,16 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-list >
+<ion-list >
       <ion-item >
-        <ion-label> {{data.latitude}} </ion-label>
-        <!-- <ion-input color="primary" type="text" [(ngModel)]="data.source" placeholder="Source"> </ion-input> -->
+        <ion-label> {{locationdata.latitude}} </ion-label>
+       <!-- <ion-input color="primary" type="text" [(ngModel)]="data.source" placeholder="Source"> </ion-input> -->
       </ion-item>
-      <ion-item >
-        <ion-label>{{data.longitude}}  </ion-label>
+      <ion-item > 
+       <ion-label>{{locationdata.longitude}}  </ion-label> 
         <!-- <ion-input color="primary" type="text" [(ngModel)]="data.destination" placeholder="Destination"> </ion-input> -->
       </ion-item> 
-      </ion-list>
+      </ion-list> 
   <div id="map" #map class="map">
   </div>
   <ion-button expand="block" class="buttStyle" (click)="displayDirectionsinMap()">

@@ -11,16 +11,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 //import Real Time fierpase
-import{AngularFireDatabaseModule}from'@angular/fire/database';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 //import Fierbase storage 
 import { AngularFireStorageModule } from '@angular/fire/storage';
 //Ionic Storage 
 import { IonicStorageModule } from '@ionic/storage';
 //Atho import
-import {AngularFireAuthModule} from '@angular/fire/auth';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 //import camera
 import { Camera } from '@ionic-native/camera/ngx';
-import {  IonTabs } from '@ionic/angular';
+import { IonTabs } from '@ionic/angular';
 //map
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 //sms
@@ -31,30 +31,34 @@ import { PopoverComponentPageModule } from './../app/pages/popover/popover-compo
 import { CustomerPopoverPageModule } from './pages/popover/customer-popover/customer-popover.module';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule,HttpClientModule,
-    PopoverComponentPageModule,
-    CustomerPopoverPageModule,
-    AngularFireModule, //new for firebases
-    AngularFireModule.initializeApp(environment.key),
-    AngularFireDatabaseModule,//for DB
-     AngularFireStorageModule, //for storage
-    AngularFireAuthModule,//for Atho
-    IonicModule.forRoot(), AppRoutingModule,
-    IonicStorageModule.forRoot(),
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    Geolocation,
-    Camera,
-    SpeechRecognition,
-     IonTabs,
-     SMS,
-     EmailComposer,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent],
+    entryComponents: [],
+    imports: [
+        BrowserModule, 
+        HttpClientModule,
+        IonicModule.forRoot(), 
+        AppRoutingModule,
+        IonicStorageModule.forRoot(),
+        PopoverComponentPageModule,
+        CustomerPopoverPageModule,
+        AngularFireModule, //new for firebases
+        AngularFireModule.initializeApp(environment.key),
+        AngularFireDatabaseModule,//for DB
+        AngularFireStorageModule, //for storage
+        AngularFireAuthModule,//for Atho
+        
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        Geolocation,
+        Camera,
+        SpeechRecognition,
+        IonTabs,
+        SMS,
+        EmailComposer,
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

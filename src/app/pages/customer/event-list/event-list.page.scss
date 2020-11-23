@@ -40,19 +40,35 @@
     padding-right: 16px !important;
 }
 
-.recordbutton{
-    --background:none;
-    width: 50px;
-    height: 50px; 
+.searchstyle{
+    margin-right: 2px !important;
+    margin-left: 4px !important;
+    padding: 1px;
+    width: 350px;
+    height: 64px;
+    --background:#FAFAFA;
+    border-color: #707070;
+    --placeholder-color:#357abe;
+    --icon-color:#357abe;
+}
+// .recordbutton{
+//     --background:rgba(255, 0, 0, 0.021);
+//     width: 50px;
+//     height: 50px; 
+//     padding:7px;
+//     margin-right: 0px !important;
+//     margin-bottom:10px ;
+//     margin-top: 7px;
+//     margin-left: 5px !important;
+// }
+
+.micicon{
+    color: #357abe;
+    width: 24px;
+    height: 24px;
     padding:7px;
     margin-right: 0px !important;
     margin-bottom:10px ;
     margin-top: 7px;
     margin-left: 5px !important;
-}
-.searchstyle{
-    margin: 3px;
-    padding: 1px;
-    width: 83%;
-    height: 40px;
 }
