@@ -18,13 +18,13 @@ import { ServiceService } from '../../../services/service.service';
 export class ProductDetailsPage implements OnInit {
 
     // private matches: string[] = [];
+
     private tempArray: any[] = [];
-    private tempArray1: any[] = [];
     qty: any;
     private productskey: string = "";
     private uid: string = "";
-
-
+    // private finalqty =0;
+    private basketArray: any[] = [];
     private order = {
         "ProductName": "",
         "price": "",
@@ -51,6 +51,7 @@ export class ProductDetailsPage implements OnInit {
     }
 
     ngOnInit() {
+        this.viewProductData();
     }
 
     async retrieveDataFromFirebase(productskey) {
@@ -65,6 +66,7 @@ export class ProductDetailsPage implements OnInit {
 
             this.tempArray = proArray;
             //this.ordercart();
+            // this.finalqty = this.tempArray[0].qty
 
         }, (databaseError) => {
             loading.dismiss();
@@ -94,38 +96,86 @@ export class ProductDetailsPage implements OnInit {
     }
 
 
-    //not sure
+
     async viewProductData() {
+        let cartArray: any[] = [];
 
-
-        this.afData.list("user/" + this.uid + "/cart").valueChanges().subscribe((suceess) => {
-
-            console.log(suceess);
-            let temp2 = suceess;
-
-
-
-            let temp: any[] = [];
-            for (let i = 0; i < temp2.length; i++) {
-                console.log(temp2);
-                temp.push(temp2[i]);
-            }
-
-            console.log(temp);
-
-
-
-            console.log(suceess);
-        }, (error) => {
-
+        const loading = await this.loadingController.create({
+            message: 'Please wait...',
         });
+        await loading.present();
+
+
+        this.authService.getDataFromStorage().then((userdata) => {
+            this.uid = userdata.uid;
+            let userCartPath = "user/" + this.uid + "/cart"
+            loading.dismiss;
+
+
+            const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((orderArray) => {
+                loading.dismiss;
+                console.log(orderArray);
+                userCartlist.unsubscribe();
+                this.basketArray = orderArray;
+                for (let i = 0; i < this.basketArray.length; i++) {
+                    cartArray.push(this.basketArray[i]);
+                }
+
+                // alert(JSON.stringify(this.basketArray))
+
+                loading.dismiss();
+
+            }, (databaseError) => {
+                loading.dismiss();
+                this.alert.presentAlert(databaseError.message);
+            })
+        }).catch((storageerror) => {
+            loading.dismiss();
+            this.alert.presentAlert("Unable to get data from storage");
+        })
+
+
+        // this.afData.list("user/" + this.uid + "/cart").valueChanges().subscribe((suceess) => {
+
+        //     console.log(suceess);
+        //     let temp2 = suceess;
+
+        //     alert(temp2);
+
+        //     let temp: any[] = [];
+        //     for (let i = 0; i < temp2.length; i++) {
+        //         console.log(temp2);
+        //         temp.push(temp2[i]);
+
+        //     }
+
+        //     console.log(temp);
+
+
+
+        //     console.log(suceess);
+        // }, (error) => {
+
+        // });
 
 
 
     }
 
+    // private finalqty = this.tempArray[0].qty;
     //AddToCart
     async AddToCart(order) {
+
+        //  alert(this.tempArray[0].qty)
+        //    let finalqty = 0;
+
+        // if (this.qty > this.tempArray[0].qty) {
+
+        //     this.alert.presentAlert("Only " + this.tempArray[0].qty + " items are available in stock");
+
+        // } else {
+
+        // this.finalqty = this.tempArray[0].qty -this.qty; 
         let previousCartItmes: any[] = [];
         let cartArray: any[] = [];
 
@@ -142,7 +192,6 @@ export class ProductDetailsPage implements OnInit {
         orderObj.productid = this.tempArray[0].productskey;
 
         // alert(JSON.stringify(orderObj))
-
         const loading = await this.loadingController.create({
             message: 'Please wait...',
         });
@@ -152,8 +201,6 @@ export class ProductDetailsPage implements OnInit {
             this.uid = userdata.uid;
             let userCartPath = "user/" + this.uid + "/cart"
             loading.dismiss;
-
-            //alert(userCartPath)
 
             const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((itemArray) => {
                 loading.dismiss;
@@ -167,29 +214,53 @@ export class ProductDetailsPage implements OnInit {
 
                 // alert(JSON.stringify(cartArray))
                 let isRecordFound = false;
+                let isQuatityExceeded = false
+
+                if (orderObj.qty > this.tempArray[0].qty) {
+                    loading.dismiss();
+                    isQuatityExceeded = true
+                    this.alert.presentAlert("Only " + this.tempArray[0].qty + " items are available in stock");
+                    return
+                }
 
                 for (let i = 0; i < cartArray.length; i++) {
+
                     if (cartArray[i].productid == orderObj.productid) {
-                        isRecordFound = true;
-                        cartArray[i].qty += orderObj.qty;
+                        {
+                            isRecordFound = true;
+                            let finalQuantity = cartArray[i].qty + orderObj.qty;
+                            if (finalQuantity > this.tempArray[0].qty) {
+                                loading.dismiss();
+                                isQuatityExceeded = true
+                                this.alert.presentAlert("Only " + this.tempArray[0].qty + " items are available in stock");
+                            } else {
+                                cartArray[i].qty += orderObj.qty;
+                            }
+
+                        }
+
                     }
                 }
-                // alert(JSON.stringify(orderObj))
-
+                /** If the product is not found in the previous cart 
+                 * add them to Cart Array
+                 */
                 if (!isRecordFound) {
                     isRecordFound = false;
                     cartArray.push(orderObj)
                 }
-                //alert(JSON.stringify(cartArray))
-                let userPath = "/user/" + this.uid
-                this.afData.list(userPath).set("cart", cartArray).then((itemArray) => {
-                    loading.dismiss();
-                    this.alert.presentAlert("Successfully added");
-                }).catch((err) => {
-                    loading.dismiss();
-                    this.alert.presentAlert(err.message);
-                });
-                //loading.dismiss();
+
+                if (!isQuatityExceeded) {
+                    //alert(JSON.stringify(cartArray))
+                    let userPath = "/user/" + this.uid
+                    this.afData.list(userPath).set("cart", cartArray).then((itemArray) => {
+                        loading.dismiss();
+                        this.alert.presentAlert("Successfully added");
+                    }).catch((err) => {
+                        loading.dismiss();
+                        this.alert.presentAlert(err.message);
+                    });
+                }
+                loading.dismiss();
 
             })
         }).catch((storageerror) => {
@@ -199,7 +270,7 @@ export class ProductDetailsPage implements OnInit {
             loading.dismiss();
             this.alert.presentAlert(err.message);
         });
-
-
     }
+
+    // }
 }

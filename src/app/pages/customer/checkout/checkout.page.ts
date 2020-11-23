@@ -5,6 +5,7 @@ import { ServiceService } from '../../../services/service.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 //Alertservice
 import { AlertserviceService } from '../../../services/alertservice.service';
+import { JsonpInterceptor } from '@angular/common/http';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.page.html',
@@ -14,9 +15,12 @@ export class CheckoutPage implements OnInit {
   private total: string = "";
   private uid: string = "";
   private basketArray: any[] = [];
-  private totalArray: any[] = [];
-  private orderArr: any[] = [];
+  private tempArray: any[] = [];
   private cartArray: any[] = [];
+  private productskey: string = "";
+  private succArry: any[] = [];
+  private newProductQty = 0;
+  private newproductArry: any[] = [];
 
   constructor(private route: ActivatedRoute, public loadingController: LoadingController,
     private authService: ServiceService,
@@ -24,10 +28,15 @@ export class CheckoutPage implements OnInit {
     private alert: AlertserviceService) {
 
 
+
   }
   ngOnInit() {
     this.retrieveDataFromFirebase();
+
   }
+
+
+
 
 
 
@@ -38,12 +47,26 @@ export class CheckoutPage implements OnInit {
     });
     await loading.present();
 
+
+
     //get current data user
     this.authService.getDataFromStorage().then((userdata) => {
       this.uid = userdata.uid;
       let userCartPath = "user/" + this.uid + "/cart"
-      let userCartPath1 = "user/" + this.uid + "/total"
+
       loading.dismiss;
+
+      this.afData.list('products').valueChanges().subscribe((proArray) => {
+        loading.dismiss();
+        // console.log(JSON.stringify(dieArray));
+
+        this.tempArray = proArray;
+        // alert(JSON.stringify(proArray))
+
+      }, (databaseError) => {
+        loading.dismiss();
+        this.alert.presentAlert(databaseError.message);
+      })
 
       //get cart arry
       const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((orderArray) => {
@@ -56,8 +79,8 @@ export class CheckoutPage implements OnInit {
           this.cartArray.push(this.basketArray[i]);
         }
 
-       
-        this.total=userdata.total;
+
+        this.total = userdata.total;
 
         loading.dismiss();
 
@@ -77,6 +100,27 @@ export class CheckoutPage implements OnInit {
 
   }
 
+  // async updatyt() {
+
+  //   const loading = await this.loadingController.create({
+  //     message: 'Please wait...',
+  //   });
+  //   await loading.present();
+
+  //   //product arry (pr name . pro key , qty)
+  //   //qty 10 =/ 6
+  //   //prodarry [ qty 6]
+
+  //   this.afData.list('products').update(this.tempArray[0].productskey, this.tempArray).then(() => {
+  //     loading.dismiss();
+  //     this.alert.presentAlert("Product data updated successfully");
+  //   }).catch((error) => {
+  //     loading.dismiss();
+  //     this.alert.presentAlert(error.message);
+  //   });
+
+  // }
+
   async order() {
 
     const loading = await this.loadingController.create({
@@ -86,15 +130,18 @@ export class CheckoutPage implements OnInit {
 
 
 
-     //get curent user data 
+    //get curent user data 
     this.authService.getDataFromStorage().then((userdata) => {
-     
+
       let orderObj = {
         "userId": userdata.uid,
+        "userName":userdata.Name,
+        "userEmail":userdata.Email,
         "order": this.basketArray,
         "Total": this.total,
-        "States":"in-progress"
-
+        "States": "in-progress",
+        "img":"https://firebasestorage.googleapis.com/v0/b/taibatapp.appspot.com/o/1606025189.jpg?alt=media&token=544c4c3c-f40c-435e-ba92-2b15d1d0e7df",
+   
       };
 
       // alert(JSON.stringify(orderObj))
@@ -103,12 +150,40 @@ export class CheckoutPage implements OnInit {
 
       //move data from cart to orders
       this.afData.list('orders').push(orderObj).then((ifSeccess) => {
+        this.afData.list("orders/" + ifSeccess.key).set("orderkey", ifSeccess.key).then(() => {
+          loading.dismiss();
+          this.alert.presentAlert("Product data inserted successfully");
+    
+        }).catch((error) => {
+          loading.dismiss();
+          this.alert.presentAlert(error.message);
+          //this.presentAlert(error.message);
+        });
         loading.dismiss();
 
+        for (let i = 0; i < this.basketArray.length; i++) {
+          let productid = this.basketArray[i].productid
+          let productQty = this.basketArray[i].qty
+
+          let productPath = "/products/" + productid
+  // alert(JSON.stringify(this.tempArray))
+ 
+          for (let j = 0; j<this.tempArray.length ; j++) {
+            //  alert(j)
+            if (productid == this.tempArray[j].productskey) {
+              let newProductQty = this.tempArray[j].qty - productQty
+              // alert(newProductQty)
+              this.afData.list(productPath).set("qty",newProductQty);
+            }
+            
+          }
+        }
+
+        // alert(JSON.stringify(this.basketArray))
         //clere cart and total
-       this.total="";
+        this.total = "";
         this.basketArray = [];
-      
+         alert(this.basketArray)
         //update cart
         let userPath1 = "/user/" + this.uid
         this.afData.list(userPath1).set("cart", this.basketArray).then((itemArray) => {
@@ -142,7 +217,57 @@ export class CheckoutPage implements OnInit {
     })
 
 
+    // change qty in proudct table
+    // qty(product) = qty(pro) - qty(cart)
+
+    //  let newqty= 0 ;
+
+    // let newproductArry: any[] = [];
+
+    // for (let j = 0; this.basketArray.length; j) {
+    //   for (let i = 0; this.tempArray.length; i++) {
+    //     //0        == 0 
+    //     //0        == 1
+
+    //     if (this.basketArray[j].productid == this.tempArray[i].productskey) {
+    //       this.newProductQty = this.tempArray[i].qty - this.basketArray[j].qty;
+    //       this.tempArray[i].qty = this.newProductQty;
+    //       this.newproductArry.push(this.tempArray[i]) ;
+    //       alert(JSON.stringify(this.newProductQty))
+    //       // alert(JSON.stringify(this.newproductArry))
+    //       // this.afData.list('products').set(this.tempArray[i].productskey,this.tempArray).then(()=>{
+    //       //   loading.dismiss();
+    //       //   this.alert.presentAlert("Product data updated successfully");
+    //       // }).catch((error)=>{
+    //       //   loading.dismiss();
+    //       //   this.alert.presentAlert(error.message);
+    //       // }); 
+    //     } else {
+    //       j++; //1
+    //       if (this.basketArray[j].productid == this.tempArray[i].productskey) {
+    //         this.newProductQty = this.tempArray[i].qty - this.basketArray[j].qty;
+    //         this.tempArray[i].qty = this.newProductQty;
+    //        this.newproductArry.push(this.tempArray[i]) ;
+    //         alert(JSON.stringify(this.newProductQty))
+    //         //  this.afData.list('products').set(this.basketArray[j].productskey,this.tempArray).then(()=>{
+    //         //   loading.dismiss();
+    //         //   this.alert.presentAlert("Product data updated successfully");
+    //         // }).catch((error)=>{
+    //         //   loading.dismiss();
+    //         //   this.alert.presentAlert(error.message);
+    //         // });
+
+    //       }
+    //     //  alert(JSON.stringify(this.newproductArry))
+    //     }
+    //   }
+    // }
+
+
+
 
   }
+
+
 
 }

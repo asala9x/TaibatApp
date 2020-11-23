@@ -63,7 +63,7 @@ export class LoginPage implements OnInit {
                   if (userDatafromDB.userType == 'Admin') {
                     this.navCtrl.navigateForward('/admin-tab/admin-view-dietitian');
                   } else if (userDatafromDB.userType == 'customer') {
-                    this.navCtrl.navigateForward('/customer-tab/dietitian-list');
+                    this.navCtrl.navigateForward('/customer-tab/advice');
                   } else {
                     //TODO: if we have new user
                   }
