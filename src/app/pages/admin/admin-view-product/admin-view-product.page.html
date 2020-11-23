@@ -57,25 +57,17 @@
                   <ion-icon name="grid" class="iconcolor"></ion-icon>
                 </ion-col>
                 <ion-col class="colstyle">
-                  <p>{{i.category}}</p>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <ion-icon name="newspaper" class="iconcolor"></ion-icon>
-                </ion-col>
-
-                <ion-col class="colstyle">
-                  <div class="desdivStyle">
-                    <p class="ion-text-wrap">{{i.Description}}</p>
-                  </div>
+                  <p>{{i.qty}}</p>
                 </ion-col>
               </ion-row>
             </ion-card-content>
           </ion-col>
         </ion-row>
         <div class="divstyle">
-          <ion-col class="updateiconcolorstyle">
+            <ion-col class="ordericonstyle">
+                <ion-icon name="newspaper"   (click)="viewOrder(i)"></ion-icon>
+            </ion-col>
+          <ion-col class="updateiconcolorstyle" >
             <ion-icon name="create" (click)="updateProductAlert(i)"></ion-icon>
           </ion-col>
           <ion-col class="deleteiconcolorstyle">
