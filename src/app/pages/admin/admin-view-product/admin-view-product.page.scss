@@ -35,15 +35,15 @@
 .productcarstyle{
      border-radius: 10px;
      box-shadow: 3px 3px 15px #dbd7d7;
-     height: 210px;
+     height: 255px;
      width: 340px;   
 }
-.desdivStyle{
-    height: 45px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    white-space: nowrap;
-}
+// .desdivStyle{
+//     height: 35px;
+//     overflow-y: scroll;
+//     overflow-x: hidden;
+//     white-space: nowrap;
+// }
 .descstyle{
     padding-left: 30px !important;
 }
@@ -52,6 +52,17 @@
     color: #357abe;
     width: 18px;
     height: 18px;
+}
+.carticon{
+    color: #357abe;
+    width:25px;
+    height: 25px;
+}
+.desStyle{
+    height: 100px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    white-space: nowrap;
 }
 .deleteiconcolorstyle{
     color: #BDBDBD;

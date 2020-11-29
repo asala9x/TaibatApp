@@ -78,7 +78,7 @@ export class ShopPage implements OnInit {
     this.afData.list('products').valueChanges().subscribe((proArray,) => {
       loading.dismiss();
       // console.log(JSON.stringify(dieArray));
-      this.productArray = proArray;
+      //this.productArray = proArray;
       this.tempArray = proArray;
     }, (databaseError) => {
       loading.dismiss();
@@ -135,7 +135,7 @@ export class ShopPage implements OnInit {
   startSearch() {
     this.tempArray = [];
     for(let i=0; i<this.productArray.length;i++){
-      if(this.productArray[i].Title.toLowerCase().startsWith(this.searchtxt.toLowerCase())){
+      if(this.productArray[i].ProductName.toLowerCase().startsWith(this.searchtxt.toLowerCase())){
         this.tempArray.push(this.productArray[i]);
       }
     }

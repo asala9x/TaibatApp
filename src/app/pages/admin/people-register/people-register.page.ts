@@ -29,7 +29,6 @@ export class PeopleRegisterPage implements OnInit {
         private alert: AlertserviceService,
         private sms: SMS) {
         this.route.queryParams.subscribe((data) => {
-            //alert(JSON.stringify(data));
             this.eventkey = data.eventkey;
         });
         this.tempArray = this.peopleRegisterdArray;
@@ -46,7 +45,6 @@ export class PeopleRegisterPage implements OnInit {
         this.afData.list('event/' + this.eventkey + '/peopleregistered').valueChanges().subscribe((peopleregArray) => {
             this.peopleRegisterdArray = peopleregArray;
             loading.dismiss();
-            //alert(JSON.stringify(this.peopleRegisterdArray));
         }, (databaseError) => {
             loading.dismiss();
             this.alert.presentAlert(databaseError.message);
@@ -57,12 +55,12 @@ export class PeopleRegisterPage implements OnInit {
     // send email
     sendemail() {
 
-    this.emailComposer.open({
-    to:this.peopleRegisterdArray[0].Email,
-     subject: 'Cordova Icons',
-     body: 'How are you? ',
-     })
-   
+        this.emailComposer.open({
+            to: this.peopleRegisterdArray[0].Email,
+            subject: 'Cordova Icons',
+            body: 'How are you? ',
+        })
+
 
     }
 
