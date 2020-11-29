@@ -24,7 +24,7 @@ export class AddressPage implements OnInit {
         "PhoneNumber": "",
         "latitude": "",
         "longitude": "",
-        "userId":""
+        "userId": ""
     }
     private locationdata: any;
     constructor(
@@ -48,6 +48,8 @@ export class AddressPage implements OnInit {
     ngOnInit() {
         this.retrieveDataFromFirebase();
     }
+
+
     async retrieveDataFromFirebase() {
 
         const loading = await this.loadingController.create({
@@ -55,29 +57,28 @@ export class AddressPage implements OnInit {
         });
         await loading.present();
 
-        this.authService.getDataFromStorage().then((userdata)=>{
-           
-    
-            this.afData.object('Address/'+userdata.uid).valueChanges().subscribe((addressobj:any) => {
-    
+        this.authService.getDataFromStorage().then((userdata) => {
+
+
+            this.afData.object('Address/' + userdata.uid).valueChanges().subscribe((addressobj: any) => {
+
                 loading.dismiss();
-                this.address=addressobj;
-    
+                this.address = addressobj;
+
             }, (databaseError) => {
-    
+
                 loading.dismiss();
                 this.alert.presentAlert(databaseError.message);
-    
+
             })
-        }).catch((error)=>{
+        }).catch((error) => {
             loading.dismiss();
             this.alert.presentAlert("Unable to get data from storage");
         })
-
-       
-
     }
 
+
+    
     //Method to add address to firebase
     async addOrder() {
         //alert(this.locationdata);
@@ -86,9 +87,9 @@ export class AddressPage implements OnInit {
         });
         await loading.present();
         this.authService.getDataFromStorage().then((userdata) => {
-            this.address.userId=userdata.uid;
-                
-            this.afData.list("Address").set(userdata.uid,this.address).then((dataresposeobj) => {
+            this.address.userId = userdata.uid;
+
+            this.afData.list("Address").set(userdata.uid, this.address).then((dataresposeobj) => {
                 // this.afData.list("Address/" + dataresposeobj.key).set("Addresskey", dataresposeobj.key).then(() => {
                 loading.dismiss();
                 this.alert.presentAlert("Address data inserted successfully");

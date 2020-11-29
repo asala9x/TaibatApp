@@ -99,7 +99,11 @@ const routes: Routes = [
   {
     path: 'view-order',
     loadChildren: () => import('./pages/Admin/view-order/view-order.module').then( m => m.ViewOrderPageModule)
+  },  {
+    path: 'profile',
+    loadChildren: () => import('./pages/customer/profile/profile.module').then( m => m.ProfilePageModule)
   }
+
 
 
 

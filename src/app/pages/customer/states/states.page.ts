@@ -3,6 +3,8 @@ import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/da
 import { AlertController, LoadingController } from '@ionic/angular';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { ActivatedRoute } from '@angular/router'
+import { ServiceService } from '../../../services/service.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-states',
@@ -11,22 +13,66 @@ import { ActivatedRoute } from '@angular/router'
 })
 export class StatesPage implements OnInit {
 
-  private tempArray: any[] = [];
-  private orderkey: string = "";
-  private basketArray: any[]=[]
+  private orderArray: any[] = [];
+  private orderuserArray: any[] = [];
+  private lastorderuserArray: any[] = [];
+
+  private uid: string = "";
 
   constructor(public loadingController: LoadingController,
     private afData: AngularFireDatabase,
     private alert: AlertserviceService,
-    private route: ActivatedRoute) {
-    
+    private route: ActivatedRoute,
+    private authService: ServiceService) {
+
   }
 
   ngOnInit() {
-    // this.retrieveDataFromFirebase();
+    this.retrieveDataFromFirebase();
   }
 
+  async retrieveDataFromFirebase() {
 
- 
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
 
+    this.authService.getDataFromStorage().then((userdata) => {
+      this.uid = userdata.uid;
+      loading.dismiss;
+
+
+      //get order data
+      this.afData.list('orders').valueChanges().subscribe((orderArry) => {
+        loading.dismiss();
+        this.orderArray = orderArry;
+
+        for (let i = 0; i < this.orderArray.length; i++) {
+          if (this.uid == this.orderArray[i].userId) {
+            let j = 0;
+            this.orderuserArray[j] = this.orderArray[i];
+            this.lastorderuserArray.push(this.orderuserArray[j])
+          
+            j++;
+            // alert(JSON.stringify(this.productArray));
+          }
+        }
+       
+
+      }, (databaseError) => {
+        loading.dismiss();
+        this.alert.presentAlert(databaseError.message);
+
+      })
+
+
+
+    }).catch((storageerror) => {
+      loading.dismiss();
+      this.alert.presentAlert("Unable to get data from storage");
+    })
+
+
+  }
 }

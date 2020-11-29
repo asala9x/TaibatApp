@@ -1,0 +1,35 @@
+.backgroundImage{
+--background: url('../../../../assets/icon/profilebackground.jpg') no-repeat 100% 100%;
+}
+
+.divstyle{
+background-color: white;
+height: 40%;
+width: 80%;
+border-radius: 20px;
+border: 2px solid #357abe;
+position: absolute;
+top:0;
+bottom:0;
+left: 0;
+right: 0;
+margin: auto;
+}
+
+.imagestyle{
+    height: 100px;
+    width: 100px;
+    margin-top: -50px;
+    border: 2px solid #357abe;
+    
+}
+
+.colstyle{
+    color: #357abe;
+    font-size: 23px;
+}
+
+.col2style{
+    font-size: 16px;
+    color: #357abe;
+}

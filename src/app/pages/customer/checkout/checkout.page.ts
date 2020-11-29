@@ -6,6 +6,8 @@ import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/da
 //Alertservice
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { JsonpInterceptor } from '@angular/common/http';
+import { NavController } from '@ionic/angular';
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.page.html',
@@ -25,7 +27,7 @@ export class CheckoutPage implements OnInit {
   constructor(private route: ActivatedRoute, public loadingController: LoadingController,
     private authService: ServiceService,
     private afData: AngularFireDatabase,
-    private alert: AlertserviceService) {
+    private alert: AlertserviceService,public navCtrl: NavController) {
 
 
 
@@ -152,7 +154,7 @@ export class CheckoutPage implements OnInit {
       this.afData.list('orders').push(orderObj).then((ifSeccess) => {
         this.afData.list("orders/" + ifSeccess.key).set("orderkey", ifSeccess.key).then(() => {
           loading.dismiss();
-          this.alert.presentAlert("Product data inserted successfully");
+          // this.alert.presentAlert("Product data inserted successfully");
     
         }).catch((error) => {
           loading.dismiss();
@@ -204,8 +206,8 @@ export class CheckoutPage implements OnInit {
           loading.dismiss();
           this.alert.presentAlert(err.message);
         });
-
-        this.alert.presentAlert("Thank you for shopping with us. Waiting for you again");
+        this.navCtrl.navigateForward('/states');
+        // this.alert.presentAlert("Thank you for shopping with us. Waiting for you again");
       }).catch((Error) => {
         loading.dismiss();
         this.alert.presentAlert(Error.message);
@@ -217,51 +219,8 @@ export class CheckoutPage implements OnInit {
     })
 
 
-    // change qty in proudct table
-    // qty(product) = qty(pro) - qty(cart)
-
-    //  let newqty= 0 ;
-
-    // let newproductArry: any[] = [];
-
-    // for (let j = 0; this.basketArray.length; j) {
-    //   for (let i = 0; this.tempArray.length; i++) {
-    //     //0        == 0 
-    //     //0        == 1
-
-    //     if (this.basketArray[j].productid == this.tempArray[i].productskey) {
-    //       this.newProductQty = this.tempArray[i].qty - this.basketArray[j].qty;
-    //       this.tempArray[i].qty = this.newProductQty;
-    //       this.newproductArry.push(this.tempArray[i]) ;
-    //       alert(JSON.stringify(this.newProductQty))
-    //       // alert(JSON.stringify(this.newproductArry))
-    //       // this.afData.list('products').set(this.tempArray[i].productskey,this.tempArray).then(()=>{
-    //       //   loading.dismiss();
-    //       //   this.alert.presentAlert("Product data updated successfully");
-    //       // }).catch((error)=>{
-    //       //   loading.dismiss();
-    //       //   this.alert.presentAlert(error.message);
-    //       // }); 
-    //     } else {
-    //       j++; //1
-    //       if (this.basketArray[j].productid == this.tempArray[i].productskey) {
-    //         this.newProductQty = this.tempArray[i].qty - this.basketArray[j].qty;
-    //         this.tempArray[i].qty = this.newProductQty;
-    //        this.newproductArry.push(this.tempArray[i]) ;
-    //         alert(JSON.stringify(this.newProductQty))
-    //         //  this.afData.list('products').set(this.basketArray[j].productskey,this.tempArray).then(()=>{
-    //         //   loading.dismiss();
-    //         //   this.alert.presentAlert("Product data updated successfully");
-    //         // }).catch((error)=>{
-    //         //   loading.dismiss();
-    //         //   this.alert.presentAlert(error.message);
-    //         // });
-
-    //       }
-    //     //  alert(JSON.stringify(this.newproductArry))
-    //     }
-    //   }
-    // }
+    
+    
 
 
 

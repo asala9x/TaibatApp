@@ -21,6 +21,7 @@ export class CustomerPopoverPage implements OnInit {
       this.popoverController.dismiss();
   }
   Profile(){
+    this.navCtrl.navigateRoot('/profile');
       this.popoverController.dismiss();
   }
 }
