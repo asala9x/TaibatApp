@@ -64,9 +64,7 @@ export class LoginPage implements OnInit {
                     this.navCtrl.navigateForward('/admin-tab/admin-view-dietitian');
                   } else if (userDatafromDB.userType == 'customer') {
                     this.navCtrl.navigateForward('/customer-tab/advice');
-                  } else {
-                    //TODO: if we have new user
-                  }
+                  } 
                 }).catch((error) => {
                   this.alert.presentAlert("Unable to storage data to storage");
                   

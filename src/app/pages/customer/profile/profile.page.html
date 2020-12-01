@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="backgroundImage">
+<div class="divstyle" align="center">
+  <ion-avatar class="imagestyle">
+    <img src="../../../../assets/icon/user-4-512.jpg"/>
+  </ion-avatar>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let i of userArray">
+     
+        <ion-row>
+          <ion-col>
+           
+              <ion-row>
+                <ion-col size="2" class="colstyle">
+                  <ion-icon name="mail"></ion-icon>
+                </ion-col>
+                <ion-col size="10" class="col2style">
+                  {{i.Email}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="2" class="colstyle">
+                  <ion-icon name="person"></ion-icon>
+                </ion-col>
+                <ion-col size="10" class="col2style">
+                  {{i.Name}}
+                </ion-col>
+              </ion-row>
+           
+          </ion-col>
+        </ion-row>
+      
+    </ion-item-sliding>
+  </ion-list>
+
+
+</div>
+</ion-content>

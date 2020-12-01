@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ServiceService {
-  constructor(private storage: Storage) { }
-  
-  setDatatoStorage(userobj) {
-    return this.storage.set('data', userobj);
+    constructor(private nativeStorage: NativeStorage) { }
+
+    setDatatoStorage(userobj) {
+        return this.nativeStorage.setItem('data',userobj);
     }
 
-    getDataFromStorage(){
-      return this.storage.get('data');
+    getDataFromStorage() {
+        return this.nativeStorage.getItem('data');
     }
-    clear(){
-      
+    clear() {
+        return this.nativeStorage.clear();
     }
 }

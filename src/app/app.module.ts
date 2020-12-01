@@ -15,7 +15,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 //import Fierbase storage 
 import { AngularFireStorageModule } from '@angular/fire/storage';
 //Ionic Storage 
-import { IonicStorageModule } from '@ionic/storage';
 //Atho import
 import { AngularFireAuthModule } from '@angular/fire/auth';
 //import camera
@@ -30,6 +29,7 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { PopoverComponentPageModule } from './../app/pages/popover/popover-component/popover-component.module';
 import { CustomerPopoverPageModule } from './pages/popover/customer-popover/customer-popover.module';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],
@@ -38,7 +38,6 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
         HttpClientModule,
         IonicModule.forRoot(), 
         AppRoutingModule,
-        IonicStorageModule.forRoot(),
         PopoverComponentPageModule,
         CustomerPopoverPageModule,
         AngularFireModule, //new for firebases
@@ -57,6 +56,7 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
         IonTabs,
         SMS,
         EmailComposer,
+        NativeStorage,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
     bootstrap: [AppComponent]

@@ -7,7 +7,7 @@ import { LoadingController, AlertController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/database';
 //Alertservice
 //import { AlertserviceService } from '../../../services/alertservice.service';
-import { AlertserviceService } from '../../../services/alertservice.service';
+import { AlertserviceService,Address } from '../../../services/alertservice.service';
 //ActivatedRoute
 import { ActivatedRoute } from '@angular/router';
 import { ServiceService } from '../../../services/service.service';
@@ -17,14 +17,16 @@ import { ServiceService } from '../../../services/service.service';
     styleUrls: ['./address.page.scss'],
 })
 export class AddressPage implements OnInit {
-    private address: any = {
+
+    
+    private address: Address = {
         "Area": "",
         "Street": "",
         "HomeNumber": "",
         "PhoneNumber": "",
         "latitude": "",
         "longitude": "",
-        "userId":""
+        "userId": ""
     }
     //private uid: string = "";
     private locationdata: any;
@@ -42,13 +44,17 @@ export class AddressPage implements OnInit {
             this.locationdata = data;
             this.address.latitude = data.latitude;
             this.address.longitude = data.longitude;
+
+            this.retrieveDataFromFirebase();
         });
 
     }
 
     ngOnInit() {
-        this.retrieveDataFromFirebase();
+        
     }
+
+
     async retrieveDataFromFirebase() {
 
         const loading = await this.loadingController.create({
@@ -57,26 +63,31 @@ export class AddressPage implements OnInit {
         await loading.present();
 
         this.authService.getDataFromStorage().then((userdata)=>{
-                loading.dismiss;
-             this.afData.object('Address/'+userdata.uid).valueChanges().subscribe((addressobj:any) => {
+                
+             this.afData.object('Address/'+userdata.uid).valueChanges().subscribe((addressobj:Address) => {
                 loading.dismiss();
-                this.address=addressobj;
-    
+                this.address.Area = addressobj.Area;
+                this.address.Street = addressobj.Street;
+                this.address.HomeNumber = addressobj.HomeNumber;
+                this.address.PhoneNumber = addressobj.PhoneNumber;
+                this.address.latitude = addressobj.latitude;
+                this.address.longitude = addressobj.longitude;
+                this.address.userId = addressobj.userId;
+
             }, (databaseError) => {
-    
+
                 loading.dismiss();
                 this.alert.presentAlert(databaseError.message);
-    
+
             })
-        }).catch((error)=>{
+        }).catch((error) => {
             loading.dismiss();
             this.alert.presentAlert("Unable to get data from storage");
         })
-
-       
-
     }
 
+
+    
     //Method to add address to firebase
     async addAddress() {
         const loading = await this.loadingController.create({
@@ -84,7 +95,11 @@ export class AddressPage implements OnInit {
         });
         await loading.present();
         this.authService.getDataFromStorage().then((userdata) => {
+
+            //alert(JSON.stringify(userdata));
             this.address.userId=userdata.uid;
+
+            //alert(JSON.stringify(this.address));
             this.afData.list("Address").set(userdata.uid,this.address).then((dataresposeobj) => {
                 loading.dismiss();
                 this.alert.presentAlert("Address data inserted successfully");
@@ -96,48 +111,5 @@ export class AddressPage implements OnInit {
             loading.dismiss();
             this.alert.presentAlert("Unable to get data from storage");
         })
-
-          // const loading = await this.loadingController.create({
-        //     message: 'Please wait...',
-        // });
-        // await loading.present();
-
-        // this.authService.getDataFromStorage().then((userdata) => {
-
-        //     let addressobj = {
-       
-        //         "Area": this.address,
-        //         "Street": this.address,
-        //         "HomeNumber": this.address,
-        //         "PhoneNumber": this.address,
-        //         "latitude": this.address,
-        //         "longitude": this.address,
-        //     };
-
-        //     // alert(JSON.stringify(addressobj))
-
-        //     loading.dismiss;
-
-
-        //     this.afData.list('orders').push(this.address).then((ifSeccess) => {
-        //         this.afData.list("orders/" + ifSeccess.key).set("addresskey", ifSeccess.key).then(() => {
-        //             loading.dismiss();
-        //             this.alert.presentAlert("address data inserted successfully");
-
-        //         }).catch((error) => {
-        //             loading.dismiss();
-        //             this.alert.presentAlert(error.message);
-        //             //this.presentAlert(error.message);
-        //         });
-        //     }).catch((Error) => {
-        //         loading.dismiss();
-        //         this.alert.presentAlert(Error.message);
-        //     });
-
-
-        // }).catch((storageerror) => {
-        //     loading.dismiss();
-        //     this.alert.presentAlert("Unable to get data from storage");
-        // })
     }
 }

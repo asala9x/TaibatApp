@@ -15,12 +15,16 @@ export class CustomerPopoverPage implements OnInit {
 
     ngOnInit() {
     }
+    
     Logout() {
-        this.storage.clear();
-        this.navCtrl.navigateRoot('/login');
-        this.popoverController.dismiss();
+        this.storage.clear().then(() => {
+            this.navCtrl.navigateRoot('/login');
+            this.popoverController.dismiss();
+        });
+
     }
     Profile() {
+        this.navCtrl.navigateRoot('/profile');
         this.popoverController.dismiss();
     }
 }
