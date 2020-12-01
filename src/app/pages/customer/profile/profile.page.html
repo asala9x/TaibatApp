@@ -11,7 +11,8 @@
   </ion-avatar>
 
   <ion-list>
-    <ion-item-sliding *ngFor="let i of userArray">
+    <!-- *ngFor="let userInfo of userlastArray" -->
+    <ion-item-sliding >
      
         <ion-row>
           <ion-col>
@@ -21,7 +22,7 @@
                   <ion-icon name="mail"></ion-icon>
                 </ion-col>
                 <ion-col size="10" class="col2style">
-                  {{i.Email}}
+                  {{userlastArray.Email}}
                 </ion-col>
               </ion-row>
               <ion-row>
@@ -29,7 +30,7 @@
                   <ion-icon name="person"></ion-icon>
                 </ion-col>
                 <ion-col size="10" class="col2style">
-                  {{i.Name}}
+                  {{userlastArray.Name}}
                 </ion-col>
               </ion-row>
            

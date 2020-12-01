@@ -166,16 +166,7 @@ export class ProductDetailsPage implements OnInit {
     //AddToCart
     async AddToCart(order) {
 
-        //  alert(this.tempArray[0].qty)
-        //    let finalqty = 0;
-
-        // if (this.qty > this.tempArray[0].qty) {
-
-        //     this.alert.presentAlert("Only " + this.tempArray[0].qty + " items are available in stock");
-
-        // } else {
-
-        // this.finalqty = this.tempArray[0].qty -this.qty; 
+       
         let previousCartItmes: any[] = [];
         let cartArray: any[] = [];
 
@@ -257,20 +248,29 @@ export class ProductDetailsPage implements OnInit {
                         this.alert.presentAlert("Successfully added");
                     }).catch((err) => {
                         loading.dismiss();
+                        alert("Error")
                         this.alert.presentAlert(err.message);
+                        
                     });
                 }
                 loading.dismiss();
 
+                
             })
         }).catch((storageerror) => {
             loading.dismiss();
+            alert("Add to cart Error");
+
             this.alert.presentAlert("Unable to get data from storage");
         }).catch((err) => {
+            alert("Add to cart Error 2");
+
             loading.dismiss();
             this.alert.presentAlert(err.message);
         });
+
     }
+
 
     // }
 }

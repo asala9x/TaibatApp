@@ -10,16 +10,19 @@
   <div class="logindivstyle" align="center">
     <ion-list>
       <ion-item>
-        <ion-input  color="primary" type="email" placeholder="Email" [(ngModel)]="data.email"> </ion-input>
+        <ion-input color="primary" type="email" placeholder="Email" [(ngModel)]="data.email"> </ion-input>
       </ion-item>
       <br />
       <ion-item>
-        <ion-icon  color="primary" slot="end" (click)="showpass=(!showpass)" [name]="showpass?'eye-outline':'eye-off-outline'">
+        <ion-icon color="primary" slot="end" (click)="showpass=(!showpass)"
+          [name]="showpass?'eye-outline':'eye-off-outline'">
         </ion-icon>
-        <ion-input  color="primary" [type]="showpass?'text':'password'" placeholder="password" [(ngModel)]="data.password"> </ion-input>
+        <ion-input color="primary" [type]="showpass?'text':'password'" placeholder="password"
+          [(ngModel)]="data.password"> </ion-input>
       </ion-item>
       <ion-item lines="none">
-        <ion-text color="primary" slot="end" class="forgotPassStyle" (click)="ForgetPassword()"><b>Forgot your password?</b>
+        <ion-text color="primary" slot="end" class="forgotPassStyle" (click)="ForgetPassword()"><b>Forgot your
+            password?</b>
         </ion-text>
       </ion-item>
     </ion-list>

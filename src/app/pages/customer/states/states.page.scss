@@ -18,7 +18,8 @@
         overflow-y: scroll;
         overflow-x: hidden;
         white-space: nowrap;
-        height: 500px;
+        height:100%;
+        // border: 2px solid #357abe;
     }
     .colstyle{
         text-align: left;
@@ -27,3 +28,7 @@
         text-align: left;
        padding-left: 5px; 
     }
+    .backgroundImage{
+        --background: url('../../../../assets/icon/profilebackground.jpg') no-repeat 100% 100%;
+        }
+        

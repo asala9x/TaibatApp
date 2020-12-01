@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="backgroundImage">
   <!-- <div align="center" class="div">
     <img class="imgestyle" src="../../../../assets/icon/order.png" />
 
@@ -13,9 +13,9 @@
   <div class="div2">
  
 
-    <ion-list>
+    <!-- <ion-list> -->
       <ion-item-sliding *ngFor="let i of lastorderuserArray">
-        <ion-card color="primary">
+        <ion-card >
           <ion-row>
             <ion-col>
               <ion-card-content>
@@ -32,7 +32,7 @@
                     oeder States:
                   </ion-col>
                   <ion-col size="8" class="col2style">
-                    {{i.States}}
+                    {{i.States}} 
                   </ion-col>
                 </ion-row>
                 <ion-row>
@@ -40,7 +40,7 @@
                     Total:
                   </ion-col>
                   <ion-col size="8" class="col2style">
-                    {{i.Total}}
+                    {{i.Total}} OMR
                   </ion-col>
                 </ion-row>
               </ion-card-content>
@@ -48,7 +48,7 @@
           </ion-row>
         </ion-card>
       </ion-item-sliding>
-    </ion-list>
+    <!-- </ion-list> -->
   </div>
 
 

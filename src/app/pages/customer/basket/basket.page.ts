@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 //import fire DB
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 //Alertservice
@@ -46,55 +46,55 @@ export class BasketPage implements OnInit {
     });
     this.tempArray = this.basketArray;
 
-    
+
 
   }
 
   ngOnInit() {
     this.retrieveDataFromFirebase();
-    
-   
+
+
   }
 
   async retrieveDataFromFirebase() {
     let cartArray: any[] = [];
-    
+
     let OrderArrayTemp: any[] = [];
     const loading = await this.loadingController.create({
       message: 'Please wait...',
     });
     await loading.present();
 
-    
-   this.authService.getDataFromStorage().then((userdata) => {
-    this.uid = userdata.uid;
-     let userCartPath = "user/" + this.uid + "/cart"
-    loading.dismiss;
+
+    this.authService.getDataFromStorage().then((userdata) => {
+      this.uid = userdata.uid;
+      let userCartPath = "user/" + this.uid + "/cart"
+      loading.dismiss;
 
 
-const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((orderArray) => {
-  loading.dismiss;
-  console.log(orderArray);
-  userCartlist.unsubscribe();
-  this.basketArray  = orderArray;
-  for (let i = 0; i <   this.basketArray .length; i++) {
-      cartArray.push(  this.basketArray [i]);
-  }
-  
-   this.tot();
+      const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((orderArray) => {
+        loading.dismiss;
+        console.log(orderArray);
+        userCartlist.unsubscribe();
+        this.basketArray = orderArray;
+        for (let i = 0; i < this.basketArray.length; i++) {
+          cartArray.push(this.basketArray[i]);
+        }
 
-         loading.dismiss();
-  
+        this.tot();
+
+        loading.dismiss();
+
       }, (databaseError) => {
         loading.dismiss();
         this.alert.presentAlert(databaseError.message);
       })
     }).catch((storageerror) => {
-          loading.dismiss();
-          this.alert.presentAlert("Unable to get data from storage");
-        })
-        
-    }
+      loading.dismiss();
+      this.alert.presentAlert("Unable to get data from storage");
+    })
+
+  }
 
   async tot() {
     const loading = await this.loadingController.create({
@@ -108,27 +108,27 @@ const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((or
 
     this.finaltotal = Number(this.totalPrice) + Number(this.servicechaarge);
 
-    let userPath = "user/" + this.uid 
+    let userPath = "user/" + this.uid
 
-    this.afData.list(userPath).set("total", this.finaltotal ).then((itemArray) => {
-        loading.dismiss();
+    this.afData.list(userPath).set("total", this.finaltotal).then((itemArray) => {
+      loading.dismiss();
     }).catch((err) => {
-        loading.dismiss();
-        this.alert.presentAlert(err.message);
+      loading.dismiss();
+      this.alert.presentAlert(err.message);
     });
 
   }
 
 
- 
 
 
 
-//delete
+
+  //delete
   async deleteproduct(product) {
 
     const loading = await this.loadingController.create({
-        message: 'Please wait...',
+      message: 'Please wait...',
     });
     await loading.present();
 
@@ -136,63 +136,63 @@ const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((or
     this.authService.getDataFromStorage().then((userdata) => {
       this.uid = userdata.uid;
 
-              this.basketArray.forEach( (item, index) => {
-                if(item === product) this.basketArray.splice(index,1);
-                loading.dismiss;
-              });
+      this.basketArray.forEach((item, index) => {
+        if (item === product) this.basketArray.splice(index, 1);
+        loading.dismiss;
+      });
 
 
-              //  alert(JSON.stringify(this.basketArray))
+      //  alert(JSON.stringify(this.basketArray))
 
-              let userPath = "user/" + this.uid 
-              this.afData.list(userPath).set("cart", this.basketArray ).then((itemArray) => {
-                  loading.dismiss();
-                  this.alert.presentAlert("Successfully added");
-              }).catch((err) => {
-                  loading.dismiss();
-                  this.alert.presentAlert(err.message);
-              });
+      let userPath = "user/" + this.uid
+      this.afData.list(userPath).set("cart", this.basketArray).then((itemArray) => {
+        loading.dismiss();
+        this.alert.presentAlert("Successfully Deleted");
+      }).catch((err) => {
+        loading.dismiss();
+        this.alert.presentAlert(err.message);
+      });
 
-     
-           this.tot();
-            
 
-  }, (databaseError) => {
-    loading.dismiss();
-    this.alert.presentAlert(databaseError.message);
-  })
- 
+      this.tot();
 
-}
+
+    }, (databaseError) => {
+      loading.dismiss();
+      this.alert.presentAlert(databaseError.message);
+    })
+
+
+  }
 
   async deleteProductAlert(product) {
     const alert = await this.alertController.create({
-        cssClass: 'headerstyle',
-        header: 'Taibat App',
-        message: 'Are you sure you want to delete ' + product.ProductName + ' ?',
+      cssClass: 'headerstyle',
+      header: 'Taibat App',
+      message: 'Are you sure you want to delete ' + product.ProductName + ' ?',
 
-        buttons: [
-            {
-                text: 'Cancel',
-                role: 'cancel',
-                cssClass: 'headerstyle',
-                handler: (blah) => {
-                    console.log('Confirm Cancel: blah');
-                }
-            }, {
-                text: 'Okay',
-                handler: () => {
-                  
-                    this.deleteproduct(product);
-                
-          
-                }
-            }
-        ]
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'headerstyle',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+
+            this.deleteproduct(product);
+
+
+          }
+        }
+      ]
     });
 
     await alert.present();
-}
+  }
 
 
 

@@ -55,7 +55,7 @@ export class LoginPage implements OnInit {
       this.fbauth.signInWithEmailAndPassword(this.data.email, this.data.password)
         .then((authData) => {
           if (authData.user.emailVerified) {
-            this.afDatabase.object("user/" + authData.user.uid).valueChanges()
+            let userNode = this.afDatabase.object("user/" + authData.user.uid).valueChanges()
               .subscribe((userDatafromDB: any) => {
                 loading.dismiss();
                 userDatafromDB.uid = authData.user.uid;
@@ -63,16 +63,17 @@ export class LoginPage implements OnInit {
                   if (userDatafromDB.userType == 'Admin') {
                     this.navCtrl.navigateForward('/admin-tab/admin-view-dietitian');
                   } else if (userDatafromDB.userType == 'customer') {
+                    userNode.unsubscribe()
                     this.navCtrl.navigateForward('/customer-tab/advice');
-                  } 
+                  }
                 }).catch((error) => {
                   this.alert.presentAlert("Unable to storage data to storage");
-                  
+
                 })
               }, (userdberror) => {
                 loading.dismiss();
                 this.alert.presentAlert(userdberror.message);
-               
+
               });
           } else {
             loading.dismiss();
@@ -87,7 +88,7 @@ export class LoginPage implements OnInit {
     }
   }
 
- 
+
 
   //Forget Password
   async ForgetPassword() {
@@ -122,11 +123,11 @@ export class LoginPage implements OnInit {
             console.log(LoginDetails.email);
             this.fbauth.sendPasswordResetEmail(LoginDetails.email).then((secc) => {
               this.alert.presentAlert("please check your email for Rest your password");
-              
+
             }
             ).catch((error) => {
               this.alert.presentAlert(error.message);
-              
+
             })
           }
         }
