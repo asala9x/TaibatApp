@@ -8,240 +8,239 @@ import { PopoverComponentPage } from '../../popover/popover-component/popover-co
 //import SpeechRecognition
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 @Component({
-  selector: 'app-admin-view-advice',
-  templateUrl: './admin-view-advice.page.html',
-  styleUrls: ['./admin-view-advice.page.scss'],
+    selector: 'app-admin-view-advice',
+    templateUrl: './admin-view-advice.page.html',
+    styleUrls: ['./admin-view-advice.page.scss'],
 })
 export class AdminViewAdvicePage implements OnInit {
 
-  private adviceArray: any[] = [];
-  //temp Array
-  private tempArray: any[] = [];
-  private isRecording: boolean = false;
-  private matches: string[] = []; //to get the results
-private searchtxt;
-  constructor(public alertController: AlertController,
-    private afData: AngularFireDatabase,
-    private alert: AlertserviceService,
-    public loadingController: LoadingController,
-    private popoverController: PopoverController ,
-    private speechRecognition: SpeechRecognition) 
-    {
-    this.speechRecognition.hasPermission()
-      .then((hasPermission: boolean) => {
-        //if user not give any permission
-        if (!hasPermission) { //permission not there
-          this.speechRecognition.requestPermission();
-        }
-      });
-    this.tempArray = this.adviceArray;
-  }
-
-  ngOnInit() {
-    this.retrieveDataFromFirebase();
-  }
-  // Method for retrieve data from firebase
-
-  async retrieveDataFromFirebase() {
-    const loading = await this.loadingController.create({
-      message: 'Please wait...',
-    });
-    await loading.present();
-
-    // this.afData.list('advice').valueChanges().subscribe((advArray) => {
-    this.afData.list('advice', ref => ref.orderByChild('time')).valueChanges().subscribe((advArray) => {
-      loading.dismiss();
-      // console.log(JSON.stringify(advArray));
-      this.adviceArray = advArray;
-      this.tempArray = advArray;
-    }, (databaseError) => {
-      loading.dismiss();
-      this.alert.presentAlert(databaseError.message);
-      //this.presentAlert(databaseError.message);
-    })
-
-  }
-  //update 
-  async updateAdvice(adviceObj, data) {
-    data.test = "Advice";
-    const loading = await this.loadingController.create({
-      message: 'Please wait...',
-    });
-    await loading.present();
-
-    this.afData.list('advice').update(adviceObj.advicekey, data).then(() => {
-      loading.dismiss();
-      this.alert.presentAlert("Advice data updated successfully");
-    }).catch((error) => {
-      loading.dismiss();
-      this.alert.presentAlert(error.message);
-    });
-
-  }
-  async updateAdviceAlert(adviceObj) {
-    const alertprompt = await this.alertController.create({
-      header: 'Update Dietitian',
-      cssClass: 'headerstyle',
-      inputs: [
-        {
-          name: 'name',
-          value: adviceObj.name,
-          type: 'text',
-          placeholder: 'Advice Title'
-        },
-        {
-          name: 'descripion',
-          value: adviceObj.descripion,
-          type: 'text',
-          placeholder: 'Descripion'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'headerstyle',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Ok',
-          handler: (data) => {
-            this.updateAdvice(adviceObj, data);
-          }
-        }
-      ]
-    });
-    await alertprompt.present();
-  }
-
-  //delete
-  async deleteAdvice(adviceObj) {
-
-    const loading = await this.loadingController.create({
-      message: 'Please wait...',
-    });
-    await loading.present();
-    this.afData.list('advice').remove(adviceObj.advicekey).then(() => {
-      loading.dismiss();
-      this.alert.presentAlert("Advice deleted successfully");
-    }).catch((error) => {
-      loading.dismiss();
-      this.alert.presentAlert(error.message);
-      //this.presentAlert(error.message);
-    });
-
-  }
-  async deleteAdviceAlert(adviceObj) {
-    const alert = await this.alertController.create({
-      cssClass: 'headerstyle',
-      header: 'Taibat App',
-      message: 'Are you sure you want to delete ' + adviceObj.name + ' ?',
-
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'headerstyle',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blsah');
-          }
-        }, {
-          text: 'Okay',
-          handler: () => {
-            this.deleteAdvice(adviceObj);
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
-  async CreatePopOver(ev: any) {
-    const popover = await this.popoverController.create({
-      component: PopoverComponentPage,
-      cssClass: 'my-custom-class',
-      event: ev,
-      translucent: true
-    });
-    return await popover.present();
-  }
-
-
-  //Search
-  startSearch() {
-    this.tempArray = [];
-    for(let i=0; i<this.adviceArray.length;i++){
-      if(this.adviceArray[i].name.toLowerCase().startsWith(this.searchtxt.toLowerCase())){
-        this.tempArray.push(this.adviceArray[i]);
-      }
-    }
-  }
-  ///startStopListening
-  startStopListening() {
-    //to on and off Recording 
-    this.isRecording = (!this.isRecording);
-    if (this.isRecording) {
-      //which language
-      let options = {
-        language: "en-US",
-        matches: 5 //give me max 5 results 
-      } // Start the recognition process 
-      this.speechRecognition.startListening(options).subscribe(
-        (matches: string[]) => {
-          this.matches = matches;
-          //alert(JSON.stringify(matches));
-          this.presentAlertRadio();
-        },
-         (onerror) => 
-         console.log('error:', onerror))
-    }
-    else {
-      // Stop the recognition process (iOS only)
-      this.speechRecognition.stopListening()
-    }
-  }
-
-  //Falter presentAlertRadio
-
-  async presentAlertRadio() {
-    let inputArray: any[] = [];
-    this.matches.forEach(match => {
-      let matcheOBJ = {
-        name: match,
-        label: match,
-        type: 'radio',
-        value: match
-      }
-      inputArray.push(matcheOBJ);
-    });
-    const alertradio = await this.alertController.create({
-      header: 'Select product name: ',
-      inputs: inputArray,
-      buttons: [{
-        text: 'Cancel',
-        role: 'cancel',
-        cssClass: 'secondary',
-        handler: () => {
-          console.log('Confirm Cancel');
-        }
-      },
-      {
-        text: 'Ok',
-        handler: (data: string) => {
-         // alert(JSON.stringify(data));
-         this.tempArray = [];
-         for(let i=0; i<this.adviceArray.length;i++){
-           if(this.adviceArray[i].name.toLowerCase().startsWith(data)){
-             this.tempArray.push(this.adviceArray[i]);
-            }
-          }
+    private adviceArray: any[] = [];
+    //temp Array
+    private tempArray: any[] = [];
+    private isRecording: boolean = false;
+    private matches: string[] = []; //to get the results
+    private searchtxt;
+    constructor(public alertController: AlertController,
+        private afData: AngularFireDatabase,
+        private alert: AlertserviceService,
+        public loadingController: LoadingController,
+        private popoverController: PopoverController,
+        private speechRecognition: SpeechRecognition) {
+        this.speechRecognition.hasPermission()
+            .then((hasPermission: boolean) => {
+                //if user not give any permission
+                if (!hasPermission) { //permission not there
+                    this.speechRecognition.requestPermission();
                 }
-              }
+            });
+        this.tempArray = this.adviceArray;
+    }
+
+    ngOnInit() {
+        this.retrieveDataFromFirebase();
+    }
+    // Method for retrieve data from firebase
+
+    async retrieveDataFromFirebase() {
+        const loading = await this.loadingController.create({
+            message: 'Please wait...',
+        });
+        await loading.present();
+
+        // this.afData.list('advice').valueChanges().subscribe((advArray) => {
+        this.afData.list('advice', ref => ref.orderByChild('time')).valueChanges().subscribe((advArray) => {
+            loading.dismiss();
+            // console.log(JSON.stringify(advArray));
+            this.adviceArray = advArray;
+            this.tempArray = advArray;
+        }, (databaseError) => {
+            loading.dismiss();
+            this.alert.presentAlert(databaseError.message);
+            //this.presentAlert(databaseError.message);
+        })
+
+    }
+    //update 
+    async updateAdvice(adviceObj, data) {
+        data.test = "Advice";
+        const loading = await this.loadingController.create({
+            message: 'Please wait...',
+        });
+        await loading.present();
+
+        this.afData.list('advice').update(adviceObj.advicekey, data).then(() => {
+            loading.dismiss();
+            this.alert.presentAlert("Advice data updated successfully");
+        }).catch((error) => {
+            loading.dismiss();
+            this.alert.presentAlert(error.message);
+        });
+
+    }
+    async updateAdviceAlert(adviceObj) {
+        const alertprompt = await this.alertController.create({
+            header: 'Update Dietitian',
+            cssClass: 'headerstyle',
+            inputs: [
+                {
+                    name: 'name',
+                    value: adviceObj.name,
+                    type: 'text',
+                    placeholder: 'Advice Title'
+                },
+                {
+                    name: 'descripion',
+                    value: adviceObj.descripion,
+                    type: 'text',
+                    placeholder: 'Descripion'
+                }
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    cssClass: 'headerstyle',
+                    handler: () => {
+                        console.log('Confirm Cancel');
+                    }
+                }, {
+                    text: 'Ok',
+                    handler: (data) => {
+                        this.updateAdvice(adviceObj, data);
+                    }
+                }
             ]
-          });
-          await alertradio.present();
-    
-  }
+        });
+        await alertprompt.present();
+    }
+
+    //delete
+    async deleteAdvice(adviceObj) {
+
+        const loading = await this.loadingController.create({
+            message: 'Please wait...',
+        });
+        await loading.present();
+        this.afData.list('advice').remove(adviceObj.advicekey).then(() => {
+            loading.dismiss();
+            this.alert.presentAlert("Advice deleted successfully");
+        }).catch((error) => {
+            loading.dismiss();
+            this.alert.presentAlert(error.message);
+            //this.presentAlert(error.message);
+        });
+
+    }
+    async deleteAdviceAlert(adviceObj) {
+        const alert = await this.alertController.create({
+            cssClass: 'headerstyle',
+            header: 'Taibat App',
+            message: 'Are you sure you want to delete ' + adviceObj.name + ' ?',
+
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    cssClass: 'headerstyle',
+                    handler: (blah) => {
+                        console.log('Confirm Cancel: blsah');
+                    }
+                }, {
+                    text: 'Okay',
+                    handler: () => {
+                        this.deleteAdvice(adviceObj);
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
+    }
+
+    async CreatePopOver(ev: any) {
+        const popover = await this.popoverController.create({
+            component: PopoverComponentPage,
+            cssClass: 'my-custom-class',
+            event: ev,
+            translucent: true
+        });
+        return await popover.present();
+    }
+
+
+    //Search
+    startSearch() {
+        this.tempArray = [];
+        for (let i = 0; i < this.adviceArray.length; i++) {
+            if (this.adviceArray[i].name.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
+                this.tempArray.push(this.adviceArray[i]);
+            }
+        }
+    }
+    ///startStopListening
+    startStopListening() {
+        //to on and off Recording 
+        this.isRecording = (!this.isRecording);
+        if (this.isRecording) {
+            //which language
+            let options = {
+                language: "en-US",
+                matches: 5 //give me max 5 results 
+            } // Start the recognition process 
+            this.speechRecognition.startListening(options).subscribe(
+                (matches: string[]) => {
+                    this.matches = matches;
+                    //alert(JSON.stringify(matches));
+                    this.presentAlertRadio();
+                },
+                (onerror) =>
+                    console.log('error:', onerror))
+        }
+        else {
+            // Stop the recognition process (iOS only)
+            this.speechRecognition.stopListening()
+        }
+    }
+
+    //Falter presentAlertRadio
+
+    async presentAlertRadio() {
+        let inputArray: any[] = [];
+        this.matches.forEach(match => {
+            let matcheOBJ = {
+                name: match,
+                label: match,
+                type: 'radio',
+                value: match
+            }
+            inputArray.push(matcheOBJ);
+        });
+        const alertradio = await this.alertController.create({
+            header: 'Select product name: ',
+            inputs: inputArray,
+            buttons: [{
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'secondary',
+                handler: () => {
+                    console.log('Confirm Cancel');
+                }
+            },
+            {
+                text: 'Ok',
+                handler: (data: string) => {
+                    // alert(JSON.stringify(data));
+                    this.tempArray = [];
+                    for (let i = 0; i < this.adviceArray.length; i++) {
+                        if (this.adviceArray[i].name.toLowerCase().startsWith(data)) {
+                            this.tempArray.push(this.adviceArray[i]);
+                        }
+                    }
+                }
+            }
+            ]
+        });
+        await alertradio.present();
+
+    }
 }

@@ -1,51 +1,149 @@
 <ion-header>
     <ion-toolbar color="primary">
-        <ion-back-button  slot="start"> </ion-back-button>
-    <ion-title>View Order</ion-title>
-  </ion-toolbar>
+        <ion-back-button slot="start"> </ion-back-button>
+        <ion-title>View Order</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<!-- no details-->
-<ion-card color="light" *ngIf="vieworderdArray.length==0">
-    <ion-card-content color="primary">
-      No Order yet for this Product.
-    </ion-card-content> 
-    <!-- card with details-->
-  </ion-card>
-  <ion-list  *ngIf="vieworderdArray.length>0">
-    <ion-item-sliding *ngFor="let i of vieworderdArray">
-      <ion-card class="peoplecarstyle">
-        <ion-row>
-          <ion-col size="8">
-            <ion-card-content>
-              <br/>
-              <ion-row>
-                <ion-col >
-                    <ion-icon name="pencil" class="iconcolor"></ion-icon>
-                </ion-col>
-                <ion-col class="colstyle">
-                  <p>{{i.ProductName}}</p>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                    <ion-icon name="pricetag" class="iconcolor"></ion-icon>
-                </ion-col>
-                <ion-col  class="colstyle">
-                  <p class="ion-text-wrap">{{i.price}}</p>
-                </ion-col>
-                <ion-col>
-                    <ion-icon name="grid" class="iconcolor"></ion-icon>
-                </ion-col>
-                <ion-col  class="colstyle">
-                  <p class="ion-text-wrap">{{i.qty}}</p>
-                </ion-col>
-              </ion-row>
-            </ion-card-content>
-          </ion-col>
-        </ion-row>
-      </ion-card>
-    </ion-item-sliding>
-  </ion-list> 
+
+    <ion-list>
+        <ion-item-sliding *ngFor="let orders of vieworderdArray">
+            <ion-card>
+                <ion-row>
+                    <ion-col>
+                        <ion-card-content>
+                            <ion-row>
+                                <ion-col size="2">
+                                    <ion-icon name="person" class="iconcolor"></ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="colstyle">
+                                    {{orders.userName }}
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="2">
+                                    <ion-icon name="mail" class="iconcolor"></ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="colstyle">
+                                    {{orders.userEmail }}
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="2">
+                                    <ion-icon name="reload-circle" class="iconcolor"></ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="colstyle">
+                                    {{orders.States }}
+                                </ion-col>
+                            </ion-row>
+                            <!-- <ion-row>
+                                <ion-col size="2">
+                                    <ion-icon name="call" class="mailicon" ></ion-icon>
+                                </ion-col>
+                                <ion-col size="10">
+                                 999999
+                                </ion-col>
+                            </ion-row> -->
+                            <ion-row>
+                                <ion-col size="2">
+                                    <ion-icon name="cart" class="iconcolor"></ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="colstyle">
+                                    <div class="productdiv">
+                                        <div *ngFor="let productList of orders.order ">
+                                            <ion-row>
+                                                <ion-col class="colstyle" size="8">
+                                                    <p>{{productList.ProductName }}</p>
+                                                </ion-col>
+                                                <ion-col size="1">
+                                                    <ion-icon name="layers" class="iconcolor1"></ion-icon>
+                                                </ion-col>
+                                                <ion-col size="3" class="colstyle">
+                                                    <p>{{productList.qty}}</p>
+                                                </ion-col>
+                                            </ion-row>
+
+
+                                            <!-- <ion-row>
+                                            <ion-col size="2">
+                                                <ion-icon name="pricetag" class="iconcolor1"></ion-icon>
+                                            </ion-col>
+                                            <ion-col class="colstyle" size="10">
+                                                <p>{{j.price}}</p>
+                                            </ion-col>
+                                        </ion-row> -->
+
+
+                                        </div>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="2">
+                                    <ion-icon name="card" class="iconcolor"></ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="colstyle">
+                                    {{orders.Total}} OMR
+                                </ion-col>
+                            </ion-row>
+                            <!-- address -->
+                            <ion-row>
+                                <ion-col size="2">
+                                    <ion-icon name="location" class="iconcolor"></ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="colstyle">
+                                    <div class="productdiv" *ngFor="let loc of AddrArray">
+                                        <div *ngIf="orders.userId==loc.userId">
+                                            <ion-row>
+                                                <ion-col class="colstyle" size="8">
+                                                    <p>{{loc.Area }}</p>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                <ion-col size="1">
+                                                    <ion-icon name="subway" class="iconcolor1"></ion-icon>
+                                                </ion-col>
+                                                <ion-col size="3" class="colstyle">
+                                                    <p>{{loc.Street}}</p>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                <ion-col size="1">
+                                                    <ion-icon name="home" class="iconcolor1"></ion-icon>
+                                                </ion-col>
+                                                <ion-col size="3" class="colstyle">
+                                                    <p>{{loc.HomeNumber}}</p>
+                                                </ion-col>
+                                            </ion-row>
+                                        </div>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                            <br />
+                            <ion-row>
+                                <ion-col size="3">
+                                    <ion-icon name="thumbs-up" class="iconreceived"
+                                        (click)="updateStatus(orders.orderkey ,'Recived')"></ion-icon>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <ion-icon name="build" class="iconInProgress"
+                                        (click)="updateStatus(orders.orderkey ,'In Progress')"></ion-icon>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <ion-icon name="car" class="iconIntheway"
+                                        (click)="updateStatus(orders.orderkey ,'On the Way')"></ion-icon>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <ion-icon name="checkmark-done-circle" class="iconarrive"
+                                        (click)="updateStatus(orders.orderkey ,'Arrive')">
+                                    </ion-icon>
+                                </ion-col>
+                            </ion-row>
+                        </ion-card-content>
+                    </ion-col>
+                </ion-row>
+            </ion-card>
+        </ion-item-sliding>
+    </ion-list>
 </ion-content>

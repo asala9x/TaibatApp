@@ -26,25 +26,15 @@ export class LocationPage implements OnInit {
         "longitude": 0,
         "latitude": 0
     }
-    // "source": "",
-    // "destination": ""
-
-
+  
     directionsService = new google.maps.DirectionsService;
     directionsDisplay = new google.maps.DirectionsRenderer;
-
-    // private userdata:any={};
-
-
     constructor(private geolocation: Geolocation,
         private route: ActivatedRoute,
         private alert: AlertserviceService, public navCtrl: NavController,
         public loadingController: LoadingController,
         private authService: ServiceService,
         private afData: AngularFireDatabase,) {
-        // this.route.queryParams.subscribe(receiveddata=>{
-        //     this.userdata=receiveddata;
-        // });
 
     }
 
@@ -76,7 +66,6 @@ export class LocationPage implements OnInit {
 
 
         }).catch((error) => {
-            //alert('Error getting location'+JSON.stringify(error));
             alert('Error getting location - ' + JSON.stringify(error))
         })
 
@@ -85,67 +74,12 @@ export class LocationPage implements OnInit {
     }
 
     async displayDirectionsinMap() {
-        //   this.directionsService.route({
-        //     origin: this.data.source,
-        //     destination: this.data.destination,
-        //     travelMode: 'DRIVING'
-        //   }, (response, status) => {
-        //     if (status === 'OK') {
-        //       this.directionsDisplay.setDirections(response);
-        //     } else {
-        //       window.alert('Directions request failed due to ' + status);
-        //     }
-        //   });
-
-
-        // const loading = await this.loadingController.create({
-        //     message: 'Please wait...',
-        // });
-        // await loading.present();
-
-
-
-        // //get curent user data 
-        // this.authService.getDataFromStorage().then((userdata) => {
-
-
-        //         let AddressObj = {
-        //             "userId": userdata.uid,
-        //             "latitude": this.locationdata.latitude,
-        //             "longitude": this.locationdata.longitude
-
-        //         };
-
-
-        //         this.afData.list('Address').push(AddressObj).then((ifSeccess) => {
-        //             loading.dismiss();
-
-        //             this.alert.presentAlert("your location has been added");
+       
 
                     let NavExtras: NavigationExtras = {
                         queryParams: this.locationdata
                     }
                     this.navCtrl.navigateForward('address', NavExtras);
-
-
-        //         }).catch((Error) => {
-        //             loading.dismiss();
-        //             this.alert.presentAlert(Error.message);
-        //         });
-
-
-
-        // }).catch((storageerror) => {
-        //     loading.dismiss();
-        //     this.alert.presentAlert("Unable to get data from storage");
-        // })
-
-        
-
-
-        //send loc to address page
-
-       
 
     }
 }

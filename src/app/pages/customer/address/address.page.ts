@@ -7,7 +7,7 @@ import { LoadingController, AlertController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/database';
 //Alertservice
 //import { AlertserviceService } from '../../../services/alertservice.service';
-import { AlertserviceService } from '../../../services/alertservice.service';
+import { AlertserviceService,Address } from '../../../services/alertservice.service';
 //ActivatedRoute
 import { ActivatedRoute } from '@angular/router';
 import { ServiceService } from '../../../services/service.service';
@@ -17,7 +17,9 @@ import { ServiceService } from '../../../services/service.service';
     styleUrls: ['./address.page.scss'],
 })
 export class AddressPage implements OnInit {
-    private address: any = {
+
+    
+    private address: Address = {
         "Area": "",
         "Street": "",
         "HomeNumber": "",
@@ -26,6 +28,7 @@ export class AddressPage implements OnInit {
         "longitude": "",
         "userId": ""
     }
+    //private uid: string = "";
     private locationdata: any;
     constructor(
         private afstorage: AngularFireStorage,
@@ -41,12 +44,14 @@ export class AddressPage implements OnInit {
             this.locationdata = data;
             this.address.latitude = data.latitude;
             this.address.longitude = data.longitude;
+
+            this.retrieveDataFromFirebase();
         });
 
     }
 
     ngOnInit() {
-        this.retrieveDataFromFirebase();
+        
     }
 
 
@@ -57,13 +62,17 @@ export class AddressPage implements OnInit {
         });
         await loading.present();
 
-        this.authService.getDataFromStorage().then((userdata) => {
-
-
-            this.afData.object('Address/' + userdata.uid).valueChanges().subscribe((addressobj: any) => {
-
+        this.authService.getDataFromStorage().then((userdata)=>{
+                
+             this.afData.object('Address/'+userdata.uid).valueChanges().subscribe((addressobj:Address) => {
                 loading.dismiss();
-                this.address = addressobj;
+                this.address.Area = addressobj.Area;
+                this.address.Street = addressobj.Street;
+                this.address.HomeNumber = addressobj.HomeNumber;
+                this.address.PhoneNumber = addressobj.PhoneNumber;
+                this.address.latitude = addressobj.latitude;
+                this.address.longitude = addressobj.longitude;
+                this.address.userId = addressobj.userId;
 
             }, (databaseError) => {
 
@@ -80,30 +89,23 @@ export class AddressPage implements OnInit {
 
     
     //Method to add address to firebase
-    async addOrder() {
-        //alert(this.locationdata);
+    async addAddress() {
         const loading = await this.loadingController.create({
             message: 'Please wait...',
         });
         await loading.present();
         this.authService.getDataFromStorage().then((userdata) => {
-            this.address.userId = userdata.uid;
 
-            this.afData.list("Address").set(userdata.uid, this.address).then((dataresposeobj) => {
-                // this.afData.list("Address/" + dataresposeobj.key).set("Addresskey", dataresposeobj.key).then(() => {
+            //alert(JSON.stringify(userdata));
+            this.address.userId=userdata.uid;
+
+            //alert(JSON.stringify(this.address));
+            this.afData.list("Address").set(userdata.uid,this.address).then((dataresposeobj) => {
                 loading.dismiss();
                 this.alert.presentAlert("Address data inserted successfully");
-
-                // }).catch((error) => {
-                //   loading.dismiss();
-                //   this.alert.presentAlert(error.message);
-                //   //this.presentAlert(error.message);
-                // });
-
             }).catch((databaseError) => {
                 loading.dismiss();
                 this.alert.presentAlert(databaseError.message);
-                //this.presentAlert(databaseError.message);
             });
         }).catch((storageerror) => {
             loading.dismiss();

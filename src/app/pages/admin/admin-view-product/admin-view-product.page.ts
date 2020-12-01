@@ -172,10 +172,22 @@ async deleteProductAlert(productObj) {
         },
         {
           name: 'price',
-          value: productObj.price,
+          value: productObj.price + ' OMR',
           type: 'text',
           placeholder: 'Product Price'
         },
+        {
+            name: 'category',
+            value: productObj.category,
+            type: 'text',
+            placeholder: 'Product category'
+          },
+          {
+            name: 'qty',
+            value: productObj.qty,
+            type: 'text',
+            placeholder: 'Product qty'
+          },
         {
           name: 'Description',
           value: productObj.Description,
@@ -216,9 +228,12 @@ async deleteProductAlert(productObj) {
   startSearch() {
     this.tempArray = [];
     for(let i=0; i<this.productArray.length;i++){
-      if(this.productArray[i].Title.toLowerCase().startsWith(this.searchtxt.toLowerCase())){
+      if(this.productArray[i].ProductName.toLowerCase().startsWith(this.searchtxt.toLowerCase())){
         this.tempArray.push(this.productArray[i]);
       }
+    //   else(this.productArray[i].category.toLowerCase().startsWith(this.searchtxt.toLowerCase()))
+    //     this.tempArray.push(this.productArray[i]);
+      
     }
   }
   startStopListening() {
