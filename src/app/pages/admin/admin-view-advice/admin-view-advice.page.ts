@@ -5,7 +5,6 @@ import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/da
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { PopoverController } from '@ionic/angular';
 import { PopoverComponentPage } from '../../popover/popover-component/popover-component.page';
-//import SpeechRecognition
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 @Component({
     selector: 'app-admin-view-advice',
@@ -13,9 +12,7 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
     styleUrls: ['./admin-view-advice.page.scss'],
 })
 export class AdminViewAdvicePage implements OnInit {
-
     private adviceArray: any[] = [];
-    //temp Array
     private tempArray: any[] = [];
     private isRecording: boolean = false;
     private matches: string[] = []; //to get the results
@@ -28,8 +25,7 @@ export class AdminViewAdvicePage implements OnInit {
         private speechRecognition: SpeechRecognition) {
         this.speechRecognition.hasPermission()
             .then((hasPermission: boolean) => {
-                //if user not give any permission
-                if (!hasPermission) { //permission not there
+                if (!hasPermission) {
                     this.speechRecognition.requestPermission();
                 }
             });
@@ -46,17 +42,13 @@ export class AdminViewAdvicePage implements OnInit {
             message: 'Please wait...',
         });
         await loading.present();
-
-        // this.afData.list('advice').valueChanges().subscribe((advArray) => {
         this.afData.list('advice', ref => ref.orderByChild('time')).valueChanges().subscribe((advArray) => {
             loading.dismiss();
-            // console.log(JSON.stringify(advArray));
             this.adviceArray = advArray;
             this.tempArray = advArray;
         }, (databaseError) => {
             loading.dismiss();
             this.alert.presentAlert(databaseError.message);
-            //this.presentAlert(databaseError.message);
         })
 
     }
@@ -127,7 +119,6 @@ export class AdminViewAdvicePage implements OnInit {
         }).catch((error) => {
             loading.dismiss();
             this.alert.presentAlert(error.message);
-            //this.presentAlert(error.message);
         });
 
     }
@@ -179,25 +170,21 @@ export class AdminViewAdvicePage implements OnInit {
     }
     ///startStopListening
     startStopListening() {
-        //to on and off Recording 
         this.isRecording = (!this.isRecording);
         if (this.isRecording) {
-            //which language
             let options = {
                 language: "en-US",
-                matches: 5 //give me max 5 results 
-            } // Start the recognition process 
+                matches: 5
+            }
             this.speechRecognition.startListening(options).subscribe(
                 (matches: string[]) => {
                     this.matches = matches;
-                    //alert(JSON.stringify(matches));
                     this.presentAlertRadio();
                 },
                 (onerror) =>
                     console.log('error:', onerror))
         }
         else {
-            // Stop the recognition process (iOS only)
             this.speechRecognition.stopListening()
         }
     }
@@ -229,7 +216,6 @@ export class AdminViewAdvicePage implements OnInit {
             {
                 text: 'Ok',
                 handler: (data: string) => {
-                    // alert(JSON.stringify(data));
                     this.tempArray = [];
                     for (let i = 0; i < this.adviceArray.length; i++) {
                         if (this.adviceArray[i].name.toLowerCase().startsWith(data)) {

@@ -1,17 +1,3 @@
-.scrollx{
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;
-    
-}
-.cardStyle{
-    width:100px;
-    display: inline-block;
-    margin-right: 1px !important;
-    background-color: #EFEEEE;
-    text-align: center;  
-}
-
 .iconStyle {
     width: 60px;
     height: 60px;
@@ -25,29 +11,10 @@
     margin-top: 20%;
     box-shadow: 3px 3px 15px #dbd7d7;
 }
-.imgstyle{
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    padding: 0px !important;
-    text-align: center;
-}
 .productcarstyle{
      border-radius: 10px;
      box-shadow: 3px 3px 15px #dbd7d7;
-     height: 255px;
-     width: 340px;   
 }
-// .desdivStyle{
-//     height: 35px;
-//     overflow-y: scroll;
-//     overflow-x: hidden;
-//     white-space: nowrap;
-// }
-.descstyle{
-    padding-left: 30px !important;
-}
-
 .iconcolor{
     color: #357abe;
     width: 18px;
@@ -109,16 +76,6 @@
     --placeholder-color:#357abe;
     --icon-color:#357abe;
 }
-// .recordbutton{
-//     --background:rgba(255, 0, 0, 0.021);
-//     width: 50px;
-//     height: 50px; 
-//     padding:7px;
-//     margin-right: 0px !important;
-//     margin-bottom:10px ;
-//     margin-top: 7px;
-//     margin-left: 5px !important;
-// }
 
 .micicon{
     color: #357abe;

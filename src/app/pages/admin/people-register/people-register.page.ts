@@ -4,8 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AlertController } from '@ionic/angular';
-//sms
-import { SMS } from '@ionic-native/sms/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 @Component({
@@ -16,7 +14,6 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 export class PeopleRegisterPage implements OnInit {
 
     private eventArray: any[] = [];
-    //private email:string = "fatmaalbrashdi.1995@gmail.com";
     private eventkey: string = "";
     private tempArray: any[] = [];
     private peopleRegisterdArray: any[] = [];
@@ -26,8 +23,7 @@ export class PeopleRegisterPage implements OnInit {
         private afData: AngularFireDatabase,
         private route: ActivatedRoute,
         public loadingController: LoadingController,
-        private alert: AlertserviceService,
-        private sms: SMS) {
+        private alert: AlertserviceService,) {
         this.route.queryParams.subscribe((data) => {
             this.eventkey = data.eventkey;
         });

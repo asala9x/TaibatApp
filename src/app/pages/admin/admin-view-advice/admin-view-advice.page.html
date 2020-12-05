@@ -1,96 +1,82 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-icon name="ellipsis-vertical" class="iconstyle" slot="end" (click)="CreatePopOver($event)" ></ion-icon>
-    <ion-title>Advice</ion-title>
-  </ion-toolbar>
-  <ion-toolbar lines="none">
-    <ion-searchbar class="searchstyle" [(ngModel)]="searchtxt" (ngModelChange)="startSearch()">
-    </ion-searchbar>
-     <ion-fab vertical="Top" horizontal="end" slot="start">
+    <ion-toolbar color="primary">
+        <ion-icon name="ellipsis-vertical" class="iconstyle" slot="end" (click)="CreatePopOver($event)"></ion-icon>
+        <ion-title>Advice</ion-title>
+    </ion-toolbar>
+    <ion-toolbar lines="none">
+        <ion-searchbar class="searchstyle" [(ngModel)]="searchtxt" (ngModelChange)="startSearch()">
+        </ion-searchbar>
+        <ion-fab vertical="Top" horizontal="end" slot="start">
             <ion-icon [name]="isRecording?'mic':'mic-off'" class="micicon" (click)="startStopListening()">
             </ion-icon>
-    </ion-fab>
-</ion-toolbar>
+        </ion-fab>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
- <!-- no details-->
- <ion-card color="light" *ngIf="tempArray.length==0">
-  <ion-card-content color="primary">
-    No Advices added yet. please click on 'Add Advice' tab to add one.
-  </ion-card-content>
-  <!-- card with details-->
-</ion-card>
-<ion-list *ngIf="tempArray.length>0">
-  <ion-item-sliding *ngFor="let i of tempArray">
-    <ion-card class="advicecarstyle">
-      <ion-row >
-        <!-- <ion-col size="4"> 
-          <ion-card class="cardimgstyle" align="center">
-            <div align="center" class="divimgestyle">
-              <img [src]=i.img1  />
-            </div>
-          </ion-card>
-        </ion-col>
-        <ion-col size="4"> 
-          <ion-card class="cardimgstyle" align="center"> 
-            <div align="center" class="divimgestyle">
-              <img [src]=i.img2  /> 
-            </div>
-          </ion-card>
-        </ion-col> -->
-        <ion-col size="4">
-        <ion-slides pager="true">
-          <ion-slide>
-            <ion-card class="cardimgstyle" align="center">
-              <div align="center" class="divimgestyle">
-                <img [src]=i.img1  />
-              </div>
-            </ion-card>
-          </ion-slide>
-          <ion-slide>
-            <ion-card class="cardimgstyle" align="center">
-              <div align="center" class="divimgestyle">
-                <img [src]=i.img2  />
-              </div>
-            </ion-card>
-          </ion-slide>
-        </ion-slides>
-       </ion-col>
-        <ion-col size="8">
-          <ion-card-content>
-            <ion-row>
-              <ion-col>
-                <ion-icon name="pencil" class="iconcolor"></ion-icon>
-              </ion-col>
-              <ion-col class="colstyle">
-                <p>{{i.name}}</p>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-
-              <ion-col>
-                <ion-icon name="newspaper" class="iconcolor"></ion-icon>
-              </ion-col>
-              <ion-col class="colstyle">
-                <div class="desdivStyle">
-                  <p class="ion-text-wrap">{{i.descripion}}</p>
-                </div>
-              </ion-col>
-            </ion-row>
-          </ion-card-content>
-        </ion-col>
-      </ion-row>
-      <div class="divstyle">
-        <ion-col class="updateiconcolorstyle">
-          <ion-icon name="create" (click)="updateAdviceAlert(i)"></ion-icon>
-        </ion-col>
-        <ion-col class="deleteiconcolorstyle">
-          <ion-icon name="trash" (click)="deleteAdviceAlert(i)"></ion-icon>
-        </ion-col>
-      </div>
+    <!-- no details-->
+    <ion-card color="light" *ngIf="tempArray.length==0">
+        <ion-card-content color="primary">
+            No Advices added yet. please click on 'Add Advice' tab to add one.
+        </ion-card-content>
+        <!-- card with details-->
     </ion-card>
-  </ion-item-sliding>
-  
-</ion-list>
+    <ion-list *ngIf="tempArray.length>0">
+        <ion-item-sliding *ngFor="let i of tempArray">
+            <ion-card class="advicecarstyle">
+                <ion-row>
+                    <ion-col size="4">
+                        <ion-slides pager="true">
+                            <ion-slide>
+                                <ion-card class="cardimgstyle" align="center">
+                                    <div align="center" class="divimgestyle">
+                                        <img [src]=i.img1 />
+                                    </div>
+                                </ion-card>
+                            </ion-slide>
+                            <ion-slide>
+                                <ion-card class="cardimgstyle" align="center">
+                                    <div align="center" class="divimgestyle">
+                                        <img [src]=i.img2 />
+                                    </div>
+                                </ion-card>
+                            </ion-slide>
+                        </ion-slides>
+                    </ion-col>
+                    <ion-col size="8">
+                        <ion-card-content>
+                            <ion-row>
+                                <ion-col>
+                                    <ion-icon name="pencil" class="iconcolor"></ion-icon>
+                                </ion-col>
+                                <ion-col class="colstyle">
+                                    <p>{{i.name}}</p>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+
+                                <ion-col>
+                                    <ion-icon name="newspaper" class="iconcolor"></ion-icon>
+                                </ion-col>
+                                <ion-col class="colstyle">
+                                    <div class="desdivStyle">
+                                        <p class="ion-text-wrap">{{i.descripion}}</p>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                        </ion-card-content>
+                    </ion-col>
+                </ion-row>
+                <div class="divstyle">
+                    <ion-col class="updateiconcolorstyle">
+                        <ion-icon name="create" (click)="updateAdviceAlert(i)"></ion-icon>
+                    </ion-col>
+                    <ion-col class="deleteiconcolorstyle">
+                        <ion-icon name="trash" (click)="deleteAdviceAlert(i)"></ion-icon>
+                    </ion-col>
+                </div>
+            </ion-card>
+        </ion-item-sliding>
+
+    </ion-list>
 </ion-content>

@@ -1,3 +1,6 @@
+.backiconstyle{
+    color:white;
+}
 .mainDivStyle{
     box-shadow: 3px 5px 15px #dbd7d7;
     height: 650px ;
@@ -5,9 +8,6 @@
     margin: 10px !important;
     border-radius: 10px;
     padding-top: 25px;   
-}
-.backiconstyle{
-    color:white;
 }
 .inputDivStyle{
     padding-left: 30px;
@@ -22,11 +22,6 @@
 .divimageStyle{
     height: 110px;
     width: 110px;
-}
-.lblcolor{
-    --color: #94a9bd;
-  margin-top: 18px;
-  width: 50%;
 }
 .CancelbuttStyle{
     width: 150px;

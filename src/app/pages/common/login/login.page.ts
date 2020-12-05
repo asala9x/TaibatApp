@@ -69,6 +69,8 @@ export class LoginPage implements OnInit {
                 }).catch((error) => {
                   this.alert.presentAlert("Unable to storage data to storage");
 
+                  //this.alert.presentAlert(error.message);
+
                 })
               }, (userdberror) => {
                 loading.dismiss();
