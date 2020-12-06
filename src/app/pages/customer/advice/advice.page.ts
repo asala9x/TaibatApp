@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
-//Alertservice
 import { AlertserviceService } from '../../../services/alertservice.service';
-//import fire DB
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
-//NavigationExtras
 import { NavigationExtras } from '@angular/router';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
-//NavController
 import { NavController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
 import { CustomerPopoverPage } from '../../popover/customer-popover/customer-popover.page';
@@ -18,13 +14,14 @@ import { CustomerPopoverPage } from '../../popover/customer-popover/customer-pop
   templateUrl: './advice.page.html',
   styleUrls: ['./advice.page.scss'],
 })
+
 export class AdvicePage implements OnInit {
 
-    private adviceArray: any[] = [];
-    private isRecording: boolean = false;
-    private matches: string[] = [];
-    private tempArray: any[] = [];
-    private searchtxt;
+  private adviceArray: any[] = [];
+  private isRecording: boolean = false;
+  private matches: string[] = [];
+  private tempArray: any[] = [];
+  private searchtxt;
 
   constructor(public alertController: AlertController,
     private alert: AlertserviceService,
@@ -32,20 +29,23 @@ export class AdvicePage implements OnInit {
     public navCtr: NavController,
     public loadingController: LoadingController,
     private popoverController: PopoverController,
-     private speechRecognition: SpeechRecognition) {
-        this.tempArray = this.adviceArray;
-        this.speechRecognition.hasPermission()
-          .then((hasPermission: boolean) => {
-            if (!hasPermission) {
-              this.speechRecognition.requestPermission();
-            }
-          });
-      }
+    private speechRecognition: SpeechRecognition) {
+
+    this.tempArray = this.adviceArray;
+    this.speechRecognition.hasPermission()
+      .then((hasPermission: boolean) => {
+        if (!hasPermission) {
+          this.speechRecognition.requestPermission();
+        }
+      });
+
+  }
+
   ngOnInit() {
     this.retrieveDataFromFirebase();
   }
 
-  // Method for retrieve data from firebase
+
   async retrieveDataFromFirebase() {
 
     const loading = await this.loadingController.create({
@@ -63,14 +63,14 @@ export class AdvicePage implements OnInit {
 
       loading.dismiss();
       this.alert.presentAlert(databaseError.message);
-      
+
     })
 
   }
 
   async CreatePopOver(ev: any) {
     const popover = await this.popoverController.create({
-      component:CustomerPopoverPage,
+      component: CustomerPopoverPage,
       cssClass: 'my-custom-class1',
       event: ev,
       translucent: true
@@ -78,7 +78,6 @@ export class AdvicePage implements OnInit {
     return await popover.present();
   }
 
-  //startStopListening
 
   startStopListening() {
     this.isRecording = (!this.isRecording);
@@ -105,14 +104,14 @@ export class AdvicePage implements OnInit {
 
   startSearch() {
     this.tempArray = [];
-    for(let i=0; i<this.adviceArray.length;i++){
-      if(this.adviceArray[i].name.toLowerCase().startsWith(this.searchtxt.toLowerCase())){
+    for (let i = 0; i < this.adviceArray.length; i++) {
+      if (this.adviceArray[i].name.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
         this.tempArray.push(this.adviceArray[i]);
       }
     }
   }
 
-  //presentAlertRadio
+
   async presentAlertRadio() {
 
     let inputsArray: any[] = [];
@@ -142,8 +141,8 @@ export class AdvicePage implements OnInit {
           text: 'Ok',
           handler: (data: string) => {
             this.tempArray = [];
-            for(let i=0; i<this.adviceArray.length;i++){
-              if(this.adviceArray[i].name.toLowerCase().startsWith(data.toLowerCase())){
+            for (let i = 0; i < this.adviceArray.length; i++) {
+              if (this.adviceArray[i].name.toLowerCase().startsWith(data.toLowerCase())) {
                 this.tempArray.push(this.adviceArray[i]);
               }
             }
@@ -154,5 +153,5 @@ export class AdvicePage implements OnInit {
 
     await alertradio.present();
   }
-  
+
 }

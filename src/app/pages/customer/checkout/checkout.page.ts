@@ -23,11 +23,12 @@ export class CheckoutPage implements OnInit {
   private succArry: any[] = [];
   private newProductQty = 0;
   private newproductArry: any[] = [];
-
+  private viewAddressArray: any[] = [];
+  private AddrArray: any[] = [];
   constructor(private route: ActivatedRoute, public loadingController: LoadingController,
     private authService: ServiceService,
     private afData: AngularFireDatabase,
-    private alert: AlertserviceService,public navCtrl: NavController) {
+    private alert: AlertserviceService, public navCtrl: NavController) {
 
 
 
@@ -55,6 +56,7 @@ export class CheckoutPage implements OnInit {
     this.authService.getDataFromStorage().then((userdata) => {
       this.uid = userdata.uid;
       let userCartPath = "user/" + this.uid + "/cart"
+
 
       loading.dismiss;
 
@@ -93,6 +95,19 @@ export class CheckoutPage implements OnInit {
       })
 
 
+      this.afData.list('Address').valueChanges().subscribe((AddressArray) => {
+        loading.dismiss();
+        this.viewAddressArray = AddressArray;
+        for (let i = 0; i < this.viewAddressArray.length; i++) {
+          if (this.viewAddressArray[i].userId == this.uid) {
+            this.AddrArray = this.viewAddressArray[i];
+          }
+         
+        }
+      }, (databaseError) => {
+        loading.dismiss();
+        this.alert.presentAlert(databaseError.message);
+      })
 
     }).catch((storageerror) => {
       loading.dismiss();
@@ -125,108 +140,122 @@ export class CheckoutPage implements OnInit {
 
   async order() {
 
-    const loading = await this.loadingController.create({
-      message: 'Please wait...',
-    });
-    await loading.present();
 
 
+    //get cart data from FB
+    //save incoming arry to new arry
+    //if array lenght = 0 (erre)
+    //else
+    //get address data from FB
+    //save incoming arry to new arry
+    //if array lenght = 0 (erre)
+    //else 
 
-    //get curent user data 
-    this.authService.getDataFromStorage().then((userdata) => {
+    if (this.AddrArray.length == 0) {
 
-      let orderObj = {
-        "userId": userdata.uid,
-        "userName":userdata.Name,
-        "userEmail":userdata.Email,
-        "order": this.basketArray,
-        "Total": this.total,
-        "States": "in-progress",
-        "img":"https://firebasestorage.googleapis.com/v0/b/taibatapp.appspot.com/o/1606025189.jpg?alt=media&token=544c4c3c-f40c-435e-ba92-2b15d1d0e7df",
-   
-      };
+      this.alert.presentAlert("plz add order");
+    } else {
 
-      // alert(JSON.stringify(orderObj))
+      const loading = await this.loadingController.create({
+        message: 'Please wait...',
+      });
+      await loading.present();
 
-      loading.dismiss;
+      //get curent user data 
+      this.authService.getDataFromStorage().then((userdata) => {
 
-      //move data from cart to orders
-      this.afData.list('orders').push(orderObj).then((ifSeccess) => {
-        this.afData.list("orders/" + ifSeccess.key).set("orderkey", ifSeccess.key).then(() => {
-          loading.dismiss();
-          // this.alert.presentAlert("Product data inserted successfully");
-    
-        }).catch((error) => {
-          loading.dismiss();
-          this.alert.presentAlert(error.message);
-          //this.presentAlert(error.message);
-        });
-        loading.dismiss();
+        let orderObj = {
+          "userId": userdata.uid,
+          "userName": userdata.Name,
+          "userEmail": userdata.Email,
+          "order": this.basketArray,
+          "Total": this.total,
+          "States": "in-progress",
+          "img": "https://firebasestorage.googleapis.com/v0/b/taibatapp.appspot.com/o/1606025189.jpg?alt=media&token=544c4c3c-f40c-435e-ba92-2b15d1d0e7df",
 
-        for (let i = 0; i < this.basketArray.length; i++) {
-          let productid = this.basketArray[i].productid
-          let productQty = this.basketArray[i].qty
+        };
 
-          let productPath = "/products/" + productid
-  // alert(JSON.stringify(this.tempArray))
- 
-          for (let j = 0; j<this.tempArray.length ; j++) {
-            //  alert(j)
-            if (productid == this.tempArray[j].productskey) {
-              let newProductQty = this.tempArray[j].qty - productQty
-              // alert(newProductQty)
-              this.afData.list(productPath).set("qty",newProductQty);
-            }
-            
-          }
-        }
+        // alert(JSON.stringify(orderObj))
 
-        // alert(JSON.stringify(this.basketArray))
-        //clere cart and total
-        this.total = "";
-        this.basketArray = [];
-         alert(this.basketArray)
-        //update cart
-        let userPath1 = "/user/" + this.uid
-        this.afData.list(userPath1).set("cart", this.basketArray).then((itemArray) => {
+        loading.dismiss;
 
-          //update total
-          let userPath = "user/" + this.uid
-
-          this.afData.list(userPath).set("total", this.total).then((itemArray) => {
+        //move data from cart to orders
+        this.afData.list('orders').push(orderObj).then((ifSeccess) => {
+          this.afData.list("orders/" + ifSeccess.key).set("orderkey", ifSeccess.key).then(() => {
             loading.dismiss();
+            // this.alert.presentAlert("Product data inserted successfully");
+
+          }).catch((error) => {
+            loading.dismiss();
+            this.alert.presentAlert(error.message);
+            //this.presentAlert(error.message);
+          });
+          loading.dismiss();
+
+          for (let i = 0; i < this.basketArray.length; i++) {
+            let productid = this.basketArray[i].productid
+            let productQty = this.basketArray[i].qty
+
+            let productPath = "/products/" + productid
+            // alert(JSON.stringify(this.tempArray))
+
+            for (let j = 0; j < this.tempArray.length; j++) {
+              //  alert(j)
+              if (productid == this.tempArray[j].productskey) {
+                let newProductQty = this.tempArray[j].qty - productQty
+                // alert(newProductQty)
+                this.afData.list(productPath).set("qty", newProductQty);
+              }
+
+            }
+          }
+
+          // alert(JSON.stringify(this.basketArray))
+          //clere cart and total
+          this.total = "";
+          this.basketArray = [];
+          alert(this.basketArray)
+          //update cart
+          let userPath1 = "/user/" + this.uid
+          this.afData.list(userPath1).set("cart", this.basketArray).then((itemArray) => {
+
+            //update total
+            let userPath = "user/" + this.uid
+
+            this.afData.list(userPath).set("total", this.total).then((itemArray) => {
+              loading.dismiss();
+            }).catch((err) => {
+              loading.dismiss();
+              this.alert.presentAlert(err.message);
+            });
+
+            loading.dismiss();
+
           }).catch((err) => {
             loading.dismiss();
             this.alert.presentAlert(err.message);
           });
-
+          this.navCtrl.navigateForward('/states');
+          // this.alert.presentAlert("Thank you for shopping with us. Waiting for you again");
+        }).catch((Error) => {
           loading.dismiss();
-
-        }).catch((err) => {
-          loading.dismiss();
-          this.alert.presentAlert(err.message);
+          this.alert.presentAlert(Error.message);
         });
-        this.navCtrl.navigateForward('/states');
-        // this.alert.presentAlert("Thank you for shopping with us. Waiting for you again");
-      }).catch((Error) => {
+
+      }).catch((storageerror) => {
         loading.dismiss();
-        this.alert.presentAlert(Error.message);
-      });
-
-    }).catch((storageerror) => {
-      loading.dismiss();
-      this.alert.presentAlert("Unable to get data from storage");
-    })
+        this.alert.presentAlert("Unable to get data from storage");
+      })
 
 
-    
-    
 
 
+
+
+
+
+    }
 
 
   }
-
-
-
 }

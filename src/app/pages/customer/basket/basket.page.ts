@@ -195,5 +195,11 @@ export class BasketPage implements OnInit {
   }
 
 
-
+  checkout() {
+  if (this.basketArray.length == 0) {
+  this.alert.presentAlert("plz add order");
+    } else {
+      this.navCtr.navigateForward('/checkout');
+    }
+  }
 }

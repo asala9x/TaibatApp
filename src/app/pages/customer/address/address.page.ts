@@ -1,24 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-//import Fire Storage
 import { AngularFireStorage } from '@angular/fire/storage';
-//imoprt loading and alert
 import { LoadingController, AlertController } from '@ionic/angular';
-//imoprt Fire Database
 import { AngularFireDatabase } from '@angular/fire/database';
-//Alertservice
-//import { AlertserviceService } from '../../../services/alertservice.service';
-import { AlertserviceService,Address } from '../../../services/alertservice.service';
-//ActivatedRoute
+import { AlertserviceService, Address } from '../../../services/alertservice.service';
 import { ActivatedRoute } from '@angular/router';
 import { ServiceService } from '../../../services/service.service';
+
 @Component({
     selector: 'app-address',
     templateUrl: './address.page.html',
     styleUrls: ['./address.page.scss'],
 })
-export class AddressPage implements OnInit {
 
-    
+export class AddressPage implements OnInit {
+    private uid: string = "";
+    private viewAddressArray: any[] = [];
+    private AddrArray: any[] = [];
     private address: Address = {
         "Area": "",
         "Street": "",
@@ -28,7 +25,8 @@ export class AddressPage implements OnInit {
         "longitude": "",
         "userId": ""
     }
-    //private uid: string = "";
+
+
     private locationdata: any;
     constructor(
         private afstorage: AngularFireStorage,
@@ -38,9 +36,8 @@ export class AddressPage implements OnInit {
         private alert: AlertserviceService,
         private authService: ServiceService,
         private route: ActivatedRoute) {
-        this.route.queryParams.subscribe((data) => {
-            //alert(JSON.stringify(data));
 
+        this.route.queryParams.subscribe((data) => {
             this.locationdata = data;
             this.address.latitude = data.latitude;
             this.address.longitude = data.longitude;
@@ -50,9 +47,7 @@ export class AddressPage implements OnInit {
 
     }
 
-    ngOnInit() {
-        
-    }
+    ngOnInit() { }
 
 
     async retrieveDataFromFirebase() {
@@ -62,9 +57,9 @@ export class AddressPage implements OnInit {
         });
         await loading.present();
 
-        this.authService.getDataFromStorage().then((userdata)=>{
-                
-             this.afData.object('Address/'+userdata.uid).valueChanges().subscribe((addressobj:Address) => {
+        this.authService.getDataFromStorage().then((userdata) => {
+
+            this.afData.object('Address/' + userdata.uid).valueChanges().subscribe((addressobj: Address) => {
                 loading.dismiss();
                 this.address.Area = addressobj.Area;
                 this.address.Street = addressobj.Street;
@@ -73,6 +68,12 @@ export class AddressPage implements OnInit {
                 this.address.latitude = addressobj.latitude;
                 this.address.longitude = addressobj.longitude;
                 this.address.userId = addressobj.userId;
+
+                // for (let i = 0; i < this.addressobj.length; i++) {
+                //     if (this.viewAddressArray[i].userId == this.uid) {
+                //       this.AddrArray = this.viewAddressArray[i];
+                //     }
+
             }, (databaseError) => {
 
                 loading.dismiss();
@@ -86,29 +87,57 @@ export class AddressPage implements OnInit {
     }
 
 
-    
-    //Method to add address to firebase
+    isPhoneValid(search:string):boolean
+    {
+        let  phonevalid:boolean;
+
+        let regexp = new RegExp(/^(?=7|9.\d.\d)[0-9]{8}$/);
+
+        phonevalid = regexp.test(search);
+
+        return phonevalid;
+    }
+
+    //Add address to firebase
     async addAddress() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
-        this.authService.getDataFromStorage().then((userdata) => {
 
-            //alert(JSON.stringify(userdata));
-            this.address.userId=userdata.uid;
+        let  phoneNumebr = this.address.PhoneNumber
+        if (this.address.Area == "") {
+            this.alert.presentAlert("Please enter Area")
+        } else if (this.address.Street == "") {
+            this.alert.presentAlert("Please enter Street")
+        } else if (this.address.HomeNumber == "") {
+            this.alert.presentAlert("Please enter HomeNumber")
+        } else if (phoneNumebr == "") {
+            this.alert.presentAlert("Please enter PhoneNumber")
+        }
+         else if (phoneNumebr.length < 8) {
+            this.alert.presentAlert("Phone number should be 8 digit")
+        }
+        else if (!this.isPhoneValid(phoneNumebr)) {
+            this.alert.presentAlert("Phone number should start with 9 or 7")
+        }
+         else {
 
-            //alert(JSON.stringify(this.address));
-            this.afData.list("Address").set(userdata.uid,this.address).then((dataresposeobj) => {
-                loading.dismiss();
-                this.alert.presentAlert("Address data inserted successfully");
-            }).catch((databaseError) => {
-                loading.dismiss();
-                this.alert.presentAlert(databaseError.message);
+
+            const loading = await this.loadingController.create({
+                message: 'Please wait...',
             });
-        }).catch((storageerror) => {
-            loading.dismiss();
-            this.alert.presentAlert("Unable to get data from storage");
-        })
+
+            await loading.present();
+            this.authService.getDataFromStorage().then((userdata) => {
+                this.address.userId = userdata.uid;
+                this.afData.list("Address").set(userdata.uid, this.address).then((dataresposeobj) => {
+                    loading.dismiss();
+                    this.alert.presentAlert("Address data inserted successfully");
+                }).catch((databaseError) => {
+                    loading.dismiss();
+                    this.alert.presentAlert(databaseError.message);
+                });
+            }).catch((storageerror) => {
+                loading.dismiss();
+                this.alert.presentAlert("Please Select Location");
+            })
+        }
     }
 }
