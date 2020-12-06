@@ -1,17 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-// Auth
 import { AngularFireAuth } from '@angular/fire/auth';
-// DB
 import { AngularFireDatabase } from '@angular/fire/database';
-//loding
 import { LoadingController } from '@ionic/angular';
-//alert
 import { AlertController } from '@ionic/angular';
-//Alertservice
 import { AlertserviceService } from '../../../services/alertservice.service';
-//cantroal
 import { NavController } from '@ionic/angular';
-//services
 import { ServiceService } from '../../../services/service.service';
 
 @Component({
@@ -19,29 +12,35 @@ import { ServiceService } from '../../../services/service.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
 export class LoginPage implements OnInit {
 
   private data: any = {
     "email": "",
     "password": ""
   }
-  constructor(private fbauth: AngularFireAuth, private loadingController: LoadingController,
-    private alertController: AlertController, private alert: AlertserviceService
-    , public navCtrl: NavController, public authService: ServiceService,
+
+  constructor(
+    private fbauth: AngularFireAuth,
+    private loadingController: LoadingController,
+    private alertController: AlertController,
+    private alert: AlertserviceService,
+    public navCtrl: NavController,
+    public authService: ServiceService,
     public afDatabase: AngularFireDatabase) { }
 
 
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   //login
   async loginWithFBdetails() {
-    //show lodaing
+
     const loading = await this.loadingController.create({
       message: 'Please wait...',
     });
     await loading.present();
+
     if (this.data.email == "") {
       loading.dismiss();
       this.alert.presentAlert("plaes enter your Email");
@@ -50,7 +49,6 @@ export class LoginPage implements OnInit {
       loading.dismiss();
       this.alert.presentAlert("plaes enter your Password");
     }
-
     else {
       this.fbauth.signInWithEmailAndPassword(this.data.email, this.data.password)
         .then((authData) => {
@@ -78,12 +76,10 @@ export class LoginPage implements OnInit {
           } else {
             loading.dismiss();
             this.alert.presentAlert("Please verify your email")
-            // this.presentAlert("Please verify your email");
           }
         }).catch((authError) => {
           loading.dismiss();
           this.alert.presentAlert(authError.message);
-          //  this.presentAlert(authError.message);
         })
     }
   }
