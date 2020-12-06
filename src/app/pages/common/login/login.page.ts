@@ -42,6 +42,7 @@ export class LoginPage implements OnInit {
       message: 'Please wait...',
     });
     await loading.present();
+    
     if (this.data.email == "") {
       loading.dismiss();
       this.alert.presentAlert("plaes enter your Email");

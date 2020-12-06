@@ -15,6 +15,6 @@ export class ServiceService {
         return this.storage.get('data');
     }
     clear() {
-        // return this.storage.clear();
+         return this.storage.clear();
     }
 }

@@ -169,7 +169,7 @@ export class AdminViewProductPage implements OnInit {
                 },
                 {
                     name: 'price',
-                    value: productObj.price + ' OMR',
+                    value: productObj.price ,
                     type: 'text',
                     placeholder: 'Product Price'
                 },

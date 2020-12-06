@@ -73,7 +73,6 @@ export class AddressPage implements OnInit {
                 this.address.latitude = addressobj.latitude;
                 this.address.longitude = addressobj.longitude;
                 this.address.userId = addressobj.userId;
-
             }, (databaseError) => {
 
                 loading.dismiss();
