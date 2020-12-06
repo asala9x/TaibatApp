@@ -27,7 +27,6 @@ export class ViewOrderPage implements OnInit {
         private alert: AlertserviceService,
         private authService: ServiceService) {
         this.route.queryParams.subscribe((data) => {
-            //alert(JSON.stringify(data));
             this.orderkey = data.orderkey;
         });
         this.tempArray = this.vieworderdArray;
@@ -36,7 +35,6 @@ export class ViewOrderPage implements OnInit {
 
     ngOnInit() {
         this.retrieveDataFromFirebase();
-        //this.retrieveDataFromFirebase2();
     }
     async retrieveDataFromFirebase() {
 
@@ -51,7 +49,6 @@ export class ViewOrderPage implements OnInit {
                 loading.dismiss();
                 this.viewAddressArray = AddressArray;
                 this.AddrArray = this.viewAddressArray;
-               // alert(JSON.stringify(this.viewAddressArray));
             }, (databaseError) => {
                 loading.dismiss();
                 this.alert.presentAlert(databaseError.message);
@@ -62,15 +59,15 @@ export class ViewOrderPage implements OnInit {
             this.alert.presentAlert(databaseError.message);
         })
     }
-    
-    async updateStatus(orderFirebaseKey , newStatus) {
+
+    async updateStatus(orderFirebaseKey, newStatus) {
 
         const loading = await this.loadingController.create({
             message: 'Please wait...',
         });
         await loading.present();
 
-        this.afData.list("orders/"+orderFirebaseKey).set("States",newStatus).then(() => {
+        this.afData.list("orders/" + orderFirebaseKey).set("States", newStatus).then(() => {
             loading.dismiss();
             this.alert.presentAlert("states updated successfully");
         }).catch((error) => {

@@ -29,7 +29,7 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { PopoverComponentPageModule } from './../app/pages/popover/popover-component/popover-component.module';
 import { CustomerPopoverPageModule } from './pages/popover/customer-popover/customer-popover.module';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { IonicStorageModule } from '@ionic/storage';
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],
@@ -37,6 +37,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
         BrowserModule, 
         HttpClientModule,
         IonicModule.forRoot(), 
+        IonicStorageModule.forRoot(),
         AppRoutingModule,
         PopoverComponentPageModule,
         CustomerPopoverPageModule,
@@ -56,7 +57,6 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
         IonTabs,
         SMS,
         EmailComposer,
-        NativeStorage,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
     bootstrap: [AppComponent]
