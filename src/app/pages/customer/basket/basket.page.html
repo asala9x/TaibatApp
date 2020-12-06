@@ -92,7 +92,8 @@
 
     <ion-button color="primary" class="CancelbuttStyle" fill="outline" [routerLink]="['/customer-tab/shop']"> Add more
     </ion-button>
-    <ion-button color="light" class="CancelbuttStyle" [routerLink]="['/checkout']"> Checkout </ion-button>
+    <!-- [routerLink]="['/checkout']" -->
+    <ion-button color="light" class="CancelbuttStyle"  (click)="checkout()"> Checkout </ion-button>
   </div>
 
 </ion-content>

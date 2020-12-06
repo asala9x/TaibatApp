@@ -13,8 +13,9 @@ import { ServiceService } from '../../../services/service.service';
 })
 
 export class AddressPage implements OnInit {
-
-
+    private uid: string = "";
+    private viewAddressArray: any[] = [];
+    private AddrArray: any[] = [];
     private address: Address = {
         "Area": "",
         "Street": "",
@@ -68,6 +69,11 @@ export class AddressPage implements OnInit {
                 this.address.longitude = addressobj.longitude;
                 this.address.userId = addressobj.userId;
 
+                // for (let i = 0; i < this.addressobj.length; i++) {
+                //     if (this.viewAddressArray[i].userId == this.uid) {
+                //       this.AddrArray = this.viewAddressArray[i];
+                //     }
+
             }, (databaseError) => {
 
                 loading.dismiss();
@@ -81,25 +87,57 @@ export class AddressPage implements OnInit {
     }
 
 
+    isPhoneValid(search:string):boolean
+    {
+        let  phonevalid:boolean;
+
+        let regexp = new RegExp(/^(?=7|9.\d.\d)[0-9]{8}$/);
+
+        phonevalid = regexp.test(search);
+
+        return phonevalid;
+    }
 
     //Add address to firebase
     async addAddress() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
-        this.authService.getDataFromStorage().then((userdata) => {
-            this.address.userId = userdata.uid;
-            this.afData.list("Address").set(userdata.uid, this.address).then((dataresposeobj) => {
-                loading.dismiss();
-                this.alert.presentAlert("Address data inserted successfully");
-            }).catch((databaseError) => {
-                loading.dismiss();
-                this.alert.presentAlert(databaseError.message);
+
+        let  phoneNumebr = this.address.PhoneNumber
+        if (this.address.Area == "") {
+            this.alert.presentAlert("Please enter Area")
+        } else if (this.address.Street == "") {
+            this.alert.presentAlert("Please enter Street")
+        } else if (this.address.HomeNumber == "") {
+            this.alert.presentAlert("Please enter HomeNumber")
+        } else if (phoneNumebr == "") {
+            this.alert.presentAlert("Please enter PhoneNumber")
+        }
+         else if (phoneNumebr.length < 8) {
+            this.alert.presentAlert("Phone number should be 8 digit")
+        }
+        else if (!this.isPhoneValid(phoneNumebr)) {
+            this.alert.presentAlert("Phone number should start with 9 or 7")
+        }
+         else {
+
+
+            const loading = await this.loadingController.create({
+                message: 'Please wait...',
             });
-        }).catch((storageerror) => {
-            loading.dismiss();
-            this.alert.presentAlert("Unable to get data from storage");
-        })
+
+            await loading.present();
+            this.authService.getDataFromStorage().then((userdata) => {
+                this.address.userId = userdata.uid;
+                this.afData.list("Address").set(userdata.uid, this.address).then((dataresposeobj) => {
+                    loading.dismiss();
+                    this.alert.presentAlert("Address data inserted successfully");
+                }).catch((databaseError) => {
+                    loading.dismiss();
+                    this.alert.presentAlert(databaseError.message);
+                });
+            }).catch((storageerror) => {
+                loading.dismiss();
+                this.alert.presentAlert("Please Select Location");
+            })
+        }
     }
 }
