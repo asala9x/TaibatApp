@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar color="primary">
         <ion-icon name="ellipsis-vertical" class="iconstyle" slot="end" (click)="CreatePopOver($event)"></ion-icon>
-        <ion-title>shop</ion-title>
+        <ion-title>Shop</ion-title>
     </ion-toolbar>
 
     <ion-toolbar>
@@ -20,6 +20,7 @@
             <ion-card *ngFor="let i of catogryArray" class="cardStyle" (click)="filterProductData(i.value)">
                 <ion-card-content>
                     <img [src]="i.img" class="iconStyle" />
+                    <br/>
                     <ion-label class="ion-text-wrap">{{i.name}}</ion-label>
                 </ion-card-content>
             </ion-card>

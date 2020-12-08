@@ -23,24 +23,21 @@ export class CheckoutPage implements OnInit {
   private succArry: any[] = [];
   private newProductQty = 0;
   private newproductArry: any[] = [];
+  private totalArry: any[] = [];
   private viewAddressArray: any[] = [];
   private AddrArray: any[] = [];
   constructor(private route: ActivatedRoute, public loadingController: LoadingController,
     private authService: ServiceService,
     private afData: AngularFireDatabase,
     private alert: AlertserviceService, public navCtrl: NavController) {
-
+        // this.retrieveDataFromFirebase();
 
 
   }
   ngOnInit() {
-    this.retrieveDataFromFirebase();
+     this.retrieveDataFromFirebase();
 
   }
-
-
-
-
 
 
   async retrieveDataFromFirebase() {
@@ -56,15 +53,18 @@ export class CheckoutPage implements OnInit {
     this.authService.getDataFromStorage().then((userdata) => {
       this.uid = userdata.uid;
       let userCartPath = "user/" + this.uid + "/cart"
-
-
+    // alert(JSON.stringify(userdata))
+    this.totalArry= userdata
+    // this.total = userdata.total;
+     alert(JSON.stringify(userdata))
       loading.dismiss;
 
       this.afData.list('products').valueChanges().subscribe((proArray) => {
         loading.dismiss();
         // console.log(JSON.stringify(dieArray));
-
+         this.total = userdata.total;
         this.tempArray = proArray;
+
         // alert(JSON.stringify(proArray))
 
       }, (databaseError) => {
@@ -78,13 +78,12 @@ export class CheckoutPage implements OnInit {
         // console.log(orderArray);
         userCartlist.unsubscribe();
         this.basketArray = orderArray;
-
         for (let i = 0; i < this.basketArray.length; i++) {
           this.cartArray.push(this.basketArray[i]);
         }
 
 
-        this.total = userdata.total;
+        // this.total = userdata.total;
 
         loading.dismiss();
 
@@ -153,7 +152,7 @@ export class CheckoutPage implements OnInit {
 
     if (this.AddrArray.length == 0) {
 
-      this.alert.presentAlert("plz add order");
+      this.alert.presentAlert("Please Select your Location");
     } else {
 
       const loading = await this.loadingController.create({

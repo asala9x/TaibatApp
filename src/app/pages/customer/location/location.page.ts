@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-//
 import { ViewChild, ElementRef } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ActivatedRoute } from '@angular/router';
 import { AlertserviceService } from '../../../services/alertservice.service';
-//NavigationExtras
 import { NavigationExtras } from '@angular/router';
-//NavController
 import { NavController } from '@ionic/angular';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { ServiceService } from '../../../services/service.service';

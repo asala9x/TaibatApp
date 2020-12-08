@@ -81,7 +81,7 @@ export class BasketPage implements OnInit {
           cartArray.push(this.basketArray[i]);
         }
 
-        this.tot();
+          this.tot();
 
         loading.dismiss();
 
@@ -197,7 +197,7 @@ export class BasketPage implements OnInit {
 
   checkout() {
   if (this.basketArray.length == 0) {
-  this.alert.presentAlert("plz add order");
+  this.alert.presentAlert("Please Add your Order First");
     } else {
       this.navCtr.navigateForward('/checkout');
     }

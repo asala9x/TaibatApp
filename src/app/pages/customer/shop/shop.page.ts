@@ -70,51 +70,23 @@ export class ShopPage implements OnInit {
 
 
     ngOnInit() {
-       this.retrieveDataFromFirebase();
+        this.retrieveDataFromFirebase();
     }
-    // async retrieveDataFromFirebase() {
-    //     const loading = await this.loadingController.create({
-    //         message: 'Please wait...',
-    //     });
-    //     await loading.present();
-    //     this.afData.list('products').valueChanges().subscribe((proArray) => {
-    //         loading.dismiss();
-    //         // console.log(JSON.stringify(dieArray));
-    //         //this.productArray = proArray;
-    //         this.tempArray = proArray;
-    // }, (databaseError) => {
-    //     loading.dismiss();
-    //     this.alert.presentAlert(databaseError.message);
-  
-    //   })
-
-    // }
-
     async retrieveDataFromFirebase() {
         const loading = await this.loadingController.create({
-          message: 'Please wait...'
+            message: 'Please wait...'
         });
         await loading.present();
         this.afData.list('products').valueChanges().subscribe((proArray) => {
-          loading.dismiss();
-          this.tempArray = proArray;
-       //alert(JSON.stringify( this.tempArray));
-    //    for(let i=0; i<  this.tempArray.length; i++){
-    //         if( this.tempArray[i].category=='Foods'){
-    //             //alert(JSON.stringify( this.tempArray[i].category));
-    //             let j=0;
-    //             this.tempArray1[j]=this.tempArray[i];
-    //             this.tempArray2.push(this.tempArray1[j])
-    //             j++;
-    //             alert(JSON.stringify(this.tempArray2));
-    //         }
-     //  } 
-     this.filterProductData('Foods');
+            loading.dismiss();
+            this.tempArray = proArray;
+            this.productArray = proArray;
+            this.filterProductData('Foods');
         }, (databaseError) => {
-          loading.dismiss();
-          this.alert.presentAlert(databaseError.message);
+            loading.dismiss();
+            this.alert.presentAlert(databaseError.message);
         })
-      }
+    }
 
     async filterProductData(productskey) {
 
@@ -163,6 +135,7 @@ export class ShopPage implements OnInit {
 
 
     startSearch() {
+        alert(this.productArray);
         this.tempArray = [];
         for (let i = 0; i < this.productArray.length; i++) {
             if (this.productArray[i].ProductName.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {

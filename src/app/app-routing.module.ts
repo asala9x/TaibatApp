@@ -5,7 +5,7 @@ const routes: Routes = [
   
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'welcome',
     pathMatch: 'full'
   },
   
@@ -103,7 +103,8 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./pages/customer/profile/profile.module').then( m => m.ProfilePageModule)
-  },  {
+  },
+  {
     path: 'welcome',
     loadChildren: () => import('./pages/common/welcome/welcome.module').then( m => m.WelcomePageModule)
   }

@@ -68,12 +68,6 @@ export class AddressPage implements OnInit {
                 this.address.latitude = addressobj.latitude;
                 this.address.longitude = addressobj.longitude;
                 this.address.userId = addressobj.userId;
-
-                // for (let i = 0; i < this.addressobj.length; i++) {
-                //     if (this.viewAddressArray[i].userId == this.uid) {
-                //       this.AddrArray = this.viewAddressArray[i];
-                //     }
-
             }, (databaseError) => {
 
                 loading.dismiss();
@@ -87,9 +81,8 @@ export class AddressPage implements OnInit {
     }
 
 
-    isPhoneValid(search:string):boolean
-    {
-        let  phonevalid:boolean;
+    isPhoneValid(search: string): boolean {
+        let phonevalid: boolean;
 
         let regexp = new RegExp(/^(?=7|9.\d.\d)[0-9]{8}$/);
 
@@ -101,7 +94,7 @@ export class AddressPage implements OnInit {
     //Add address to firebase
     async addAddress() {
 
-        let  phoneNumebr = this.address.PhoneNumber
+        let phoneNumebr = this.address.PhoneNumber
         if (this.address.Area == "") {
             this.alert.presentAlert("Please enter Area")
         } else if (this.address.Street == "") {
@@ -111,13 +104,13 @@ export class AddressPage implements OnInit {
         } else if (phoneNumebr == "") {
             this.alert.presentAlert("Please enter PhoneNumber")
         }
-         else if (phoneNumebr.length < 8) {
+        else if (phoneNumebr.length < 8) {
             this.alert.presentAlert("Phone number should be 8 digit")
         }
         else if (!this.isPhoneValid(phoneNumebr)) {
             this.alert.presentAlert("Phone number should start with 9 or 7")
         }
-         else {
+        else {
 
 
             const loading = await this.loadingController.create({

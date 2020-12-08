@@ -9,23 +9,11 @@
         <ion-fab vertical="Top" horizontal="end" slot="start">
 
             <ion-icon [name]="isRecording?'mic':'mic-off'" class="micicon" (click)="startStopListening()"></ion-icon>
-
         </ion-fab>
-        
         <ion-fab vertical="Top" horizontal="end" slot="start" [routerLink]="['/view-order']">
-              <!-- <ion-fab-button class="recordbutton"> -->
-        <!-- <ion-icon name="cart" class="carticon"></ion-icon> -->
-        <ion-icon name="basket" class="carticon"></ion-icon>
-    <!-- </ion-fab-button> -->
-    </ion-fab>
+            <ion-icon name="basket" class="carticon"></ion-icon>
+        </ion-fab>
     </ion-toolbar>
-    <!-- <ion-toolbar>
-        <ion-fab vertical="Top" horizontal="end" slot="start" [routerLink]="['/view-order']"> -->
-            <!-- <ion-fab-button class="recordbutton"> -->
-            <!-- <ion-icon name="cart" class="carticon"></ion-icon> -->
-            <!-- </ion-fab-button> -->
-        <!-- </ion-fab>
-    </ion-toolbar> -->
 </ion-header>
 <ion-content>
     <!-- no details-->
@@ -33,12 +21,12 @@
         <ion-card-content>
             No Products added yet. please click on 'Add Product' tab to add one.
         </ion-card-content>
-    </ion-card >
+    </ion-card>
     <!-- card with details-->
     <ion-list *ngIf="tempArray.length>0">
         <ion-item-sliding *ngFor="let i of tempArray">
             <ion-card class="productcarstyle">
-                <ion-row >
+                <ion-row>
                     <ion-col size="4">
                         <ion-card class="cardimgstyle" align="center">
                             <div align="center" class="imgestyle">
@@ -84,11 +72,11 @@
                                 <ion-col size="1.5">
                                     <ion-icon name="newspaper" class="iconcolor"></ion-icon>
                                 </ion-col>
-                                <ion-col >
-                                   <div class="desStyle">
-                                    <p class="ion-text-wrap">
-                                        {{i.Description}}
-                                    </p>
+                                <ion-col>
+                                    <div class="desStyle">
+                                        <p class="ion-text-wrap">
+                                            {{i.Description}}
+                                        </p>
                                     </div>
                                 </ion-col>
                             </ion-row>
@@ -96,14 +84,14 @@
                     </ion-col>
                 </ion-row>
                 <div class="divstyle">
-                  
+
                     <ion-col class="updateiconcolorstyle">
                         <ion-icon name="create" (click)="updateProductAlert(i)"></ion-icon>
                     </ion-col>
                     <ion-col class="deleteiconcolorstyle">
                         <ion-icon name="trash" (click)="deleteProductAlert(i)"></ion-icon>
                     </ion-col>
-               
+
                 </div>
             </ion-card>
         </ion-item-sliding>

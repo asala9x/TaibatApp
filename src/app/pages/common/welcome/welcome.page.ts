@@ -12,7 +12,7 @@ export class WelcomePage implements OnInit {
       "desc":"Dear interested in your health, you must follow the health advice of the Taibat  application"
     },
     {
-      "name":"events",
+      "name":"Events",
       "desc":"If you want to evaluate any health event, you can send a request to  Taibat  team to help you"
     },
     {

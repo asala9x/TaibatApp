@@ -29,6 +29,17 @@ export class AdminAddDietitianPage implements OnInit {
         private alert: AlertserviceService) { }
     ngOnInit() {
     }
+
+    isPhoneValid(search: string): boolean {
+        let phonevalid: boolean;
+
+        let regexp = new RegExp(/^(?=7|9.\d.\d)[0-9]{8}$/);
+
+        phonevalid = regexp.test(search);
+
+        return phonevalid;
+    }
+
     //Method to add Dietitian to firebase
     async addDietitian() {
         const loading = await this.loadingController.create({
@@ -40,6 +51,14 @@ export class AdminAddDietitianPage implements OnInit {
             this.alert.presentAlert("Please Enter Dietitian Descripion");
         } else if (this.dietitianObj.phone == "") {
             this.alert.presentAlert("Please Enter Dietitian Phone Number");
+        } else if (this.dietitianObj.phone == "") {
+            this.alert.presentAlert("Please enter PhoneNumber")
+        }
+        else if (this.dietitianObj.phone.length < 8) {
+            this.alert.presentAlert("Phone number should be 8 digit")
+        }
+        else if (!this.isPhoneValid(this.dietitianObj.phone)) {
+            this.alert.presentAlert("Phone number should start with 9 or 7")
         } else if (this.dietitianObj.email == "") {
             this.alert.presentAlert("Please Enter Dietitian Email");
         } else if (this.base64Img == "../../../../assets/icon/camera.png") {

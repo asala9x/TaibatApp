@@ -1,44 +1,39 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Sign in</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-title>Sign in</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content align="center">
-   
-    <!-- <div *ngIf="showSplash" class="splash">
-        <div class="spinner"></div>
-      </div>
-      <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav> -->
-      
-  <img src="../../../assets/icon/background.png">
+    <img src="../../../assets/icon/background.png">
 
-  <div class="logindivstyle" align="center">
-    <ion-list>
-      <ion-item>
-        <ion-input color="primary" type="email" placeholder="Email" [(ngModel)]="data.email"> </ion-input>
-      </ion-item>
-      <br />
-      <ion-item>
-        <ion-icon color="primary" slot="end" (click)="showpass=(!showpass)"
-          [name]="showpass?'eye-outline':'eye-off-outline'">
-        </ion-icon>
-        <ion-input color="primary" [type]="showpass?'text':'password'" placeholder="password"
-          [(ngModel)]="data.password"> </ion-input>
-      </ion-item>
-      
-      <ion-item lines="none">
-        <ion-text color="primary" slot="end" class="forgotPassStyle" (click)="ForgetPassword()"><b>Forgot your
-            password?</b>
+    <div class="logindivstyle" align="center">
+        <ion-list>
+            <ion-item>
+                <ion-input color="primary" type="email" placeholder="Email" [(ngModel)]="data.email"> </ion-input>
+            </ion-item>
+            <br />
+            <ion-item>
+                <ion-icon color="primary" slot="end" (click)="showpass=(!showpass)"
+                    [name]="showpass?'eye-outline':'eye-off-outline'">
+                </ion-icon>
+                <ion-input color="primary" [type]="showpass?'text':'password'" placeholder="password"
+                    [(ngModel)]="data.password"> </ion-input>
+            </ion-item>
+
+            <ion-item lines="none">
+                <ion-text color="primary" slot="end" class="forgotPassStyle" (click)="ForgetPassword()"><b>Forgot your
+                        password?</b>
+                </ion-text>
+            </ion-item>
+
+        </ion-list>
+    </div>
+    <ion-button color="primary" class="loginbuttStyle" (click)="loginWithFBdetails()"> SIGN IN </ion-button>
+    <div>
+        <ion-text color="primary" class="singUpStyle" [routerLink]="['/register']"> Don't have an account? <b>Sing
+                up</b>
         </ion-text>
-      </ion-item>
-     
-    </ion-list>
-  </div>
-  <ion-button color="primary" class="loginbuttStyle" (click)="loginWithFBdetails()"> SIGN IN </ion-button>
-  <div>
-    <ion-text color="primary" class="singUpStyle" [routerLink]="['/register']"> Don't have an account? <b>Sing up</b>
-    </ion-text>
-  </div>
+    </div>
 
 </ion-content>

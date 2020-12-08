@@ -8,7 +8,7 @@
 <ion-content>
     <div class="mainDivStyle" align="center">
         <div class="divimageStyle">
-            <img [src]="base64Img" class="imageStyle" (click)="selectProductImage()">
+            <img src="../../../assets/icon/AddImage.png"  class="imageStyle" (click)="selectProductImage()">
         </div>
         <br />
         <div class="inputDivStyle">
@@ -32,11 +32,9 @@
                 </ion-item>
                 <br />
                 <ion-item>
-                    <ion-icon name="add" class="iconcolor" slot="start" (click)="incrementQty()"></ion-icon>
+                    <ion-icon name="layers" class="iconcolor" slot="start"></ion-icon>
                     <ion-input type="number" color="primary" [(ngModel)]="productsObj.qty" placeholder="Quantity">
                     </ion-input>
-                    <ion-icon name="remove" class="iconcolor" slot="end" (click)="decrementQty()"></ion-icon>
-
                 </ion-item>
                 <ion-item>
                     <ion-icon name="newspaper" class="iconcolor" slot="start"></ion-icon>

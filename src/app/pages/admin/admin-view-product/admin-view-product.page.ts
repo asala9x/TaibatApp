@@ -162,14 +162,14 @@ export class AdminViewProductPage implements OnInit {
             cssClass: 'headerstyle',
             inputs: [
                 {
-                    name: 'name',
+                    name: 'ProductName',
                     value: productObj.ProductName,
                     type: 'text',
                     placeholder: 'Product Name'
                 },
                 {
                     name: 'price',
-                    value: productObj.price ,
+                    value: productObj.price,
                     type: 'text',
                     placeholder: 'Product Price'
                 },
@@ -225,7 +225,7 @@ export class AdminViewProductPage implements OnInit {
     startSearch() {
         this.tempArray = [];
         for (let i = 0; i < this.productArray.length; i++) {
-            if (this.productArray[i].ProductName.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
+            if (this.productArray[i].category.toLowerCase().startsWith(this.searchtxt.toLowerCase()) || this.productArray[i].ProductName.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
                 this.tempArray.push(this.productArray[i]);
             }
         }

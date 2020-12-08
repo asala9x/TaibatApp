@@ -12,8 +12,6 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
     styleUrls: ['./people-register.page.scss'],
 })
 export class PeopleRegisterPage implements OnInit {
-
-    private eventArray: any[] = [];
     private eventkey: string = "";
     private tempArray: any[] = [];
     private peopleRegisterdArray: any[] = [];

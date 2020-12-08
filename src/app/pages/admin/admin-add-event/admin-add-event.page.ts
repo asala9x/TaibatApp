@@ -21,7 +21,7 @@ export class AdminAddEventPage implements OnInit {
         "img": "",
         "time": ""
     }
-    private base64Img: string = "../../../../assets/icon/AddImage.png";
+    private base64Img: string = null;
     constructor(public actionSheetController: ActionSheetController,
         private camera: Camera,
         private afstorage: AngularFireStorage,
@@ -42,8 +42,12 @@ export class AdminAddEventPage implements OnInit {
             this.alert.presentAlert("Please Enter Event Place");
         } else if (this.eventsObj.datetime == "") {
             this.alert.presentAlert("Please Enter Event DateTime");
+        } else if (this.eventsObj.price == "") {
+            this.alert.presentAlert("Please Enter Event Price");
         } else if (this.eventsObj.people == "") {
             this.alert.presentAlert("Please Enter  People Alawed for This Event");
+        } else if (this.base64Img == null) {
+            this.alert.presentAlert("Please Upload Event Image");
         } else {
             await loading.present();
             let filename = Math.floor(Date.now() / 1000);

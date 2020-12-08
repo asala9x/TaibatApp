@@ -3,6 +3,14 @@
         <ion-back-button slot="start"> </ion-back-button>
         <ion-title>View Order</ion-title>
     </ion-toolbar>
+    <ion-toolbar lines="none">
+        <ion-searchbar class="searchstyle" [(ngModel)]="searchtxt" (ngModelChange)="startSearch()">
+        </ion-searchbar>
+        <ion-fab vertical="Top" horizontal="end" slot="start">
+            <ion-icon [name]="isRecording?'mic':'mic-off'" class="micicon" (click)="startStopListening()">
+            </ion-icon>
+        </ion-fab>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -28,6 +36,16 @@
                                 <ion-col size="10" class="colstyle">
                                     {{orders.userEmail }}
                                 </ion-col>
+                            </ion-row>
+                            <ion-row *ngFor="let loc of AddrArray">
+                                <div  *ngIf="orders.userId==loc.userId" class="calldiv">
+                                <ion-col size="2">
+                                    <ion-icon name="call" class="iconcolor"></ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="colcallstyle">
+                                    {{loc.PhoneNumber }}
+                                </ion-col>
+                            </div>
                             </ion-row>
                             <ion-row>
                                 <ion-col size="2">
@@ -73,9 +91,12 @@
                                     <ion-icon name="location" class="iconcolor"></ion-icon>
                                 </ion-col>
                                 <ion-col size="10" class="colstyle">
-                                    <div class="productdiv" *ngFor="let loc of AddrArray">
+                                    <div class="locdiv" *ngFor="let loc of AddrArray">
                                         <div *ngIf="orders.userId==loc.userId">
                                             <ion-row>
+                                                <ion-col size="1">
+                                                    <ion-icon name="location"class="iconcolor1"></ion-icon>
+                                                </ion-col>
                                                 <ion-col class="colstyle" size="8">
                                                     <p>{{loc.Area }}</p>
                                                 </ion-col>
@@ -89,11 +110,17 @@
                                                 </ion-col>
                                             </ion-row>
                                             <ion-row>
+                                                <ion-col size="1">
+                                                    <ion-icon name="compass" class="iconcolor1"></ion-icon>
+                                                </ion-col>
                                                 <ion-col size="3" class="colstyle">
                                                     <p>{{loc.latitude}}</p>
                                                 </ion-col>
                                             </ion-row>
                                             <ion-row>
+                                                <ion-col size="1">
+                                                    <ion-icon name="compass" class="iconcolor1"></ion-icon>
+                                                </ion-col>
                                                 <ion-col size="3" class="colstyle">
                                                     <p>{{loc.longitude}}</p>
                                                 </ion-col>
@@ -111,7 +138,8 @@
                                 </ion-col>
                             </ion-row>
                             <br />
-                            <ion-row>
+                            
+                            <ion-row class="statusicon">
                                 <ion-col size="3">
                                     <ion-icon name="thumbs-up" class="iconreceived"
                                         (click)="updateStatus(orders.orderkey ,'Recived')"></ion-icon>

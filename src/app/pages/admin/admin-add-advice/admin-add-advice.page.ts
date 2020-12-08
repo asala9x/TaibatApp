@@ -33,6 +33,14 @@ export class AdminAddAdvicePage implements OnInit {
         if (this.imagesarray.length > 2) {
             this.alert.presentAlert("you can select only two images");
         }
+        else if(this.adviceObj.name == "") {
+            this.alert.presentAlert("Please Enter Advice Title");
+        } else if (this.adviceObj.descripion == "") {
+            this.alert.presentAlert("Please Enter  Advice Descripion");
+        } 
+        else if (this.imagesarray== null) {
+            this.alert.presentAlert("Please Upload Advice Image");
+        }
         else {
 
             const loading = await this.loadingController.create({

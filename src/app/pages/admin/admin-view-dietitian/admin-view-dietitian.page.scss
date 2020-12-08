@@ -18,8 +18,21 @@
     overflow-y: scroll;
     overflow-x: hidden;
     white-space: nowrap;
+    margin-left:5px !important;
 }
 .descstyle{
+    margin-left: -121px !important;
+    font-size: 16px;
+    height: 20px;
+}
+.emaildivStyle{
+    height: 25px;
+    margin-left:10px !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+.emailstyle{
     padding-left: 30px !important;
     margin-left: -120px !important;
     font-size: 16px;

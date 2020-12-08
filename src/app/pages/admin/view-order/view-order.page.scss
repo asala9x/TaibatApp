@@ -6,6 +6,9 @@
 .colstyle{
     font-size: 15px;  
 }
+.colcallstyle{
+margin-left: 10px !important;
+}
 .iconcolor1{
     color:grey;
     width: 18px;
@@ -13,6 +16,15 @@
 }
 .productdiv{
     height: 50px ;
+    margin-left:-5px !important ;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+.locdiv{
+    height: 50px ;
+    margin-top: 0px !important;
+    margin-left:-5px !important ;
     overflow-y: scroll;
     overflow-x: hidden;
     white-space: nowrap;
@@ -36,4 +48,30 @@
     color: #357abe;
     width: 25px;
     height: 25px; 
+}
+
+.statusicon{
+     width: 100% ;
+      text-align: center;
+}
+.searchstyle{
+    margin-right: 2px !important;
+    margin-left: 4px !important;
+    padding: 1px;
+    width: 350px;
+    height: 64px;
+    --background:#FAFAFA;
+    border-color: #707070;
+    --placeholder-color:#357abe;
+    --icon-color:#357abe;
+}
+.micicon{
+    color: #357abe;
+    width: 24px;
+    height: 24px;
+    padding:7px;
+    margin-right: 0px !important;
+    margin-bottom:10px ;
+    margin-top: 7px;
+    margin-left: 5px !important;
 }

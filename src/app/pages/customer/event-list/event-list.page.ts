@@ -1,20 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
-//Alertservice
 import { AlertserviceService } from '../../../services/alertservice.service';
-//import fire DB
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
-//NavigationExtras
 import { NavigationExtras } from '@angular/router';
-//NavController
 import { NavController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
 import { CustomerPopoverPage } from '../../popover/customer-popover/customer-popover.page';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 @Component({
-  selector: 'app-event-list',
-  templateUrl: './event-list.page.html',
-  styleUrls: ['./event-list.page.scss'],
+    selector: 'app-event-list',
+    templateUrl: './event-list.page.html',
+    styleUrls: ['./event-list.page.scss'],
 })
 export class EventListPage implements OnInit {
     private eventArray: any[] = [];
@@ -22,137 +18,135 @@ export class EventListPage implements OnInit {
     private matches: string[] = [];
     private tempArray: any[] = [];
     private searchtxt;
-  constructor(public alertController: AlertController,
-    private alert: AlertserviceService,
-    private afData: AngularFireDatabase,
-    public navCtr: NavController,
-    public loadingController: LoadingController,
-    private popoverController: PopoverController,
-    private speechRecognition: SpeechRecognition) {
+    constructor(public alertController: AlertController,
+        private alert: AlertserviceService,
+        private afData: AngularFireDatabase,
+        public navCtr: NavController,
+        public loadingController: LoadingController,
+        private popoverController: PopoverController,
+        private speechRecognition: SpeechRecognition) {
         this.tempArray = this.eventArray;
         this.speechRecognition.hasPermission()
-          .then((hasPermission: boolean) => {
-            if (!hasPermission) {
-              this.speechRecognition.requestPermission();
-            }
-          });
-      }
-  ngOnInit() {
-    this.retrieveDataFromFirebase();
-  }
-
-  // Method for retrieve event data from DB
-  async retrieveDataFromFirebase() {
-    const loading = await this.loadingController.create({
-      message: 'Please wait...',
-    });
-    await loading.present();
-
-    this.afData.list('event', ref => ref.orderByChild('time')).valueChanges().subscribe((eveArray) => {
-      loading.dismiss();
-     this.eventArray = eveArray;
-      this.tempArray = eveArray;
-    }, (databaseError) => {
-      loading.dismiss();
-      this.alert.presentAlert(databaseError.message);
-    })
-  }
-
-  //to move to details
-  customereventdetails(eventkey) {
-
-    //alert(JSON.stringify(dietitiankey)); 
-    let NavExtras: NavigationExtras = {
-        queryParams: eventkey
-      }
-    this.navCtr.navigateForward('event-details', NavExtras);
-  }
-  async CreatePopOver(ev: any) {
-    const popover = await this.popoverController.create({
-      component:CustomerPopoverPage,
-      cssClass: 'my-custom-class1',
-      event: ev,
-      translucent: true
-    });
-    return await popover.present();
-  }
-  
-  startSearch() {
-    this.tempArray = [];
-    for (let i = 0; i < this.eventArray.length; i++) {
-      if (this.eventArray[i].Title.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
-        this.tempArray.push(this.eventArray[i]);
-      }
+            .then((hasPermission: boolean) => {
+                if (!hasPermission) {
+                    this.speechRecognition.requestPermission();
+                }
+            });
     }
-  }
- 
+    ngOnInit() {
+        this.retrieveDataFromFirebase();
+    }
 
-  customereventsdetails(eventkey) {
- 
-    let NavExtras: NavigationExtras = {
-      queryParams: eventkey
-    }
-    this.navCtr.navigateForward('customer-events-details', NavExtras);
-  }
-  //startStopListening
-  startStopListening() {
-    this.isRecording = (!this.isRecording);
-    if (this.isRecording) {
-      let options = {
-        language: "en-US",
-        matches: 5
-      }
-      this.speechRecognition.startListening(options)
-        .subscribe(
-          (matches: string[]) => {
-            this.matches = matches;
+    // Method for retrieve event data from DB
+    async retrieveDataFromFirebase() {
+        const loading = await this.loadingController.create({
+            message: 'Please wait...',
+        });
+        await loading.present();
 
-            this.presentAlertRadio();
-          },
-          (onerror) => console.log('error:', onerror)
-        )
+        this.afData.list('event', ref => ref.orderByChild('time')).valueChanges().subscribe((eveArray) => {
+            loading.dismiss();
+            this.eventArray = eveArray;
+            this.tempArray = eveArray;
+        }, (databaseError) => {
+            loading.dismiss();
+            this.alert.presentAlert(databaseError.message);
+        })
     }
-    else {
-      this.speechRecognition.stopListening()
-    }
-  }
-  //presentAlertRadio
-  async presentAlertRadio() {
 
-    let inputsArray: any[] = [];
-    this.matches.forEach(match => {
-      let matchObj = {
-        name: match,
-        label: match,
-        type: 'radio',
-        value: match
-      }
-      inputsArray.push(matchObj);
-    });
-    const alertradio = await this.alertController.create({
-      header: 'Select Event Name',
-      inputs: inputsArray,
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Ok',
-          handler: (data: string) => {
-            this.tempArray = [];
-    for (let i = 0; i < this.eventArray.length; i++) {
-      if (this.eventArray[i].Title.toLowerCase().startsWith(data.toLowerCase())) {
-        this.tempArray.push(this.eventArray[i]);
-      }
-    }
-          }
+    //to move to details
+    customereventdetails(eventkey) {
+        let NavExtras: NavigationExtras = {
+            queryParams: eventkey
         }
-      ]
-    });
-    await alertradio.present();
-  }
+        this.navCtr.navigateForward('event-details', NavExtras);
+    }
+    async CreatePopOver(ev: any) {
+        const popover = await this.popoverController.create({
+            component: CustomerPopoverPage,
+            cssClass: 'my-custom-class1',
+            event: ev,
+            translucent: true
+        });
+        return await popover.present();
+    }
+
+    startSearch() {
+        this.tempArray = [];
+        for (let i = 0; i < this.eventArray.length; i++) {
+            if (this.eventArray[i].Title.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
+                this.tempArray.push(this.eventArray[i]);
+            }
+        }
+    }
+
+
+    customereventsdetails(eventkey) {
+
+        let NavExtras: NavigationExtras = {
+            queryParams: eventkey
+        }
+        this.navCtr.navigateForward('customer-events-details', NavExtras);
+    }
+    //startStopListening
+    startStopListening() {
+        this.isRecording = (!this.isRecording);
+        if (this.isRecording) {
+            let options = {
+                language: "en-US",
+                matches: 5
+            }
+            this.speechRecognition.startListening(options)
+                .subscribe(
+                    (matches: string[]) => {
+                        this.matches = matches;
+
+                        this.presentAlertRadio();
+                    },
+                    (onerror) => console.log('error:', onerror)
+                )
+        }
+        else {
+            this.speechRecognition.stopListening()
+        }
+    }
+    //presentAlertRadio
+    async presentAlertRadio() {
+
+        let inputsArray: any[] = [];
+        this.matches.forEach(match => {
+            let matchObj = {
+                name: match,
+                label: match,
+                type: 'radio',
+                value: match
+            }
+            inputsArray.push(matchObj);
+        });
+        const alertradio = await this.alertController.create({
+            header: 'Select Event Name',
+            inputs: inputsArray,
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: () => {
+                        console.log('Confirm Cancel');
+                    }
+                }, {
+                    text: 'Ok',
+                    handler: (data: string) => {
+                        this.tempArray = [];
+                        for (let i = 0; i < this.eventArray.length; i++) {
+                            if (this.eventArray[i].Title.toLowerCase().startsWith(data.toLowerCase())) {
+                                this.tempArray.push(this.eventArray[i]);
+                            }
+                        }
+                    }
+                }
+            ]
+        });
+        await alertradio.present();
+    }
 }

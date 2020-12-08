@@ -245,7 +245,7 @@ export class ProductDetailsPage implements OnInit {
                     let userPath = "/user/" + this.uid
                     this.afData.list(userPath).set("cart", cartArray).then((itemArray) => {
                         loading.dismiss();
-                        this.alert.presentAlert("Successfully added");
+                        this.alert.presentAlert("Successfully Added To Cart ");
                     }).catch((err) => {
                         loading.dismiss();
                         alert("Error")
