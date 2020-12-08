@@ -40,24 +40,8 @@ export class ProfilePage implements OnInit {
       this.userlastArray=userdata;
       
        loading.dismiss();
-//       this.afData.list('user', ref => ref.orderByChild('Name')).valueChanges().subscribe((userArray) => {
-//         this.useroldArray = userArray;
-//         for (let i = 0; i < this.useroldArray.length; i++) {
-//           if(this.uid == this.useroldArray[i].Email){
-           
-//            this.userlastArray=this.useroldArray[i];
-// //             let j = 0;
-// //             this.userArray[j] = this.useroldArray[i];
-// //             this.userlastArray.push(this.userArray[j])
-// // j++;
-//           }
-//         }
-        alert(JSON.stringify(this.userlastArray))
-      // }, (databaseError) => {
-      //   loading.dismiss();
-      //   this.alert.presentAlert(databaseError.message);
-      // })
-      
+
+     
     }, (databaseError) => {
       loading.dismiss();
       this.alert.presentAlert(databaseError.message);

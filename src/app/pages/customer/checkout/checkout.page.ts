@@ -30,12 +30,12 @@ export class CheckoutPage implements OnInit {
     private authService: ServiceService,
     private afData: AngularFireDatabase,
     private alert: AlertserviceService, public navCtrl: NavController) {
-        // this.retrieveDataFromFirebase();
+    // this.retrieveDataFromFirebase();
 
 
   }
   ngOnInit() {
-     this.retrieveDataFromFirebase();
+    this.retrieveDataFromFirebase();
 
   }
 
@@ -53,17 +53,35 @@ export class CheckoutPage implements OnInit {
     this.authService.getDataFromStorage().then((userdata) => {
       this.uid = userdata.uid;
       let userCartPath = "user/" + this.uid + "/cart"
-    // alert(JSON.stringify(userdata))
-    this.totalArry= userdata
-    // this.total = userdata.total;
-     alert(JSON.stringify(userdata))
+      // alert(JSON.stringify(userdata))
+      this.totalArry = userdata
+      // this.total = userdata.total;
+      //  alert(JSON.stringify(userdata))
       loading.dismiss;
 
       this.afData.list('products').valueChanges().subscribe((proArray) => {
         loading.dismiss();
         // console.log(JSON.stringify(dieArray));
-         this.total = userdata.total;
+        //  this.total = userdata.total;
         this.tempArray = proArray;
+
+        this.afData.list('user').valueChanges().subscribe((userArray) => {
+          loading.dismiss();
+
+          this.totalArry = userArray;
+
+
+          for (let i = 0; i < this.totalArry.length; i++) {
+            if (this.totalArry[i].Email == userdata.Email) {
+              this.total = this.totalArry[i].total;
+              alert(JSON.stringify(this.totalArry[i]))
+            }
+          }
+
+        }, (databaseError) => {
+          loading.dismiss();
+          this.alert.presentAlert(databaseError.message);
+        })
 
         // alert(JSON.stringify(proArray))
 
@@ -101,7 +119,7 @@ export class CheckoutPage implements OnInit {
           if (this.viewAddressArray[i].userId == this.uid) {
             this.AddrArray = this.viewAddressArray[i];
           }
-         
+
         }
       }, (databaseError) => {
         loading.dismiss();
