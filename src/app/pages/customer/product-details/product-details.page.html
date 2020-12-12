@@ -1,65 +1,66 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-back-button slot="start"> </ion-back-button>
-    <ion-title>Product Details</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-back-button slot="start"> </ion-back-button>
+        <ion-title>Product Details</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content *ngFor="let i of tempArray">
-  <!-- *ngFor="let i of dietitianArray" -->
-  <div class="divImagStyle">
-    <img class="imageStyle" [src]=i.img />
-  </div>
+    <!-- *ngFor="let i of dietitianArray" -->
+    <div class="divImagStyle">
+        <img class="imageStyle" [src]=i.img />
+    </div>
 
-  <!-- *ngFor="let i of dietitianArray" -->
-  <div>
 
-    <ion-fab vertical="buttom" horizontal="start" class="cartfab" edge slot="fixed">
-      <ion-fab-button >
-        <ion-icon name="cart" class="carticon" (click)="AddToCart(i.ProductName,i.price)"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+    <div>
 
-    <ion-card class="detailsStyle" >
-      <ion-card-content >
-        <ion-text color="primary">
-          <ion-label class="nameStyle" >
-            {{i.ProductName}}
-          </ion-label>
+        <ion-fab vertical="buttom" horizontal="start" class="cartfab" edge slot="fixed">
+            <ion-fab-button (click)="AddToCart(i.ProductName,i.price)">
+                <ion-icon name="cart" class="carticon" (click)="AddToCart(i.ProductName,i.price)"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
 
-          <ion-label class="priceStyle" >{{i.price}} OMR </ion-label>
-        </ion-text>
+        <ion-card class="detailsStyle">
+            <ion-card-content>
+                
+                <ion-text color="primary">
+                    <ion-label class="nameStyle">
+                        {{i.ProductName}}
+                    </ion-label>
 
-        <ion-list class="paddingitem">
-          <ion-item-sliding>
-            <ion-row>
-              <ion-col class="paddingitem">
-                <ion-card-content class="cardStyle">
-                  <ion-row>
-                    <ion-col size="1.5">
-                      <ion-icon name="newspaper" class="iconcolor"></ion-icon>
-                    </ion-col>
-                    <ion-col size="10.5">
-                      <div class="desStyle">
-                        <p class="ion-text-wrap">
-                          {{i.Description}}
-                        </p>
-                      </div>
-                    </ion-col>
-                  </ion-row>
-                </ion-card-content>
-              </ion-col>
-            </ion-row>
-            <div class="divstyleqty" >
-              <ion-icon  name="remove" (click)="decrementQty()" class="removeiconstyle" ></ion-icon>
-              <ion-label class="lblstyle" >{{qty}}</ion-label>
-              <ion-icon name="add" (click)="incrementQty()" class="addiconstyle" ></ion-icon>
-            </div>
+                    <ion-label class="priceStyle">{{i.price}} OMR </ion-label>
+                </ion-text>
 
-          </ion-item-sliding>
-        </ion-list>
+                <ion-list class="paddingitem">
+                    <ion-item-sliding>
+                        <ion-row>
+                            <ion-col class="paddingitem">
+                                <ion-card-content class="cardStyle">
+                                    <ion-row>
+                                        <ion-col size="1.5">
+                                            <ion-icon name="newspaper" class="iconcolor"></ion-icon>
+                                        </ion-col>
+                                        <ion-col size="10.5">
+                                            <div class="desStyle">
+                                                <p class="ion-text-wrap">
+                                                    {{i.Description}}
+                                                </p>
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-card-content>
+                            </ion-col>
+                        </ion-row>
+                        <div class="divstyleqty">
+                            <ion-icon name="remove" (click)="decrementQty()" class="removeiconstyle"></ion-icon>
+                            <ion-label class="lblstyle">{{qty}}</ion-label>
+                            <ion-icon name="add" (click)="incrementQty()" class="addiconstyle"></ion-icon>
+                        </div>
 
-      </ion-card-content>
-    </ion-card>
-  </div>
+                    </ion-item-sliding>
+                </ion-list>
+      
+            </ion-card-content>
+        </ion-card>
+    </div>
 </ion-content>

@@ -1,34 +1,36 @@
-<ion-content>
-    <ion-tabs #tabs (ionTabsDidChange)="setCurrentTab()">
 
-        <ion-tab-bar slot="bottom" color="tertiary" class="tabBarStyle">
-            <ion-tab-button tab="admin-view-advice" class="tabIconStyle">
-                <ion-icon name="images"></ion-icon>
-                <ion-label>Advice</ion-label>
-            </ion-tab-button>
-
-            <ion-tab-button tab="admin-view-dietitian" class="tabIconStyle">
-                <ion-icon name="people"></ion-icon>
-                <ion-label>Dietitian</ion-label>
-            </ion-tab-button>
-
-
-            <ion-tab-button tab="admin-view-event" class="tabIconStyle">
-                <ion-icon name="videocam"></ion-icon>
-                <ion-label>Event</ion-label>
-            </ion-tab-button>
-            <ion-tab-button tab="admin-view-product" class="tabIconStyle">
-                <ion-icon name="cart"></ion-icon>
-                <ion-label>Products</ion-label>
-            </ion-tab-button>
-
-        </ion-tab-bar>
-    </ion-tabs>
-
-    <ion-fab class="fabstyle" vertical="center" horizontal="center" edge slot="fixed">
-
-        <ion-fab-button class="buttonstyle" (click)="addingdata()">
-            <ion-icon name="add" class="addiconstyle"></ion-icon>
+<ion-tabs  #tabs (ionTabsDidChange)="setCurrentTab()">
+    <ion-fab horizontal="center" vertical="bottom">
+        <ion-fab-button  class="custom-tab" (click)="addingdata()" >
+          <ion-icon name="add" class="iconaddstyle"></ion-icon>
         </ion-fab-button>
-    </ion-fab>
-</ion-content>
+      </ion-fab>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="admin-view-advice">
+        <ion-icon name="images"></ion-icon>
+        <ion-label>Advice</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="admin-view-dietitian">
+        <ion-icon name="people"></ion-icon>
+            <ion-label>Dietitian</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button class="tab-3">
+        <div></div>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="admin-view-event">
+        <ion-icon name="videocam"></ion-icon>
+        <ion-label>Event</ion-label>
+      </ion-tab-button>
+      
+  
+      <ion-tab-button tab="admin-view-product" >
+        <ion-icon name="cart"></ion-icon>
+        <ion-label>Products</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+  
+  

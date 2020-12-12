@@ -12,7 +12,9 @@ export class AdminTabPage implements OnInit {
 
 
     constructor(public navCtrl: NavController) { }
-
+    ionViewDidEnter() {
+        document.querySelector('#tab-button-tab3').shadowRoot.querySelector('.button-native').setAttribute('style', 'margin-top: -2px');
+    }
     ngOnInit() {
     }
     setCurrentTab() {

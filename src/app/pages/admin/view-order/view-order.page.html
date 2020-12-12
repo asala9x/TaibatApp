@@ -17,7 +17,7 @@
 
     <ion-list>
         <ion-item-sliding *ngFor="let orders of vieworderdArray">
-            <ion-card>
+            <ion-card class="ordercardstyle">
                 <ion-row>
                     <ion-col>
                         <ion-card-content>
@@ -38,7 +38,7 @@
                                 </ion-col>
                             </ion-row>
                             <ion-row *ngFor="let loc of AddrArray">
-                                <div  *ngIf="orders.userId==loc.userId" class="calldiv">
+                                <div  *ngIf="orders.userId==loc.userId" >
                                 <ion-col size="2">
                                     <ion-icon name="call" class="iconcolor"></ion-icon>
                                 </ion-col>
@@ -137,8 +137,6 @@
                                     </div>
                                 </ion-col>
                             </ion-row>
-                            <br />
-                            
                             <ion-row class="statusicon">
                                 <ion-col size="3">
                                     <ion-icon name="thumbs-up" class="iconreceived"

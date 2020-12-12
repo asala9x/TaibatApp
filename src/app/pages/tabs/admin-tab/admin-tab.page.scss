@@ -1,21 +1,6 @@
-// .tabIconStyle{
-//      color: #707070;  
-//   }
- 
-//   .tabIconStyle:focus{
-//     color:  #357abe;
-//   }
-  
-//   .tabBarStyle{
-//       box-shadow: 3px 3px 15px rgb(119, 118, 118);
-// //       --background:none;
-// //       background-image:url("../../../../assets/icon/Tab_Menu.png");
-// //       width: 370px;
-// //   height: 55px;
-//   }
+
   .fabstyle{
-   padding-top:80px!important;
-    margin-top: 180px !important;
+  padding-bottom:20px !important;
    font-size: 5px;
   }
 .buttonstyle{
@@ -25,9 +10,86 @@
   border-radius: 50px;
    width: 55px;
   height: 55px;
-  //box-shadow: 1px 1px 15px rgb(238, 236, 236);
 }
   .addiconstyle{
     width: 30px;
     height: 30px;
   }
+
+  ion-tabs{
+    background: #FFFFFF;
+    --height: 76px;
+}
+ion-tab-bar {
+    background: #FFFFFF;
+ 
+}
+
+.tab-selected ion-icon {
+    color: #357abe;
+    transform: scale(.85) ;
+    transition: all .25s;
+}
+
+ion-tab-button:not(.tab-selected) {
+    ion-icon {
+        transform: translateY(6px) scale(1);
+        transition: all .1s;
+    }
+}
+
+
+#tab-button-admin-view-advice,
+#tab-button-admin-view-dietitian,
+#tab-button-tab3,
+#tab-button-admin-view-event,
+#tab-button-admin-view-product {
+    --background: lightgray;
+}
+#tab-button-admin-view-advice {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+#tab-button-admin-view-dietitian {
+  border-top-right-radius: 12px;
+}
+
+.tab-3 {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 72px !important;
+    background: lightgray !important;
+    margin-top: -30px !important;
+    height: 86px;
+    --ripple-color: transparent !important;
+    cursor:  default !important;
+    div {
+        position: absolute;
+        background:#FFFFFF !important;
+        height: 72px;
+        width: 72px !important;
+        border-bottom-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+    }
+}
+
+#tab-button-admin-view-event {
+  border-top-left-radius: 12px;
+}
+
+#tab-button-admin-view-product {
+   border-top-right-radius: 0px;
+   border-bottom-right-radius: 0px;
+}
+
+
+ion-fab {
+    padding-bottom:5px !important;
+    padding-right: 50px !important;
+    margin-left: -30px !important;
+}
+.iconaddstyle{
+    height: 70px !important;
+    width: 70px !important;
+}

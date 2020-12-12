@@ -106,7 +106,7 @@ export class ShopPage implements OnInit {
         })
     }
 
-    // move to details
+    
     customerproductdetails(productskey) {
 
         let NavExtras: NavigationExtras = {
@@ -115,7 +115,6 @@ export class ShopPage implements OnInit {
         this.navCtr.navigateForward('product-details', NavExtras);
     }
 
-    //view basket
     basket(productskey) {
         let NavExtras: NavigationExtras = {
             queryParams: productskey
@@ -135,7 +134,6 @@ export class ShopPage implements OnInit {
 
 
     startSearch() {
-        alert(this.productArray);
         this.tempArray = [];
         for (let i = 0; i < this.productArray.length; i++) {
             if (this.productArray[i].ProductName.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
@@ -164,7 +162,7 @@ export class ShopPage implements OnInit {
             this.speechRecognition.stopListening()
         }
     }
-    //presentAlertRadio
+ 
     async presentAlertRadio() {
 
         let inputsArray: any[] = [];

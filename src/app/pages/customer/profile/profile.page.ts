@@ -15,11 +15,14 @@ export class ProfilePage implements OnInit {
   private userArray: any[] = [];
   private userlastArray: any[]=[];
   private uid: string = "";
+  private tempArray2: any[] = [];
+  private viewAddressArray: any[] = [];
+    private AddrArray: any[] = [];
   constructor(public loadingController: LoadingController,
     private authService: ServiceService,
     private alert: AlertserviceService,
     private afData: AngularFireDatabase) {
-     
+        this.tempArray2 = this.viewAddressArray;
      }
 
   ngOnInit() {
@@ -40,7 +43,15 @@ export class ProfilePage implements OnInit {
       this.userlastArray=userdata;
       
        loading.dismiss();
+       this.afData.list('Address').valueChanges().subscribe((AddressArray) => {
+        loading.dismiss();
+        this.viewAddressArray = AddressArray;
+        this.AddrArray = this.viewAddressArray;
 
+    }, (databaseError) => {
+        loading.dismiss();
+        this.alert.presentAlert(databaseError.message);
+    })
      
     }, (databaseError) => {
       loading.dismiss();

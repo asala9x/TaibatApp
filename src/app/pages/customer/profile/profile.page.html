@@ -12,7 +12,6 @@
   </ion-avatar>
 
   <ion-list>
-    <!-- *ngFor="let userInfo of userlastArray" -->
     <ion-item-sliding >
      
         <ion-row>
@@ -34,7 +33,16 @@
                   {{userlastArray.Name}}
                 </ion-col>
               </ion-row>
-           
+              <ion-row *ngFor="let loc of AddrArray">
+                <div  *ngIf="userlastArray.uid==loc.userId"  class="col2style">
+                <ion-col size="2" class="colstyle">
+                  <ion-icon name="call"></ion-icon>
+                </ion-col>
+                <ion-col size="10" class="col2style">
+                    {{loc.PhoneNumber }}
+                </ion-col>
+                </div>
+              </ion-row>
           </ion-col>
         </ion-row>
       

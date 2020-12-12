@@ -31,7 +31,10 @@ export class LoginPage implements OnInit {
 
 
 
-    ngOnInit() { }
+    ngOnInit() { 
+        this.data.email == "";
+        this.data.password == ""
+    }
 
     //login
     async loginWithFBdetails() {
@@ -60,7 +63,7 @@ export class LoginPage implements OnInit {
                                 userDatafromDB.uid = authData.user.uid;
                                 this.authService.setDatatoStorage(userDatafromDB).then(() => {
                                     if (userDatafromDB.userType == 'Admin') {
-                                        this.navCtrl.navigateForward('/admin-tab/admin-view-dietitian');
+                                        this.navCtrl.navigateForward('/admin-tab/admin-view-advice');
                                     } else if (userDatafromDB.userType == 'customer') {
                                         userNode.unsubscribe()
                                         this.navCtrl.navigateForward('/customer-tab/advice');

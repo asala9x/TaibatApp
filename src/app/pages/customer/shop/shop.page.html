@@ -20,7 +20,7 @@
             <ion-card *ngFor="let i of catogryArray" class="cardStyle" (click)="filterProductData(i.value)">
                 <ion-card-content>
                     <img [src]="i.img" class="iconStyle" />
-                    <br/>
+                    <br />
                     <ion-label class="ion-text-wrap">{{i.name}}</ion-label>
                 </ion-card-content>
             </ion-card>
@@ -57,6 +57,5 @@
 </ion-content>
 
 <ion-footer>
-    <!-- (click)="basket(i)" -->
-    <ion-button color="light" class="buttStyle" Expand="block" (click)="basket(i)"> View basket </ion-button>
+    <ion-button color="dark" class="buttStyle" Expand="block" (click)="basket(i)"> View basket </ion-button>
 </ion-footer>

@@ -1,32 +1,34 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-back-button slot="start"> </ion-back-button>
-    <ion-title>Checkout</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-back-button slot="start"> </ion-back-button>
+        <ion-title>Checkout</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div align="center" class="div">
-    <img class="imgestyle" src="../../../../assets/icon/map3.jpg" />
-    <ion-button   fill="outline" class="SelectLocationbut" [routerLink]="['/address']"> Select Location </ion-button>
-  </div>
+    <div align="center" class="div">
+        <img class="imgestyle" src="../../../../assets/icon/map3.jpg" />
+        <ion-button fill="outline" class="SelectLocationbut" [routerLink]="['/address']"> Select Location </ion-button>
+    </div>
+    <div class="hr"> </div>
+    <br />
 
-  <ion-text color="primary">
-    <h2 class="headerStyle">Payment summary:</h2>
-  </ion-text>
+    <ion-text color="primary">
+        <h2 class="headerStyle"><b>Payment summary:</b></h2>
+    </ion-text>
 
-  <div class="divPaymentStyle" >
+    <div class="divPaymentStyle">
 
-    <ion-row>
-      <ion-col>
-        Total amount
-      </ion-col>
-      <ion-col >
-         {{total}} OMR
-      </ion-col>
-    </ion-row>
+        <ion-row>
+            <ion-col>
+                Total amount
+            </ion-col>
+            <ion-col>
+                {{total}} OMR
+            </ion-col>
+        </ion-row>
 
-  </div>
+    </div>
 
-  <ion-button  color="secondary" class="orderbut" (click)="order()">Order</ion-button>
+    <ion-button color="secondary" class="orderbut" (click)="order()">Order</ion-button>
 </ion-content>
