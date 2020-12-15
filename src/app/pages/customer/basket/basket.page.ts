@@ -113,11 +113,6 @@ export class BasketPage implements OnInit {
             this.afData.list(userPath).set("cart", this.basketArray).then((itemArray) => {
                 loading.dismiss();
                 this.alert.presentAlert("Successfully Deleted");
-                //  this.tot();
-                // for (let total = 0; total < this.basketArray.length; total++) {
-                //     this.totalPrice = (Number(this.basketArray[total].price) * Number(this.basketArray[total].qty)) + Number(this.totalPrice); //0 = (20 + 0) = 20 * 2 = 40
-
-                // }
             }).catch((err) => {
                 loading.dismiss();
                 this.alert.presentAlert(err.message);
@@ -170,12 +165,15 @@ export class BasketPage implements OnInit {
             message: 'Please wait...',
         });
         await loading.present();
-        for (let total = 0; total < this.basketArray.length; total++) {
-            this.totalPrice = (Number(this.basketArray[total].price) * Number(this.basketArray[total].qty)) + Number(this.totalPrice); //0 = (20 + 0) = 20 * 2 = 40
-
+        this.finaltotal = 0
+        var produtPrice = 0
+        for (let itemID = 0; itemID < this.basketArray.length; itemID++) {
+            produtPrice = (Number(this.basketArray[itemID].price) * Number(this.basketArray[itemID].qty)) ; //0 = (20 + 0) = 20 * 2 = 40
+            this.finaltotal += produtPrice
         }
 
-        this.finaltotal = Number(this.totalPrice) + Number(this.servicechaarge);
+        this.totalPrice = this.finaltotal
+        this.finaltotal += Number(this.servicechaarge);
 
         let userPath = "user/" + this.uid
 

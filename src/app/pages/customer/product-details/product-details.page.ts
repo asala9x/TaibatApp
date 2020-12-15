@@ -139,7 +139,7 @@ export class ProductDetailsPage implements OnInit {
             "qty": 0,
             "productid": this.order.productid
 
-        };
+        };   
         orderObj.productName = this.tempArray[0].productName;
         orderObj.price = this.tempArray[0].price;
         orderObj.qty = this.qty;
