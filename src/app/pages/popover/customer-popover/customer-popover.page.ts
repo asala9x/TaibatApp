@@ -11,13 +11,13 @@ export class CustomerPopoverPage implements OnInit {
 
     constructor(public popoverController: PopoverController,
         public navCtrl: NavController,
-        private storage: ServiceService) { }
+        private authService: ServiceService) { }
 
     ngOnInit() {
     }
     
     Logout() {
-        this.storage.clear().then(() => {
+        this.authService.clear().then(() => {
             this.navCtrl.navigateRoot('/login');
             this.popoverController.dismiss();
         });

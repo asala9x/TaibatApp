@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../app/guards/auth.guard';
 
 const routes: Routes = [
   
-  {
-    path: '',
-    redirectTo: 'welcome',
-    pathMatch: 'full'
-  },
+//   {
+//     path: '',
+//     redirectTo: 'welcome',
+//     pathMatch: 'full'
+//   },
   
   {
     path: 'login',
@@ -31,10 +32,12 @@ const routes: Routes = [
   },
   {
     path: 'customer-tab',
+    canActivate:[AuthGuard],
     loadChildren: () => import('./pages/tabs/customer-tab/customer-tab.module').then( m => m.CustomerTabPageModule)
   },
   {
     path: 'admin-tab',
+    canActivate:[AuthGuard],
     loadChildren: () => import('./pages/tabs/admin-tab/admin-tab.module').then( m => m.AdminTabPageModule)
   },
   {
