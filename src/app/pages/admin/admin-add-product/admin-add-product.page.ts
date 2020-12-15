@@ -12,12 +12,12 @@ import { AlertserviceService } from '../../../services/alertservice.service';
 })
 export class AdminAddProductPage implements OnInit {
     private productsObj: any = {
-        "ProductName": "",
+        "productName": "",
         "price": "",
         "category": "",
         "qty": "",
         "img": "",
-        "Description": ""
+        "description": ""
     }
     private base64Img: string = null;
     constructor(public actionSheetController: ActionSheetController,
@@ -37,7 +37,7 @@ export class AdminAddProductPage implements OnInit {
         const loading = await this.loadingController.create({
             message: 'Please wait...',
         });
-        if (this.productsObj.ProductName == "") {
+        if (this.productsObj.productName == "") {
             this.alert.presentAlert("Please Enter Product Name");
         }
 
@@ -48,7 +48,7 @@ export class AdminAddProductPage implements OnInit {
         else if (this.productsObj.qty == "") {
             this.alert.presentAlert("Please Select Quantity");
         }
-        else if (this.productsObj.Description == "") {
+        else if (this.productsObj.description == "") {
             this.alert.presentAlert("Please Enter Product Description");
         }
         else if (this.productsObj.price == "") {

@@ -51,8 +51,8 @@ export class PeopleRegisterPage implements OnInit {
 
         this.emailComposer.open({
             to: this.peopleRegisterdArray[0].Email,
-            subject: 'Cordova Icons',
-            body: 'How are you? ',
+            subject: 'Event',
+            body: 'Your registration has been accepted for this event ',
         })
 
 

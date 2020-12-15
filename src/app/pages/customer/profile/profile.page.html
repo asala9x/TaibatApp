@@ -1,54 +1,54 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-back-button slot="start"> </ion-back-button>
-    <ion-title>Profile</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-back-button slot="start"> </ion-back-button>
+        <ion-title>Profile</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="backgroundImage">
-<div class="divstyle" align="center">
-  <ion-avatar class="imagestyle">
-    <img src="../../../../assets/icon/user-4-512.jpg"/>
-  </ion-avatar>
+    <div class="divstyle" align="center">
+        <ion-avatar class="imagestyle">
+            <img src="../../../../assets/icon/user-4-512.jpg" />
+        </ion-avatar>
 
-  <ion-list>
-    <ion-item-sliding >
-     
-        <ion-row>
-          <ion-col>
-           
-              <ion-row>
-                <ion-col size="2" class="colstyle">
-                  <ion-icon name="mail"></ion-icon>
-                </ion-col>
-                <ion-col size="10" class="col2style">
-                  {{userlastArray.Email}}
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="2" class="colstyle">
-                  <ion-icon name="person"></ion-icon>
-                </ion-col>
-                <ion-col size="10" class="col2style">
-                  {{userlastArray.Name}}
-                </ion-col>
-              </ion-row>
-              <ion-row *ngFor="let loc of AddrArray">
-                <div  *ngIf="userlastArray.uid==loc.userId"  class="col2style">
-                <ion-col size="2" class="colstyle">
-                  <ion-icon name="call"></ion-icon>
-                </ion-col>
-                <ion-col size="10" class="col2style">
-                    {{loc.PhoneNumber }}
-                </ion-col>
-                </div>
-              </ion-row>
-          </ion-col>
-        </ion-row>
-      
-    </ion-item-sliding>
-  </ion-list>
+        <ion-list>
+            <ion-item-sliding>
+
+                <ion-row>
+                    <ion-col>
+
+                        <ion-row>
+                            <ion-col size="2" class="colstyle">
+                                <ion-icon name="mail"></ion-icon>
+                            </ion-col>
+                            <ion-col size="10" class="col2style">
+                                {{userlastArray.email}}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="2" class="colstyle">
+                                <ion-icon name="person"></ion-icon>
+                            </ion-col>
+                            <ion-col size="10" class="col2style">
+                                {{userlastArray.name}}
+                            </ion-col>
+                        </ion-row>
+                        <ion-row *ngFor="let loc of AddrArray">
+                            <div *ngIf="userlastArray.uid==loc.userId" class="col2style">
+                                <ion-col size="2" class="colstyle">
+                                    <ion-icon name="call"></ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="col2style">
+                                    {{loc.phoneNumber }}
+                                </ion-col>
+                            </div>
+                        </ion-row>
+                    </ion-col>
+                </ion-row>
+
+            </ion-item-sliding>
+        </ion-list>
 
 
-</div>
+    </div>
 </ion-content>

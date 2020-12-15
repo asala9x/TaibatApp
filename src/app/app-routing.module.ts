@@ -107,7 +107,8 @@ const routes: Routes = [
   {
     path: 'welcome',
     loadChildren: () => import('./pages/common/welcome/welcome.module').then( m => m.WelcomePageModule)
-  }
+  },
+  
 
 
 

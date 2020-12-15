@@ -74,7 +74,7 @@ export class EventListPage implements OnInit {
     startSearch() {
         this.tempArray = [];
         for (let i = 0; i < this.eventArray.length; i++) {
-            if (this.eventArray[i].Title.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
+            if (this.eventArray[i].title.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
                 this.tempArray.push(this.eventArray[i]);
             }
         }
@@ -139,7 +139,7 @@ export class EventListPage implements OnInit {
                     handler: (data: string) => {
                         this.tempArray = [];
                         for (let i = 0; i < this.eventArray.length; i++) {
-                            if (this.eventArray[i].Title.toLowerCase().startsWith(data.toLowerCase())) {
+                            if (this.eventArray[i].title.toLowerCase().startsWith(data.toLowerCase())) {
                                 this.tempArray.push(this.eventArray[i]);
                             }
                         }

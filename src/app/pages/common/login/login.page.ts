@@ -69,6 +69,7 @@ export class LoginPage implements OnInit {
                                         this.navCtrl.navigateForward('/customer-tab/advice');
                                     }
                                 }).catch((error) => {
+                                    loading.dismiss();
                                     this.alert.presentAlert("Unable to storage data to storage");
 
                                 })

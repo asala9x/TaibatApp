@@ -139,8 +139,6 @@ export class AdminAddDietitianPage implements OnInit {
         }
 
         this.camera.getPicture(options).then((imageData) => {
-            // imageData is either a base64 encoded string or a file URI
-            // If it's base64 (DATA_URL):
             this.base64Img = 'data:image/jpeg;base64,' + imageData;
         }, (err) => {
             // Handle error

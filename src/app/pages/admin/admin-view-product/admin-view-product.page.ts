@@ -70,7 +70,6 @@ export class AdminViewProductPage implements OnInit {
         await loading.present();
         this.afData.list('products').valueChanges().subscribe((proArray) => {
             loading.dismiss();
-            // console.log(JSON.stringify(dieArray));
             this.productArray = proArray;
             this.tempArray = proArray;
         }, (databaseError) => {
@@ -118,7 +117,7 @@ export class AdminViewProductPage implements OnInit {
         const alert = await this.alertController.create({
             cssClass: 'headerstyle',
             header: 'Taibat App',
-            message: 'Are you sure you want to delete ' + productObj.ProductName + ' ?',
+            message: 'Are you sure you want to delete ' + productObj.productName + ' ?',
 
             buttons: [
                 {
@@ -162,8 +161,8 @@ export class AdminViewProductPage implements OnInit {
             cssClass: 'headerstyle',
             inputs: [
                 {
-                    name: 'ProductName',
-                    value: productObj.ProductName,
+                    name: 'productName',
+                    value: productObj.productName,
                     type: 'text',
                     placeholder: 'Product Name'
                 },
@@ -186,8 +185,8 @@ export class AdminViewProductPage implements OnInit {
                     placeholder: 'Product qty'
                 },
                 {
-                    name: 'Description',
-                    value: productObj.Description,
+                    name: 'description',
+                    value: productObj.description,
                     type: 'text',
                     placeholder: 'Product Description'
                 }
@@ -225,7 +224,7 @@ export class AdminViewProductPage implements OnInit {
     startSearch() {
         this.tempArray = [];
         for (let i = 0; i < this.productArray.length; i++) {
-            if (this.productArray[i].category.toLowerCase().startsWith(this.searchtxt.toLowerCase()) || this.productArray[i].ProductName.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
+            if (this.productArray[i].category.toLowerCase().startsWith(this.searchtxt.toLowerCase()) || this.productArray[i].productName.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
                 this.tempArray.push(this.productArray[i]);
             }
         }
@@ -265,7 +264,7 @@ export class AdminViewProductPage implements OnInit {
             inputsArray.push(matchObj);
         });
         const alertradio = await this.alertController.create({
-            header: 'Select Advice Name',
+            header: 'Select Product Name',
             inputs: inputsArray,
             buttons: [
                 {

@@ -13,7 +13,7 @@
         <div class="divProductsStyle">
             <ion-row *ngFor="let i of basketArray">
                 <ion-col class="fontsize">
-                    {{i.ProductName}}
+                    {{i.productName}}
                 </ion-col>
 
                 <ion-col class="fontsize">
@@ -75,16 +75,8 @@
                 </ion-col>
             </ion-row>
         </div>
-
-        <br />
-        <br />
     </div>
-    <div class="buttDivStyle">
-
-        <ion-button color="primary" class="CancelbuttStyle" fill="outline" [routerLink]="['/customer-tab/shop']"> Add
-            more
-        </ion-button>
+    <div align="center">
         <ion-button color="dark" class="CancelbuttStyle" (click)="checkout()"> Checkout </ion-button>
     </div>
-
 </ion-content>

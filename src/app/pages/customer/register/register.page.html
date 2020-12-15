@@ -1,40 +1,46 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-back-button slot="start"> </ion-back-button>
-    <ion-title>Sing Up</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-back-button slot="start"> </ion-back-button>
+        <ion-title>Sing Up</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content align="center">
-  <img src="../../../assets/icon/background2.png">
+    <img src="../../../assets/icon/background2.png">
 
-  <div class="regesterdivstyle" align="center">
-    <ion-list>
+    <div class="regesterdivstyle" align="center">
+        <ion-list>
 
-      <ion-item>
-        <ion-input type="text"  color="primary" placeholder="Name" [(ngModel)]="customerDetails.Name"> </ion-input>
-      </ion-item>
-      <br />
-      <ion-item>
-        <ion-input type="email" color="primary" placeholder="Email" [(ngModel)]="customerDetails.Email"> </ion-input>
-      </ion-item>
-      <br />
-      <ion-item>
-        <ion-icon slot="end" (click)="showpass=(!showpass)" [name]="showpass?'eye-outline':'eye-off-outline'" color="primary">
-        </ion-icon>
-        <ion-input [type]="showpass?'text':'password'" color="primary" placeholder="Password" [(ngModel)]="customerDetails.password">
-        </ion-input>
-      </ion-item>
-      <br />
-      <ion-item>
-        <ion-icon slot="end" (click)="showpass=(!showpass)" [name]="showpass?'eye-outline':'eye-off-outline'" color="primary">
-        </ion-icon>
-        <ion-input [type]="showpass?'text':'password'" color="primary" placeholder="ConfirmPassword" [(ngModel)]="Confirmpassword">
-        </ion-input>
-      </ion-item>
+            <ion-item>
+                <ion-input type="text" color="primary" placeholder="Name" [(ngModel)]="customerDetails.name">
+                </ion-input>
+            </ion-item>
+            <br />
+            <ion-item>
+                <ion-input type="email" color="primary" placeholder="Email" [(ngModel)]="customerDetails.email">
+                </ion-input>
+            </ion-item>
+            <br />
+            <ion-item>
+                <ion-icon slot="end" (click)="showpass=(!showpass)" [name]="showpass?'eye-outline':'eye-off-outline'"
+                    color="primary">
+                </ion-icon>
+                <ion-input [type]="showpass?'text':'password'" color="primary" placeholder="Password"
+                    [(ngModel)]="customerDetails.password">
+                </ion-input>
+            </ion-item>
+            <br />
+            <ion-item>
+                <ion-icon slot="end" (click)="showpass=(!showpass)" [name]="showpass?'eye-outline':'eye-off-outline'"
+                    color="primary">
+                </ion-icon>
+                <ion-input [type]="showpass?'text':'password'" color="primary" placeholder="ConfirmPassword"
+                    [(ngModel)]="Confirmpassword">
+                </ion-input>
+            </ion-item>
 
-    </ion-list>
-  </div>
+        </ion-list>
+    </div>
 
-  <ion-button color="primary" class="buttStyle" (click)="registerUserInFB()"> Sing Up </ion-button>
+    <ion-button color="primary" class="buttStyle" (click)="registerUserInFB()"> Sing Up </ion-button>
 </ion-content>

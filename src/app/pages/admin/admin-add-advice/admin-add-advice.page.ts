@@ -28,7 +28,6 @@ export class AdminAddAdvicePage implements OnInit {
 
     ngOnInit() {
     }
-    //Method to add advice to firebase
     async addAdvice() {
         if (this.imagesarray.length > 2) {
             this.alert.presentAlert("you can select only two images");

@@ -29,10 +29,15 @@
 </ion-header>
 
 <ion-content>
+    <ion-card color="light" *ngIf="tempArray.length==0">
+        <ion-card-content color="primary">
+            No Results yet.
+        </ion-card-content>
+    </ion-card>
 
     <div align="center" class="maindivStyle">
         <ion-grid class="gridstyle">
-            <ion-row>
+            <ion-row *ngIf="tempArray.length>0">
 
                 <ion-col size="4" *ngFor="let i of tempArray">
 
@@ -44,7 +49,7 @@
                         <ion-card-content class="cardcontentstyle">
 
                             <ion-button color="primary" class="productNameStyle" (click)="customerproductdetails(i)">
-                                {{i.ProductName}}
+                                {{i.productName}}
                             </ion-button>
                         </ion-card-content>
                     </ion-card>

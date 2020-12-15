@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
-//Alertservice
 import { AlertserviceService } from '../../../services/alertservice.service';
-//import fire DB
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
-//NavigationExtras
 import { NavigationExtras } from '@angular/router';
-//NavController
 import { NavController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
 import { CustomerPopoverPage } from '../../popover/customer-popover/customer-popover.page';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+import { ServiceService } from '../../../services/service.service';
 @Component({
     selector: 'app-shop',
     templateUrl: './shop.page.html',
@@ -51,11 +48,14 @@ export class ShopPage implements OnInit {
     private tempArray2: any[] = [];
     private isRecording: boolean = false;
     private searchtxt;
+    private uid: string = "";
+    private basketArray: any[] = [];
     private productskey;
     constructor(public alertController: AlertController,
         private alert: AlertserviceService,
         private afData: AngularFireDatabase,
         public navCtr: NavController,
+        private authService: ServiceService,
         public loadingController: LoadingController,
         private popoverController: PopoverController,
         private speechRecognition: SpeechRecognition) {
@@ -66,6 +66,7 @@ export class ShopPage implements OnInit {
                     this.speechRecognition.requestPermission();
                 }
             });
+            this.retrieveDataFromFirebase();
     }
 
 
@@ -85,6 +86,33 @@ export class ShopPage implements OnInit {
         }, (databaseError) => {
             loading.dismiss();
             this.alert.presentAlert(databaseError.message);
+        })
+        let cartArray: any[] = [];
+
+        this.authService.getDataFromStorage().then((userdata) => {
+            this.uid = userdata.uid;
+            let userCartPath = "user/" + this.uid + "/cart"
+            loading.dismiss;
+
+
+            const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((orderArray) => {
+                loading.dismiss;
+                console.log(orderArray);
+                userCartlist.unsubscribe();
+                this.basketArray = orderArray;
+                for (let i = 0; i < this.basketArray.length; i++) {
+                    cartArray.push(this.basketArray[i]);
+                }
+                alert(JSON.stringify(this.basketArray));
+                loading.dismiss();
+
+            }, (databaseError) => {
+                loading.dismiss();
+                this.alert.presentAlert(databaseError.message);
+            })
+        }).catch((storageerror) => {
+            loading.dismiss();
+            this.alert.presentAlert("Unable to get data from storage");
         })
     }
 
@@ -106,7 +134,7 @@ export class ShopPage implements OnInit {
         })
     }
 
-    
+
     customerproductdetails(productskey) {
 
         let NavExtras: NavigationExtras = {
@@ -116,10 +144,15 @@ export class ShopPage implements OnInit {
     }
 
     basket(productskey) {
+        // this.retrieveDataFromFirebase();
+        if (this.basketArray.length == 0) {
+            this.alert.presentAlert("Please Add your Order First");
+        } else {
         let NavExtras: NavigationExtras = {
             queryParams: productskey
         }
         this.navCtr.navigateForward('basket', NavExtras);
+     }
     }
 
     async CreatePopOver(ev: any) {
@@ -162,7 +195,7 @@ export class ShopPage implements OnInit {
             this.speechRecognition.stopListening()
         }
     }
- 
+
     async presentAlertRadio() {
 
         let inputsArray: any[] = [];
@@ -176,7 +209,7 @@ export class ShopPage implements OnInit {
             inputsArray.push(matchObj);
         });
         const alertradio = await this.alertController.create({
-            header: 'Select Advice Name',
+            header: 'Select Product Name',
             inputs: inputsArray,
             buttons: [
                 {

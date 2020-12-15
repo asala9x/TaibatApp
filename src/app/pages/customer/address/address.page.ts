@@ -17,10 +17,10 @@ export class AddressPage implements OnInit {
     private viewAddressArray: any[] = [];
     private AddrArray: any[] = [];
     private address: Address = {
-        "Area": "",
-        "Street": "",
-        "HomeNumber": "",
-        "PhoneNumber": "",
+        "area": "",
+        "street": "",
+        "homeNumber": "",
+        "phoneNumber": "",
         "latitude": "",
         "longitude": "",
         "userId": ""
@@ -61,10 +61,10 @@ export class AddressPage implements OnInit {
 
             this.afData.object('Address/' + userdata.uid).valueChanges().subscribe((addressobj: Address) => {
                 loading.dismiss();
-                this.address.Area = addressobj.Area;
-                this.address.Street = addressobj.Street;
-                this.address.HomeNumber = addressobj.HomeNumber;
-                this.address.PhoneNumber = addressobj.PhoneNumber;
+                this.address.area = addressobj.area;
+                this.address.street = addressobj.street;
+                this.address.homeNumber = addressobj.homeNumber;
+                this.address.phoneNumber = addressobj.phoneNumber;
                 this.address.latitude = addressobj.latitude;
                 this.address.longitude = addressobj.longitude;
                 this.address.userId = addressobj.userId;
@@ -94,12 +94,12 @@ export class AddressPage implements OnInit {
     //Add address to firebase
     async addAddress() {
 
-        let phoneNumebr = this.address.PhoneNumber
-        if (this.address.Area == "") {
+        let phoneNumebr = this.address.phoneNumber
+        if (this.address.area == "") {
             this.alert.presentAlert("Please enter Area")
-        } else if (this.address.Street == "") {
+        } else if (this.address.street == "") {
             this.alert.presentAlert("Please enter Street")
-        } else if (this.address.HomeNumber == "") {
+        } else if (this.address.homeNumber == "") {
             this.alert.presentAlert("Please enter HomeNumber")
         } else if (phoneNumebr == "") {
             this.alert.presentAlert("Please enter PhoneNumber")
@@ -119,18 +119,30 @@ export class AddressPage implements OnInit {
 
             await loading.present();
             this.authService.getDataFromStorage().then((userdata) => {
-                this.address.userId = userdata.uid;
-                this.afData.list("Address").set(userdata.uid, this.address).then((dataresposeobj) => {
-                    loading.dismiss();
-                    this.alert.presentAlert("Address data inserted successfully");
-                }).catch((databaseError) => {
-                    loading.dismiss();
-                    this.alert.presentAlert(databaseError.message);
-                });
-            }).catch((storageerror) => {
+                this.uid = userdata.uid;
+                let userCartPath = "user/" + this.uid + "/Address"
                 loading.dismiss();
-                this.alert.presentAlert("Please Select Location");
+                
+            const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((itemArray) => {
+                loading.dismiss;
+                console.log(itemArray);
+                userCartlist.unsubscribe();
+                // this.address.userId = userdata.uid;
+                // this.afData.list("Address").set(userdata.uid, this.address).then((dataresposeobj) => {
+                //     loading.dismiss();
+                //     this.alert.presentAlert("Address data inserted successfully");
+                // }).catch((databaseError) => {
+                //     loading.dismiss();
+                //     this.alert.presentAlert(databaseError.message);
+                // });
+            }, (databaseError) => {
+                loading.dismiss();
+                this.alert.presentAlert(databaseError.message);
             })
+        }).catch((storageerror) => {
+            loading.dismiss();
+            this.alert.presentAlert("Unable to get data from storage");
+        })
         }
     }
 }

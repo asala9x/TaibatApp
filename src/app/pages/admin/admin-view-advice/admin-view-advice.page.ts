@@ -71,7 +71,7 @@ export class AdminViewAdvicePage implements OnInit {
     }
     async updateAdviceAlert(adviceObj) {
         const alertprompt = await this.alertController.create({
-            header: 'Update Dietitian',
+            header: 'Update Advice',
             cssClass: 'headerstyle',
             inputs: [
                 {

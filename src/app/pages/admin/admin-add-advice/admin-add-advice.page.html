@@ -5,7 +5,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="constyle">
     <div class="mainDivStyle" align="center">
         <img *ngIf="imagesarray.length<2" src="../../../assets/icon/AddImage.png" class="adviceimg"
             (click)="selectAdviceImage()" />
@@ -30,10 +30,6 @@
                 </ion-item>
             </ion-list>
         </div>
-        <div class="buttDivStyle">
-            <ion-button color="primary" class="CancelbuttStyle" fill="outline"
-                [routerLink]="['/admin-tab/admin-view-advice']"> Cancel </ion-button>
-            <ion-button color="primary" class="CancelbuttStyle" (click)="addAdvice()"> ADD </ion-button>
-        </div>
+        <ion-button color="primary" class="CancelbuttStyle" (click)="addAdvice()"> ADD </ion-button>
     </div>
 </ion-content>

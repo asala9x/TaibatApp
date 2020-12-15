@@ -18,6 +18,7 @@ export class BasketPage implements OnInit {
     private uid: string = "";
     private basketArray: any[] = [];
     private orderArr: any[] = [];
+    private newarray: any[] = [];
     private finaltotal = 0;
     private servicechaarge = 2;
     private totalPrice = 0;
@@ -87,33 +88,6 @@ export class BasketPage implements OnInit {
 
     }
 
-    async tot() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
-        for (let total = 0; total < this.basketArray.length; total++) {
-            this.totalPrice = (Number(this.basketArray[total].price) * Number(this.basketArray[total].qty)) + Number(this.totalPrice); //0 = (20 + 0) = 20 * 2 = 40
-
-        }
-
-        this.finaltotal = Number(this.totalPrice) + Number(this.servicechaarge);
-
-        let userPath = "user/" + this.uid
-
-        this.afData.list(userPath).set("total", this.finaltotal).then((itemArray) => {
-            loading.dismiss();
-        }).catch((err) => {
-            loading.dismiss();
-            this.alert.presentAlert(err.message);
-        });
-
-    }
-
-
-
-
-
 
     //delete
     async deleteproduct(product) {
@@ -139,6 +113,11 @@ export class BasketPage implements OnInit {
             this.afData.list(userPath).set("cart", this.basketArray).then((itemArray) => {
                 loading.dismiss();
                 this.alert.presentAlert("Successfully Deleted");
+                //  this.tot();
+                // for (let total = 0; total < this.basketArray.length; total++) {
+                //     this.totalPrice = (Number(this.basketArray[total].price) * Number(this.basketArray[total].qty)) + Number(this.totalPrice); //0 = (20 + 0) = 20 * 2 = 40
+
+                // }
             }).catch((err) => {
                 loading.dismiss();
                 this.alert.presentAlert(err.message);
@@ -153,14 +132,13 @@ export class BasketPage implements OnInit {
             this.alert.presentAlert(databaseError.message);
         })
 
-
     }
 
     async deleteProductAlert(product) {
         const alert = await this.alertController.create({
             cssClass: 'headerstyle',
             header: 'Taibat App',
-            message: 'Are you sure you want to delete ' + product.ProductName + ' ?',
+            message: 'Are you sure you want to delete ' + product.productName + ' ?',
 
             buttons: [
                 {
@@ -183,6 +161,31 @@ export class BasketPage implements OnInit {
         });
 
         await alert.present();
+    }
+
+
+
+    async tot() {
+        const loading = await this.loadingController.create({
+            message: 'Please wait...',
+        });
+        await loading.present();
+        for (let total = 0; total < this.basketArray.length; total++) {
+            this.totalPrice = (Number(this.basketArray[total].price) * Number(this.basketArray[total].qty)) + Number(this.totalPrice); //0 = (20 + 0) = 20 * 2 = 40
+
+        }
+
+        this.finaltotal = Number(this.totalPrice) + Number(this.servicechaarge);
+
+        let userPath = "user/" + this.uid
+
+        this.afData.list(userPath).set("total", this.finaltotal).then((itemArray) => {
+            loading.dismiss();
+        }).catch((err) => {
+            loading.dismiss();
+            this.alert.presentAlert(err.message);
+        });
+
     }
 
 

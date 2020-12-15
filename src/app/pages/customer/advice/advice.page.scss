@@ -1,15 +1,18 @@
+
 .maindivStyle{
+    padding-left: 10px !important;
+    padding-right: 10px !important;
     border-radius: 10px;
     box-shadow: 3px 3px 15px #dbd7d7;
     height: 95%;
     width: 95%;
     text-align: center;
-    margin: 10px;
-    padding-top: 10px;
+    margin: 10px !important;
+    // padding-top: 10px !important;
 }
 .imgestyle{
-    height: 310px;
-    width: 310px;
+    height: 300px;
+    width: 300px;
     border-radius: 26px;
     margin-top: 10px;
 }

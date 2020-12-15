@@ -6,42 +6,50 @@
     <ion-toolbar>
         <ion-searchbar class="searchstyle" [(ngModel)]="searchtxt" (ngModelChange)="startSearch()">
         </ion-searchbar>
-         <ion-fab vertical="Top" horizontal="end" slot="start">
-                <ion-icon [name]="isRecording?'mic':'mic-off'" class="micicon" (click)="startStopListening()">
-                </ion-icon>
-        </ion-fab> 
-        </ion-toolbar>
+        <ion-fab vertical="Top" horizontal="end" slot="start">
+            <ion-icon [name]="isRecording?'mic':'mic-off'" class="micicon" (click)="startStopListening()">
+            </ion-icon>
+        </ion-fab>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <div class="maindivStyle" *ngFor="let i of tempArray">
+<ion-content class="ion-padding">
+    <ion-card color="light" *ngIf="tempArray.length==0">
+        <ion-card-content color="primary">
+            No Results yet.
+        </ion-card-content>
+    </ion-card>
 
-        <ion-slides pager="true" class="slidesStyle">
-            <ion-slide>
-                <img [src]=i.img1 class="imgestyle" />
-            </ion-slide>
-            <ion-slide>
-                <img [src]=i.img2 class="imgestyle" />
-            </ion-slide>
-        </ion-slides>
-        <div>
-            <ion-list lines="none"  >
-                <ion-item>
-                       
-                    <ion-text color="primary" class="advicename" style="font-weight: bold;"> {{i.name}} </ion-text>
-                </ion-item>
-                <ion-item>
-                    <div class="desdivStyle">
-                        <p class="ion-text-wrap">
-                            {{i.descripion}}
-                        </p>
-                    </div>
-                </ion-item>
-            </ion-list>
+    <div *ngIf="tempArray.length>0"  class="divStyle">
+
+        <div class="maindivStyle" *ngFor="let i of tempArray">
+
+            <ion-slides pager="true" class="slidesStyle">
+                <ion-slide>
+                    <img [src]=i.img1 class="imgestyle" />
+                </ion-slide>
+                <ion-slide>
+                    <img [src]=i.img2 class="imgestyle" />
+                </ion-slide>
+            </ion-slides>
+            <div>
+                <ion-list lines="none">
+                    <ion-item>
+
+                        <ion-text color="primary" class="advicename" style="font-weight: bold;"> {{i.name}} </ion-text>
+                    </ion-item>
+                    <ion-item>
+                        <div class="desdivStyle">
+                            <p class="ion-text-wrap">
+                                {{i.descripion}}
+                            </p>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </div>
+
         </div>
-
     </div>
-
 
 
 </ion-content>

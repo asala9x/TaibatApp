@@ -137,10 +137,10 @@ export class CheckoutPage implements OnInit {
 
                 let orderObj = {
                     "userId": userdata.uid,
-                    "userName": userdata.Name,
-                    "userEmail": userdata.Email,
+                    "userName": userdata.name,
+                    "userEmail": userdata.email,
                     "order": this.basketArray,
-                    "Total": this.total,
+                    "total": this.total,
                     "States": "Send",
                     "img": "https://firebasestorage.googleapis.com/v0/b/taibatapp.appspot.com/o/1606025189.jpg?alt=media&token=544c4c3c-f40c-435e-ba92-2b15d1d0e7df",
 

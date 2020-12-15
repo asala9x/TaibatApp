@@ -16,7 +16,7 @@
 
         <ion-fab vertical="buttom" horizontal="start" class="cartfab" edge slot="fixed">
             <ion-fab-button (click)="AddToCart(i.ProductName,i.price)">
-                <ion-icon name="cart" class="carticon" (click)="AddToCart(i.ProductName,i.price)"></ion-icon>
+                <ion-icon name="cart" class="carticon" (click)="AddToCart(i.productName,i.price)"></ion-icon>
             </ion-fab-button>
         </ion-fab>
 
@@ -25,7 +25,7 @@
                 
                 <ion-text color="primary">
                     <ion-label class="nameStyle">
-                        {{i.ProductName}}
+                        {{i.productName}}
                     </ion-label>
 
                     <ion-label class="priceStyle">{{i.price}} OMR </ion-label>
@@ -43,7 +43,7 @@
                                         <ion-col size="10.5">
                                             <div class="desStyle">
                                                 <p class="ion-text-wrap">
-                                                    {{i.Description}}
+                                                    {{i.description}}
                                                 </p>
                                             </div>
                                         </ion-col>

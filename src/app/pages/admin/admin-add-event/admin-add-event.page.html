@@ -5,17 +5,17 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="constyle">
     <div class="mainDivStyle" align="center">
         <div class="divimageStyle">
-            <img src="../../../assets/icon/AddImage.png"  class="imageStyle" (click)="selectEventsImage()">
+            <img src="../../../assets/icon/AddImage.png" class="imageStyle" (click)="selectEventsImage()">
         </div>
         <br />
         <div class="inputDivStyle">
             <ion-list>
                 <ion-item>
                     <ion-icon name="pencil" class="iconcolor" slot="start"></ion-icon>
-                    <ion-input type="text" color="primary" [(ngModel)]="eventsObj.Title" placeholder="Title">
+                    <ion-input type="text" color="primary" [(ngModel)]="eventsObj.title" placeholder="Title">
                     </ion-input>
                 </ion-item>
                 <br />
@@ -52,10 +52,6 @@
                 </ion-item>
             </ion-list>
         </div>
-        <div class="buttDivStyle">
-            <ion-button color="primary" class="CancelbuttStyle" fill="outline"
-                [routerLink]="['/admin-tab/admin-view-event']"> Cancel </ion-button>
-            <ion-button color="primary" class="CancelbuttStyle" (click)="addEvents()"> ADD </ion-button>
-        </div>
+        <ion-button color="primary" class="CancelbuttStyle" (click)="addEvents()"> ADD </ion-button>
     </div>
 </ion-content>

@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
-//import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
-//ActivatedRoute
 import { ActivatedRoute } from '@angular/router'
 
 import { ServiceService } from '../../../services/service.service';
@@ -16,7 +14,6 @@ import { ServiceService } from '../../../services/service.service';
     styleUrls: ['./product-details.page.scss'],
 })
 export class ProductDetailsPage implements OnInit {
-
     // private matches: string[] = [];
 
     private tempArray: any[] = [];
@@ -26,7 +23,7 @@ export class ProductDetailsPage implements OnInit {
     // private finalqty =0;
     private basketArray: any[] = [];
     private order = {
-        "ProductName": "",
+        "productName": "",
         "price": "",
         "qty": "",
         "productid": ""
@@ -65,8 +62,6 @@ export class ProductDetailsPage implements OnInit {
             loading.dismiss();
 
             this.tempArray = proArray;
-            //this.ordercart();
-            // this.finalqty = this.tempArray[0].qty
 
         }, (databaseError) => {
             loading.dismiss();
@@ -76,15 +71,12 @@ export class ProductDetailsPage implements OnInit {
     }
 
 
-
-
-    // increment product qty
     incrementQty() {
         console.log(this.qty + 1);
         this.qty += 1;
     }
 
-    // decrement product qty
+    
     decrementQty() {
         if (this.qty - 1 < 1) {
             this.qty = 1
@@ -121,8 +113,6 @@ export class ProductDetailsPage implements OnInit {
                     cartArray.push(this.basketArray[i]);
                 }
 
-                // alert(JSON.stringify(this.basketArray))
-
                 loading.dismiss();
 
             }, (databaseError) => {
@@ -135,35 +125,8 @@ export class ProductDetailsPage implements OnInit {
         })
 
 
-        // this.afData.list("user/" + this.uid + "/cart").valueChanges().subscribe((suceess) => {
-
-        //     console.log(suceess);
-        //     let temp2 = suceess;
-
-        //     alert(temp2);
-
-        //     let temp: any[] = [];
-        //     for (let i = 0; i < temp2.length; i++) {
-        //         console.log(temp2);
-        //         temp.push(temp2[i]);
-
-        //     }
-
-        //     console.log(temp);
-
-
-
-        //     console.log(suceess);
-        // }, (error) => {
-
-        // });
-
-
-
     }
 
-    // private finalqty = this.tempArray[0].qty;
-    //AddToCart
     async AddToCart(order) {
 
        
@@ -171,18 +134,17 @@ export class ProductDetailsPage implements OnInit {
         let cartArray: any[] = [];
 
         let orderObj = {
-            "ProductName": null,
+            "productName": null,
             "price": null,
             "qty": 0,
             "productid": this.order.productid
 
         };
-        orderObj.ProductName = this.tempArray[0].ProductName;
+        orderObj.productName = this.tempArray[0].productName;
         orderObj.price = this.tempArray[0].price;
         orderObj.qty = this.qty;
         orderObj.productid = this.tempArray[0].productskey;
 
-        // alert(JSON.stringify(orderObj))
         const loading = await this.loadingController.create({
             message: 'Please wait...',
         });
@@ -203,7 +165,6 @@ export class ProductDetailsPage implements OnInit {
                     cartArray.push(previousCartItmes[i]);
                 }
 
-                // alert(JSON.stringify(cartArray))
                 let isRecordFound = false;
                 let isQuatityExceeded = false
 
@@ -232,16 +193,12 @@ export class ProductDetailsPage implements OnInit {
 
                     }
                 }
-                /** If the product is not found in the previous cart 
-                 * add them to Cart Array
-                 */
                 if (!isRecordFound) {
                     isRecordFound = false;
                     cartArray.push(orderObj)
                 }
 
                 if (!isQuatityExceeded) {
-                    //alert(JSON.stringify(cartArray))
                     let userPath = "/user/" + this.uid
                     this.afData.list(userPath).set("cart", cartArray).then((itemArray) => {
                         loading.dismiss();

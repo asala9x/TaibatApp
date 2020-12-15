@@ -12,7 +12,7 @@ import { AlertserviceService } from '../../../services/alertservice.service';
 })
 export class AdminAddEventPage implements OnInit {
     private eventsObj: any = {
-        "Title": "",
+        "title": "",
         "place": "",
         "date": "",
         "timer": "",
@@ -36,7 +36,7 @@ export class AdminAddEventPage implements OnInit {
         const loading = await this.loadingController.create({
             message: 'Please wait...',
         });
-        if (this.eventsObj.Title == "") {
+        if (this.eventsObj.title == "") {
             this.alert.presentAlert("Please Enter Event Title");
         } else if (this.eventsObj.place == "") {
             this.alert.presentAlert("Please Enter Event Place");

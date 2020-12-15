@@ -3,10 +3,10 @@ import { AlertController } from '@ionic/angular';
 
 
 export interface Address {
-    Area?: string,
-    Street?: string,
-    HomeNumber: string,
-    PhoneNumber?: string,
+    area?: string,
+    street?: string,
+    homeNumber: string,
+    phoneNumber?: string,
     latitude?: string,
     longitude?: string,
     userId?: string
@@ -28,4 +28,6 @@ export class AlertserviceService {
 
         await alert.present();
     }
+
+    
 }

@@ -1,13 +1,18 @@
 .backiconstyle{
     color:white;
 }
+.constyle{
+    --background:none;
+    background-color: rgb(241, 237, 237);
+}
 .mainDivStyle{
     box-shadow: 3px 5px 15px #dbd7d7;
     height: 650px ;
     width: 340px;
     margin: 10px !important;
     border-radius: 10px;
-    padding-top: 25px;   
+    padding-top: 25px;  
+    background-color: white; 
 }
 .inputDivStyle{
     padding-left: 30px;
@@ -24,15 +29,11 @@
     width: 110px;
 }
 .CancelbuttStyle{
-    width: 150px;
-    height: 42px;
+    width: 65%;
+    height: 50px;
     border-radius: 10px;
-    margin-left: 10px;
-    
-}
-.buttDivStyle{
-    margin-left: 0px;
-    margin-right: 9px;
+    text-align: center;
+    font-size: 16px;
 }
   .iconcolor{
     color: #357abe;

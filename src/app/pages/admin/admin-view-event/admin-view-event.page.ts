@@ -89,7 +89,7 @@ export class AdminViewEventPage implements OnInit {
         } else {
             const alert = await this.alertController.create({
                 header: 'Taibat App',
-                message: 'Are you sure you want to delete ' + eventObj.Title + ' ?',
+                message: 'Are you sure you want to delete ' + eventObj.title + ' ?',
                 buttons: [
                     {
                         text: 'Cancel',
@@ -194,7 +194,7 @@ export class AdminViewEventPage implements OnInit {
             inputsArray.push(matchObj);
         });
         const alertradio = await this.alertController.create({
-            header: 'Select Advice Name',
+            header: 'Select Event Name',
             inputs: inputsArray,
             buttons: [
                 {
