@@ -14,8 +14,6 @@ import { ServiceService } from '../../../services/service.service';
 
 export class AddressPage implements OnInit {
     private uid: string = "";
-    // private viewAddressArray: any[] = [];
-    // private AddrArray: any[] = [];
     private address: Address = {
         "area": "",
         "street": "",

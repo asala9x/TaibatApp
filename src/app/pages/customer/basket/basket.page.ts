@@ -89,7 +89,7 @@ export class BasketPage implements OnInit {
     }
 
 
-    //delete
+
     async deleteproduct(product) {
 
         const loading = await this.loadingController.create({
@@ -168,7 +168,7 @@ export class BasketPage implements OnInit {
         this.finaltotal = 0
         var produtPrice = 0
         for (let itemID = 0; itemID < this.basketArray.length; itemID++) {
-            produtPrice = (Number(this.basketArray[itemID].price) * Number(this.basketArray[itemID].qty)) ; //0 = (20 + 0) = 20 * 2 = 40
+            produtPrice = (Number(this.basketArray[itemID].price) * Number(this.basketArray[itemID].qty)); //0 = (20 + 0) = 20 * 2 = 40
             this.finaltotal += produtPrice
         }
 

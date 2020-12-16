@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { ActivatedRoute } from '@angular/router'
 import { ServiceService } from '../../../services/service.service';
-import { of } from 'rxjs';
+
 
 @Component({
     selector: 'app-states',
@@ -43,7 +43,7 @@ export class StatesPage implements OnInit {
             loading.dismiss;
 
 
-            //get order data
+
             this.afData.list('orders').valueChanges().subscribe((orderArry) => {
                 loading.dismiss();
                 this.orderArray = orderArry;

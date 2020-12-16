@@ -11,7 +11,6 @@ import { ActivatedRoute } from '@angular/router'
 export class DietitianDetailsPage implements OnInit {
 
     private dietitianArray: any[] = [];
-    //private tempArray: any[] = [];
     private dieticiankey: string = "";
 
     constructor(public alertController: AlertController,
@@ -30,8 +29,6 @@ export class DietitianDetailsPage implements OnInit {
     ngOnInit() {
         this.retrieveDataFromFirebase();
     }
-
-    // Method for retrieve data from firebase
 
     async retrieveDataFromFirebase() {
         const loading = await this.loadingController.create({

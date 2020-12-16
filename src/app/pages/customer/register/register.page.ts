@@ -23,9 +23,8 @@ export class RegisterPage implements OnInit {
         private alert: AlertserviceService) { }
     ngOnInit() {
     }
-    //method to regster user in Atho
+
     async registerUserInFB() {
-        //shoe lodaing
         const loading = await this.loadingController.create({
             message: 'Please wait...',
         });
@@ -43,13 +42,13 @@ export class RegisterPage implements OnInit {
             await loading.present();
             this.atho.createUserWithEmailAndPassword(this.customerDetails.email, this.customerDetails.password)
                 .then((authdata) => {
-                    //success 
+
                     loading.dismiss();
-                    //EmailVerification
+
                     this.atho.currentUser.then((currentUserData) => {
                         currentUserData.sendEmailVerification().then((verificationData) => {
-                            //to insert data to DB
-                            delete this.customerDetails.password; //to delete password so it will not added in DB
+
+                            delete this.customerDetails.password;
                             this.DB.list('user').update(authdata.user.uid, this.customerDetails).then((ifSeccess) => {
                                 loading.dismiss();
                                 this.alert.presentAlert("user registered successfuly , see your Email to verfiy");
@@ -69,14 +68,4 @@ export class RegisterPage implements OnInit {
                 });
         }
     }
-    //Massage Alert
-    // async presentAlert(msg) {
-    //   const alert = await this.alertController.create({
-    //     header: 'Taibat App',
-    //     message: msg,
-    //     buttons: ['OK']
-    //   });
-    //   await alert.present();
-    // }
-
 }

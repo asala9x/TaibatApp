@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { ServiceService } from '../../../services/service.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { AlertserviceService } from '../../../services/alertservice.service';
@@ -21,7 +21,6 @@ export class CheckoutPage implements OnInit {
     private totalArry: any[] = [];
     private viewAddressArray: any[] = [];
     private AddrArray: any[] = [];
-    private AddressArray: any[] = [];
     constructor(private route: ActivatedRoute,
         public loadingController: LoadingController,
         private authService: ServiceService,
@@ -42,10 +41,6 @@ export class CheckoutPage implements OnInit {
             message: 'Please wait...',
         });
         await loading.present();
-
-
-
-        //get current data user
         this.authService.getDataFromStorage().then((userdata) => {
             this.uid = userdata.uid;
             let userCartPath = "user/" + this.uid + "/cart"
@@ -81,8 +76,6 @@ export class CheckoutPage implements OnInit {
                 loading.dismiss();
                 this.alert.presentAlert(databaseError.message);
             })
-
-            //get cart arry
             const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((orderArray) => {
                 loading.dismiss;
                 userCartlist.unsubscribe();
@@ -105,9 +98,7 @@ export class CheckoutPage implements OnInit {
                 userCartlist2.unsubscribe();
                 this.viewAddressArray = AddressArray;
                 for (let i = 0; i < this.viewAddressArray.length; i++) {
-                    // if (this.viewAddressArray[i].userId == this.uid) {
                     this.AddrArray = this.viewAddressArray[i];
-                    // }
 
                 }
             }, (databaseError) => {
@@ -134,11 +125,8 @@ export class CheckoutPage implements OnInit {
                 message: 'Please wait...',
             });
             await loading.present();
-
-            //get curent user data 
             this.authService.getDataFromStorage().then((userdata) => {
-                alert(JSON.stringify(userdata.Address))
-                this.AddressArray = userdata.Address
+
                 let orderObj = {
                     "userId": userdata.uid,
                     "userName": userdata.name,
@@ -146,7 +134,6 @@ export class CheckoutPage implements OnInit {
                     "order": this.basketArray,
                     "total": this.total,
                     "states": "Send",
-                    "Address": this.AddressArray
 
                 };
 
@@ -154,7 +141,6 @@ export class CheckoutPage implements OnInit {
 
                 loading.dismiss;
 
-                //move data from cart to orders
                 this.afData.list('orders').push(orderObj).then((ifSeccess) => {
                     this.afData.list("orders/" + ifSeccess.key).set("orderkey", ifSeccess.key).then(() => {
                         loading.dismiss();
@@ -185,14 +171,14 @@ export class CheckoutPage implements OnInit {
                     }
 
 
-                    //clere cart and total
+
                     this.total = "";
                     this.basketArray = [];
-                    //update cart
+
                     let userPath1 = "/user/" + this.uid
                     this.afData.list(userPath1).set("cart", this.basketArray).then((itemArray) => {
 
-                        //update total
+
                         let userPath = "user/" + this.uid
 
                         this.afData.list(userPath).set("total", this.total).then((itemArray) => {

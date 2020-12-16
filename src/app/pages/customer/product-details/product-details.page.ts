@@ -14,13 +14,10 @@ import { ServiceService } from '../../../services/service.service';
     styleUrls: ['./product-details.page.scss'],
 })
 export class ProductDetailsPage implements OnInit {
-    // private matches: string[] = [];
-
     private tempArray: any[] = [];
     qty: any;
     private productskey: string = "";
     private uid: string = "";
-    // private finalqty =0;
     private basketArray: any[] = [];
     private order = {
         "productName": "",
@@ -76,7 +73,7 @@ export class ProductDetailsPage implements OnInit {
         this.qty += 1;
     }
 
-    
+
     decrementQty() {
         if (this.qty - 1 < 1) {
             this.qty = 1
@@ -129,7 +126,7 @@ export class ProductDetailsPage implements OnInit {
 
     async AddToCart(order) {
 
-       
+
         let previousCartItmes: any[] = [];
         let cartArray: any[] = [];
 
@@ -139,7 +136,7 @@ export class ProductDetailsPage implements OnInit {
             "qty": 0,
             "productid": this.order.productid
 
-        };   
+        };
         orderObj.productName = this.tempArray[0].productName;
         orderObj.price = this.tempArray[0].price;
         orderObj.qty = this.qty;
@@ -207,12 +204,12 @@ export class ProductDetailsPage implements OnInit {
                         loading.dismiss();
                         alert("Error")
                         this.alert.presentAlert(err.message);
-                        
+
                     });
                 }
                 loading.dismiss();
 
-                
+
             })
         }).catch((storageerror) => {
             loading.dismiss();
@@ -227,7 +224,4 @@ export class ProductDetailsPage implements OnInit {
         });
 
     }
-
-
-    // }
 }

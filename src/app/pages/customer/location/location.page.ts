@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { ServiceService } from '../../../services/service.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 declare var google;

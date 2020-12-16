@@ -41,9 +41,10 @@ export class ProfilePage implements OnInit {
         this.authService.getDataFromStorage().then((userdata) => {
 
             this.userlastArray = userdata;
-
+            this.uid = userdata.uid;
+            let userCartPath = "user/" + this.uid + "/Address";
             loading.dismiss();
-            this.afData.list('Address').valueChanges().subscribe((AddressArray) => {
+            this.afData.list('user').valueChanges().subscribe((AddressArray) => {
                 loading.dismiss();
                 this.viewAddressArray = AddressArray;
                 this.AddrArray = this.viewAddressArray;

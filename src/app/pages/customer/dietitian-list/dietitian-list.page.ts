@@ -38,7 +38,6 @@ export class DietitianListPage implements OnInit {
     ngOnInit() {
         this.retrieveDataFromFirebase();
     }
-    // Method for retrieve data from firebase
 
     async retrieveDataFromFirebase() {
         const loading = await this.loadingController.create({
@@ -83,7 +82,7 @@ export class DietitianListPage implements OnInit {
         }
     }
 
-    //startStopListening
+
     startStopListening() {
         this.isRecording = (!this.isRecording);
         if (this.isRecording) {
@@ -105,7 +104,7 @@ export class DietitianListPage implements OnInit {
             this.speechRecognition.stopListening()
         }
     }
-    //presentAlertRadio
+
     async presentAlertRadio() {
 
         let inputsArray: any[] = [];

@@ -33,13 +33,13 @@
                                 {{userlastArray.name}}
                             </ion-col>
                         </ion-row>
-                        <ion-row *ngFor="let loc of AddrArray">
-                            <div *ngIf="userlastArray.uid==loc.userId" class="col2style">
+                        <ion-row *ngFor="let loc of viewAddressArray">
+                            <div class="col2style">
                                 <ion-col size="2" class="colstyle">
                                     <ion-icon name="call"></ion-icon>
                                 </ion-col>
                                 <ion-col size="10" class="col2style">
-                                    {{loc.phoneNumber }}
+                                    {{userlastArray.Address.phoneNumber }}
                                 </ion-col>
                             </div>
                         </ion-row>

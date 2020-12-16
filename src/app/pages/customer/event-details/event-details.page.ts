@@ -37,7 +37,7 @@ export class EventDetailsPage implements OnInit {
     ngOnInit() {
 
     }
-    // Method for retrieve data from firebase
+
     async retrieveDataFromFirebase(eventkey) {
 
         const loading = await this.loadingController.create({
@@ -57,7 +57,7 @@ export class EventDetailsPage implements OnInit {
 
     }
 
-    //Resave a set button
+
     async eventregister(NOofpeople) {
         const loading = await this.loadingController.create({
             message: 'Please wait...',
