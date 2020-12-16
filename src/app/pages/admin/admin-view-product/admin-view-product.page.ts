@@ -96,7 +96,7 @@ export class AdminViewProductPage implements OnInit {
             this.alert.presentAlert(databaseError.message);
         })
     }
-    //delete
+
     async deleteProduct(productObj) {
 
         const loading = await this.loadingController.create({
@@ -138,7 +138,7 @@ export class AdminViewProductPage implements OnInit {
         await alert.present();
     }
 
-    //update 
+
     async updateProduct(productObj, data) {
         data.test = "Product";
 
@@ -250,7 +250,7 @@ export class AdminViewProductPage implements OnInit {
             this.speechRecognition.stopListening()
         }
     }
-    //presentAlertRadio
+
     async presentAlertRadio() {
 
         let inputsArray: any[] = [];
@@ -291,7 +291,7 @@ export class AdminViewProductPage implements OnInit {
 
     }
 
-    ///view order
+
     viewOrder(uid) {
         let NavExtras: NavigationExtras = {
             queryParams: uid

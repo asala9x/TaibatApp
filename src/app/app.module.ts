@@ -5,24 +5,16 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
-//import Real Time fierpase
 import { AngularFireDatabaseModule } from '@angular/fire/database';
-//import Fierbase storage 
 import { AngularFireStorageModule } from '@angular/fire/storage';
-//Ionic Storage 
-//Atho import
 import { AngularFireAuthModule } from '@angular/fire/auth';
-//import camera
 import { Camera } from '@ionic-native/camera/ngx';
 import { IonTabs } from '@ionic/angular';
-//map
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-//sms
 import { SMS } from '@ionic-native/sms/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
@@ -34,19 +26,19 @@ import { IonicStorageModule } from '@ionic/storage';
     declarations: [AppComponent],
     entryComponents: [],
     imports: [
-        BrowserModule, 
+        BrowserModule,
         HttpClientModule,
-        IonicModule.forRoot(), 
+        IonicModule.forRoot(),
         IonicStorageModule.forRoot(),
         AppRoutingModule,
         PopoverComponentPageModule,
         CustomerPopoverPageModule,
-        AngularFireModule, //new for firebases
+        AngularFireModule,
         AngularFireModule.initializeApp(environment.key),
-        AngularFireDatabaseModule,//for DB
-        AngularFireStorageModule, //for storage
-        AngularFireAuthModule,//for Atho
-        
+        AngularFireDatabaseModule,
+        AngularFireStorageModule,
+        AngularFireAuthModule,
+
     ],
     providers: [
         StatusBar,

@@ -15,7 +15,7 @@ export class CustomerPopoverPage implements OnInit {
 
     ngOnInit() {
     }
-    
+
     Logout() {
         this.authService.clear().then(() => {
             this.navCtrl.navigateRoot('/login');

@@ -32,12 +32,12 @@ export class AdminAddAdvicePage implements OnInit {
         if (this.imagesarray.length > 2) {
             this.alert.presentAlert("you can select only two images");
         }
-        else if(this.adviceObj.name == "") {
+        else if (this.adviceObj.name == "") {
             this.alert.presentAlert("Please Enter Advice Title");
         } else if (this.adviceObj.descripion == "") {
             this.alert.presentAlert("Please Enter  Advice Descripion");
-        } 
-        else if (this.imagesarray== null) {
+        }
+        else if (this.imagesarray == null) {
             this.alert.presentAlert("Please Upload Advice Image");
         }
         else {
@@ -120,7 +120,7 @@ export class AdminAddAdvicePage implements OnInit {
         });
         await actionSheet.present();
     }
-    //Method camera to  open it
+
     selectImageFromCamera() {
         const options: CameraOptions = {
             quality: 100,
@@ -136,7 +136,7 @@ export class AdminAddAdvicePage implements OnInit {
         });
     }
 
-    //Method gallery to  open it
+
     selectImageFromGallery() {
         const options: CameraOptions = {
             quality: 100,

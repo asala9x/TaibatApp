@@ -15,7 +15,7 @@ export class AdminViewAdvicePage implements OnInit {
     private adviceArray: any[] = [];
     private tempArray: any[] = [];
     private isRecording: boolean = false;
-    private matches: string[] = []; //to get the results
+    private matches: string[] = []; 
     private searchtxt;
     constructor(public alertController: AlertController,
         private afData: AngularFireDatabase,
@@ -35,7 +35,7 @@ export class AdminViewAdvicePage implements OnInit {
     ngOnInit() {
         this.retrieveDataFromFirebase();
     }
-    // Method for retrieve data from firebase
+
 
     async retrieveDataFromFirebase() {
         const loading = await this.loadingController.create({
@@ -52,7 +52,7 @@ export class AdminViewAdvicePage implements OnInit {
         })
 
     }
-    //update 
+
     async updateAdvice(adviceObj, data) {
         data.test = "Advice";
         const loading = await this.loadingController.create({
@@ -106,7 +106,7 @@ export class AdminViewAdvicePage implements OnInit {
         await alertprompt.present();
     }
 
-    //delete
+
     async deleteAdvice(adviceObj) {
 
         const loading = await this.loadingController.create({
@@ -159,7 +159,7 @@ export class AdminViewAdvicePage implements OnInit {
     }
 
 
-    //Search
+
     startSearch() {
         this.tempArray = [];
         for (let i = 0; i < this.adviceArray.length; i++) {
@@ -168,7 +168,7 @@ export class AdminViewAdvicePage implements OnInit {
             }
         }
     }
-    ///startStopListening
+
     startStopListening() {
         this.isRecording = (!this.isRecording);
         if (this.isRecording) {
@@ -189,7 +189,6 @@ export class AdminViewAdvicePage implements OnInit {
         }
     }
 
-    //Falter presentAlertRadio
 
     async presentAlertRadio() {
         let inputArray: any[] = [];
@@ -203,7 +202,7 @@ export class AdminViewAdvicePage implements OnInit {
             inputArray.push(matcheOBJ);
         });
         const alertradio = await this.alertController.create({
-            header: 'Select product name: ',
+            header: 'Select Advice name: ',
             inputs: inputArray,
             buttons: [{
                 text: 'Cancel',

@@ -34,7 +34,7 @@ export class AdminViewDietitianPage implements OnInit {
     ngOnInit() {
         this.retrieveDataFromFirebase();
     }
-    // Method for retrieve data from firebase
+
 
     async retrieveDataFromFirebase() {
         const loading = await this.loadingController.create({
@@ -52,7 +52,7 @@ export class AdminViewDietitianPage implements OnInit {
         })
 
     }
-    //update 
+
     async updateDietitian(dietitianObj, data) {
 
         data.test = "Dietitian";
@@ -120,7 +120,7 @@ export class AdminViewDietitianPage implements OnInit {
 
         await alertprompt.present();
     }
-    //delete
+
     async deleteDietitian(dietitianObj) {
 
         const loading = await this.loadingController.create({
@@ -172,7 +172,7 @@ export class AdminViewDietitianPage implements OnInit {
         return await popover.present();
     }
 
-    //Search
+
     startSearch() {
         this.tempArray = [];
         for (let i = 0; i < this.dietitianArray.length; i++) {
@@ -182,7 +182,7 @@ export class AdminViewDietitianPage implements OnInit {
         }
     }
 
-    //startStopListening
+
 
     startStopListening() {
         this.isRecording = (!this.isRecording);
@@ -206,7 +206,7 @@ export class AdminViewDietitianPage implements OnInit {
             this.speechRecognition.stopListening()
         }
     }
-    //presentAlertRadio
+
     async presentAlertRadio() {
 
         let inputsArray: any[] = [];

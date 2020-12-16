@@ -30,12 +30,15 @@ export class ViewOrderPage implements OnInit {
                 if (!hasPermission) {
                     this.speechRecognition.requestPermission();
                 }
+
             });
+        this.retrieveDataFromFirebase();
     }
 
     ngOnInit() {
         this.retrieveDataFromFirebase();
     }
+
     async retrieveDataFromFirebase() {
 
         const loading = await this.loadingController.create({
@@ -45,7 +48,7 @@ export class ViewOrderPage implements OnInit {
 
         this.afData.list('orders').valueChanges().subscribe((ordArray) => {
             loading.dismiss();
-            this.afData.list('Address').valueChanges().subscribe((AddressArray) => {
+            this.afData.list('user').valueChanges().subscribe((AddressArray) => {
                 loading.dismiss();
                 this.AddrArray = AddressArray;
             }, (databaseError) => {
@@ -54,11 +57,11 @@ export class ViewOrderPage implements OnInit {
             })
             this.vieworderdArray = ordArray;
             this.tempArray2 = ordArray;
-
         }, (databaseError) => {
             loading.dismiss();
             this.alert.presentAlert(databaseError.message);
         })
+
     }
 
     async updateStatus(orderFirebaseKey, newStatus) {
@@ -78,7 +81,7 @@ export class ViewOrderPage implements OnInit {
     }
 
 
-    //Search
+
     startSearch() {
         this.vieworderdArray = [];
         for (let i = 0; i < this.tempArray2.length; i++) {
@@ -88,7 +91,7 @@ export class ViewOrderPage implements OnInit {
         }
     }
 
-    //startStopListening
+
 
     startStopListening() {
         this.isRecording = (!this.isRecording);
@@ -112,7 +115,7 @@ export class ViewOrderPage implements OnInit {
             this.speechRecognition.stopListening()
         }
     }
-    //presentAlertRadio
+
     async presentAlertRadio() {
 
         let inputsArray: any[] = [];

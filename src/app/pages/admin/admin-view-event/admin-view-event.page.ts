@@ -37,7 +37,7 @@ export class AdminViewEventPage implements OnInit {
     ngOnInit() {
         this.retrieveDataFromFirebase();
     }
-    // Method for retrieve data from firebase
+
 
     async retrieveDataFromFirebase() {
         const loading = await this.loadingController.create({
@@ -55,7 +55,7 @@ export class AdminViewEventPage implements OnInit {
 
     }
 
-    //update 
+
     updateEvent(eventkey) {
 
         if (this.checkEvent(eventkey)) {
@@ -68,7 +68,7 @@ export class AdminViewEventPage implements OnInit {
 
         }
     }
-    //delete
+
     async deleteEvent(eventObj) {
 
         const loading = await this.loadingController.create({
@@ -180,7 +180,7 @@ export class AdminViewEventPage implements OnInit {
             this.speechRecognition.stopListening()
         }
     }
-    //presentAlertRadio
+
     async presentAlertRadio() {
 
         let inputsArray: any[] = [];

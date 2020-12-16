@@ -23,7 +23,7 @@ export class UpdateEventPage implements OnInit {
     ngOnInit() {
         this.retrieveDataFromFirebase();
     }
-    // Method for retrieve data from firebase
+
 
     async retrieveDataFromFirebase() {
         const loading = await this.loadingController.create({
@@ -39,7 +39,7 @@ export class UpdateEventPage implements OnInit {
         })
 
     }
-    //update 
+
     async updateEvent(eventArray) {
         eventArray.test = "Event";
 

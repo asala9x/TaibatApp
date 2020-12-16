@@ -1,30 +1,30 @@
-    <ion-content align="center">
-        <div class="divImage">
-        <img src="../../../../assets/icon/welcombackground1.png" class="backgroundImage"/>
+<ion-content align="center">
+    <div class="divImage">
+        <img src="../../../../assets/icon/welcombackground1.png" class="backgroundImage" />
+    </div>
+    <div class="maindivStyle">
+        <ion-slides pager="true">
+            <ion-slide *ngFor="let i of slideArray">
+                <ion-label>
+                    <ion-text color="primary">
+                        <h1>{{i.name}}</h1>
+                    </ion-text>
+                    <br />
+                    <ion-text color="medium">
+                        <p>{{i.desc}}</p>
+                        <br />
+                        <br />
+                    </ion-text>
+                </ion-label>
+                <br />
+                <br />
+            </ion-slide>
+        </ion-slides>
+        <div>
+            <ion-button expand="block" [routerLink]="['/login']"> SKIP </ion-button>
+            <br />
+            <br />
         </div>
-  <div class="maindivStyle">
-    <ion-slides pager="true">
-      <ion-slide *ngFor="let i of slideArray">
-        <ion-label>
-          <ion-text color="primary">
-            <h1>{{i.name}}</h1>
-          </ion-text>
-          <br />
-          <ion-text color="medium">
-            <p>{{i.desc}}</p>
-            <br />
-            <br />
-          </ion-text>
-        </ion-label>
-        <br />
-        <br />
-      </ion-slide>
-    </ion-slides>
-    <div>
-        <ion-button expand="block" [routerLink]="['/login']"> SKIP </ion-button>
-        <br />
-        <br />
-      </div>
-  </div>
+    </div>
 
 </ion-content>

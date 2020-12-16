@@ -40,7 +40,7 @@ export class AdminAddDietitianPage implements OnInit {
         return phonevalid;
     }
 
-    //Method to add Dietitian to firebase
+
     async addDietitian() {
         const loading = await this.loadingController.create({
             message: 'Please wait...',
@@ -104,7 +104,7 @@ export class AdminAddDietitianPage implements OnInit {
                 })
         }
     }
-    // Action for add image for  Advices from Camera or Gallery
+
     async selectDietitianImage() {
         const actionSheet = await this.actionSheetController.create({
             header: 'Pick Image',
@@ -129,7 +129,7 @@ export class AdminAddDietitianPage implements OnInit {
         });
         await actionSheet.present();
     }
-    //Method camera to  open it
+
     selectImageFromCamera() {
         const options: CameraOptions = {
             quality: 100,
@@ -141,10 +141,10 @@ export class AdminAddDietitianPage implements OnInit {
         this.camera.getPicture(options).then((imageData) => {
             this.base64Img = 'data:image/jpeg;base64,' + imageData;
         }, (err) => {
-            // Handle error
+
         });
     }
-    //Method gallery to  open it
+
     selectImageFromGallery() {
         const options: CameraOptions = {
             quality: 100,
@@ -157,7 +157,7 @@ export class AdminAddDietitianPage implements OnInit {
         this.camera.getPicture(options).then((imageData) => {
             this.base64Img = 'data:image/jpeg;base64,' + imageData;
         }, (err) => {
-            // Handle error
+
         });
     }
 }

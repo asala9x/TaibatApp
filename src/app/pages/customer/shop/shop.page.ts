@@ -71,7 +71,6 @@ export class ShopPage implements OnInit {
 
 
     ngOnInit() {
-        //this.retrieveDataFromFirebase();
     }
     async retrieveDataFromFirebase() {
         const loading = await this.loadingController.create({
@@ -87,42 +86,7 @@ export class ShopPage implements OnInit {
             loading.dismiss();
             this.alert.presentAlert(databaseError.message);
         })
-        // let cartArray: any[] = [];
 
-        // this.authService.getDataFromStorage().then((userdata) => {
-        //     this.uid = userdata.uid;
-        //     let userCartPath = "user/" + this.uid + "/cart"
-        //     loading.dismiss;
-
-
-        //     const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((orderArray) => {
-        //         loading.dismiss;
-        //         console.log(orderArray);
-        //         userCartlist.unsubscribe();
-        //         this.basketArray = orderArray;
-        //         for (let i = 0; i < this.basketArray.length; i++) {
-        //             cartArray.push(this.basketArray[i]);
-        //         }
-        //         alert(JSON.stringify(this.basketArray));
-        //         loading.dismiss();
-
-        //         if (this.basketArray.length == 0) {
-        //             this.alert.presentAlert("Please Add your Order First");
-        //         } else {
-        //         let NavExtras: NavigationExtras = {
-        //             //queryParams: productskey
-        //         }
-        //         this.navCtr.navigateForward('basket', NavExtras);
-        //      }
-
-        //     }, (databaseError) => {
-        //         loading.dismiss();
-        //         this.alert.presentAlert(databaseError.message);
-        //     })
-        // }).catch((storageerror) => {
-        //     loading.dismiss();
-        //     this.alert.presentAlert("Unable to get data from storage");
-        // })
     }
 
     async getBasketArry() {
@@ -145,14 +109,12 @@ export class ShopPage implements OnInit {
                 for (let i = 0; i < this.basketArray.length; i++) {
                     cartArray.push(this.basketArray[i]);
                 }
-                alert(JSON.stringify(this.basketArray));
                 loading.dismiss();
 
                 if (this.basketArray.length == 0) {
                     this.alert.presentAlert("Please Add your Order First");
                 } else {
                     let NavExtras: NavigationExtras = {
-                        //queryParams: productskey
                     }
                     this.navCtr.navigateForward('basket', NavExtras);
                 }

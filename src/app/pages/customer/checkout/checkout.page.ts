@@ -21,6 +21,7 @@ export class CheckoutPage implements OnInit {
     private totalArry: any[] = [];
     private viewAddressArray: any[] = [];
     private AddrArray: any[] = [];
+    private AddressArray: any[] = [];
     constructor(private route: ActivatedRoute,
         public loadingController: LoadingController,
         private authService: ServiceService,
@@ -48,6 +49,7 @@ export class CheckoutPage implements OnInit {
         this.authService.getDataFromStorage().then((userdata) => {
             this.uid = userdata.uid;
             let userCartPath = "user/" + this.uid + "/cart"
+            let userCartPath2 = "user/" + this.uid + "/Address"
             this.totalArry = userdata
             loading.dismiss;
 
@@ -62,7 +64,7 @@ export class CheckoutPage implements OnInit {
 
 
                     for (let i = 0; i < this.totalArry.length; i++) {
-                        if (this.totalArry[i].Email == userdata.Email) {
+                        if (this.totalArry[i].email == userdata.email) {
                             this.total = this.totalArry[i].total;
 
                         }
@@ -98,13 +100,14 @@ export class CheckoutPage implements OnInit {
             })
 
 
-            this.afData.list('Address').valueChanges().subscribe((AddressArray) => {
+            const userCartlist2 = this.afData.list(userCartPath2).valueChanges().subscribe((AddressArray) => {
                 loading.dismiss();
+                userCartlist2.unsubscribe();
                 this.viewAddressArray = AddressArray;
                 for (let i = 0; i < this.viewAddressArray.length; i++) {
-                    if (this.viewAddressArray[i].userId == this.uid) {
-                        this.AddrArray = this.viewAddressArray[i];
-                    }
+                    // if (this.viewAddressArray[i].userId == this.uid) {
+                    this.AddrArray = this.viewAddressArray[i];
+                    // }
 
                 }
             }, (databaseError) => {
@@ -134,15 +137,16 @@ export class CheckoutPage implements OnInit {
 
             //get curent user data 
             this.authService.getDataFromStorage().then((userdata) => {
-
+                alert(JSON.stringify(userdata.Address))
+                this.AddressArray = userdata.Address
                 let orderObj = {
                     "userId": userdata.uid,
                     "userName": userdata.name,
                     "userEmail": userdata.email,
                     "order": this.basketArray,
                     "total": this.total,
-                    "States": "Send",
-                    "img": "https://firebasestorage.googleapis.com/v0/b/taibatapp.appspot.com/o/1606025189.jpg?alt=media&token=544c4c3c-f40c-435e-ba92-2b15d1d0e7df",
+                    "states": "Send",
+                    "Address": this.AddressArray
 
                 };
 

@@ -54,7 +54,7 @@ export class AdminAddProductPage implements OnInit {
         else if (this.productsObj.price == "") {
             this.alert.presentAlert("Please Enter Product price");
         }
-        else if (this.base64Img== null) {
+        else if (this.base64Img == null) {
             this.alert.presentAlert("Please Upload Product Image");
         }
         else {
@@ -95,7 +95,7 @@ export class AdminAddProductPage implements OnInit {
 
         }
     }
-    // Action for add image for  Advices from Camera or Gallery
+
     async selectProductImage() {
         const actionSheet = await this.actionSheetController.create({
             header: 'Pick Image',
@@ -120,7 +120,7 @@ export class AdminAddProductPage implements OnInit {
         });
         await actionSheet.present();
     }
-    //Method camera to  open it
+
     selectImageFromCamera() {
         const options: CameraOptions = {
             quality: 100,
@@ -132,10 +132,10 @@ export class AdminAddProductPage implements OnInit {
         this.camera.getPicture(options).then((imageData) => {
             this.base64Img = 'data:image/jpeg;base64,' + imageData;
         }, (err) => {
-            // Handle error
+
         });
     }
-    //Method gallery to  open it
+
     selectImageFromGallery() {
         const options: CameraOptions = {
             quality: 100,
@@ -148,10 +148,10 @@ export class AdminAddProductPage implements OnInit {
         this.camera.getPicture(options).then((imageData) => {
             this.base64Img = 'data:image/jpeg;base64,' + imageData;
         }, (err) => {
-            // Handle error
+
         });
     }
-    // increment product qty
+
     incrementQty() {
         console.log(this.productsObj.qty + 1);
         this.productsObj.qty += 1;

@@ -14,8 +14,8 @@ import { ServiceService } from '../../../services/service.service';
 
 export class AddressPage implements OnInit {
     private uid: string = "";
-    private viewAddressArray: any[] = [];
-    private AddrArray: any[] = [];
+    // private viewAddressArray: any[] = [];
+    // private AddrArray: any[] = [];
     private address: Address = {
         "area": "",
         "street": "",
@@ -23,7 +23,6 @@ export class AddressPage implements OnInit {
         "phoneNumber": "",
         "latitude": "",
         "longitude": "",
-        "userId": ""
     }
 
 
@@ -58,16 +57,20 @@ export class AddressPage implements OnInit {
         await loading.present();
 
         this.authService.getDataFromStorage().then((userdata) => {
+            this.uid = userdata.uid;
+            let userCartPath = "user/" + this.uid + "/Address"
+            loading.dismiss;
 
-            this.afData.object('Address/' + userdata.uid).valueChanges().subscribe((addressobj: Address) => {
+
+            const userCartlist = this.afData.object(userCartPath).valueChanges().subscribe((addressobj: Address) => {
                 loading.dismiss();
+                userCartlist.unsubscribe();
                 this.address.area = addressobj.area;
                 this.address.street = addressobj.street;
                 this.address.homeNumber = addressobj.homeNumber;
                 this.address.phoneNumber = addressobj.phoneNumber;
                 this.address.latitude = addressobj.latitude;
                 this.address.longitude = addressobj.longitude;
-                this.address.userId = addressobj.userId;
             }, (databaseError) => {
 
                 loading.dismiss();
@@ -91,7 +94,7 @@ export class AddressPage implements OnInit {
         return phonevalid;
     }
 
-    //Add address to firebase
+
     async addAddress() {
 
         let phoneNumebr = this.address.phoneNumber
@@ -120,29 +123,19 @@ export class AddressPage implements OnInit {
             await loading.present();
             this.authService.getDataFromStorage().then((userdata) => {
                 this.uid = userdata.uid;
-                let userCartPath = "user/" + this.uid + "/Address"
+                let userCartPath = "user/" + this.uid
                 loading.dismiss();
-                
-            const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((itemArray) => {
-                loading.dismiss;
-                console.log(itemArray);
-                userCartlist.unsubscribe();
-                // this.address.userId = userdata.uid;
-                // this.afData.list("Address").set(userdata.uid, this.address).then((dataresposeobj) => {
-                //     loading.dismiss();
-                //     this.alert.presentAlert("Address data inserted successfully");
-                // }).catch((databaseError) => {
-                //     loading.dismiss();
-                //     this.alert.presentAlert(databaseError.message);
-                // });
-            }, (databaseError) => {
+                const userCartlist = this.afData.list(userCartPath).set("Address", this.address).then((dataresposeobj) => {
+                    loading.dismiss;
+                    this.alert.presentAlert("Address data inserted successfully");
+                }, (databaseError) => {
+                    loading.dismiss();
+                    this.alert.presentAlert(databaseError.message);
+                })
+            }).catch((storageerror) => {
                 loading.dismiss();
-                this.alert.presentAlert(databaseError.message);
+                this.alert.presentAlert("Unable to get data from storage");
             })
-        }).catch((storageerror) => {
-            loading.dismiss();
-            this.alert.presentAlert("Unable to get data from storage");
-        })
         }
     }
 }

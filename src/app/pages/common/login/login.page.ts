@@ -31,12 +31,12 @@ export class LoginPage implements OnInit {
 
 
 
-    ngOnInit() { 
+    ngOnInit() {
         this.data.email == "";
         this.data.password == ""
     }
 
-    //login
+
     async loginWithFBdetails() {
 
         const loading = await this.loadingController.create({
@@ -91,12 +91,12 @@ export class LoginPage implements OnInit {
 
 
 
-    //Forget Password
+
     async ForgetPassword() {
         this.ForgetPasswordAlert();
     }
 
-    //Alert for Forget Password
+
     async ForgetPasswordAlert() {
         const alerttest = await this.alertController.create({
             header: 'Forgot Password',

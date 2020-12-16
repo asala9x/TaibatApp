@@ -82,7 +82,7 @@ export class AdminAddEventPage implements OnInit {
 
         }
     }
-    // Action for add image for  Event from Camera or Gallery
+
     async selectEventsImage() {
         const actionSheet = await this.actionSheetController.create({
             header: 'Pick Image',
@@ -107,7 +107,7 @@ export class AdminAddEventPage implements OnInit {
         });
         await actionSheet.present();
     }
-    //Method camera to  open it
+
     selectImageFromCamera() {
         const options: CameraOptions = {
             quality: 100,
@@ -119,10 +119,10 @@ export class AdminAddEventPage implements OnInit {
         this.camera.getPicture(options).then((imageData) => {
             this.base64Img = 'data:image/jpeg;base64,' + imageData;
         }, (err) => {
-            // Handle error
+
         });
     }
-    //Method gallery to  open it
+
     selectImageFromGallery() {
         const options: CameraOptions = {
             quality: 100,
@@ -134,7 +134,7 @@ export class AdminAddEventPage implements OnInit {
         this.camera.getPicture(options).then((imageData) => {
             this.base64Img = 'data:image/jpeg;base64,' + imageData;
         }, (err) => {
-            // Handle error
+
         });
     }
 }

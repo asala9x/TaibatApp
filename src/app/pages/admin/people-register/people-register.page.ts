@@ -13,7 +13,6 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 })
 export class PeopleRegisterPage implements OnInit {
     private eventkey: string = "";
-    private tempArray: any[] = [];
     private peopleRegisterdArray: any[] = [];
     constructor(
         private emailComposer: EmailComposer,
@@ -25,7 +24,7 @@ export class PeopleRegisterPage implements OnInit {
         this.route.queryParams.subscribe((data) => {
             this.eventkey = data.eventkey;
         });
-        this.tempArray = this.peopleRegisterdArray;
+
     }
     ngOnInit() {
 
@@ -46,7 +45,7 @@ export class PeopleRegisterPage implements OnInit {
 
     }
 
-    // send email
+
     sendemail() {
 
         this.emailComposer.open({

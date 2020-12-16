@@ -6,12 +6,12 @@
 </ion-header>
 
 <ion-content>
-    <!-- no details-->
+
     <ion-card color="light" *ngIf="peopleRegisterdArray.length==0">
         <ion-card-content color="primary">
             No People Register yet in this Event.
         </ion-card-content>
-        <!-- card with details-->
+
     </ion-card>
     <ion-list *ngIf="peopleRegisterdArray.length>0">
         <ion-item-sliding *ngFor="let i of peopleRegisterdArray">
@@ -48,7 +48,7 @@
                     </ion-col>
                 </ion-row>
                 <div class="divstyle">
-                    <ion-col >
+                    <ion-col>
 
                         <ion-icon name="send" (click)="sendemail()" class="sendiconcolorstyle"></ion-icon>
                     </ion-col>
