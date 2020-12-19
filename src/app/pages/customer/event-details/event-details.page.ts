@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { NavController } from '@ionic/angular';
@@ -21,7 +22,7 @@ export class EventDetailsPage implements OnInit {
 
     constructor(public alertController: AlertController,
         private afData: AngularFireDatabase,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private alertservice: AlertserviceService,
         public navCtrl: NavController,
         private authService: ServiceService,
@@ -40,17 +41,18 @@ export class EventDetailsPage implements OnInit {
 
     async retrieveDataFromFirebase(eventkey) {
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         this.afData.list('event', ref => ref.orderByChild('eventkey').equalTo(eventkey)).valueChanges().subscribe((eveArray) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.eventArray = eveArray;
             this.tempArray = eveArray;
             this.peopleArray = this.tempArray[0].peopleregistered;
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alertservice.presentAlert(databaseError.message);
 
         })
@@ -59,10 +61,11 @@ export class EventDetailsPage implements OnInit {
 
 
     async eventregister(NOofpeople) {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         if (NOofpeople > 0) {
             let newCapacity = NOofpeople - 1;
@@ -70,9 +73,9 @@ export class EventDetailsPage implements OnInit {
 
             this.afData.list('event/' + this.eventkey + '/peopleregistered').valueChanges().subscribe((peopleregArray) => {
                 this.peopleRegisterdArray = peopleregArray;
-                loading.dismiss();
+                this.LoaderService.hideLoader();
             }, (databaseError) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.alertservice.presentAlert(databaseError.message);
             })
 
@@ -91,7 +94,7 @@ export class EventDetailsPage implements OnInit {
                 } else {
                     this.afData.list('event').update(this.eventkey, newCapcityObj).then(() => {
                     }).catch((error) => {
-                        loading.dismiss();
+                        this.LoaderService.hideLoader();
                         this.alertservice.presentAlert(error.message);
                     });
 
@@ -101,17 +104,17 @@ export class EventDetailsPage implements OnInit {
                         "userEmail": userdata.Email
                     };
                     this.afData.list("event/" + this.eventkey + "/peopleregistered").push(peopleObj).then(() => {
-                        loading.dismiss();
+                        this.LoaderService.hideLoader();
                         this.alertservice.presentAlert("you have successfully registered for the event");
 
                     }).catch(() => {
-                        loading.dismiss();
+                        this.LoaderService.hideLoader();
                         this.alertservice.presentAlert("Error while registering for the event");
                     });
 
                 }
             }).catch((storageerror) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.alertservice.presentAlert("Unable to get data from storage");
             })
 

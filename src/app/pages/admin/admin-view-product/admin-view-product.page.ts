@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { NavigationExtras } from '@angular/router';
@@ -48,7 +49,7 @@ export class AdminViewProductPage implements OnInit {
         private alert: AlertserviceService,
         private afData: AngularFireDatabase,
         public navCtr: NavController,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private popoverController: PopoverController,
         private speechRecognition: SpeechRecognition) {
         this.tempArray = this.productArray;
@@ -64,16 +65,17 @@ export class AdminViewProductPage implements OnInit {
         this.retrieveDataFromFirebase();
     }
     async retrieveDataFromFirebase() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         this.afData.list('products').valueChanges().subscribe((proArray) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.productArray = proArray;
             this.tempArray = proArray;
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
         })
 
@@ -83,32 +85,34 @@ export class AdminViewProductPage implements OnInit {
 
         this.tempArray = [];
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         this.afData.list('products', ref => ref.orderByChild('category').equalTo(productskey)).valueChanges().subscribe((proArray) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.tempArray = proArray;
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
         })
     }
 
     async deleteProduct(productObj) {
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         this.afData.list('products').remove(productObj.productskey).then(() => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("Product deleted successfully");
         }).catch((error) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(error.message);
         });
 
@@ -142,16 +146,17 @@ export class AdminViewProductPage implements OnInit {
     async updateProduct(productObj, data) {
         data.test = "Product";
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         this.afData.list('products').update(productObj.productskey, data).then(() => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("Product data updated successfully");
         }).catch((error) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(error.message);
         });
     }

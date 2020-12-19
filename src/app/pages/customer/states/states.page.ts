@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
-import { LoadingController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { ActivatedRoute } from '@angular/router'
 import { ServiceService } from '../../../services/service.service';
@@ -19,7 +19,7 @@ export class StatesPage implements OnInit {
 
     private uid: string = "";
 
-    constructor(public loadingController: LoadingController,
+    constructor(private LoaderService: LoadingserviceServiceService,
         private afData: AngularFireDatabase,
         private alert: AlertserviceService,
         private route: ActivatedRoute,
@@ -33,19 +33,19 @@ export class StatesPage implements OnInit {
 
     async retrieveDataFromFirebase() {
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         this.authService.getDataFromStorage().then((userdata) => {
             this.uid = userdata.uid;
-            loading.dismiss;
-
+            this.LoaderService.hideLoader();
 
 
             this.afData.list('orders').valueChanges().subscribe((orderArry) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.orderArray = orderArry;
 
                 for (let i = 0; i < this.orderArray.length; i++) {
@@ -61,7 +61,7 @@ export class StatesPage implements OnInit {
 
 
             }, (databaseError) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.alert.presentAlert(databaseError.message);
 
             })
@@ -69,7 +69,7 @@ export class StatesPage implements OnInit {
 
 
         }).catch((storageerror) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("Unable to get data from storage");
         })
 

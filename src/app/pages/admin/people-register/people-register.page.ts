@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AlertController } from '@ionic/angular';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
@@ -19,7 +19,7 @@ export class PeopleRegisterPage implements OnInit {
         public alertController: AlertController,
         private afData: AngularFireDatabase,
         private route: ActivatedRoute,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private alert: AlertserviceService,) {
         this.route.queryParams.subscribe((data) => {
             this.eventkey = data.eventkey;
@@ -31,15 +31,16 @@ export class PeopleRegisterPage implements OnInit {
         this.retrieveDataFromFirebase();
     }
     async retrieveDataFromFirebase() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         this.afData.list('event/' + this.eventkey + '/peopleregistered').valueChanges().subscribe((peopleregArray) => {
             this.peopleRegisterdArray = peopleregArray;
-            loading.dismiss();
+            this.LoaderService.hideLoader();
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
         })
 
@@ -49,7 +50,7 @@ export class PeopleRegisterPage implements OnInit {
     sendemail() {
 
         this.emailComposer.open({
-            to: this.peopleRegisterdArray[0].Email,
+            to: this.peopleRegisterdArray[0].email,
             subject: 'Event',
             body: 'Your registration has been accepted for this event ',
         })

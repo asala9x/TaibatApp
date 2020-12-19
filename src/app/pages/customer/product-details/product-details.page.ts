@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { NavController } from '@ionic/angular';
@@ -31,8 +32,8 @@ export class ProductDetailsPage implements OnInit {
         private alert: AlertserviceService,
         private afData: AngularFireDatabase,
         public navCtr: NavController,
-        public loadingController: LoadingController
-        , private route: ActivatedRoute,
+        private LoaderService: LoadingserviceServiceService,
+        private route: ActivatedRoute,
         private authService: ServiceService) {
 
         this.route.queryParams.subscribe((data) => {
@@ -49,19 +50,20 @@ export class ProductDetailsPage implements OnInit {
     }
 
     async retrieveDataFromFirebase(productskey) {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
 
         this.afData.list('products', ref => ref.orderByChild("productskey").equalTo(productskey)).valueChanges().subscribe((proArray) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
 
             this.tempArray = proArray;
 
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
         })
 
@@ -89,20 +91,21 @@ export class ProductDetailsPage implements OnInit {
     async viewProductData() {
         let cartArray: any[] = [];
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
 
         this.authService.getDataFromStorage().then((userdata) => {
             this.uid = userdata.uid;
             let userCartPath = "user/" + this.uid + "/cart"
-            loading.dismiss;
+            this.LoaderService.hideLoader();
 
 
             const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((orderArray) => {
-                loading.dismiss;
+                this.LoaderService.hideLoader();
                 console.log(orderArray);
                 userCartlist.unsubscribe();
                 this.basketArray = orderArray;
@@ -110,14 +113,14 @@ export class ProductDetailsPage implements OnInit {
                     cartArray.push(this.basketArray[i]);
                 }
 
-                loading.dismiss();
+                this.LoaderService.hideLoader();
 
             }, (databaseError) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.alert.presentAlert(databaseError.message);
             })
         }).catch((storageerror) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("Unable to get data from storage");
         })
 
@@ -141,19 +144,19 @@ export class ProductDetailsPage implements OnInit {
         orderObj.price = this.tempArray[0].price;
         orderObj.qty = this.qty;
         orderObj.productid = this.tempArray[0].productskey;
+        this.LoaderService.showLoader();
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         this.authService.getDataFromStorage().then((userdata) => {
             this.uid = userdata.uid;
             let userCartPath = "user/" + this.uid + "/cart"
-            loading.dismiss;
+            this.LoaderService.hideLoader();
 
             const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((itemArray) => {
-                loading.dismiss;
+                this.LoaderService.hideLoader();
                 console.log(itemArray);
                 userCartlist.unsubscribe();
 
@@ -166,7 +169,7 @@ export class ProductDetailsPage implements OnInit {
                 let isQuatityExceeded = false
 
                 if (orderObj.qty > this.tempArray[0].qty) {
-                    loading.dismiss();
+                    this.LoaderService.hideLoader();
                     isQuatityExceeded = true
                     this.alert.presentAlert("Only " + this.tempArray[0].qty + " items are available in stock");
                     return
@@ -179,7 +182,7 @@ export class ProductDetailsPage implements OnInit {
                             isRecordFound = true;
                             let finalQuantity = cartArray[i].qty + orderObj.qty;
                             if (finalQuantity > this.tempArray[0].qty) {
-                                loading.dismiss();
+                                this.LoaderService.hideLoader();
                                 isQuatityExceeded = true
                                 this.alert.presentAlert("Only " + this.tempArray[0].qty + " items are available in stock");
                             } else {
@@ -198,28 +201,28 @@ export class ProductDetailsPage implements OnInit {
                 if (!isQuatityExceeded) {
                     let userPath = "/user/" + this.uid
                     this.afData.list(userPath).set("cart", cartArray).then((itemArray) => {
-                        loading.dismiss();
+                        this.LoaderService.hideLoader();
                         this.alert.presentAlert("Successfully Added To Cart ");
                     }).catch((err) => {
-                        loading.dismiss();
+                        this.LoaderService.hideLoader();
                         alert("Error")
                         this.alert.presentAlert(err.message);
 
                     });
                 }
-                loading.dismiss();
+                this.LoaderService.hideLoader();
 
 
             })
         }).catch((storageerror) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             alert("Add to cart Error");
 
             this.alert.presentAlert("Unable to get data from storage");
         }).catch((err) => {
             alert("Add to cart Error 2");
 
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(err.message);
         });
 

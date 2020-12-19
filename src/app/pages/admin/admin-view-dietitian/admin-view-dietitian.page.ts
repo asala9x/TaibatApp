@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { PopoverController } from '@ionic/angular';
 import { PopoverComponentPage } from '../../popover/popover-component/popover-component.page';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+import { AlertController } from '@ionic/angular';
 @Component({
     selector: 'app-admin-view-dietitian',
     templateUrl: './admin-view-dietitian.page.html',
@@ -18,7 +19,7 @@ export class AdminViewDietitianPage implements OnInit {
     private tempArray: any[] = [];
     constructor(public alertController: AlertController,
         private afData: AngularFireDatabase,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private alert: AlertserviceService,
         private popoverController: PopoverController,
         private speechRecognition: SpeechRecognition) {
@@ -37,17 +38,17 @@ export class AdminViewDietitianPage implements OnInit {
 
 
     async retrieveDataFromFirebase() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
 
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         this.afData.list('dietitian').valueChanges().subscribe((dieArray) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.dietitianArray = dieArray;
             this.tempArray = dieArray;
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
         })
 
@@ -57,16 +58,17 @@ export class AdminViewDietitianPage implements OnInit {
 
         data.test = "Dietitian";
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         this.afData.list('dietitian').update(dietitianObj.dietitiankey, data).then(() => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("Dietitian data updated successfully");
         }).catch((error) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(error.message);
         });
 
@@ -123,15 +125,16 @@ export class AdminViewDietitianPage implements OnInit {
 
     async deleteDietitian(dietitianObj) {
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         this.afData.list('dietitian').remove(dietitianObj.dietitiankey).then(() => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("dietitian deleted successfully");
         }).catch((error) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(error.message);
         });
 

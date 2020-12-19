@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { AlertserviceService } from '../../../services/alertservice.service';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router'
+import { AlertController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
+import { ActivatedRoute } from '@angular/router';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 @Component({
     selector: 'app-dietitian-details',
     templateUrl: './dietitian-details.page.html',
@@ -15,7 +17,8 @@ export class DietitianDetailsPage implements OnInit {
 
     constructor(public alertController: AlertController,
         private afData: AngularFireDatabase,
-        public loadingController: LoadingController,
+        private emailComposer: EmailComposer,
+        private LoaderService: LoadingserviceServiceService,
         private alertservice: AlertserviceService,
         private route: ActivatedRoute) {
 
@@ -31,17 +34,28 @@ export class DietitianDetailsPage implements OnInit {
     }
 
     async retrieveDataFromFirebase() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         this.afData.list('dietitian', ref => ref.orderByChild("dietitiankey").equalTo(this.dieticiankey)).valueChanges().subscribe((dieArray) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.dietitianArray = dieArray;
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alertservice.presentAlert(databaseError.message);
         })
+
+    }
+    sendemail() {
+
+        this.emailComposer.open({
+            to: this.dietitianArray[0].Email,
+            subject: 'Dietitian',
+            body: 'Hi',
+        })
+
 
     }
 

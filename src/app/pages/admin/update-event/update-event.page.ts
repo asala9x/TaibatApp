@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ export class UpdateEventPage implements OnInit {
     private eventArray: any[] = [];
     private eventkey: string = "";
     constructor(private afData: AngularFireDatabase,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private alert: AlertserviceService,
         private route: ActivatedRoute) {
         this.route.queryParams.subscribe((data) => {
@@ -26,15 +26,16 @@ export class UpdateEventPage implements OnInit {
 
 
     async retrieveDataFromFirebase() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         this.afData.list('event', ref => ref.orderByChild("eventkey").equalTo(this.eventkey)).valueChanges().subscribe((eveArray) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.eventArray = eveArray;
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
         })
 
@@ -43,16 +44,17 @@ export class UpdateEventPage implements OnInit {
     async updateEvent(eventArray) {
         eventArray.test = "Event";
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         this.afData.list('event').update(eventArray.eventkey, eventArray).then(() => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("Event data updated successfully");
         }).catch((error) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(error.message);
         });
 

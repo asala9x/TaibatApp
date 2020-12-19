@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AlertController } from '@ionic/angular';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { AlertserviceService } from '../../../services/alertservice.service';
@@ -15,12 +15,12 @@ export class AdminViewAdvicePage implements OnInit {
     private adviceArray: any[] = [];
     private tempArray: any[] = [];
     private isRecording: boolean = false;
-    private matches: string[] = []; 
+    private matches: string[] = [];
     private searchtxt;
     constructor(public alertController: AlertController,
         private afData: AngularFireDatabase,
         private alert: AlertserviceService,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private popoverController: PopoverController,
         private speechRecognition: SpeechRecognition) {
         this.speechRecognition.hasPermission()
@@ -38,16 +38,17 @@ export class AdminViewAdvicePage implements OnInit {
 
 
     async retrieveDataFromFirebase() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         this.afData.list('advice', ref => ref.orderByChild('time')).valueChanges().subscribe((advArray) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.adviceArray = advArray;
             this.tempArray = advArray;
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
         })
 
@@ -55,16 +56,17 @@ export class AdminViewAdvicePage implements OnInit {
 
     async updateAdvice(adviceObj, data) {
         data.test = "Advice";
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         this.afData.list('advice').update(adviceObj.advicekey, data).then(() => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("Advice data updated successfully");
         }).catch((error) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(error.message);
         });
 
@@ -109,15 +111,16 @@ export class AdminViewAdvicePage implements OnInit {
 
     async deleteAdvice(adviceObj) {
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         this.afData.list('advice').remove(adviceObj.advicekey).then(() => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("Advice deleted successfully");
         }).catch((error) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(error.message);
         });
 

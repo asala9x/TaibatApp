@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { NavigationExtras } from '@angular/router';
@@ -22,7 +23,7 @@ export class EventListPage implements OnInit {
         private alert: AlertserviceService,
         private afData: AngularFireDatabase,
         public navCtr: NavController,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private popoverController: PopoverController,
         private speechRecognition: SpeechRecognition) {
         this.tempArray = this.eventArray;
@@ -39,17 +40,18 @@ export class EventListPage implements OnInit {
 
     // Method for retrieve event data from DB
     async retrieveDataFromFirebase() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         this.afData.list('event', ref => ref.orderByChild('time')).valueChanges().subscribe((eveArray) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.eventArray = eveArray;
             this.tempArray = eveArray;
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
         })
     }

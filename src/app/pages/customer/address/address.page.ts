@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AlertserviceService, Address } from '../../../services/alertservice.service';
 import { ActivatedRoute } from '@angular/router';
@@ -27,7 +28,7 @@ export class AddressPage implements OnInit {
     private locationdata: any;
     constructor(
         private afstorage: AngularFireStorage,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         public alertController: AlertController,
         private afData: AngularFireDatabase,
         private alert: AlertserviceService,
@@ -49,19 +50,20 @@ export class AddressPage implements OnInit {
 
     async retrieveDataFromFirebase() {
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         this.authService.getDataFromStorage().then((userdata) => {
             this.uid = userdata.uid;
             let userCartPath = "user/" + this.uid + "/Address"
-            loading.dismiss;
+            this.LoaderService.hideLoader();
 
 
             const userCartlist = this.afData.object(userCartPath).valueChanges().subscribe((addressobj: Address) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 userCartlist.unsubscribe();
                 this.address.area = addressobj.area;
                 this.address.street = addressobj.street;
@@ -71,12 +73,12 @@ export class AddressPage implements OnInit {
                 this.address.longitude = addressobj.longitude;
             }, (databaseError) => {
 
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.alert.presentAlert(databaseError.message);
 
             })
         }).catch((error) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("Unable to get data from storage");
         })
     }
@@ -113,25 +115,24 @@ export class AddressPage implements OnInit {
         }
         else {
 
+            this.LoaderService.showLoader();
 
-            const loading = await this.loadingController.create({
-                message: 'Please wait...',
-            });
-
-            await loading.present();
+            setTimeout(() => {
+                this.LoaderService.hideLoader();
+            }, 2000);
             this.authService.getDataFromStorage().then((userdata) => {
                 this.uid = userdata.uid;
                 let userCartPath = "user/" + this.uid
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 const userCartlist = this.afData.list(userCartPath).set("Address", this.address).then((dataresposeobj) => {
-                    loading.dismiss;
+                    this.LoaderService.hideLoader();
                     this.alert.presentAlert("Address data inserted successfully");
                 }, (databaseError) => {
-                    loading.dismiss();
+                    this.LoaderService.hideLoader();
                     this.alert.presentAlert(databaseError.message);
                 })
             }).catch((storageerror) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.alert.presentAlert("Unable to get data from storage");
             })
         }
