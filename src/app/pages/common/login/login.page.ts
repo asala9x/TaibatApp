@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { LoadingController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AlertController } from '@ionic/angular';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { NavController } from '@ionic/angular';
@@ -22,7 +22,7 @@ export class LoginPage implements OnInit {
 
     constructor(
         private fbauth: AngularFireAuth,
-        private loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private alertController: AlertController,
         private alert: AlertserviceService,
         public navCtrl: NavController,
@@ -39,18 +39,19 @@ export class LoginPage implements OnInit {
 
     async loginWithFBdetails() {
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
 
         if (this.data.email == "") {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("plaes enter your Email");
         }
         else if (this.data.password == "") {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("plaes enter your Password");
         }
         else {
@@ -59,7 +60,7 @@ export class LoginPage implements OnInit {
                     if (authData.user.emailVerified) {
                         let userNode = this.afDatabase.object("user/" + authData.user.uid).valueChanges()
                             .subscribe((userDatafromDB: any) => {
-                                loading.dismiss();
+                                this.LoaderService.hideLoader();
                                 userDatafromDB.uid = authData.user.uid;
                                 this.authService.setDatatoStorage(userDatafromDB).then(() => {
                                     if (userDatafromDB.userType == 'Admin') {
@@ -69,21 +70,21 @@ export class LoginPage implements OnInit {
                                         this.navCtrl.navigateForward('/customer-tab/advice');
                                     }
                                 }).catch((error) => {
-                                    loading.dismiss();
+                                    this.LoaderService.hideLoader();
                                     this.alert.presentAlert("Unable to storage data to storage");
 
                                 })
                             }, (userdberror) => {
-                                loading.dismiss();
+                                this.LoaderService.hideLoader();
                                 this.alert.presentAlert(userdberror.message);
 
                             });
                     } else {
-                        loading.dismiss();
+                        this.LoaderService.hideLoader();
                         this.alert.presentAlert("Please verify your email")
                     }
                 }).catch((authError) => {
-                    loading.dismiss();
+                    this.LoaderService.hideLoader();
                     this.alert.presentAlert(authError.message);
                 })
         }
