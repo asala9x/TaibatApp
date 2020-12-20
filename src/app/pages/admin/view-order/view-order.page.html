@@ -37,10 +37,10 @@
                                     {{orders.userEmail }}
                                 </ion-col>
                             </ion-row>
-                            
+
                             <ion-row *ngFor="let loc of AddrArray">
                                 <div *ngIf="orders.userEmail==loc.email">
-                                   <ion-col size="2">
+                                    <ion-col size="2">
                                         <ion-icon name="call" class="iconcolor"></ion-icon>
                                     </ion-col>
                                     <ion-col size="10" class="colcallstyle">
@@ -138,29 +138,27 @@
                                     </div>
                                 </ion-col>
                             </ion-row>
-                            <br/>
-                            <br/>
                             <div>
-                            <ion-row class="statusicon">
-                                <ion-col size="3">
-                                    <ion-icon name="thumbs-up" class="iconreceived"
-                                        (click)="updateStatus(orders.orderkey ,'Recived')"></ion-icon>
-                                </ion-col>
-                                <ion-col size="3">
-                                    <ion-icon name="build" class="iconInProgress"
-                                        (click)="updateStatus(orders.orderkey ,'In Progress')"></ion-icon>
-                                </ion-col>
-                                <ion-col size="3">
-                                    <ion-icon name="car" class="iconIntheway"
-                                        (click)="updateStatus(orders.orderkey ,'On the Way')"></ion-icon>
-                                </ion-col>
-                                <ion-col size="3">
-                                    <ion-icon name="checkmark-done-circle" class="iconarrive"
-                                        (click)="updateStatus(orders.orderkey ,'Arrive')">
-                                    </ion-icon>
-                                </ion-col>
-                            </ion-row>
-                        </div>
+                                <ion-row class="statusicon">
+                                    <ion-col size="3">
+                                        <ion-icon name="thumbs-up" class="iconreceived"
+                                            (click)="updateStatus(orders.orderkey ,'Recived')"></ion-icon>
+                                    </ion-col>
+                                    <ion-col size="3">
+                                        <ion-icon name="build" class="iconInProgress"
+                                            (click)="updateStatus(orders.orderkey ,'In Progress')"></ion-icon>
+                                    </ion-col>
+                                    <ion-col size="3">
+                                        <ion-icon name="car" class="iconIntheway"
+                                            (click)="updateStatus(orders.orderkey ,'On the Way')"></ion-icon>
+                                    </ion-col>
+                                    <ion-col size="3">
+                                        <ion-icon name="checkmark-done-circle" class="iconarrive"
+                                            (click)="updateStatus(orders.orderkey ,'Arrive')">
+                                        </ion-icon>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
                         </ion-card-content>
                     </ion-col>
                 </ion-row>

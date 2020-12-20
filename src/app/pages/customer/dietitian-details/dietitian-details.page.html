@@ -9,6 +9,13 @@
     <div class="divImagStyle" *ngFor="let i of dietitianArray">
         <img class="imageStyle" [src]=i.img />
     </div>
+    <div>
+        <ion-fab vertical="buttom" horizontal="start" class="sendfab" edge slot="fixed">
+            <ion-fab-button (click)="sendemail()">
+                <ion-icon name="send" class="sendicon" (click)="sendemail()"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+
     <ion-card *ngFor="let i of dietitianArray" class="detailsStyle">
         <ion-card-content>
             <ion-text color="primary">
@@ -57,5 +64,5 @@
             </ion-list>
         </ion-card-content>
     </ion-card>
-
+</div>
 </ion-content>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { NavigationExtras } from '@angular/router';
@@ -7,6 +7,7 @@ import { NavController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
 import { CustomerPopoverPage } from '../../popover/customer-popover/customer-popover.page';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 @Component({
     selector: 'app-dietitian-list',
     templateUrl: './dietitian-list.page.html',
@@ -23,7 +24,7 @@ export class DietitianListPage implements OnInit {
         private alert: AlertserviceService,
         private afData: AngularFireDatabase,
         public navCtr: NavController,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private popoverController: PopoverController,
         private speechRecognition: SpeechRecognition) {
         this.tempArray = this.dietitianArray;
@@ -38,19 +39,19 @@ export class DietitianListPage implements OnInit {
     ngOnInit() {
         this.retrieveDataFromFirebase();
     }
-    // Method for retrieve data from firebase
 
     async retrieveDataFromFirebase() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         this.afData.list('dietitian').valueChanges().subscribe((dieArray,) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.dietitianArray = dieArray;
             this.tempArray = dieArray;
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
 
         })
@@ -83,7 +84,7 @@ export class DietitianListPage implements OnInit {
         }
     }
 
-    //startStopListening
+
     startStopListening() {
         this.isRecording = (!this.isRecording);
         if (this.isRecording) {
@@ -105,7 +106,7 @@ export class DietitianListPage implements OnInit {
             this.speechRecognition.stopListening()
         }
     }
-    //presentAlertRadio
+
     async presentAlertRadio() {
 
         let inputsArray: any[] = [];

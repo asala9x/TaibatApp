@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { LoadingController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AlertController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AlertserviceService } from '../../../services/alertservice.service';
@@ -18,17 +18,21 @@ export class RegisterPage implements OnInit {
         "userType": "customer"
     }
     private Confirmpassword = "";
-    constructor(private atho: AngularFireAuth, private loadingController: LoadingController,
-        private alertController: AlertController, private DB: AngularFireDatabase,
+    constructor(private atho: AngularFireAuth,
+        private LoaderService: LoadingserviceServiceService,
+        private alertController: AlertController,
+        private DB: AngularFireDatabase,
         private alert: AlertserviceService) { }
     ngOnInit() {
     }
-    //method to regster user in Atho
+
     async registerUserInFB() {
-        //shoe lodaing
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
+
         if (this.customerDetails.name == "") {
             this.alert.presentAlert("plaes enter your name");
         } else if (this.customerDetails.email == "") {
@@ -40,43 +44,33 @@ export class RegisterPage implements OnInit {
         } else if (this.Confirmpassword != this.customerDetails.password) {
             this.alert.presentAlert("Password and Confirmpassword is not match");
         } else {
-            await loading.present();
+
             this.atho.createUserWithEmailAndPassword(this.customerDetails.email, this.customerDetails.password)
                 .then((authdata) => {
-                    //success 
-                    loading.dismiss();
-                    //EmailVerification
+
+                    this.LoaderService.hideLoader();
+
                     this.atho.currentUser.then((currentUserData) => {
                         currentUserData.sendEmailVerification().then((verificationData) => {
-                            //to insert data to DB
-                            delete this.customerDetails.password; //to delete password so it will not added in DB
+
+                            delete this.customerDetails.password;
                             this.DB.list('user').update(authdata.user.uid, this.customerDetails).then((ifSeccess) => {
-                                loading.dismiss();
+                                this.LoaderService.hideLoader();
                                 this.alert.presentAlert("user registered successfuly , see your Email to verfiy");
                             }).catch((Error) => {
-                                loading.dismiss();
+                                this.LoaderService.hideLoader();
                                 this.alert.presentAlert(Error.message);
                             });
 
                         }).catch((error) => {
-                            loading.dismiss();
+                            this.LoaderService.hideLoader();
                             this.alert.presentAlert("Enable to get current user");
                         })
                     })
                 }).catch((autherror) => {
-                    loading.dismiss();
+                    this.LoaderService.hideLoader();
                     this.alert.presentAlert(autherror.message);
                 });
         }
     }
-    //Massage Alert
-    // async presentAlert(msg) {
-    //   const alert = await this.alertController.create({
-    //     header: 'Taibat App',
-    //     message: msg,
-    //     buttons: ['OK']
-    //   });
-    //   await alert.present();
-    // }
-
 }

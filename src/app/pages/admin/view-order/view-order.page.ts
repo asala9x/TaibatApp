@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AlertController } from '@ionic/angular';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
@@ -12,6 +12,7 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 })
 export class ViewOrderPage implements OnInit {
     private tempArray2: any[] = [];
+    private tempArray: any[] = [];
     private AddrArray: any[] = [];
     private vieworderdArray: any[] = [];
     private isRecording: boolean = false;
@@ -22,7 +23,7 @@ export class ViewOrderPage implements OnInit {
         public alertController: AlertController,
         private afData: AngularFireDatabase,
         private route: ActivatedRoute,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private alert: AlertserviceService,
         private speechRecognition: SpeechRecognition) {
         this.speechRecognition.hasPermission()
@@ -32,6 +33,7 @@ export class ViewOrderPage implements OnInit {
                 }
 
             });
+        this.tempArray2 = this.vieworderdArray;
         this.retrieveDataFromFirebase();
     }
 
@@ -41,24 +43,25 @@ export class ViewOrderPage implements OnInit {
 
     async retrieveDataFromFirebase() {
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         this.afData.list('orders').valueChanges().subscribe((ordArray) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.afData.list('user').valueChanges().subscribe((AddressArray) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.AddrArray = AddressArray;
             }, (databaseError) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.alert.presentAlert(databaseError.message);
             })
             this.vieworderdArray = ordArray;
             this.tempArray2 = ordArray;
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
         })
 
@@ -66,16 +69,17 @@ export class ViewOrderPage implements OnInit {
 
     async updateStatus(orderFirebaseKey, newStatus) {
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         this.afData.list("orders/" + orderFirebaseKey).set("states", newStatus).then(() => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("states updated successfully");
         }).catch((error) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(error.message);
         });
     }

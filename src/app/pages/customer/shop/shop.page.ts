@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { NavigationExtras } from '@angular/router';
@@ -56,7 +57,7 @@ export class ShopPage implements OnInit {
         private afData: AngularFireDatabase,
         public navCtr: NavController,
         private authService: ServiceService,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private popoverController: PopoverController,
         private speechRecognition: SpeechRecognition) {
         this.tempArray = this.productArray;
@@ -73,43 +74,45 @@ export class ShopPage implements OnInit {
     ngOnInit() {
     }
     async retrieveDataFromFirebase() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...'
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         this.afData.list('products').valueChanges().subscribe((proArray) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.tempArray = proArray;
             this.productArray = proArray;
             this.filterProductData('Foods');
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
         })
 
     }
 
     async getBasketArry() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...'
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         let cartArray: any[] = [];
         this.authService.getDataFromStorage().then((userdata) => {
             this.uid = userdata.uid;
             let userCartPath = "user/" + this.uid + "/cart"
-            loading.dismiss;
+            this.LoaderService.hideLoader();
 
 
             const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((orderArray) => {
-                loading.dismiss;
+                this.LoaderService.hideLoader();
                 console.log(orderArray);
                 userCartlist.unsubscribe();
                 this.basketArray = orderArray;
                 for (let i = 0; i < this.basketArray.length; i++) {
                     cartArray.push(this.basketArray[i]);
                 }
-                loading.dismiss();
+                this.LoaderService.hideLoader();
 
                 if (this.basketArray.length == 0) {
                     this.alert.presentAlert("Please Add your Order First");
@@ -120,28 +123,28 @@ export class ShopPage implements OnInit {
                 }
 
             }, (databaseError) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.alert.presentAlert(databaseError.message);
             })
         }).catch((storageerror) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("Unable to get data from storage");
         })
     }
     async filterProductData(productskey) {
 
         this.tempArray = [];
+        this.LoaderService.showLoader();
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         this.afData.list('products', ref => ref.orderByChild('category').equalTo(productskey)).valueChanges().subscribe((proArray) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.tempArray = proArray;
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
         })
     }

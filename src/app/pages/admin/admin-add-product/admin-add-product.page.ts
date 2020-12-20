@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AlertserviceService } from '../../../services/alertservice.service';
 @Component({
@@ -23,8 +23,7 @@ export class AdminAddProductPage implements OnInit {
     constructor(public actionSheetController: ActionSheetController,
         private camera: Camera,
         private afstorage: AngularFireStorage,
-        public loadingController: LoadingController,
-        public alertController: AlertController,
+        private LoaderService: LoadingserviceServiceService,
         private afData: AngularFireDatabase,
         private alert: AlertserviceService) {
         this.productsObj.qty = 1;
@@ -34,9 +33,11 @@ export class AdminAddProductPage implements OnInit {
     }
     async addProduct() {
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         if (this.productsObj.productName == "") {
             this.alert.presentAlert("Please Enter Product Name");
         }
@@ -58,8 +59,6 @@ export class AdminAddProductPage implements OnInit {
             this.alert.presentAlert("Please Upload Product Image");
         }
         else {
-
-            await loading.present();
             let filename = Math.floor(Date.now() / 1000);
             let imagepath = filename + '.jpg';
 
@@ -73,23 +72,23 @@ export class AdminAddProductPage implements OnInit {
                         this.productsObj.time = date1.getTime();
                         this.afData.list("products").push(this.productsObj).then((dataresposeobj) => {
                             this.afData.list("products/" + dataresposeobj.key).set("productskey", dataresposeobj.key).then(() => {
-                                loading.dismiss();
+                                this.LoaderService.hideLoader();
                                 this.alert.presentAlert("Product data inserted successfully");
 
                             }).catch((error) => {
-                                loading.dismiss();
+                                this.LoaderService.hideLoader();
                                 this.alert.presentAlert(error.message);
                             });
 
                         }).catch((databaseError) => {
-                            loading.dismiss();
+                            this.LoaderService.hideLoader();
                             this.alert.presentAlert(databaseError.message);
                         });
 
                     });
 
                 }).catch((storageError) => {
-                    loading.dismiss();
+                    this.LoaderService.hideLoader();
                     this.alert.presentAlert(storageError.message);
                 })
 

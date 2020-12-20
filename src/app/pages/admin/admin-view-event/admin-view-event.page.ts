@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { NavController } from '@ionic/angular';
@@ -20,7 +21,7 @@ export class AdminViewEventPage implements OnInit {
     private searchtxt;
     constructor(public alertController: AlertController,
         private afData: AngularFireDatabase,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private alert: AlertserviceService,
         public navCtrl: NavController,
         private popoverController: PopoverController,
@@ -40,16 +41,17 @@ export class AdminViewEventPage implements OnInit {
 
 
     async retrieveDataFromFirebase() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         this.afData.list('event', ref => ref.orderByChild('time')).valueChanges().subscribe((eveArray) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.eventArray = eveArray;
             this.tempArray = eveArray;
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
         })
 
@@ -71,15 +73,16 @@ export class AdminViewEventPage implements OnInit {
 
     async deleteEvent(eventObj) {
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         this.afData.list('event').remove(eventObj.eventkey).then(() => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("Event deleted successfully");
         }).catch((error) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(error.message);
         });
     }

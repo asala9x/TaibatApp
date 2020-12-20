@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { ServiceService } from '../../../services/service.service';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AngularFireDatabase } from '@angular/fire/database';
@@ -18,7 +18,7 @@ export class ProfilePage implements OnInit {
     private tempArray2: any[] = [];
     private viewAddressArray: any[] = [];
     private AddrArray: any[] = [];
-    constructor(public loadingController: LoadingController,
+    constructor(   private LoaderService: LoadingserviceServiceService,
         private authService: ServiceService,
         private alert: AlertserviceService,
         private afData: AngularFireDatabase) {
@@ -32,29 +32,31 @@ export class ProfilePage implements OnInit {
 
     async retrieveDataFromFirebase() {
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
 
         this.authService.getDataFromStorage().then((userdata) => {
 
             this.userlastArray = userdata;
-
-            loading.dismiss();
-            this.afData.list('Address').valueChanges().subscribe((AddressArray) => {
-                loading.dismiss();
+            this.uid = userdata.uid;
+            let userCartPath = "user/" + this.uid + "/Address";
+            this.LoaderService.hideLoader();
+            this.afData.list('user').valueChanges().subscribe((AddressArray) => {
+                this.LoaderService.hideLoader();
                 this.viewAddressArray = AddressArray;
                 this.AddrArray = this.viewAddressArray;
 
             }, (databaseError) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.alert.presentAlert(databaseError.message);
             })
 
         }, (databaseError) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
 
         })

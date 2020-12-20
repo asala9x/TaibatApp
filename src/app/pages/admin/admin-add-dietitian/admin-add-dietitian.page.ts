@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AlertserviceService } from '../../../services/alertservice.service';
 @Component({
@@ -23,8 +23,7 @@ export class AdminAddDietitianPage implements OnInit {
     constructor(public actionSheetController: ActionSheetController,
         private camera: Camera,
         private afstorage: AngularFireStorage,
-        public loadingController: LoadingController,
-        public alertController: AlertController,
+        private LoaderService: LoadingserviceServiceService,
         private afData: AngularFireDatabase,
         private alert: AlertserviceService) { }
     ngOnInit() {
@@ -42,9 +41,12 @@ export class AdminAddDietitianPage implements OnInit {
 
 
     async addDietitian() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
+    
         if (this.dietitianObj.name == "") {
             this.alert.presentAlert("Please Enter Dietitian Name");
         } else if (this.dietitianObj.descripion == "") {
@@ -62,18 +64,17 @@ export class AdminAddDietitianPage implements OnInit {
         } else if (this.dietitianObj.email == "") {
             this.alert.presentAlert("Please Enter Dietitian Email");
         } else if (this.base64Img == "../../../../assets/icon/camera.png") {
-            await loading.present();
             this.dietitianObj.img = this.tempbase64Img;
             this.afData.list("dietitian").push(this.dietitianObj).then((dataresposeobj) => {
                 this.afData.list("dietitian/" + dataresposeobj.key).set("dietitiankey", dataresposeobj.key).then(() => {
-                    loading.dismiss();
+                    this.LoaderService.hideLoader();
                     this.alert.presentAlert("Dietitian data inserted successfully");
                 }).catch((error) => {
-                    loading.dismiss();
+                    this.LoaderService.hideLoader();
                     this.alert.presentAlert(error.message);
                 });
             }).catch((storageError) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.alert.presentAlert(storageError.message);
             });
         }
@@ -87,19 +88,19 @@ export class AdminAddDietitianPage implements OnInit {
                         this.dietitianObj.img = url;
                         this.afData.list("dietitian").push(this.dietitianObj).then((dataresposeobj) => {
                             this.afData.list("dietitian/" + dataresposeobj.key).set("dietitiankey", dataresposeobj.key).then(() => {
-                                loading.dismiss();
+                                this.LoaderService.hideLoader();
                                 this.alert.presentAlert("Dietitian data inserted successfully");
                             }).catch((error) => {
-                                loading.dismiss();
+                                this.LoaderService.hideLoader();
                                 this.alert.presentAlert(error.message);
                             });
                         }).catch((databaseError) => {
-                            loading.dismiss();
+                            this.LoaderService.hideLoader();
                             this.alert.presentAlert(databaseError.message);
                         });
                     });
                 }).catch((storageError) => {
-                    loading.dismiss();
+                    this.LoaderService.hideLoader();
                     this.alert.presentAlert(storageError.message);
                 })
         }

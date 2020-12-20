@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { ServiceService } from '../../../services/service.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { AlertserviceService } from '../../../services/alertservice.service';
@@ -21,9 +21,8 @@ export class CheckoutPage implements OnInit {
     private totalArry: any[] = [];
     private viewAddressArray: any[] = [];
     private AddrArray: any[] = [];
-    private AddressArray: any[] = [];
     constructor(private route: ActivatedRoute,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private authService: ServiceService,
         private afData: AngularFireDatabase,
         private alert: AlertserviceService,
@@ -38,27 +37,24 @@ export class CheckoutPage implements OnInit {
 
     async retrieveDataFromFirebase() {
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
 
-
-
-        //get current data user
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         this.authService.getDataFromStorage().then((userdata) => {
             this.uid = userdata.uid;
             let userCartPath = "user/" + this.uid + "/cart"
             let userCartPath2 = "user/" + this.uid + "/Address"
             this.totalArry = userdata
-            loading.dismiss;
+            this.LoaderService.hideLoader();
 
             this.afData.list('products').valueChanges().subscribe((proArray) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.tempArray = proArray;
 
                 this.afData.list('user').valueChanges().subscribe((userArray) => {
-                    loading.dismiss();
+                    this.LoaderService.hideLoader();
 
                     this.totalArry = userArray;
 
@@ -71,52 +67,48 @@ export class CheckoutPage implements OnInit {
                     }
 
                 }, (databaseError) => {
-                    loading.dismiss();
+                    this.LoaderService.hideLoader();
                     this.alert.presentAlert(databaseError.message);
                 })
 
 
 
             }, (databaseError) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.alert.presentAlert(databaseError.message);
             })
-
-            //get cart arry
             const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((orderArray) => {
-                loading.dismiss;
+                this.LoaderService.hideLoader();
                 userCartlist.unsubscribe();
                 this.basketArray = orderArray;
                 for (let i = 0; i < this.basketArray.length; i++) {
                     this.cartArray.push(this.basketArray[i]);
                 }
 
-                loading.dismiss();
+                this.LoaderService.hideLoader();
 
 
             }, (databaseError) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.alert.presentAlert(databaseError.message);
             })
 
 
             const userCartlist2 = this.afData.list(userCartPath2).valueChanges().subscribe((AddressArray) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 userCartlist2.unsubscribe();
                 this.viewAddressArray = AddressArray;
                 for (let i = 0; i < this.viewAddressArray.length; i++) {
-                    // if (this.viewAddressArray[i].userId == this.uid) {
                     this.AddrArray = this.viewAddressArray[i];
-                    // }
 
                 }
             }, (databaseError) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.alert.presentAlert(databaseError.message);
             })
 
         }).catch((storageerror) => {
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert("Unable to get data from storage");
         })
 
@@ -129,16 +121,13 @@ export class CheckoutPage implements OnInit {
 
             this.alert.presentAlert("Please Select your Location");
         } else {
+            this.LoaderService.showLoader();
 
-            const loading = await this.loadingController.create({
-                message: 'Please wait...',
-            });
-            await loading.present();
-
-            //get curent user data 
+            setTimeout(() => {
+                this.LoaderService.hideLoader();
+            }, 2000);
             this.authService.getDataFromStorage().then((userdata) => {
-                alert(JSON.stringify(userdata.Address))
-                this.AddressArray = userdata.Address
+
                 let orderObj = {
                     "userId": userdata.uid,
                     "userName": userdata.name,
@@ -146,25 +135,23 @@ export class CheckoutPage implements OnInit {
                     "order": this.basketArray,
                     "total": this.total,
                     "states": "Send",
-                    "Address": this.AddressArray
 
                 };
 
 
 
-                loading.dismiss;
+                this.LoaderService.hideLoader();
 
-                //move data from cart to orders
                 this.afData.list('orders').push(orderObj).then((ifSeccess) => {
                     this.afData.list("orders/" + ifSeccess.key).set("orderkey", ifSeccess.key).then(() => {
-                        loading.dismiss();
+                        this.LoaderService.hideLoader();
 
 
                     }).catch((error) => {
-                        loading.dismiss();
+                        this.LoaderService.hideLoader();
                         this.alert.presentAlert(error.message);
                     });
-                    loading.dismiss();
+                    this.LoaderService.hideLoader();
 
                     for (let i = 0; i < this.basketArray.length; i++) {
                         let productid = this.basketArray[i].productid
@@ -185,38 +172,38 @@ export class CheckoutPage implements OnInit {
                     }
 
 
-                    //clere cart and total
+
                     this.total = "";
                     this.basketArray = [];
-                    //update cart
+
                     let userPath1 = "/user/" + this.uid
                     this.afData.list(userPath1).set("cart", this.basketArray).then((itemArray) => {
 
-                        //update total
+
                         let userPath = "user/" + this.uid
 
                         this.afData.list(userPath).set("total", this.total).then((itemArray) => {
-                            loading.dismiss();
+                            this.LoaderService.hideLoader();
                         }).catch((err) => {
-                            loading.dismiss();
+                            this.LoaderService.hideLoader();
                             this.alert.presentAlert(err.message);
                         });
 
-                        loading.dismiss();
+                        this.LoaderService.hideLoader();
 
                     }).catch((err) => {
-                        loading.dismiss();
+                        this.LoaderService.hideLoader();
                         this.alert.presentAlert(err.message);
                     });
                     this.navCtrl.navigateForward('/states');
 
                 }).catch((Error) => {
-                    loading.dismiss();
+                    this.LoaderService.hideLoader();
                     this.alert.presentAlert(Error.message);
                 });
 
             }).catch((storageerror) => {
-                loading.dismiss();
+                this.LoaderService.hideLoader();
                 this.alert.presentAlert("Unable to get data from storage");
             })
 

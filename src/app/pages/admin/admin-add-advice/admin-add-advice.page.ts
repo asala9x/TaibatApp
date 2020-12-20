@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { LoadingController } from '@ionic/angular';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 @Component({
     selector: 'app-admin-add-advice',
     templateUrl: './admin-add-advice.page.html',
@@ -22,7 +22,7 @@ export class AdminAddAdvicePage implements OnInit {
     constructor(public actionSheetController: ActionSheetController,
         private camera: Camera,
         private afstorage: AngularFireStorage,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private afData: AngularFireDatabase,
         private alert: AlertserviceService) { }
 
@@ -41,11 +41,11 @@ export class AdminAddAdvicePage implements OnInit {
             this.alert.presentAlert("Please Upload Advice Image");
         }
         else {
+            this.LoaderService.showLoader();
 
-            const loading = await this.loadingController.create({
-                message: 'Please wait...',
-            });
-            await loading.present();
+            setTimeout(() => {
+                this.LoaderService.hideLoader();
+            }, 2000);
 
             let date1 = new Date();
             this.adviceObj.time = date1.getTime();
@@ -69,34 +69,40 @@ export class AdminAddAdvicePage implements OnInit {
                                         ref2.getDownloadURL().subscribe((url) => {
                                             tempobj.img2 = url;
                                             this.afData.list("advice").update(dataresposeobj.key, tempobj).then(() => {
-                                                loading.dismiss();
+                                                this.LoaderService.hideLoader();
                                                 this.alert.presentAlert("Advice data inserted successfully");
                                             }).catch((updateerror) => {
-                                                loading.dismiss();
+                                                
+                                                this.LoaderService.hideLoader();
                                                 this.alert.presentAlert(updateerror.message);
                                             })
                                         });
                                     }).catch((storageError) => {
-                                        loading.dismiss();
+                                       
+                                        this.LoaderService.hideLoader();
                                         this.alert.presentAlert(storageError.message);
                                     })
                             });
                         }).catch((storageError) => {
-                            loading.dismiss();
+                          
+                            this.LoaderService.hideLoader();
                             this.alert.presentAlert(storageError.message);
                         })
                 }).catch((error) => {
-                    loading.dismiss();
+                  
+                    this.LoaderService.hideLoader();
                     this.alert.presentAlert(error.message);
                 });
             }).catch((databaseError) => {
-                loading.dismiss();
+                
+                this.LoaderService.hideLoader();
                 this.alert.presentAlert(databaseError.messagee);
             });
 
         }
     }
     async selectAdviceImage() {
+
         const actionSheet = await this.actionSheetController.create({
             header: 'Pick Image',
             buttons: [{

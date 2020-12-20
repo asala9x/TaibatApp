@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AlertserviceService } from '../../../services/alertservice.service';
 @Component({
@@ -25,17 +25,18 @@ export class AdminAddEventPage implements OnInit {
     constructor(public actionSheetController: ActionSheetController,
         private camera: Camera,
         private afstorage: AngularFireStorage,
-        public loadingController: LoadingController,
-        public alertController: AlertController,
+        private LoaderService: LoadingserviceServiceService,
         private afData: AngularFireDatabase,
         private alert: AlertserviceService) { }
 
     ngOnInit() {
     }
     async addEvents() {
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
         if (this.eventsObj.title == "") {
             this.alert.presentAlert("Please Enter Event Title");
         } else if (this.eventsObj.place == "") {
@@ -49,7 +50,7 @@ export class AdminAddEventPage implements OnInit {
         } else if (this.base64Img == null) {
             this.alert.presentAlert("Please Upload Event Image");
         } else {
-            await loading.present();
+
             let filename = Math.floor(Date.now() / 1000);
             let imagepath = filename + '.jpg';
             this.afstorage.ref(imagepath).putString(this.base64Img, 'data_url')
@@ -61,22 +62,22 @@ export class AdminAddEventPage implements OnInit {
                         this.eventsObj.time = date1.getTime();
                         this.afData.list("event").push(this.eventsObj).then((dataresposeobj) => {
                             this.afData.list("event/" + dataresposeobj.key).set("eventkey", dataresposeobj.key).then(() => {
-                                loading.dismiss();
+                                this.LoaderService.hideLoader();
                                 this.alert.presentAlert("Event data inserted successfully");
                             }).catch((error) => {
-                                loading.dismiss();
+                                this.LoaderService.hideLoader();
                                 this.alert.presentAlert(error.message);
                             });
 
                         }).catch((databaseError) => {
-                            loading.dismiss();
+                            this.LoaderService.hideLoader();
                             this.alert.presentAlert(databaseError.message);
                         });
 
                     });
 
                 }).catch((storageError) => {
-                    loading.dismiss();
+                    this.LoaderService.hideLoader();
                     this.alert.presentAlert(storageError.message);
                 })
 

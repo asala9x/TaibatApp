@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
@@ -26,7 +27,7 @@ export class AdvicePage implements OnInit {
         private alert: AlertserviceService,
         private afData: AngularFireDatabase,
         public navCtr: NavController,
-        public loadingController: LoadingController,
+        private LoaderService: LoadingserviceServiceService,
         private popoverController: PopoverController,
         private speechRecognition: SpeechRecognition) {
 
@@ -47,20 +48,21 @@ export class AdvicePage implements OnInit {
 
     async retrieveDataFromFirebase() {
 
-        const loading = await this.loadingController.create({
-            message: 'Please wait...',
-        });
-        await loading.present();
+        this.LoaderService.showLoader();
+
+        setTimeout(() => {
+            this.LoaderService.hideLoader();
+        }, 2000);
 
         this.afData.list('advice').valueChanges().subscribe((adviceArray) => {
 
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.adviceArray = adviceArray;
             this.tempArray = adviceArray;
 
         }, (databaseError) => {
 
-            loading.dismiss();
+            this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
 
         })
