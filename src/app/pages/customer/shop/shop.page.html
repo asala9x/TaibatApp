@@ -8,10 +8,10 @@
         <ion-searchbar class="searchstyle" [(ngModel)]="searchtxt" (ngModelChange)="startSearch()">
         </ion-searchbar>
         <ion-fab vertical="Top" horizontal="end" slot="start">
-            <!--<ion-fab-button class="recordbutton" (click)="startStopListening()"> -->
+
             <ion-icon [name]="isRecording?'mic':'mic-off'" class="micicon" (click)="startStopListening()">
             </ion-icon>
-            <!-- </ion-fab-button>-->
+
         </ion-fab>
     </ion-toolbar>
     <ion-toolbar>
@@ -28,7 +28,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content >
     <ion-card color="light" *ngIf="tempArray.length==0">
         <ion-card-content color="primary">
             No Results yet.

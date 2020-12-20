@@ -1,14 +1,11 @@
 
 .maindivStyle{
-    padding-left: 10px !important;
-    padding-right: 10px !important;
     border-radius: 10px;
     box-shadow: 3px 3px 15px #dbd7d7;
     height: 95%;
-    width: 95%;
+    width: 100%;
     text-align: center;
-    margin: 10px !important;
-    // padding-top: 10px !important;
+    margin: 0px !important;
 }
 .imgestyle{
     height: 300px;
@@ -44,6 +41,9 @@ margin-top: 0px !important;
     overflow-y: scroll;
     overflow-x: hidden;
     white-space: nowrap;
+}
+.divStyle{
+    margin: 10px;
 }
 .iconstyle{
     color: #ffffff;
