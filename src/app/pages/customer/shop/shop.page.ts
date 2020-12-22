@@ -43,6 +43,13 @@ export class ShopPage implements OnInit {
             "img": "../../../../assets/icon/onther.png",
             "selected": false
         }
+        ,
+        {
+            "name": "Gift",
+            "value": "Gifts",
+            "img": "../../../../assets/icon/gift.png",
+            "selected": false
+        }
 
     ];
 
