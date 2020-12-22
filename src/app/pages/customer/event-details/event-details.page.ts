@@ -100,8 +100,8 @@ export class EventDetailsPage implements OnInit {
 
                     let peopleObj = {
                         "userId": userdata.uid,
-                        "userName": userdata.Name,
-                        "userEmail": userdata.Email
+                        "userName": userdata.name,
+                        "userEmail": userdata.email
                     };
                     this.afData.list("event/" + this.eventkey + "/peopleregistered").push(peopleObj).then(() => {
                         this.LoaderService.hideLoader();

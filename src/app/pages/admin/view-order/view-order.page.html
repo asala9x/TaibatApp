@@ -56,7 +56,23 @@
                                     {{orders.states }}
                                 </ion-col>
                             </ion-row>
+
                             <ion-row>
+                                <ion-col size="2">
+                                    <ion-icon name="card" class="iconcolor"></ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="colstyle">
+                                    {{orders.total}} OMR
+                                </ion-col>
+                            </ion-row>
+
+                            <ion-item lines="full">
+                                <ion-label>Products</ion-label>
+                                <ion-icon
+                                    [name]="orders.showproducts==true?'caret-down-circle-outline':'caret-up-circle-outline'"
+                                    slot="end" (click)="orders.showproducts=(!orders.showproducts)"></ion-icon>
+                            </ion-item>
+                            <ion-row *ngIf="orders.showproducts==true">
                                 <ion-col size="2">
                                     <ion-icon name="cart" class="iconcolor"></ion-icon>
                                 </ion-col>
@@ -78,66 +94,70 @@
                                     </div>
                                 </ion-col>
                             </ion-row>
-                            <ion-row>
-                                <ion-col size="2">
-                                    <ion-icon name="card" class="iconcolor"></ion-icon>
-                                </ion-col>
-                                <ion-col size="10" class="colstyle">
-                                    {{orders.total}} OMR
-                                </ion-col>
-                            </ion-row>
-                            <!-- address -->
-                            <ion-row>
+
+
+                            <ion-item lines="full">
+                                <ion-label>Address</ion-label>
+                                <ion-icon
+                                    [name]="orders.showaddress==true?'caret-down-circle-outline':'caret-up-circle-outline'"
+                                    slot="end" (click)="orders.showaddress=(!orders.showaddress)"></ion-icon>
+                            </ion-item>
+
+                            <ion-row *ngIf="orders.showaddress==true">
                                 <ion-col size="2">
                                     <ion-icon name="location" class="iconcolor"></ion-icon>
                                 </ion-col>
                                 <ion-col size="10" class="colstyle">
-                                    <div class="locdiv" *ngFor="let loc of AddrArray">
-                                        <div *ngIf="orders.userEmail==loc.email">
-                                            <ion-row>
-                                                <ion-col size="1">
-                                                    <ion-icon name="location" class="iconcolor1"></ion-icon>
-                                                </ion-col>
-                                                <ion-col class="colstyle" size="8">
-                                                    <p>{{loc.Address.area }}</p>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row>
-                                                <ion-col size="1">
-                                                    <ion-icon name="subway" class="iconcolor1"></ion-icon>
-                                                </ion-col>
-                                                <ion-col size="3" class="colstyle">
-                                                    <p>{{loc.Address.street}}</p>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row>
-                                                <ion-col size="1">
-                                                    <ion-icon name="compass" class="iconcolor1"></ion-icon>
-                                                </ion-col>
-                                                <ion-col size="3" class="colstyle">
-                                                    <p>{{loc.Address.latitude}}</p>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row>
-                                                <ion-col size="1">
-                                                    <ion-icon name="compass" class="iconcolor1"></ion-icon>
-                                                </ion-col>
-                                                <ion-col size="3" class="colstyle">
-                                                    <p>{{loc.Address.longitude}}</p>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row>
-                                                <ion-col size="1">
-                                                    <ion-icon name="home" class="iconcolor1"></ion-icon>
-                                                </ion-col>
-                                                <ion-col size="3" class="colstyle">
-                                                    <p>{{loc.Address.homeNumber}}</p>
-                                                </ion-col>
-                                            </ion-row>
+                                    <div class="locdiv">
+                                        <div *ngFor="let loc of AddrArray">
+                                            <div *ngIf="orders.userEmail==loc.email">
+                                                <ion-row>
+                                                    <ion-col size="1">
+                                                        <ion-icon name="location" class="iconcolor1"></ion-icon>
+                                                    </ion-col>
+                                                    <ion-col class="colstyle" size="8">
+                                                        <p>{{loc.Address.area }}</p>
+                                                    </ion-col>
+                                                </ion-row>
+                                                <ion-row>
+                                                    <ion-col size="1">
+                                                        <ion-icon name="subway" class="iconcolor1"></ion-icon>
+                                                    </ion-col>
+                                                    <ion-col size="3" class="colstyle">
+                                                        <p>{{loc.Address.street}}</p>
+                                                    </ion-col>
+                                                </ion-row>
+                                                <!-- <ion-row>
+                                                    <ion-col size="1">
+                                                        <ion-icon name="compass" class="iconcolor1"></ion-icon>
+                                                    </ion-col>
+                                                    <ion-col size="3" class="colstyle">
+                                                        <p>{{loc.Address.latitude}}</p>
+                                                    </ion-col>
+                                                </ion-row>
+                                                <ion-row>
+                                                    <ion-col size="1">
+                                                        <ion-icon name="compass" class="iconcolor1"></ion-icon>
+                                                    </ion-col>
+                                                    <ion-col size="3" class="colstyle">
+                                                        <p>{{loc.Address.longitude}}</p>
+                                                    </ion-col>
+                                                </ion-row> -->
+                                                <ion-row>
+                                                    <ion-col size="1">
+                                                        <ion-icon name="home" class="iconcolor1"></ion-icon>
+                                                    </ion-col>
+                                                    <ion-col size="3" class="colstyle">
+                                                        <p>{{loc.Address.homeNumber}}</p>
+                                                    </ion-col>
+                                                </ion-row>
+                                            </div>
                                         </div>
                                     </div>
                                 </ion-col>
                             </ion-row>
+                            <br />
+                            <br />
                             <div>
                                 <ion-row class="statusicon">
                                     <ion-col size="3">

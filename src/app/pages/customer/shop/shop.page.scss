@@ -8,7 +8,6 @@
     width:100px;
     display: inline-block;
     margin-right: 1px !important;
-    background-color: #EFEEEE;
     text-align: center;  
 }
 
@@ -17,15 +16,16 @@
     height: 60px;
   }
 
-
-  .cardStyle:active{
-      background-color: white;
-      border: 1px solid blue;
+  .cardStyleNotSelcted{
+    background-color: #EFEEEE !important;
+    border:0px !important;
   }
-.cardStyle:focus{
-    background-color: white;
-    border: 1px solid blue;
-}
+
+
+  .cardStyleselected{
+      background-color: white !important;
+      border: 1px solid blue !important;
+  }
   .cardstyle{
     height: 125px;
     width: 110px;

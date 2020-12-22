@@ -58,8 +58,13 @@ export class ViewOrderPage implements OnInit {
                 this.LoaderService.hideLoader();
                 this.alert.presentAlert(databaseError.message);
             })
-            this.vieworderdArray = ordArray;
-            this.tempArray2 = ordArray;
+            this.vieworderdArray= ordArray.map(function(el) {
+                let o:any = Object.assign({}, el);
+                o.showaddress = false;
+                o.showproducts=false;
+                return o;
+            });
+            this.tempArray2 = this.vieworderdArray;
         }, (databaseError) => {
             this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);

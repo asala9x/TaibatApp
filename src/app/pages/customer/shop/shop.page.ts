@@ -20,27 +20,33 @@ export class ShopPage implements OnInit {
         {
             "name": "Foods",
             "value": "Foods",
-            "img": "../../../../assets/icon/food.png"
+            "img": "../../../../assets/icon/food.png",
+            "selected": false
         },
         {
             "name": "Machines",
             "value": "Machines",
-            "img": "../../../../assets/icon/mac.png"
+            "img": "../../../../assets/icon/mac.png",
+            "selected": false
         }
         ,
         {
             "name": "Books",
             "value": "Books",
-            "img": "../../../../assets/icon/book.png"
+            "img": "../../../../assets/icon/book.png",
+            "selected": false
         }
         ,
         {
             "name": "Another",
             "value": "Another",
-            "img": "../../../../assets/icon/onther.png"
+            "img": "../../../../assets/icon/onther.png",
+            "selected": false
         }
 
     ];
+
+    private previousindex: number = 0;
 
     private productArray: any[] = [];
     private matches: string[] = [];
@@ -83,7 +89,7 @@ export class ShopPage implements OnInit {
             this.LoaderService.hideLoader();
             this.tempArray = proArray;
             this.productArray = proArray;
-            this.filterProductData('Foods');
+            this.filterProductData('Foods', 0);
         }, (databaseError) => {
             this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
@@ -131,7 +137,12 @@ export class ShopPage implements OnInit {
             this.alert.presentAlert("Unable to get data from storage");
         })
     }
-    async filterProductData(productskey) {
+    async filterProductData(productskey, selectedindex) {
+
+
+        this.catogryArray[this.previousindex].selected = false;
+        this.catogryArray[selectedindex].selected = true;
+        this.previousindex = selectedindex;
 
         this.tempArray = [];
         this.LoaderService.showLoader();

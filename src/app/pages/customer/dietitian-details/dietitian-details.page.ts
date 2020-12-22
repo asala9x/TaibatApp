@@ -51,7 +51,7 @@ export class DietitianDetailsPage implements OnInit {
     sendemail() {
 
         this.emailComposer.open({
-            to: this.dietitianArray[0].Email,
+            to: this.dietitianArray[0].email,
             subject: 'Dietitian',
             body: 'Hi',
         })
