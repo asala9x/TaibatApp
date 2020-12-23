@@ -16,13 +16,12 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <!-- no details-->
     <ion-card *ngIf="tempArray.length==0">
         <ion-card-content>
             No Products added yet. please click on 'Add Product' tab to add one.
         </ion-card-content>
     </ion-card>
-    <!-- card with details-->
+
     <ion-list *ngIf="tempArray.length>0">
         <ion-item-sliding *ngFor="let i of tempArray">
             <ion-card class="productcarstyle">

@@ -22,6 +22,7 @@ import { PopoverComponentPageModule } from './../app/pages/popover/popover-compo
 import { CustomerPopoverPageModule } from './pages/popover/customer-popover/customer-popover.module';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { IonicStorageModule } from '@ionic/storage';
+import { Broadcaster } from '@ionic-native/broadcaster/ngx';
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],
@@ -49,6 +50,7 @@ import { IonicStorageModule } from '@ionic/storage';
         IonTabs,
         SMS,
         EmailComposer,
+        Broadcaster,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
     bootstrap: [AppComponent]

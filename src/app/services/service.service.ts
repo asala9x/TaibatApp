@@ -27,14 +27,14 @@ export class ServiceService {
         return this.storage.set(TOKEN_KEY, userobj).then(() => {
              this.authenticationState.next(true);
          });
-        // return this.storage.set('data',userobj);
+        
     }
 
     getDataFromStorage() {
         return this.storage.get(TOKEN_KEY);
     }
     clear() {
-        //  return this.storage.clear();
+      
         return this.storage.clear().then(()=>{
             this.authenticationState.next(false);
         });
