@@ -5,7 +5,7 @@ import { LoadingserviceServiceService } from '../../../services/loadingservice-s
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AlertController } from '@ionic/angular';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
-import { Broadcaster } from '@ionic-native/broadcaster/ngx';
+
 @Component({
     selector: 'app-people-register',
     templateUrl: './people-register.page.html',
@@ -15,7 +15,7 @@ export class PeopleRegisterPage implements OnInit {
     private eventkey: string = "";
     private peopleRegisterdArray: any[] = [];
     constructor(
-        private broadcaster: Broadcaster,
+        
         private emailComposer: EmailComposer,
         public alertController: AlertController,
         private afData: AngularFireDatabase,
