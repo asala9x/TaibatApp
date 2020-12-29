@@ -8,32 +8,32 @@
 <ion-content class="constyle">
     <div class="mainDivStyle" align="center">
         <div class="divimageStyle">
-            <img src="../../../../assets/icon/AddImage.png" class="imageStyle" (click)="selectDietitianImage()">
+            <img  [src]="base64Img" class="imageStyle" (click)="selectDietitianImage()">
         </div>
         <br />
         <div class="inputDivStyle">
             <ion-list>
                 <ion-item>
                     <ion-icon name="person" class="iconcolor" slot="start"></ion-icon>
-                    <ion-input color="primary" type="text" [(ngModel)]="dietitianObj.name" placeholder="Dietitian name">
+                    <ion-input color="primary" type="text" [(ngModel)]="dietitianObj.name" placeholder="Dietitian name" clearInput>
                     </ion-input>
                 </ion-item>
                 <br />
                 <ion-item>
                     <ion-icon name="call" class="iconcolor" slot="start"></ion-icon>
-                    <ion-input color="primary" type="Phone" [(ngModel)]="dietitianObj.phone" placeholder="Phone Number">
+                    <ion-input color="primary" type="Number" [(ngModel)]="dietitianObj.phone" placeholder="Phone Number" clearInput>
                     </ion-input>
                 </ion-item>
                 <br />
                 <ion-item>
                     <ion-icon name="mail" class="iconcolor" slot="start"></ion-icon>
-                    <ion-input color="primary" type="Email" [(ngModel)]="dietitianObj.email" placeholder="Email">
+                    <ion-input color="primary" type="Email" [(ngModel)]="dietitianObj.email" placeholder="Email" clearInput>
                     </ion-input>
                 </ion-item>
                 <br />
                 <ion-item>
                     <ion-icon name="newspaper" class="iconcolor" slot="start"></ion-icon>
-                    <ion-textarea color="primary" [(ngModel)]="dietitianObj.descripion" placeholder="Descrption">
+                    <ion-textarea color="primary" [(ngModel)]="dietitianObj.descripion" placeholder="Description" clearInput>
                     </ion-textarea>
                 </ion-item>
             </ion-list>

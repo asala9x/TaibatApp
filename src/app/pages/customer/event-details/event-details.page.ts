@@ -103,6 +103,9 @@ export class EventDetailsPage implements OnInit {
                         "userName": userdata.name,
                         "userEmail": userdata.email
                     };
+                    // if (this.checkEvent(NOofpeople)) {
+                    //     this.alertservice.presentAlert("Sorry  ")
+                    // } else { }
                     this.afData.list("event/" + this.eventkey + "/peopleregistered").push(peopleObj).then(() => {
                         this.LoaderService.hideLoader();
                         this.alertservice.presentAlert("you have successfully registered for the event");
@@ -112,7 +115,8 @@ export class EventDetailsPage implements OnInit {
                         this.alertservice.presentAlert("Error while registering for the event");
                     });
 
-                }
+                
+            }
             }).catch((storageerror) => {
                 this.LoaderService.hideLoader();
                 this.alertservice.presentAlert("Unable to get data from storage");
@@ -125,4 +129,28 @@ export class EventDetailsPage implements OnInit {
         }
     }
 
+    checkEvent(obj) {
+        let showalert: boolean = false;
+        let currentdate = new Date();
+        currentdate.setHours(0, 0, 0, 0);
+        let eventdate = new Date(obj.date);
+        eventdate.setHours(0, 0, 0, 0);
+
+        let dateold1 = new Date(obj.date);
+        dateold1.setDate(dateold1.getDate() - 1);
+        dateold1.setHours(0, 0, 0, 0);
+
+        let dateold2 = new Date(obj.date);
+        dateold2.setDate(dateold2.getDate() - 2);
+        dateold2.setHours(0, 0, 0, 0);
+
+        if (dateold2.getTime() == currentdate.getTime()
+            || dateold1.getTime() == currentdate.getTime() ||
+            currentdate.getTime() >= eventdate.getTime()) {
+            showalert = true;
+        }
+
+        return showalert;
+
+    }
 }

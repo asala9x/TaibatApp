@@ -8,7 +8,7 @@
 <ion-content class="constyle">
     <div class="mainDivStyle" align="center">
         <div class="divimageStyle">
-            <img src="../../../assets/icon/AddImage.png" class="imageStyle" (click)="selectEventsImage()">
+            <img [src]="base64Img" class="imageStyle" (click)="selectEventsImage()">
         </div>
         <br />
         <div class="inputDivStyle">
@@ -41,14 +41,14 @@
                 <br />
                 <ion-item>
                     <ion-icon name="pricetag" class="iconcolor" slot="start"></ion-icon>
-                    <ion-input type="text" color="primary" [(ngModel)]="eventsObj.price" placeholder="Price">
+                    <ion-input type="number" color="primary" [(ngModel)]="eventsObj.price" placeholder="Price">
                     </ion-input>
                 </ion-item>
                 <br />
                 <ion-item>
                     <ion-icon name="people" class="iconcolor" slot="start"></ion-icon>
                     <ion-input type="number" color="primary" [(ngModel)]="eventsObj.people"
-                        placeholder="NO of people Allow"> </ion-input>
+                        placeholder="No of people can attend"> </ion-input>
                 </ion-item>
             </ion-list>
         </div>

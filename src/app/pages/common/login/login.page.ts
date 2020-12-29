@@ -6,6 +6,7 @@ import { AlertController } from '@ionic/angular';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { NavController } from '@ionic/angular';
 import { ServiceService } from '../../../services/service.service';
+import { Platform } from '@ionic/angular';
 
 @Component({
     selector: 'app-login',
@@ -19,15 +20,21 @@ export class LoginPage implements OnInit {
         "email": "",
         "password": ""
     }
-
-    constructor(
+    subscribe: any;
+    constructor(public Platform: Platform,
         private fbauth: AngularFireAuth,
         private LoaderService: LoadingserviceServiceService,
         private alertController: AlertController,
         private alert: AlertserviceService,
         public navCtrl: NavController,
         public authService: ServiceService,
-        public afDatabase: AngularFireDatabase) { }
+        public afDatabase: AngularFireDatabase) { 
+            this.subscribe = this.Platform.backButton.subscribeWithPriority(666666, () => {
+                if (this.constructor.name == "LoginPage") {
+                        navigator["app"].exitApp();
+                }
+            })
+        }
 
 
 
@@ -39,22 +46,22 @@ export class LoginPage implements OnInit {
 
     async loginWithFBdetails() {
 
-        this.LoaderService.showLoader();
+       
+        if (this.data.email == "") {
+            this.alert.presentAlert("Please  Enter your Email");
+        }
+        else if (this.data.password == "") {
+        
+            this.alert.presentAlert("Please  Enter your Password");
+        }
+        else { 
+            this.LoaderService.showLoader();
 
         setTimeout(() => {
             this.LoaderService.hideLoader();
         }, 2000);
 
 
-        if (this.data.email == "") {
-            this.LoaderService.hideLoader();
-            this.alert.presentAlert("plaes enter your Email");
-        }
-        else if (this.data.password == "") {
-            this.LoaderService.hideLoader();
-            this.alert.presentAlert("plaes enter your Password");
-        }
-        else {
             this.fbauth.signInWithEmailAndPassword(this.data.email, this.data.password)
                 .then((authData) => {
                     if (authData.user.emailVerified) {

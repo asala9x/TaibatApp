@@ -4,6 +4,7 @@ import { LoadingserviceServiceService } from '../../../services/loadingservice-s
 import { AlertController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AlertserviceService } from '../../../services/alertservice.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
     selector: 'app-register',
@@ -20,9 +21,9 @@ export class RegisterPage implements OnInit {
     private Confirmpassword = "";
     constructor(private atho: AngularFireAuth,
         private LoaderService: LoadingserviceServiceService,
-        private alertController: AlertController,
         private DB: AngularFireDatabase,
-        private alert: AlertserviceService) { }
+        private alert: AlertserviceService,
+        public navCtrl: NavController) { }
     ngOnInit() {
     }
 
@@ -56,7 +57,8 @@ export class RegisterPage implements OnInit {
                             delete this.customerDetails.password;
                             this.DB.list('user').update(authdata.user.uid, this.customerDetails).then((ifSeccess) => {
                                 this.LoaderService.hideLoader();
-                                this.alert.presentAlert("user registered successfuly , see your Email to verfiy");
+                                this.alert.presentAlert("User registered successfully, see your email to verify to login");
+                                this.navCtrl.navigateForward('/login');
                             }).catch((Error) => {
                                 this.LoaderService.hideLoader();
                                 this.alert.presentAlert(Error.message);

@@ -19,7 +19,7 @@ export class AdminAddProductPage implements OnInit {
         "img": "",
         "description": ""
     }
-    private base64Img: string = null;
+    private base64Img: string =  "../../../assets/icon/AddImage.png";
     constructor(public actionSheetController: ActionSheetController,
         private camera: Camera,
         private afstorage: AngularFireStorage,
@@ -55,7 +55,7 @@ export class AdminAddProductPage implements OnInit {
         else if (this.productsObj.price == "") {
             this.alert.presentAlert("Please Enter Product price");
         }
-        else if (this.base64Img == null) {
+        else if (this.base64Img == "../../../assets/icon/AddImage.png") {
             this.alert.presentAlert("Please Upload Product Image");
         }
         else {

@@ -116,6 +116,16 @@ export class CheckoutPage implements OnInit {
     }
 
     async order() {
+        let userCartPath2 = "user/" + this.uid + "/Address"
+        const userCartlist2 = this.afData.list(userCartPath2).valueChanges().subscribe((AddressArray) => {
+            this.LoaderService.hideLoader();
+            userCartlist2.unsubscribe();
+            this.viewAddressArray = AddressArray;
+            for (let i = 0; i < this.viewAddressArray.length; i++) {
+                this.AddrArray = this.viewAddressArray[i];
+
+            }
+       
 
         if (this.AddrArray.length == 0) {
 
@@ -216,6 +226,10 @@ export class CheckoutPage implements OnInit {
 
         }
 
+    }, (databaseError) => {
+        this.LoaderService.hideLoader();
+        this.alert.presentAlert(databaseError.message);
+    })
 
     }
 }

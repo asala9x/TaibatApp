@@ -3,7 +3,8 @@ import { LoadingserviceServiceService } from '../../../services/loadingservice-s
 import { ServiceService } from '../../../services/service.service';
 import { AlertserviceService } from '../../../services/alertservice.service';
 import { AngularFireDatabase } from '@angular/fire/database';
-
+import { Platform } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.page.html',
@@ -18,10 +19,18 @@ export class ProfilePage implements OnInit {
     private tempArray2: any[] = [];
     private viewAddressArray: any[] = [];
     private AddrArray: any[] = [];
-    constructor(   private LoaderService: LoadingserviceServiceService,
+    subscribe: any;
+    constructor(  public Platform: Platform,
+        public navCtrl: NavController,
+         private LoaderService: LoadingserviceServiceService,
         private authService: ServiceService,
         private alert: AlertserviceService,
         private afData: AngularFireDatabase) {
+            this.subscribe = this.Platform.backButton.subscribeWithPriority(666666, () => {
+                // if (this.constructor.name == "ProfilePage") {
+                    this.navCtrl.navigateForward('/customer-tab/advice');
+                // }
+            })
         this.tempArray2 = this.viewAddressArray;
     }
 

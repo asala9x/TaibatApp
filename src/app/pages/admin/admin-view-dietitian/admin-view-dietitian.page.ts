@@ -43,6 +43,8 @@ export class AdminViewDietitianPage implements OnInit {
         setTimeout(() => {
             this.LoaderService.hideLoader();
         }, 2000);
+
+
         this.afData.list('dietitian').valueChanges().subscribe((dieArray) => {
             this.LoaderService.hideLoader();
             this.dietitianArray = dieArray;
@@ -63,15 +65,28 @@ export class AdminViewDietitianPage implements OnInit {
         setTimeout(() => {
             this.LoaderService.hideLoader();
         }, 2000);
-
-        this.afData.list('dietitian').update(dietitianObj.dietitiankey, data).then(() => {
-            this.LoaderService.hideLoader();
-            this.alert.presentAlert("Dietitian data updated successfully");
-        }).catch((error) => {
-            this.LoaderService.hideLoader();
-            this.alert.presentAlert(error.message);
-        });
-
+    alert(data.name)
+        if (data.name == "") {
+            this.alert.presentAlert("Please Enter Dietitian Name");
+        } else if (dietitianObj.descripion == "") {
+            this.alert.presentAlert("Please Enter Dietitian Description");
+        } else if (dietitianObj.phone == "") {
+            this.alert.presentAlert("Please Enter Dietitian Phone Number");
+        } else if (dietitianObj.email == "") {
+            this.alert.presentAlert("Please Enter Dietitian Email");
+        } else {
+            this.afData.list('dietitian').update(dietitianObj.dietitiankey, data).then(() => {
+                this.LoaderService.hideLoader();
+                // dietitianObj.name == "",
+                // dietitianObj.descripion == "",
+                // dietitianObj.phone == "",
+                // dietitianObj.email == ""
+                this.alert.presentAlert("Dietitian data updated successfully");
+            }).catch((error) => {
+                this.LoaderService.hideLoader();
+                this.alert.presentAlert(error.message);
+            });
+       }
     }
     async updateDietitianAlert(dietitianObj) {
         const alertprompt = await this.alertController.create({

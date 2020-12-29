@@ -35,9 +35,10 @@ import { Broadcaster } from '@ionic-native/broadcaster/ngx';
         PopoverComponentPageModule,
         CustomerPopoverPageModule,
         AngularFireModule,
+          AngularFireStorageModule,
         AngularFireModule.initializeApp(environment.key),
         AngularFireDatabaseModule,
-        AngularFireStorageModule,
+    
         AngularFireAuthModule,
 
     ],

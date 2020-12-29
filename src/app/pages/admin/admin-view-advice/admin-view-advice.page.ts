@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Platform } from '@ionic/angular';
 import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AlertController } from '@ionic/angular';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
@@ -17,12 +18,21 @@ export class AdminViewAdvicePage implements OnInit {
     private isRecording: boolean = false;
     private matches: string[] = [];
     private searchtxt;
-    constructor(public alertController: AlertController,
+    subscribe: any;
+    constructor(public Platform: Platform,
+        public alertController: AlertController,
         private afData: AngularFireDatabase,
         private alert: AlertserviceService,
         private LoaderService: LoadingserviceServiceService,
         private popoverController: PopoverController,
         private speechRecognition: SpeechRecognition) {
+        this.subscribe = this.Platform.backButton.subscribeWithPriority(666666, () => {
+            if (this.constructor.name == "AdminViewAdvicePage") {
+                if (window.confirm("Do you want to exit app ")) {
+                    navigator["app"].exitApp();
+                }
+            }
+        })
         this.speechRecognition.hasPermission()
             .then((hasPermission: boolean) => {
                 if (!hasPermission) {

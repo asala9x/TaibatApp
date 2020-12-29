@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Platform } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { LoadingserviceServiceService } from '../../../services/loadingservice-service.service';
 import { AlertserviceService } from '../../../services/alertservice.service';
@@ -22,15 +23,22 @@ export class AdvicePage implements OnInit {
     private matches: string[] = [];
     private tempArray: any[] = [];
     private searchtxt;
-
-    constructor(public alertController: AlertController,
+    subscribe: any;
+    constructor(public Platform: Platform,
+        public alertController: AlertController,
         private alert: AlertserviceService,
         private afData: AngularFireDatabase,
         public navCtr: NavController,
         private LoaderService: LoadingserviceServiceService,
         private popoverController: PopoverController,
         private speechRecognition: SpeechRecognition) {
-
+            this.subscribe = this.Platform.backButton.subscribeWithPriority(666666, () => {
+                if (this.constructor.name == "AdvicePage") {
+                    if (window.confirm("Do you want to exit app ")) {
+                        navigator["app"].exitApp();
+                    }
+                }
+            })
         this.tempArray = this.adviceArray;
         this.speechRecognition.hasPermission()
             .then((hasPermission: boolean) => {

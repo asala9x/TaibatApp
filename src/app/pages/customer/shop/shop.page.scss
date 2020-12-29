@@ -27,7 +27,7 @@
       border: 1px solid blue !important;
   }
   .cardstyle{
-    height: 125px;
+    height: 140px;
     width: 110px;
     border-radius: 10px;
     padding: 0px !important;
@@ -57,11 +57,13 @@
 .cardcontentstyle{
     color:  #FFFF;
     padding: 0px !important;
+    margin-top: -10px !important;
+    margin-bottom: 0px !important;;
 }
 
 .productNameStyle{
     background-color: #357abe;
-    height: 30px;
+    height: 70px !important;
     width: 100%;
     text-align: center;
     margin: 0px !important;

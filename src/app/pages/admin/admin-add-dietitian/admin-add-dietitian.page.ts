@@ -18,7 +18,8 @@ export class AdminAddDietitianPage implements OnInit {
         "email": "",
         "img": ""
     }
-    private base64Img: string = "../../../../assets/icon/camera.png";
+    private dname: string = "";
+    private base64Img: string = "../../../assets/icon/AddImage.png";
     private tempbase64Img: string = "https://firebasestorage.googleapis.com/v0/b/taibatapp.appspot.com/o/defultdietitian.png?alt=media&token=39c99615-2dd1-4c4e-b46d-0d6b73cf4d40";
     constructor(public actionSheetController: ActionSheetController,
         private camera: Camera,
@@ -46,11 +47,10 @@ export class AdminAddDietitianPage implements OnInit {
         setTimeout(() => {
             this.LoaderService.hideLoader();
         }, 2000);
-    
         if (this.dietitianObj.name == "") {
             this.alert.presentAlert("Please Enter Dietitian Name");
         } else if (this.dietitianObj.descripion == "") {
-            this.alert.presentAlert("Please Enter Dietitian Descripion");
+            this.alert.presentAlert("Please Enter Dietitian Description");
         } else if (this.dietitianObj.phone == "") {
             this.alert.presentAlert("Please Enter Dietitian Phone Number");
         } else if (this.dietitianObj.phone == "") {
@@ -63,12 +63,16 @@ export class AdminAddDietitianPage implements OnInit {
             this.alert.presentAlert("Phone number should start with 9 or 7")
         } else if (this.dietitianObj.email == "") {
             this.alert.presentAlert("Please Enter Dietitian Email");
-        } else if (this.base64Img == "../../../../assets/icon/camera.png") {
+        } else if (this.base64Img == "../../../assets/icon/AddImage.png") {
             this.dietitianObj.img = this.tempbase64Img;
             this.afData.list("dietitian").push(this.dietitianObj).then((dataresposeobj) => {
                 this.afData.list("dietitian/" + dataresposeobj.key).set("dietitiankey", dataresposeobj.key).then(() => {
                     this.LoaderService.hideLoader();
                     this.alert.presentAlert("Dietitian data inserted successfully");
+                    this.dietitianObj.name = "";
+                    this.dietitianObj.descripion = "";
+                    this.dietitianObj.phone = "";
+                    this.dietitianObj.email = "";
                 }).catch((error) => {
                     this.LoaderService.hideLoader();
                     this.alert.presentAlert(error.message);
@@ -89,7 +93,7 @@ export class AdminAddDietitianPage implements OnInit {
                         this.afData.list("dietitian").push(this.dietitianObj).then((dataresposeobj) => {
                             this.afData.list("dietitian/" + dataresposeobj.key).set("dietitiankey", dataresposeobj.key).then(() => {
                                 this.LoaderService.hideLoader();
-                                this.alert.presentAlert("Dietitian data inserted successfully");
+
                             }).catch((error) => {
                                 this.LoaderService.hideLoader();
                                 this.alert.presentAlert(error.message);
@@ -98,6 +102,7 @@ export class AdminAddDietitianPage implements OnInit {
                             this.LoaderService.hideLoader();
                             this.alert.presentAlert(databaseError.message);
                         });
+                   
                     });
                 }).catch((storageError) => {
                     this.LoaderService.hideLoader();
