@@ -18,7 +18,7 @@ export class AdminAddDietitianPage implements OnInit {
         "email": "",
         "img": ""
     }
-    private dname: string = "";
+
     private base64Img: string = "../../../assets/icon/AddImage.png";
     private tempbase64Img: string = "https://firebasestorage.googleapis.com/v0/b/taibatapp.appspot.com/o/defultdietitian.png?alt=media&token=39c99615-2dd1-4c4e-b46d-0d6b73cf4d40";
     constructor(public actionSheetController: ActionSheetController,

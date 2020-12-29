@@ -55,6 +55,16 @@ export class AdminViewDietitianPage implements OnInit {
         })
 
     }
+    isPhoneValid(search: string): boolean {
+        let phonevalid: boolean;
+
+        let regexp = new RegExp(/^(?=7|9.\d.\d)[0-9]{8}$/);
+
+        phonevalid = regexp.test(search);
+
+        return phonevalid;
+    }
+
 
     async updateDietitian(dietitianObj, data) {
 
@@ -65,28 +75,29 @@ export class AdminViewDietitianPage implements OnInit {
         setTimeout(() => {
             this.LoaderService.hideLoader();
         }, 2000);
-    alert(data.name)
-        if (data.name == "") {
-            this.alert.presentAlert("Please Enter Dietitian Name");
-        } else if (dietitianObj.descripion == "") {
-            this.alert.presentAlert("Please Enter Dietitian Description");
-        } else if (dietitianObj.phone == "") {
-            this.alert.presentAlert("Please Enter Dietitian Phone Number");
-        } else if (dietitianObj.email == "") {
-            this.alert.presentAlert("Please Enter Dietitian Email");
-        } else {
-            this.afData.list('dietitian').update(dietitianObj.dietitiankey, data).then(() => {
-                this.LoaderService.hideLoader();
-                // dietitianObj.name == "",
-                // dietitianObj.descripion == "",
-                // dietitianObj.phone == "",
-                // dietitianObj.email == ""
-                this.alert.presentAlert("Dietitian data updated successfully");
-            }).catch((error) => {
-                this.LoaderService.hideLoader();
-                this.alert.presentAlert(error.message);
-            });
-       }
+        // if (data.name == "") {
+        //     this.alert.presentAlert("Please Enter Dietitian Name");
+        // } else if (data.descripion == "") {
+        //     this.alert.presentAlert("Please Enter Dietitian Description");
+        // } else if ( data.phone == "") {
+        //     this.alert.presentAlert("Please Enter Dietitian Phone Number");
+        // else if (data.phone.length < 8) {
+        //     this.alert.presentAlert("Phone number should be 8 digit")
+        // }
+        // else if (!this.isPhoneValid(data.phone)) {
+        //     this.alert.presentAlert("Phone number should start with 9 or 7")
+        // }
+        // } else if ( data.email == "") {
+        //     this.alert.presentAlert("Please Enter Dietitian Email");
+        // } else {
+        this.afData.list('dietitian').update(dietitianObj.dietitiankey, data).then(() => {
+            this.LoaderService.hideLoader();
+            this.alert.presentAlert("Dietitian data updated successfully");
+        }).catch((error) => {
+            this.LoaderService.hideLoader();
+            this.alert.presentAlert(error.message);
+        });
+        //    }
     }
     async updateDietitianAlert(dietitianObj) {
         const alertprompt = await this.alertController.create({
