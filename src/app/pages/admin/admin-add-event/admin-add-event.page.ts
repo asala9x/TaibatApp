@@ -64,6 +64,13 @@ export class AdminAddEventPage implements OnInit {
                             this.afData.list("event/" + dataresposeobj.key).set("eventkey", dataresposeobj.key).then(() => {
                                 this.LoaderService.hideLoader();
                                 this.alert.presentAlert("Event data inserted successfully");
+                                this.eventsObj.title = "";
+                                this.eventsObj.place = "";
+                                this.eventsObj.date = "";
+                                this.eventsObj.timer = "";
+                                this.eventsObj.price = "";
+                                this.eventsObj.people = "";
+                                this.eventsObj.img = "";
                             }).catch((error) => {
                                 this.LoaderService.hideLoader();
                                 this.alert.presentAlert(error.message);

@@ -19,7 +19,7 @@ export class AdminAddProductPage implements OnInit {
         "img": "",
         "description": ""
     }
-    private base64Img: string =  "../../../assets/icon/AddImage.png";
+    private base64Img: string = "../../../assets/icon/AddImage.png";
     constructor(public actionSheetController: ActionSheetController,
         private camera: Camera,
         private afstorage: AngularFireStorage,
@@ -74,7 +74,12 @@ export class AdminAddProductPage implements OnInit {
                             this.afData.list("products/" + dataresposeobj.key).set("productskey", dataresposeobj.key).then(() => {
                                 this.LoaderService.hideLoader();
                                 this.alert.presentAlert("Product data inserted successfully");
-
+                                this.productsObj.productName = "";
+                                this.productsObj.price = "";
+                                this.productsObj.category = "";
+                                this.productsObj.qty = "";
+                                this.productsObj.img = "";
+                                this.productsObj.description = "";
                             }).catch((error) => {
                                 this.LoaderService.hideLoader();
                                 this.alert.presentAlert(error.message);

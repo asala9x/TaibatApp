@@ -88,11 +88,12 @@ export class LoginPage implements OnInit {
                             });
                     } else {
                         this.LoaderService.hideLoader();
-                        this.alert.presentAlert("Please verify your email")
+                        this.alert.presentAlert("Please verify your mail by clicking the link which was shared by Taibat Team")
                     }
                 }).catch((authError) => {
                     this.LoaderService.hideLoader();
-                    this.alert.presentAlert(authError.message);
+                     this.alert.presentAlert(authError.message);
+                   
                 })
         }
     }

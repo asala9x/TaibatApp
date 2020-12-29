@@ -69,6 +69,11 @@
     margin: 0px !important;
    
 }
+.carticon{
+    color: #357abe;
+    width:33px;
+    height: 32px;
+}
 .iconstyle{
     color: #ffffff;
     width: 20px;
@@ -81,7 +86,7 @@
     margin-right: 2px !important;
     margin-left: 4px !important;
     padding: 1px;
-    width: 350px;
+    width: 85%;
     height: 64px;
     --background:#FAFAFA;
     border-color: #707070;
@@ -93,9 +98,9 @@
     color: #357abe;
     width: 24px;
     height: 24px;
-    padding:7px;
+padding-right: 50px !important;
     margin-right: 0px !important;
-    margin-bottom:10px ;
+    margin-bottom:7px ;
     margin-top: 7px;
     margin-left: 5px !important;
 }
