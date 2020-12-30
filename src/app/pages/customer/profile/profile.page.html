@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar color="primary">
-        <ion-back-button slot="start"> </ion-back-button>
+        <ion-back-button slot="start" [routerLink]="['/customer-tab/advice']"> </ion-back-button>
         <ion-title>Profile</ion-title>
     </ion-toolbar>
 </ion-header>
@@ -33,16 +33,7 @@
                                 {{userlastArray.name}}
                             </ion-col>
                         </ion-row>
-                        <ion-row *ngFor="let loc of viewAddressArray">
-                            <div class="col2style">
-                                <ion-col size="2" class="colstyle">
-                                    <ion-icon name="call"></ion-icon>
-                                </ion-col>
-                                <ion-col size="10" class="col2style">
-                                    {{userlastArray.Address.phoneNumber }}
-                                </ion-col>
-                            </div>
-                        </ion-row>
+                       
                     </ion-col>
                 </ion-row>
 

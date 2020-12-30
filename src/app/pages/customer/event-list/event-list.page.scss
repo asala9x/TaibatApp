@@ -27,10 +27,15 @@
 }
 .EventNameStyle{
     background-color: #357abe;
-    height: 30px;
+    height: 38px;
     width: 100%;
+    margin-bottom: 0px !important;
     text-align: center;
-    margin: 0px !important;
+    margin: -10px !important;
+    font-size: small;
+    vertical-align: middle;
+    margin-top: -10px !important;
+    text-transform: capitalize;
    
 }
 .iconstyle{

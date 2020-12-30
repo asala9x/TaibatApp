@@ -8,6 +8,7 @@
     width:100px;
     display: inline-block;
     margin-right: 1px !important;
+    background-color: #EFEEEE;
     text-align: center;  
 }
 
@@ -16,18 +17,19 @@
     height: 60px;
   }
 
-  .cardStyleNotSelcted{
-    background-color: #EFEEEE !important;
-    border:0px !important;
+
+  .cardStyle:active{
+      background-color: white;
+      border: 1px solid blue;
   }
 
 
-  .cardStyleselected{
-      background-color: white !important;
-      border: 1px solid blue !important;
-  }
+.cardStyle:focus{
+    background-color: white;
+    border: 1px solid blue;
+}
   .cardstyle{
-    height: 140px;
+    height: 125px;
     width: 110px;
     border-radius: 10px;
     padding: 0px !important;
@@ -38,7 +40,8 @@
   .maindivStyle{
     
     text-align: center;
-  }
+   
+}
 
 .imgestyle{
     height: 80%;
@@ -57,22 +60,18 @@
 .cardcontentstyle{
     color:  #FFFF;
     padding: 0px !important;
-    margin-top: -10px !important;
-    margin-bottom: 0px !important;;
 }
 
 .productNameStyle{
     background-color: #357abe;
-    height: 70px !important;
+    height: 38px;
     width: 100%;
     text-align: center;
     margin: 0px !important;
-   
-}
-.carticon{
-    color: #357abe;
-    width:33px;
-    height: 32px;
+  font-size: small;
+  vertical-align: middle;
+  margin-top: -10px !important;
+  text-transform: capitalize;
 }
 .iconstyle{
     color: #ffffff;
@@ -80,7 +79,6 @@
     height: 20px;
     padding-right: 16px !important;
 }
-
 
 .searchstyle{
     margin-right: 2px !important;
@@ -93,6 +91,12 @@
     --placeholder-color:#357abe;
     --icon-color:#357abe;
 }
+.carticon{
+    color: #357abe;
+    width:33px;
+    height: 32px;
+}
+
 
 .micicon{
     color: #357abe;
