@@ -26,7 +26,7 @@ export class ProductDetailsPage implements OnInit {
         "qty": "",
         "productid": ""
     };
-
+ private numberOfItemInCart: any ;
 
     constructor(public alertController: AlertController,
         private alert: AlertserviceService,
@@ -49,6 +49,37 @@ export class ProductDetailsPage implements OnInit {
         this.viewProductData();
     }
 
+    noOfitem(){
+        let cartArray: any[] = [];
+        this.authService.getDataFromStorage().then((userdata) => {
+            this.uid = userdata.uid;
+            let userCartPath = "user/" + this.uid + "/cart"
+            this.LoaderService.hideLoader();
+
+            const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((orderArray) => {
+                this.LoaderService.hideLoader();
+                console.log(orderArray);
+                userCartlist.unsubscribe();
+                this.basketArray = orderArray;
+                for (let i = 0; i < this.basketArray.length; i++) {
+                    cartArray.push(this.basketArray[i]);
+                }
+
+              this.numberOfItemInCart = this.basketArray.length;
+             
+                this.LoaderService.hideLoader();
+
+            }, (databaseError) => {
+                this.LoaderService.hideLoader();
+                this.alert.presentAlert(databaseError.message);
+            })
+        }).catch((storageerror) => {
+            this.LoaderService.hideLoader();
+            this.alert.presentAlert("Unable to get data from storage");
+        })
+
+    }
+
     async retrieveDataFromFirebase(productskey) {
         this.LoaderService.showLoader();
 
@@ -67,6 +98,7 @@ export class ProductDetailsPage implements OnInit {
             this.alert.presentAlert(databaseError.message);
         })
 
+        
     }
 
 
@@ -124,12 +156,13 @@ export class ProductDetailsPage implements OnInit {
             this.alert.presentAlert("Unable to get data from storage");
         })
 
-
+this.noOfitem();
     }
 
+    
     async AddToCart(order) {
 
-
+       
         let previousCartItmes: any[] = [];
         let cartArray: any[] = [];
 
@@ -212,7 +245,7 @@ export class ProductDetailsPage implements OnInit {
                 }
                 this.LoaderService.hideLoader();
 
-
+                this.noOfitem();
             })
         }).catch((storageerror) => {
             this.LoaderService.hideLoader();
@@ -225,6 +258,6 @@ export class ProductDetailsPage implements OnInit {
             this.LoaderService.hideLoader();
             this.alert.presentAlert(err.message);
         });
-
+     
     }
 }

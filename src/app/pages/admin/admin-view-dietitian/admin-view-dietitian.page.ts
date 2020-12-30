@@ -60,21 +60,23 @@ export class AdminViewDietitianPage implements OnInit {
 
         data.test = "Dietitian";
 
+        if (data.name == "") {
+           this.alert.presentAlert("Please Enter Dietitian Name");
+        } else if (data.descripion == "") {
+            this.alert.presentAlert("Please Enter Dietitian Description");
+        } else if (data.phone == "") {
+            this.alert.presentAlert("Please Enter Dietitian Phone Number");
+        } else if (data.email == "") {
+            this.alert.presentAlert("Please Enter Dietitian Email");
+        } else { 
+
         this.LoaderService.showLoader();
 
         setTimeout(() => {
             this.LoaderService.hideLoader();
         }, 2000);
     alert(data.name)
-        if (data.name == "") {
-            this.alert.presentAlert("Please Enter Dietitian Name");
-        } else if (dietitianObj.descripion == "") {
-            this.alert.presentAlert("Please Enter Dietitian Description");
-        } else if (dietitianObj.phone == "") {
-            this.alert.presentAlert("Please Enter Dietitian Phone Number");
-        } else if (dietitianObj.email == "") {
-            this.alert.presentAlert("Please Enter Dietitian Email");
-        } else {
+      
             this.afData.list('dietitian').update(dietitianObj.dietitiankey, data).then(() => {
                 this.LoaderService.hideLoader();
                 // dietitianObj.name == "",
@@ -88,6 +90,8 @@ export class AdminViewDietitianPage implements OnInit {
             });
        }
     }
+
+    private errormasge;
     async updateDietitianAlert(dietitianObj) {
         const alertprompt = await this.alertController.create({
             header: 'Update Dietitian',

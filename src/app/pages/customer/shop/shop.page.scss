@@ -61,7 +61,16 @@
     color:  #FFFF;
     padding: 0px !important;
 }
+.cardStyleNotSelcted{
+    background-color: #EFEEEE !important;
+    border:0px !important;
+  }
 
+
+  .cardStyleselected{
+      background-color: white !important;
+      border: 1px solid blue !important;
+  }
 .productNameStyle{
     background-color: #357abe;
     height: 38px;

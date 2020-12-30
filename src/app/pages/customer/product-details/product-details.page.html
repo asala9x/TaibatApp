@@ -17,8 +17,11 @@
         <ion-fab vertical="buttom" horizontal="start" class="cartfab" edge slot="fixed">
             <ion-fab-button (click)="AddToCart(i.ProductName,i.price)">
                 <ion-icon name="cart" class="carticon" (click)="AddToCart(i.productName,i.price)"></ion-icon>
+                <ion-label class="numberOfitemStyle"> {{numberOfItemInCart}} </ion-label>
             </ion-fab-button>
+           
         </ion-fab>
+      
 
         <ion-card class="detailsStyle">
             <ion-card-content>
