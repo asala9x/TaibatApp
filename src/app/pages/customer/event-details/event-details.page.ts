@@ -19,7 +19,7 @@ export class EventDetailsPage implements OnInit {
     private peopleRegisterdArray: any[] = [];
     private peopleArray: any[] = [];
     private uid: string = "";
-
+    private currentdate = new Date();
     constructor(public alertController: AlertController,
         private afData: AngularFireDatabase,
         private LoaderService: LoadingserviceServiceService,
@@ -61,71 +61,76 @@ export class EventDetailsPage implements OnInit {
 
 
     async eventregister(NOofpeople) {
+        alert(this.currentdate)
         this.LoaderService.showLoader();
 
         setTimeout(() => {
             this.LoaderService.hideLoader();
         }, 2000);
-
-        if (NOofpeople > 0) {
-            let newCapacity = NOofpeople - 1;
-            let newCapcityObj = { "people": newCapacity };
-
-            this.afData.list('event/' + this.eventkey + '/peopleregistered').valueChanges().subscribe((peopleregArray) => {
-                this.peopleRegisterdArray = peopleregArray;
-                this.LoaderService.hideLoader();
-            }, (databaseError) => {
-                this.LoaderService.hideLoader();
-                this.alertservice.presentAlert(databaseError.message);
-            })
-
-
-            this.authService.getDataFromStorage().then((userdata) => {
-
-                var isUserRegistered = false
-
-                for (let regUser of this.peopleRegisterdArray) {
-                    if (regUser.userId == userdata.uid) {
-                        isUserRegistered = true
-                    }
-                }
-                if (isUserRegistered) {
-                    this.alertservice.presentAlert("You are already Registered");
-                } else {
-                    this.afData.list('event').update(this.eventkey, newCapcityObj).then(() => {
-                    }).catch((error) => {
-                        this.LoaderService.hideLoader();
-                        this.alertservice.presentAlert(error.message);
-                    });
-
-                    let peopleObj = {
-                        "userId": userdata.uid,
-                        "userName": userdata.name,
-                        "userEmail": userdata.email
-                    };
-                    // if (this.checkEvent(NOofpeople)) {
-                    //     this.alertservice.presentAlert("Sorry  ")
-                    // } else { }
-                    this.afData.list("event/" + this.eventkey + "/peopleregistered").push(peopleObj).then(() => {
-                        this.LoaderService.hideLoader();
-                        this.alertservice.presentAlert("you have successfully registered for the event");
-
-                    }).catch(() => {
-                        this.LoaderService.hideLoader();
-                        this.alertservice.presentAlert("Error while registering for the event");
-                    });
-
-                
-            }
-            }).catch((storageerror) => {
-                this.LoaderService.hideLoader();
-                this.alertservice.presentAlert("Unable to get data from storage");
-            })
-
+        if (this.checkEvent(NOofpeople)) {
+            this.alertservice.presentAlert("Sorry  ")
         }
-
         else {
-            this.alertservice.presentAlert("No slots left for this event");
+
+
+            if (NOofpeople > 0) {
+                let newCapacity = NOofpeople - 1;
+                let newCapcityObj = { "people": newCapacity };
+
+                this.afData.list('event/' + this.eventkey + '/peopleregistered').valueChanges().subscribe((peopleregArray) => {
+                    this.peopleRegisterdArray = peopleregArray;
+                    this.LoaderService.hideLoader();
+                }, (databaseError) => {
+                    this.LoaderService.hideLoader();
+                    this.alertservice.presentAlert(databaseError.message);
+                })
+
+
+                this.authService.getDataFromStorage().then((userdata) => {
+
+                    var isUserRegistered = false
+
+                    for (let regUser of this.peopleRegisterdArray) {
+                        if (regUser.userId == userdata.uid) {
+                            isUserRegistered = true
+                        }
+                    }
+                    if (isUserRegistered) {
+                        this.alertservice.presentAlert("You are already Registered");
+                    } else {
+                        this.afData.list('event').update(this.eventkey, newCapcityObj).then(() => {
+                        }).catch((error) => {
+                            this.LoaderService.hideLoader();
+                            this.alertservice.presentAlert(error.message);
+                        });
+
+                        let peopleObj = {
+                            "userId": userdata.uid,
+                            "userName": userdata.name,
+                            "userEmail": userdata.email
+                        };
+
+                        this.afData.list("event/" + this.eventkey + "/peopleregistered").push(peopleObj).then(() => {
+                            this.LoaderService.hideLoader();
+                            this.alertservice.presentAlert("you have successfully registered for the event");
+
+                        }).catch(() => {
+                            this.LoaderService.hideLoader();
+                            this.alertservice.presentAlert("Error while registering for the event");
+                        });
+
+
+                    }
+                }).catch((storageerror) => {
+                    this.LoaderService.hideLoader();
+                    this.alertservice.presentAlert("Unable to get data from storage");
+                })
+
+            }
+
+            else {
+                this.alertservice.presentAlert("No slots left for this event");
+            }
         }
     }
 
@@ -137,16 +142,17 @@ export class EventDetailsPage implements OnInit {
         eventdate.setHours(0, 0, 0, 0);
 
         let dateold1 = new Date(obj.date);
-        dateold1.setDate(dateold1.getDate() - 1);
+        dateold1.setDate(dateold1.getDate());
         dateold1.setHours(0, 0, 0, 0);
 
-        let dateold2 = new Date(obj.date);
-        dateold2.setDate(dateold2.getDate() - 2);
-        dateold2.setHours(0, 0, 0, 0);
+        //     // let dateold2 = new Date(obj.date);
+        //     // dateold2.setDate(dateold2.getDate() - 2);
+        //     // dateold2.setHours(0, 0, 0, 0);
 
-        if (dateold2.getTime() == currentdate.getTime()
-            || dateold1.getTime() == currentdate.getTime() ||
-            currentdate.getTime() >= eventdate.getTime()) {
+        if (
+            currentdate.getTime() >= dateold1.getTime())
+        // currentdate.getTime() >= eventdate.getTime()) 
+        {
             showalert = true;
         }
 

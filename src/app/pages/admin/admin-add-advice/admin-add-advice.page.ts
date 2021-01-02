@@ -29,12 +29,15 @@ export class AdminAddAdvicePage implements OnInit {
     ngOnInit() {
     }
     async addAdvice() {
-        this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
-        if (this.imagesarray.length > 2) {
+
+        if (this.imagesarray.length == 0) {
+            this.alert.presentAlert("select atleast one image");
+        }
+        else if (this.imagesarray.length < 2) {
+            this.alert.presentAlert("please select 2 images");
+        }
+        else if (this.imagesarray.length > 2) {
             this.alert.presentAlert("you can select only two images");
         }
         else if (this.adviceObj.name == "") {
@@ -46,69 +49,10 @@ export class AdminAddAdvicePage implements OnInit {
             this.alert.presentAlert("Please Upload Advice Image");
         }
         else {
-            // this.LoaderService.showLoader();
 
-            // setTimeout(() => {
-            //     this.LoaderService.hideLoader();
-            // }, 2000);
-
-            // let date1 = new Date();
-            // this.adviceObj.time = date1.getTime();
-
-            // this.afData.list("advice").push(this.adviceObj).then((dataresposeobj) => {
-            //     this.afData.list("advice/" + dataresposeobj.key).set("advicekey", dataresposeobj.key).then(() => {
-            //         let filename1 = Math.floor(Date.now() / 1000);
-            //         let imagepath1 = filename1 + '.jpg';
-            //         let tempobj: any = {};
-            //         this.afstorage.ref(imagepath1).putString(this.imagesarray[0], 'data_url')
-            //             .then((storageSuccess) => {
-            //                 let ref1 = this.afstorage.ref(imagepath1);
-            //                 ref1.getDownloadURL().subscribe((url) => {
-            //                     tempobj.img1 = url
-            //                     let filename2 = Math.floor(Date.now() / 1000);
-            //                     let imagepath2 = filename2 + '.jpg';
-
-            //                     this.afstorage.ref(imagepath2).putString(this.imagesarray[1], 'data_url')
-            //                         .then((storageSuccess) => {
-            //                             let ref2 = this.afstorage.ref(imagepath2);
-            //                             ref2.getDownloadURL().subscribe((url) => {
-            //                                 tempobj.img2 = url;
-            //                                 this.afData.list("advice").update(dataresposeobj.key, tempobj).then(() => {
-            //                                     this.LoaderService.hideLoader();
-            //                                     this.alert.presentAlert("Advice data inserted successfully");
-            //                                 }).catch((updateerror) => {
-
-            //                                     this.LoaderService.hideLoader();
-            //                                     this.alert.presentAlert(updateerror.message);
-            //                                 })
-            //                             });
-            //                         }).catch((storageError) => {
-
-            //                             this.LoaderService.hideLoader();
-            //                             this.alert.presentAlert(storageError.message);
-            //                         })
-            //                 });
-            //             }).catch((storageError) => {
-
-            //                 this.LoaderService.hideLoader();
-            //                 this.alert.presentAlert(storageError.message);
-            //             })
-            //     }).catch((error) => {
-
-            //         this.LoaderService.hideLoader();
-            //         this.alert.presentAlert(error.message);
-            //     });
-            // }).catch((databaseError) => {
-
-            //     this.LoaderService.hideLoader();
-            //     this.alert.presentAlert(databaseError.messagee);
-            // });
 
             this.LoaderService.showLoader();
 
-            setTimeout(() => {
-                this.LoaderService.hideLoader();
-            }, 2000);
 
             let date1 = new Date();
             this.adviceObj.time = date1.getTime();
@@ -141,7 +85,11 @@ export class AdminAddAdvicePage implements OnInit {
 
                                             this.afData.list("advice").update(dataresposeobj.key, tempobj).then(() => {
                                                 this.LoaderService.hideLoader();
+                                                this.imagesarray = [];
                                                 this.alert.presentAlert("Advice data inserted successfully");
+
+                                                this.adviceObj.name = "";
+                                                this.adviceObj.descripion = ""
                                             }).catch((updateerror) => {
                                                 this.LoaderService.hideLoader();
                                                 this.alert.presentAlert(updateerror.message);

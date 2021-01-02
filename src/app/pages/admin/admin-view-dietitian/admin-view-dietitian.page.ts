@@ -6,6 +6,8 @@ import { PopoverController } from '@ionic/angular';
 import { PopoverComponentPage } from '../../popover/popover-component/popover-component.page';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { AlertController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
+
 @Component({
     selector: 'app-admin-view-dietitian',
     templateUrl: './admin-view-dietitian.page.html',
@@ -17,7 +19,9 @@ export class AdminViewDietitianPage implements OnInit {
     private matches: string[] = [];
     private searchtxt;
     private tempArray: any[] = [];
+    setMessage: any;
     constructor(public alertController: AlertController,
+        public toastCtrl: ToastController,
         private afData: AngularFireDatabase,
         private LoaderService: LoadingserviceServiceService,
         private alert: AlertserviceService,
@@ -39,10 +43,6 @@ export class AdminViewDietitianPage implements OnInit {
 
     async retrieveDataFromFirebase() {
         this.LoaderService.showLoader();
-
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
 
 
         this.afData.list('dietitian').valueChanges().subscribe((dieArray) => {
@@ -72,24 +72,7 @@ export class AdminViewDietitianPage implements OnInit {
 
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
-        // if (data.name == "") {
-        //     this.alert.presentAlert("Please Enter Dietitian Name");
-        // } else if (data.descripion == "") {
-        //     this.alert.presentAlert("Please Enter Dietitian Description");
-        // } else if ( data.phone == "") {
-        //     this.alert.presentAlert("Please Enter Dietitian Phone Number");
-        // else if (data.phone.length < 8) {
-        //     this.alert.presentAlert("Phone number should be 8 digit")
-        // }
-        // else if (!this.isPhoneValid(data.phone)) {
-        //     this.alert.presentAlert("Phone number should start with 9 or 7")
-        // }
-        // } else if ( data.email == "") {
-        //     this.alert.presentAlert("Please Enter Dietitian Email");
-        // } else {
+     
         this.afData.list('dietitian').update(dietitianObj.dietitiankey, data).then(() => {
             this.LoaderService.hideLoader();
             this.alert.presentAlert("Dietitian data updated successfully");
@@ -97,7 +80,14 @@ export class AdminViewDietitianPage implements OnInit {
             this.LoaderService.hideLoader();
             this.alert.presentAlert(error.message);
         });
-        //    }
+       
+    }
+    async showErrorToast(data: any) {
+        const toast = await this.toastCtrl.create({
+            message: data,
+            duration: 2000
+        });
+        toast.present();
     }
     async updateDietitianAlert(dietitianObj) {
         const alertprompt = await this.alertController.create({
@@ -140,7 +130,23 @@ export class AdminViewDietitianPage implements OnInit {
                 }, {
                     text: 'Ok',
                     handler: (data) => {
-                        this.updateDietitian(dietitianObj, data);
+                        if (data.name == "") {
+                           // this.showErrorToast('Please Enter Dietitian Name');
+                           this.alert.alertController.dismiss('<b style="color: red;">Enter valid email id.</b>');
+                        } else if (data.descripion == "") {
+                            this.showErrorToast('Please Enter Dietitian Description');
+                        } else if (data.phone == "") {
+                            this.showErrorToast('Please Enter Dietitian Phone Number');
+                        } else if (data.phone.length < 8) {
+
+                            this.showErrorToast('Phone number should be 8 digit');
+                        } else if (!this.isPhoneValid(data.phone)) {
+                            this.showErrorToast('Phone number should start with 9 or 7');
+                        } else if (data.email == "") {
+                            this.showErrorToast('Please Enter Dietitian Email');
+                        } else {
+                            this.updateDietitian(dietitianObj, data);
+                        }
                     }
                 }
             ]
@@ -153,9 +159,7 @@ export class AdminViewDietitianPage implements OnInit {
 
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+        
         this.afData.list('dietitian').remove(dietitianObj.dietitiankey).then(() => {
             this.LoaderService.hideLoader();
             this.alert.presentAlert("dietitian deleted successfully");

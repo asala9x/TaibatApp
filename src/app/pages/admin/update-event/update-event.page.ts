@@ -28,9 +28,6 @@ export class UpdateEventPage implements OnInit {
     async retrieveDataFromFirebase() {
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
         this.afData.list('event', ref => ref.orderByChild("eventkey").equalTo(this.eventkey)).valueChanges().subscribe((eveArray) => {
             this.LoaderService.hideLoader();
             this.eventArray = eveArray;
@@ -46,9 +43,7 @@ export class UpdateEventPage implements OnInit {
 
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+        
 
         this.afData.list('event').update(eventArray.eventkey, eventArray).then(() => {
             this.LoaderService.hideLoader();

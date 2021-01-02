@@ -68,9 +68,7 @@ export class AdminViewAdvicePage implements OnInit {
         data.test = "Advice";
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+      
 
         this.afData.list('advice').update(adviceObj.advicekey, data).then(() => {
             this.LoaderService.hideLoader();
@@ -123,9 +121,7 @@ export class AdminViewAdvicePage implements OnInit {
 
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+       
         this.afData.list('advice').remove(adviceObj.advicekey).then(() => {
             this.LoaderService.hideLoader();
             this.alert.presentAlert("Advice deleted successfully");

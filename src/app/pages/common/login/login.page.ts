@@ -57,9 +57,7 @@ export class LoginPage implements OnInit {
         else { 
             this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+     
 
 
             this.fbauth.signInWithEmailAndPassword(this.data.email, this.data.password)

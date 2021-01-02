@@ -45,9 +45,7 @@ export class ViewOrderPage implements OnInit {
 
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+       
 
         this.afData.list('orders').valueChanges().subscribe((ordArray) => {
             this.LoaderService.hideLoader();
@@ -76,9 +74,7 @@ export class ViewOrderPage implements OnInit {
 
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+       
 
         this.afData.list("orders/" + orderFirebaseKey).set("states", newStatus).then(() => {
             this.LoaderService.hideLoader();

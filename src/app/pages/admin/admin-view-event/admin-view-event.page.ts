@@ -43,9 +43,6 @@ export class AdminViewEventPage implements OnInit {
     async retrieveDataFromFirebase() {
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
         this.afData.list('event', ref => ref.orderByChild('time')).valueChanges().subscribe((eveArray) => {
             this.LoaderService.hideLoader();
             this.eventArray = eveArray;
@@ -75,9 +72,7 @@ export class AdminViewEventPage implements OnInit {
 
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+       
         this.afData.list('event').remove(eventObj.eventkey).then(() => {
             this.LoaderService.hideLoader();
             this.alert.presentAlert("Event deleted successfully");

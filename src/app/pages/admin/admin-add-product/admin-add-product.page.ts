@@ -35,9 +35,6 @@ export class AdminAddProductPage implements OnInit {
 
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
         if (this.productsObj.productName == "") {
             this.alert.presentAlert("Please Enter Product Name");
         }

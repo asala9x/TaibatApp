@@ -81,6 +81,9 @@ export class DietitianListPage implements OnInit {
             if (this.dietitianArray[i].name.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
                 this.tempArray.push(this.dietitianArray[i]);
             }
+            //  if (this.dietitianArray[i].name.toLowerCase().includes(this.searchtxt.toLowerCase())) {
+            //     this.tempArray.push(this.dietitianArray[i]);
+            // }
         }
     }
 

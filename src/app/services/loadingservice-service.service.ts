@@ -5,6 +5,11 @@ import { LoadingController } from '@ionic/angular';
 })
 export class LoadingserviceServiceService {
 
+
+
+    loading;
+    
+
     constructor(public loadingController: LoadingController) { }
     // async loading(msg) {
     //     const loading = await this.loadingController.create({
@@ -28,24 +33,17 @@ export class LoadingserviceServiceService {
       }
     
       // Show the loader for infinite time
-      showLoader() {
-    
-        this.loadingController.create({
-          message: 'Please wait...'
-        }).then((res) => {
-          res.present();
-        });
+      async showLoader() {
+
+           this.loading = await this.loadingController.create({ message: 'Please wait...' });
+            return await this.loading.present();
     
       }
     
       // Hide the loader if already created otherwise return error
       hideLoader() {
     
-        this.loadingController.dismiss().then((res) => {
-          console.log('Loading dismissed!', res);
-        }).catch((error) => {
-          console.log('error', error);
-        });
-    
+            return this.loading.dismiss();
+       
       }
 }

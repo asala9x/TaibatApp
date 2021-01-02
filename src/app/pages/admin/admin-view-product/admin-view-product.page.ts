@@ -66,10 +66,7 @@ export class AdminViewProductPage implements OnInit {
     }
     async retrieveDataFromFirebase() {
         this.LoaderService.showLoader();
-
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+        
         this.afData.list('products').valueChanges().subscribe((proArray) => {
             this.LoaderService.hideLoader();
             this.productArray = proArray;
@@ -87,9 +84,7 @@ export class AdminViewProductPage implements OnInit {
 
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+  
 
         this.afData.list('products', ref => ref.orderByChild('category').equalTo(productskey)).valueChanges().subscribe((proArray) => {
             this.LoaderService.hideLoader();
@@ -104,9 +99,7 @@ export class AdminViewProductPage implements OnInit {
 
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+       
 
         this.afData.list('products').remove(productObj.productskey).then(() => {
             this.LoaderService.hideLoader();
@@ -148,9 +141,6 @@ export class AdminViewProductPage implements OnInit {
 
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
 
         this.afData.list('products').update(productObj.productskey, data).then(() => {
             this.LoaderService.hideLoader();

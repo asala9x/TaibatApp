@@ -42,11 +42,7 @@ export class AdminAddDietitianPage implements OnInit {
 
 
     async addDietitian() {
-        this.LoaderService.showLoader();
-
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+       
         if (this.dietitianObj.name == "") {
             this.alert.presentAlert("Please Enter Dietitian Name");
         } else if (this.dietitianObj.descripion == "") {
@@ -64,6 +60,7 @@ export class AdminAddDietitianPage implements OnInit {
         } else if (this.dietitianObj.email == "") {
             this.alert.presentAlert("Please Enter Dietitian Email");
         } else if (this.base64Img == "../../../assets/icon/AddImage.png") {
+            this.LoaderService.showLoader();
             this.dietitianObj.img = this.tempbase64Img;
             this.afData.list("dietitian").push(this.dietitianObj).then((dataresposeobj) => {
                 this.afData.list("dietitian/" + dataresposeobj.key).set("dietitiankey", dataresposeobj.key).then(() => {

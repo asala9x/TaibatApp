@@ -21,7 +21,7 @@ export class AdminAddEventPage implements OnInit {
         "img": "",
         "time": ""
     }
-    private base64Img: string =  "../../../assets/icon/AddImage.png";
+    private base64Img: string = "../../../assets/icon/AddImage.png";
     constructor(public actionSheetController: ActionSheetController,
         private camera: Camera,
         private afstorage: AngularFireStorage,
@@ -32,11 +32,7 @@ export class AdminAddEventPage implements OnInit {
     ngOnInit() {
     }
     async addEvents() {
-        this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
         if (this.eventsObj.title == "") {
             this.alert.presentAlert("Please Enter Event Title");
         } else if (this.eventsObj.place == "") {
@@ -47,10 +43,10 @@ export class AdminAddEventPage implements OnInit {
             this.alert.presentAlert("Please Enter Event Price");
         } else if (this.eventsObj.people == "") {
             this.alert.presentAlert("Please Enter  People Alawed for This Event");
-        } else if (this.base64Img ==  "../../../assets/icon/AddImage.png") {
+        } else if (this.base64Img == "../../../assets/icon/AddImage.png") {
             this.alert.presentAlert("Please Upload Event Image");
         } else {
-
+            this.LoaderService.showLoader();
             let filename = Math.floor(Date.now() / 1000);
             let imagepath = filename + '.jpg';
             this.afstorage.ref(imagepath).putString(this.base64Img, 'data_url')
@@ -70,7 +66,7 @@ export class AdminAddEventPage implements OnInit {
                                 this.eventsObj.timer = "";
                                 this.eventsObj.price = "";
                                 this.eventsObj.people = "";
-                                this.eventsObj.img = "";
+                                this.eventsObj.img = null;
                             }).catch((error) => {
                                 this.LoaderService.hideLoader();
                                 this.alert.presentAlert(error.message);

@@ -114,7 +114,7 @@ export class AdvicePage implements OnInit {
     startSearch() {
         this.tempArray = [];
         for (let i = 0; i < this.adviceArray.length; i++) {
-            if (this.adviceArray[i].name.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
+            if (this.adviceArray[i].name.toLowerCase().includes(this.searchtxt.toLowerCase())) {
                 this.tempArray.push(this.adviceArray[i]);
             }
         }
