@@ -15,15 +15,7 @@
     text-align: center;
 }
 
-// .contentdiv{
-//     margin: 10px;
-//     padding-right: 14px !important;
-//     padding-top: 0px !important;
-//     border-radius: 10px;
-//     box-shadow: 3px 3px 15px #dbd7d7;
-//     height: 100%;
-//     width: 95%;
-// }
+
 
 
 .imgestyle{
@@ -41,10 +33,15 @@
 
 .dietitianNameStyle{
     background-color: #357abe;
-    height: 30px;
+    height: 38px;
     width: 100%;
     text-align: center;
     margin: 0px !important;
+    font-size: small;
+    margin: -10px !important;
+    vertical-align: middle;
+    margin-top: -10px !important;
+    text-transform: capitalize;
    
 }
 .iconstyle{

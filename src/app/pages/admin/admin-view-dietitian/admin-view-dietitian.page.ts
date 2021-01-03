@@ -70,25 +70,35 @@ export class AdminViewDietitianPage implements OnInit {
 
         data.test = "Dietitian";
 
+        if (data.name == "" ) {
+           this.alert.presentAlert("  sorry we can’t update because you didn’t follow the rules which is written there, try again");
+        } else if (data.descripion == "") {
+            this.alert.presentAlert("  sorry we can’t update because you didn’t follow the rules which is written there, try again");
+        } else if (data.phone == ""||data.phone.length < 8||!this.isPhoneValid(data.phone)) {
+            this.alert.presentAlert("  sorry we can’t update because you didn’t follow the rules which is written there, try again");
+        } else if (data.email == "") {
+            this.alert.presentAlert("  sorry we can’t update because you didn’t follow the rules which is written there, try again");
+        } else { 
+
         this.LoaderService.showLoader();
 
-     
-        this.afData.list('dietitian').update(dietitianObj.dietitiankey, data).then(() => {
+        setTimeout(() => {
             this.LoaderService.hideLoader();
-            this.alert.presentAlert("Dietitian data updated successfully");
-        }).catch((error) => {
-            this.LoaderService.hideLoader();
-            this.alert.presentAlert(error.message);
-        });
-       
+        }, 2000);
+    alert(data.name)
+      
+            this.afData.list('dietitian').update(dietitianObj.dietitiankey, data).then(() => {
+                this.LoaderService.hideLoader();
+                
+                this.alert.presentAlert("Dietitian data updated successfully");
+            }).catch((error) => {
+                this.LoaderService.hideLoader();
+                this.alert.presentAlert(error.message);
+            });
+       }
     }
-    async showErrorToast(data: any) {
-        const toast = await this.toastCtrl.create({
-            message: data,
-            duration: 2000
-        });
-        toast.present();
-    }
+
+    private errormasge;
     async updateDietitianAlert(dietitianObj) {
         const alertprompt = await this.alertController.create({
             header: 'Update Dietitian',
@@ -97,26 +107,26 @@ export class AdminViewDietitianPage implements OnInit {
                 {
                     name: 'name',
                     value: dietitianObj.name,
-                    type: 'text',
-                    placeholder: 'Dietitian Name'
+                    type: 'text', 
+                    placeholder: 'Name can not be empty'
                 },
                 {
                     name: 'email',
                     value: dietitianObj.email,
                     type: 'email',
-                    placeholder: 'Dietitian Email'
+                    placeholder: 'Email can not be empty and should be formatting'
                 },
                 {
                     name: 'phone',
                     value: dietitianObj.phone,
                     type: 'number',
-                    placeholder: 'Dietitian Phone'
+                    placeholder: 'Phone can not be empty and should be formatting'
                 },
                 {
                     name: 'descripion',
                     value: dietitianObj.descripion,
                     type: 'text',
-                    placeholder: 'Descripion'
+                    placeholder: 'Descripion can not be empty'
                 }
             ],
             buttons: [
@@ -130,23 +140,7 @@ export class AdminViewDietitianPage implements OnInit {
                 }, {
                     text: 'Ok',
                     handler: (data) => {
-                        if (data.name == "") {
-                           // this.showErrorToast('Please Enter Dietitian Name');
-                           this.alert.alertController.dismiss('<b style="color: red;">Enter valid email id.</b>');
-                        } else if (data.descripion == "") {
-                            this.showErrorToast('Please Enter Dietitian Description');
-                        } else if (data.phone == "") {
-                            this.showErrorToast('Please Enter Dietitian Phone Number');
-                        } else if (data.phone.length < 8) {
-
-                            this.showErrorToast('Phone number should be 8 digit');
-                        } else if (!this.isPhoneValid(data.phone)) {
-                            this.showErrorToast('Phone number should start with 9 or 7');
-                        } else if (data.email == "") {
-                            this.showErrorToast('Please Enter Dietitian Email');
-                        } else {
-                            this.updateDietitian(dietitianObj, data);
-                        }
+                        this.updateDietitian(dietitianObj, data);
                     }
                 }
             ]
@@ -154,6 +148,9 @@ export class AdminViewDietitianPage implements OnInit {
 
         await alertprompt.present();
     }
+
+  
+   
 
     async deleteDietitian(dietitianObj) {
 
@@ -281,5 +278,5 @@ export class AdminViewDietitianPage implements OnInit {
         await alertradio.present();
 
     }
-}
 
+}

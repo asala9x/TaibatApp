@@ -92,19 +92,27 @@ export class ShopPage implements OnInit {
         setTimeout(() => {
             this.LoaderService.hideLoader();
         }, 2000);
+
+    
         this.afData.list('products').valueChanges().subscribe((proArray) => {
             this.LoaderService.hideLoader();
             this.tempArray = proArray;
             this.productArray = proArray;
+
             this.filterProductData('Foods', 0);
+
+           
+
         }, (databaseError) => {
             this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
         })
 
+       
     }
 
     async getBasketArry() {
+        
         this.LoaderService.showLoader();
 
         setTimeout(() => {
