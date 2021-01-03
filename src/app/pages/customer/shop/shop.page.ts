@@ -87,6 +87,10 @@ export class ShopPage implements OnInit {
     ngOnInit() {
     }
     async retrieveDataFromFirebase() {
+        this.LoaderService.showLoader();
+
+      
+
     
         this.afData.list('products').valueChanges().subscribe((proArray) => {
             this.LoaderService.hideLoader();
@@ -191,10 +195,10 @@ export class ShopPage implements OnInit {
     startSearch() {
         this.tempArray = [];
         for (let i = 0; i < this.productArray.length; i++) {
-            if (this.productArray[i].ProductName.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
+            if (this.productArray[i].category.toLowerCase().startsWith(this.searchtxt.toLowerCase()) || this.productArray[i].productName.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
                 this.tempArray.push(this.productArray[i]);
             }
-            else if (this.productArray[i].ProductName.toLowerCase().includes(this.searchtxt.toLowerCase())) {
+            else if (this.productArray[i].category.toLowerCase().includes(this.searchtxt.toLowerCase()) || this.productArray[i].productName.toLowerCase().includes(this.searchtxt.toLowerCase())) {
                 this.tempArray.push(this.productArray[i]);
             }
         }
