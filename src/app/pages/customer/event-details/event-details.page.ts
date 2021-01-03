@@ -67,7 +67,7 @@ export class EventDetailsPage implements OnInit {
         setTimeout(() => {
             this.LoaderService.hideLoader();
         }, 2000);
-        if (this.checkEvent(NOofpeople)) {
+        if (!this.checkEvent(NOofpeople)) {
             this.alertservice.presentAlert("Sorry  ")
         }
         else {
@@ -138,20 +138,13 @@ export class EventDetailsPage implements OnInit {
         let showalert: boolean = false;
         let currentdate = new Date();
         currentdate.setHours(0, 0, 0, 0);
+
         let eventdate = new Date(obj.date);
-        eventdate.setHours(0, 0, 0, 0);
+        let neweventdate=new Date(eventdate.getFullYear()+'/' + (eventdate.getMonth()+1) + '/'+eventdate.getDate());
+        neweventdate.setHours(0, 0, 0, 0);
 
-        let dateold1 = new Date(obj.date);
-        dateold1.setDate(dateold1.getDate());
-        dateold1.setHours(0, 0, 0, 0);
-
-        //     // let dateold2 = new Date(obj.date);
-        //     // dateold2.setDate(dateold2.getDate() - 2);
-        //     // dateold2.setHours(0, 0, 0, 0);
-
-        if (
-            currentdate.getTime() >= dateold1.getTime())
-        // currentdate.getTime() >= eventdate.getTime()) 
+        
+        if (currentdate.getTime() > neweventdate.getTime())
         {
             showalert = true;
         }

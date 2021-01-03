@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController,LoadingController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AlertserviceService } from '../../../services/alertservice.service';
@@ -24,7 +24,8 @@ export class AdminAddAdvicePage implements OnInit {
         private afstorage: AngularFireStorage,
         private LoaderService: LoadingserviceServiceService,
         private afData: AngularFireDatabase,
-        private alert: AlertserviceService) { }
+        private alert: AlertserviceService,
+        private loadingController:LoadingController) { }
 
     ngOnInit() {
     }
@@ -51,7 +52,10 @@ export class AdminAddAdvicePage implements OnInit {
         else {
 
 
-            this.LoaderService.showLoader();
+            const loading = await this.loadingController.create({
+                message: 'Please wait...',
+              });
+              await loading.present();
 
 
             let date1 = new Date();
@@ -83,41 +87,42 @@ export class AdminAddAdvicePage implements OnInit {
                                         ref2.getDownloadURL().subscribe((url) => {
                                             tempobj.img2 = url;
 
+                                            alert(JSON.stringify(tempobj));
+
                                             this.afData.list("advice").update(dataresposeobj.key, tempobj).then(() => {
-                                                this.LoaderService.hideLoader();
-                                                this.imagesarray = [];
+                                                loading.dismiss();
                                                 this.alert.presentAlert("Advice data inserted successfully");
 
                                                 this.adviceObj.name = "";
                                                 this.adviceObj.descripion = ""
                                             }).catch((updateerror) => {
-                                                this.LoaderService.hideLoader();
+                                                loading.dismiss();
                                                 this.alert.presentAlert(updateerror.message);
                                             })
 
                                         });
 
                                     }).catch((storageError) => {
-                                        this.LoaderService.hideLoader();
+                                        loading.dismiss();
                                         this.alert.presentAlert(storageError.message);
                                     })
                             });
 
                         }).catch((storageError) => {
-                            this.LoaderService.hideLoader();
+                            loading.dismiss();
                             this.alert.presentAlert(storageError.message);
 
                         })
 
 
                 }).catch((error) => {
-                    this.LoaderService.hideLoader();
+                    loading.dismiss();
                     this.alert.presentAlert(error.message);
 
                 });
 
             }).catch((databaseError) => {
-                this.LoaderService.hideLoader();
+                loading.dismiss();
                 this.alert.presentAlert(databaseError.messagee);
 
             });
@@ -153,7 +158,7 @@ export class AdminAddAdvicePage implements OnInit {
 
     selectImageFromCamera() {
         const options: CameraOptions = {
-            quality: 100,
+            quality: 30,
             destinationType: this.camera.DestinationType.DATA_URL,
             encodingType: this.camera.EncodingType.JPEG,
             mediaType: this.camera.MediaType.PICTURE
@@ -169,7 +174,7 @@ export class AdminAddAdvicePage implements OnInit {
 
     selectImageFromGallery() {
         const options: CameraOptions = {
-            quality: 100,
+            quality: 30,
             destinationType: this.camera.DestinationType.DATA_URL,
             sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
             encodingType: this.camera.EncodingType.JPEG,
