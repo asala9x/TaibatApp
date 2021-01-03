@@ -50,11 +50,6 @@ export class AddressPage implements OnInit {
 
     async retrieveDataFromFirebase() {
 
-        this.LoaderService.showLoader();
-
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
 
         this.authService.getDataFromStorage().then((userdata) => {
             this.uid = userdata.uid;
@@ -117,9 +112,7 @@ export class AddressPage implements OnInit {
 
             this.LoaderService.showLoader();
 
-            setTimeout(() => {
-                this.LoaderService.hideLoader();
-            }, 2000);
+           
             this.authService.getDataFromStorage().then((userdata) => {
                 this.uid = userdata.uid;
                 let userCartPath = "user/" + this.uid

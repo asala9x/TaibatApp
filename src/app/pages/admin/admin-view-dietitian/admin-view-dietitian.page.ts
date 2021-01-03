@@ -213,7 +213,10 @@ export class AdminViewDietitianPage implements OnInit {
     startSearch() {
         this.tempArray = [];
         for (let i = 0; i < this.dietitianArray.length; i++) {
-            if (this.dietitianArray[i].name.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
+            if (this.dietitianArray[i].name.toLowerCase().includes(this.searchtxt.toLowerCase())) {
+                this.tempArray.push(this.dietitianArray[i]);
+            }
+            else if (this.dietitianArray[i].name.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
                 this.tempArray.push(this.dietitianArray[i]);
             }
         }

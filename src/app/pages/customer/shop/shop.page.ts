@@ -87,12 +87,6 @@ export class ShopPage implements OnInit {
     ngOnInit() {
     }
     async retrieveDataFromFirebase() {
-        this.LoaderService.showLoader();
-
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
-
     
         this.afData.list('products').valueChanges().subscribe((proArray) => {
             this.LoaderService.hideLoader();
@@ -114,10 +108,6 @@ export class ShopPage implements OnInit {
     async getBasketArry() {
         
         this.LoaderService.showLoader();
-
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
         let cartArray: any[] = [];
         this.authService.getDataFromStorage().then((userdata) => {
             this.uid = userdata.uid;
@@ -162,9 +152,7 @@ export class ShopPage implements OnInit {
         this.tempArray = [];
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+        
 
         this.afData.list('products', ref => ref.orderByChild('category').equalTo(productskey)).valueChanges().subscribe((proArray) => {
             this.LoaderService.hideLoader();
@@ -204,6 +192,9 @@ export class ShopPage implements OnInit {
         this.tempArray = [];
         for (let i = 0; i < this.productArray.length; i++) {
             if (this.productArray[i].ProductName.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
+                this.tempArray.push(this.productArray[i]);
+            }
+            else if (this.productArray[i].ProductName.toLowerCase().includes(this.searchtxt.toLowerCase())) {
                 this.tempArray.push(this.productArray[i]);
             }
         }

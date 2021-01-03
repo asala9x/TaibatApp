@@ -117,6 +117,9 @@ export class AdvicePage implements OnInit {
             if (this.adviceArray[i].name.toLowerCase().includes(this.searchtxt.toLowerCase())) {
                 this.tempArray.push(this.adviceArray[i]);
             }
+           else if (this.adviceArray[i].name.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
+            this.tempArray.push(this.adviceArray[i]);
+        }
         }
     }
 

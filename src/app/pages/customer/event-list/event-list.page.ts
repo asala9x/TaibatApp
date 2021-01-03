@@ -79,6 +79,9 @@ export class EventListPage implements OnInit {
             if (this.eventArray[i].title.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
                 this.tempArray.push(this.eventArray[i]);
             }
+           else if (this.eventArray[i].title.toLowerCase().includes(this.searchtxt.toLowerCase())) {
+                this.tempArray.push(this.eventArray[i]);
+            }
         }
     }
 

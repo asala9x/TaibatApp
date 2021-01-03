@@ -229,6 +229,9 @@ export class AdminViewProductPage implements OnInit {
             if (this.productArray[i].category.toLowerCase().startsWith(this.searchtxt.toLowerCase()) || this.productArray[i].productName.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
                 this.tempArray.push(this.productArray[i]);
             }
+            else if (this.productArray[i].category.toLowerCase().includes(this.searchtxt.toLowerCase()) || this.productArray[i].productName.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
+                this.tempArray.push(this.productArray[i]);
+            }
         }
     }
     startStopListening() {
