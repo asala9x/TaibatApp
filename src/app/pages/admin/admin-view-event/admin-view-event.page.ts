@@ -58,7 +58,7 @@ export class AdminViewEventPage implements OnInit {
     updateEvent(eventkey) {
 
         if (this.checkEvent(eventkey)) {
-            this.alert.presentAlert("Sorry You cannot update a event now ")
+            this.alert.presentAlert("Sorry You cannot update the event if the date is over")
         } else {
             let NavExtras: NavigationExtras = {
                 queryParams: eventkey
@@ -81,6 +81,8 @@ export class AdminViewEventPage implements OnInit {
             this.alert.presentAlert(error.message);
         });
     }
+
+
     async deleteEventAlert(eventObj) {
         if (this.checkEvent(eventObj)) {
             this.alert.presentAlert("Sorry You cannot delete a event now ")
@@ -107,6 +109,8 @@ export class AdminViewEventPage implements OnInit {
             await alert.present();
         }
     }
+
+
     checkEvent(obj) {
         let showalert: boolean = false;
         let currentdate = new Date();
@@ -131,6 +135,8 @@ export class AdminViewEventPage implements OnInit {
         return showalert;
 
     }
+
+
     peopleRegistr(eventkey) {
         let NavExtras: NavigationExtras = {
             queryParams: eventkey
@@ -157,6 +163,8 @@ export class AdminViewEventPage implements OnInit {
             }
         }
     }
+
+    
     startStopListening() {
         this.isRecording = (!this.isRecording);
         if (this.isRecording) {

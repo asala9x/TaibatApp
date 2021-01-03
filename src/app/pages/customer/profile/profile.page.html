@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar color="primary">
-        <ion-back-button slot="start" [routerLink]="['/customer-tab/advice']"> </ion-back-button>
+
         <ion-title>Profile</ion-title>
     </ion-toolbar>
 </ion-header>
@@ -33,7 +33,7 @@
                                 {{userlastArray.name}}
                             </ion-col>
                         </ion-row>
-                       
+
                     </ion-col>
                 </ion-row>
 
@@ -42,4 +42,5 @@
 
 
     </div>
+    <ion-icon name="arrow-back-circle" class="backicon" [routerLink]="['/customer-tab/advice']"></ion-icon>
 </ion-content>

@@ -71,14 +71,21 @@ export class AdminViewDietitianPage implements OnInit {
         data.test = "Dietitian";
 
         if (data.name == "" ) {
-           this.alert.presentAlert("  sorry we can’t update because you didn’t follow the rules which is written there, try again");
+           this.alert.presentAlert("Sorry We are unable to update , you are missing one or more data, Please update with correct information");
         } else if (data.descripion == "") {
-            this.alert.presentAlert("  sorry we can’t update because you didn’t follow the rules which is written there, try again");
-        } else if (data.phone == ""||data.phone.length < 8||!this.isPhoneValid(data.phone)) {
-            this.alert.presentAlert("  sorry we can’t update because you didn’t follow the rules which is written there, try again");
+            this.alert.presentAlert("Sorry We are unable to update , you are missing one or more data, Please update with correct information");
+        } else if (data.phone == "") {
+            this.alert.presentAlert("Sorry We are unable to update , you are missing one or more data, Please update with correct information");
         } else if (data.email == "") {
-            this.alert.presentAlert("  sorry we can’t update because you didn’t follow the rules which is written there, try again");
-        } else { 
+            this.alert.presentAlert("Sorry We are unable to update , you are missing one or more data, Please update with correct information");
+        }
+        else if(data.phone.length < 8){
+            this.alert.presentAlert("Sorry We are unable to update , Phone number should be 8 digit, Please update with correct information"); 
+        }
+        else if(!this.isPhoneValid(data.phone)){
+            this.alert.presentAlert("Sorry We are unable to update , Phone number should start with 9 or 7, Please update with correct information"); 
+        }
+        else { 
 
         this.LoaderService.showLoader();
 
@@ -108,25 +115,25 @@ export class AdminViewDietitianPage implements OnInit {
                     name: 'name',
                     value: dietitianObj.name,
                     type: 'text', 
-                    placeholder: 'Name can not be empty'
+                    placeholder: 'name, Required'
                 },
                 {
                     name: 'email',
                     value: dietitianObj.email,
                     type: 'email',
-                    placeholder: 'Email can not be empty and should be formatting'
+                    placeholder: 'Required & should be formatting'
                 },
                 {
                     name: 'phone',
                     value: dietitianObj.phone,
-                    type: 'number',
-                    placeholder: 'Phone can not be empty and should be formatting'
+                    type: 'tel',
+                    placeholder: 'Required, start with 9or7 & 8 digit'
                 },
                 {
                     name: 'descripion',
                     value: dietitianObj.descripion,
                     type: 'text',
-                    placeholder: 'Descripion can not be empty'
+                    placeholder: 'descripion, Required'
                 }
             ],
             buttons: [

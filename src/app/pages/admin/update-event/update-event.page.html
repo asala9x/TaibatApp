@@ -7,10 +7,7 @@
 
 <ion-content>
     <div class="mainSivStyle" align="center" *ngFor="let i of eventArray">
-        <div class="divimageStyle">
-            <img [src]="i.img" class="imageStyle">
-        </div>
-        <br />
+    <div class="centerdiv">
         <div class="inputDivStyle">
             <ion-list>
                 <ion-item>
@@ -49,9 +46,8 @@
             </ion-list>
         </div>
         <div class="buttDivStyle">
-            <ion-button color="primary" class="CancelbuttStyle" fill="outline"
-                [routerLink]="['/admin-tab/admin-view-event']"> Cancel </ion-button>
             <ion-button color="primary" class="CancelbuttStyle" (click)="updateEvent(i)"> UPDATE</ion-button>
         </div>
+    </div>
     </div>
 </ion-content>

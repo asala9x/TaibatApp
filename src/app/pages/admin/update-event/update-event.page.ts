@@ -41,6 +41,25 @@ export class UpdateEventPage implements OnInit {
     async updateEvent(eventArray) {
         eventArray.test = "Event";
 
+        if(eventArray.title ==""){
+            this.alert.presentAlert("Event title is Required");
+        } 
+        else if(eventArray.date ==""){
+            this.alert.presentAlert("Event date is Required");
+        }
+        else if(eventArray.timer ==""){
+            this.alert.presentAlert("Event date is Required");
+        }
+        else if(eventArray.place ==""){
+            this.alert.presentAlert("Event date is Required");
+        }
+        else if(eventArray.price ==""){
+            this.alert.presentAlert("Event date is Required");
+        }
+        else if(eventArray.people ==""){
+            this.alert.presentAlert("Event date is Required");
+        }
+        else{
         this.LoaderService.showLoader();
 
         
@@ -52,6 +71,6 @@ export class UpdateEventPage implements OnInit {
             this.LoaderService.hideLoader();
             this.alert.presentAlert(error.message);
         });
-
+    }
     }
 }

@@ -43,7 +43,7 @@ export class ViewOrderPage implements OnInit {
 
     async retrieveDataFromFirebase() {
 
-        this.LoaderService.showLoader();
+       // this.LoaderService.showLoader();
 
        
 

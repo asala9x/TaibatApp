@@ -66,7 +66,7 @@ export class AdminViewProductPage implements OnInit {
     }
     async retrieveDataFromFirebase() {
         this.LoaderService.showLoader();
-        
+
         this.afData.list('products').valueChanges().subscribe((proArray) => {
             this.LoaderService.hideLoader();
             this.productArray = proArray;
@@ -84,7 +84,7 @@ export class AdminViewProductPage implements OnInit {
 
         this.LoaderService.showLoader();
 
-  
+
 
         this.afData.list('products', ref => ref.orderByChild('category').equalTo(productskey)).valueChanges().subscribe((proArray) => {
             this.LoaderService.hideLoader();
@@ -99,7 +99,7 @@ export class AdminViewProductPage implements OnInit {
 
         this.LoaderService.showLoader();
 
-       
+
 
         this.afData.list('products').remove(productObj.productskey).then(() => {
             this.LoaderService.hideLoader();
@@ -139,17 +139,30 @@ export class AdminViewProductPage implements OnInit {
     async updateProduct(productObj, data) {
         data.test = "Product";
 
-        this.LoaderService.showLoader();
+        if (data.productName == "") {
+            this.alert.presentAlert("Sorry We are unable to update , you are missing one or more data, Please update with correct information");
+        } else if (data.price == "") {
+            this.alert.presentAlert("Sorry We are unable to update , you are missing one or more data, Please update with correct information");
+        } else if (data.qty == "") {
+            this.alert.presentAlert("Sorry We are unable to update , you are missing one or more data, Please update with correct information");
+        } else if (data.description == "") {
+            this.alert.presentAlert("Sorry We are unable to update , you are missing one or more data, Please update with correct information");
+        }
+
+        else {
+            this.LoaderService.showLoader();
 
 
-        this.afData.list('products').update(productObj.productskey, data).then(() => {
-            this.LoaderService.hideLoader();
-            this.alert.presentAlert("Product data updated successfully");
-        }).catch((error) => {
-            this.LoaderService.hideLoader();
-            this.alert.presentAlert(error.message);
-        });
+            this.afData.list('products').update(productObj.productskey, data).then(() => {
+                this.LoaderService.hideLoader();
+                this.alert.presentAlert("Product data updated successfully");
+            }).catch((error) => {
+                this.LoaderService.hideLoader();
+                this.alert.presentAlert(error.message);
+            });
+        }
     }
+
     async updateProductAlert(productObj) {
         const alertprompt = await this.alertController.create({
             header: 'Update Product',
@@ -159,31 +172,25 @@ export class AdminViewProductPage implements OnInit {
                     name: 'productName',
                     value: productObj.productName,
                     type: 'text',
-                    placeholder: 'Product Name'
+                    placeholder: 'Name, Required'
                 },
                 {
                     name: 'price',
                     value: productObj.price,
-                    type: 'text',
-                    placeholder: 'Product Price'
-                },
-                {
-                    name: 'category',
-                    value: productObj.category,
-                    type: 'text',
-                    placeholder: 'Product category'
+                    type: 'number',
+                    placeholder: 'Price, Required'
                 },
                 {
                     name: 'qty',
                     value: productObj.qty,
-                    type: 'text',
-                    placeholder: 'Product qty'
+                    type: 'number',
+                    placeholder: 'qty, Required'
                 },
                 {
                     name: 'description',
                     value: productObj.description,
                     type: 'text',
-                    placeholder: 'Product Description'
+                    placeholder: 'Description, Required'
                 }
             ],
             buttons: [

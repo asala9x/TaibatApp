@@ -1,10 +1,11 @@
 .mainSivStyle{
     box-shadow: 3px 5px 15px #dbd7d7;
-    height: 650px ;
-    width: 340px;
+    height: 95% ;
+    width: 95%;
     margin: 10px !important;
     border-radius: 10px;
     padding-top: 25px;
+   
    
 }
 .backiconstyle{
@@ -14,12 +15,21 @@
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 10px;
-    margin-bottom: 0px;
+     margin-bottom: 0px;
+    
 }
-.divimageStyle{
-    height: 110px;
-    width: 110px;
+.centerdiv{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+   
+    height: 85%;
+    width: 85%;
 }
+
 .CancelbuttStyle{
     width: 140px;
     border-radius: 10px;

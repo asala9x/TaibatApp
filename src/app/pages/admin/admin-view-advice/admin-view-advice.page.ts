@@ -66,19 +66,27 @@ export class AdminViewAdvicePage implements OnInit {
 
     async updateAdvice(adviceObj, data) {
         data.test = "Advice";
-        this.LoaderService.showLoader();
 
-      
+        if (data.name == "") {
+            this.alert.presentAlert("Sorry We are unable to update , you are missing one or more data, Please update with correct information");
+        } else if (data.descripion == "") {
+            this.alert.presentAlert("Sorry We are unable to update , you are missing one or more data, Please update with correct information");
+        }
+        else {
+            this.LoaderService.showLoader();
 
-        this.afData.list('advice').update(adviceObj.advicekey, data).then(() => {
-            this.LoaderService.hideLoader();
-            this.alert.presentAlert("Advice data updated successfully");
-        }).catch((error) => {
-            this.LoaderService.hideLoader();
-            this.alert.presentAlert(error.message);
-        });
 
+
+            this.afData.list('advice').update(adviceObj.advicekey, data).then(() => {
+                this.LoaderService.hideLoader();
+                this.alert.presentAlert("Advice data updated successfully");
+            }).catch((error) => {
+                this.LoaderService.hideLoader();
+                this.alert.presentAlert(error.message);
+            });
+        }
     }
+
     async updateAdviceAlert(adviceObj) {
         const alertprompt = await this.alertController.create({
             header: 'Update Advice',
@@ -88,13 +96,13 @@ export class AdminViewAdvicePage implements OnInit {
                     name: 'name',
                     value: adviceObj.name,
                     type: 'text',
-                    placeholder: 'Advice Title'
+                    placeholder: 'Title, Required'
                 },
                 {
                     name: 'descripion',
                     value: adviceObj.descripion,
                     type: 'text',
-                    placeholder: 'Descripion'
+                    placeholder: 'Descripion, Required'
                 }
             ],
             buttons: [
@@ -121,7 +129,7 @@ export class AdminViewAdvicePage implements OnInit {
 
         this.LoaderService.showLoader();
 
-       
+
         this.afData.list('advice').remove(adviceObj.advicekey).then(() => {
             this.LoaderService.hideLoader();
             this.alert.presentAlert("Advice deleted successfully");
