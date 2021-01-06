@@ -14,12 +14,10 @@
 </ion-header>
 
 <ion-content>
-    <!-- no details-->
     <ion-card color="light" *ngIf="tempArray.length==0">
         <ion-card-content color="primary">
             No dietitians added yet. please click on 'Add Dietitian' tab to add one.
         </ion-card-content>
-        <!-- card with details-->
     </ion-card>
     <ion-list *ngIf="tempArray.length>0">
         <ion-item-sliding *ngFor="let i of tempArray">

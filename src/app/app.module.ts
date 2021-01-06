@@ -32,14 +32,13 @@ import { IonicStorageModule } from '@ionic/storage';
         IonicModule.forRoot(),
         IonicStorageModule.forRoot(),
         AppRoutingModule,
-        PopoverComponentPageModule,
-        CustomerPopoverPageModule,
         AngularFireModule,
-          AngularFireStorageModule,
+        AngularFireStorageModule,
         AngularFireModule.initializeApp(environment.key),
         AngularFireDatabaseModule,
-    
         AngularFireAuthModule,
+        PopoverComponentPageModule,
+        CustomerPopoverPageModule,
 
     ],
     providers: [

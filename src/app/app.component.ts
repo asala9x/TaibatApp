@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Platform,NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { timer } from '../../node_modules/rxjs/';
 import { ServiceService } from '../app/services/service.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { ServiceService } from '../app/services/service.service';
     styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-    showSplash = true;
+
     constructor(
         private platform: Platform,
         private splashScreen: SplashScreen,
@@ -47,9 +46,6 @@ export class AppComponent {
                    
             });
 
-           
-            timer(3000).subscribe(() =>
-                this.showSplash = true)
         });
     }
 }
