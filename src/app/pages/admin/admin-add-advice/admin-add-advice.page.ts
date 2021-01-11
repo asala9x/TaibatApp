@@ -87,14 +87,13 @@ export class AdminAddAdvicePage implements OnInit {
                                         ref2.getDownloadURL().subscribe((url) => {
                                             tempobj.img2 = url;
 
-                                            alert(JSON.stringify(tempobj));
-
                                             this.afData.list("advice").update(dataresposeobj.key, tempobj).then(() => {
                                                 loading.dismiss();
                                                 this.alert.presentAlert("Advice data inserted successfully");
 
                                                 this.adviceObj.name = "";
-                                                this.adviceObj.descripion = ""
+                                                this.adviceObj.descripion = "";
+                                                this.imagesarray=[];
                                             }).catch((updateerror) => {
                                                 loading.dismiss();
                                                 this.alert.presentAlert(updateerror.message);

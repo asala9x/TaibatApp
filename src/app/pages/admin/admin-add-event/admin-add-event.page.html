@@ -15,13 +15,13 @@
             <ion-list>
                 <ion-item>
                     <ion-icon name="pencil" class="iconcolor" slot="start"></ion-icon>
-                    <ion-input type="text" color="primary" [(ngModel)]="eventsObj.title" placeholder="Title">
+                    <ion-input type="text" color="primary"  maxlength="20" [(ngModel)]="eventsObj.title" placeholder="Title">
                     </ion-input>
                 </ion-item>
                 <br />
                 <ion-item>
                     <ion-icon name="calendar" class="iconcolor" slot="start"></ion-icon>
-                    <ion-datetime color="primary" displayFormat="D MMM YYYY " min="2020" max="2040" value="D MMM YYYY"
+                    <ion-datetime color="primary" displayFormat="D MMM YYYY " [min]="minDate" value="D MMM YYYY"
                         placeholder="Select Date" [(ngModel)]="eventsObj.date" class="datatimestyle">
                     </ion-datetime>
                 </ion-item>
@@ -41,13 +41,13 @@
                 <br />
                 <ion-item>
                     <ion-icon name="pricetag" class="iconcolor" slot="start"></ion-icon>
-                    <ion-input type="text" color="primary" [(ngModel)]="eventsObj.price" placeholder="Price">
+                    <ion-input type="number" color="primary" [(ngModel)]="eventsObj.price" placeholder="Price">
                     </ion-input>
                 </ion-item>
                 <br />
                 <ion-item>
                     <ion-icon name="people" class="iconcolor" slot="start"></ion-icon>
-                    <ion-input type="number" color="primary" [(ngModel)]="eventsObj.people"
+                    <ion-input type="number"  color="primary" [(ngModel)]="eventsObj.people"
                         placeholder="No of people can attend"> </ion-input>
                 </ion-item>
             </ion-list>

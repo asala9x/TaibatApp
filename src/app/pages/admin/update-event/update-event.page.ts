@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class UpdateEventPage implements OnInit {
     private eventArray: any[] = [];
     private eventkey: string = "";
+    private minDate: string = new Date().toISOString();
     constructor(private afData: AngularFireDatabase,
         private LoaderService: LoadingserviceServiceService,
         private alert: AlertserviceService,
@@ -24,7 +25,7 @@ export class UpdateEventPage implements OnInit {
         this.retrieveDataFromFirebase();
     }
 
-
+    isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); }
     async retrieveDataFromFirebase() {
         this.LoaderService.showLoader();
 
@@ -48,16 +49,18 @@ export class UpdateEventPage implements OnInit {
             this.alert.presentAlert("Event date is Required");
         }
         else if(eventArray.timer ==""){
-            this.alert.presentAlert("Event date is Required");
+            this.alert.presentAlert("Event time is Required");
         }
         else if(eventArray.place ==""){
-            this.alert.presentAlert("Event date is Required");
+            this.alert.presentAlert("Event place is Required");
         }
         else if(eventArray.price ==""){
-            this.alert.presentAlert("Event date is Required");
+            this.alert.presentAlert("Event price is Required");
         }
         else if(eventArray.people ==""){
-            this.alert.presentAlert("Event date is Required");
+            this.alert.presentAlert("Event number of people can attend is Required");
+        }else if (!this.isNumber(eventArray.people)) {
+            this.alert.presentAlert("Not Alawe");
         }
         else{
         this.LoaderService.showLoader();

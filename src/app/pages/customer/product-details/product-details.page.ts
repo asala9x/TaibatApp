@@ -26,7 +26,7 @@ export class ProductDetailsPage implements OnInit {
         "qty": "",
         "productid": ""
     };
- private numberOfItemInCart: any ;
+    private numberOfItemInCart: any;
 
     constructor(public alertController: AlertController,
         private alert: AlertserviceService,
@@ -49,7 +49,7 @@ export class ProductDetailsPage implements OnInit {
         this.viewProductData();
     }
 
-    noOfitem(){
+    noOfitem() {
         let cartArray: any[] = [];
         this.authService.getDataFromStorage().then((userdata) => {
             this.uid = userdata.uid;
@@ -65,8 +65,8 @@ export class ProductDetailsPage implements OnInit {
                     cartArray.push(this.basketArray[i]);
                 }
 
-              this.numberOfItemInCart = this.basketArray.length;
-             
+                this.numberOfItemInCart = this.basketArray.length;
+
                 this.LoaderService.hideLoader();
 
             }, (databaseError) => {
@@ -81,13 +81,6 @@ export class ProductDetailsPage implements OnInit {
     }
 
     async retrieveDataFromFirebase(productskey) {
-        this.LoaderService.showLoader();
-
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
-
-
         this.afData.list('products', ref => ref.orderByChild("productskey").equalTo(productskey)).valueChanges().subscribe((proArray) => {
             this.LoaderService.hideLoader();
 
@@ -98,7 +91,7 @@ export class ProductDetailsPage implements OnInit {
             this.alert.presentAlert(databaseError.message);
         })
 
-        
+
     }
 
 
@@ -124,12 +117,6 @@ export class ProductDetailsPage implements OnInit {
         let cartArray: any[] = [];
 
         this.LoaderService.showLoader();
-
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
-
-
         this.authService.getDataFromStorage().then((userdata) => {
             this.uid = userdata.uid;
             let userCartPath = "user/" + this.uid + "/cart"
@@ -156,13 +143,13 @@ export class ProductDetailsPage implements OnInit {
             this.alert.presentAlert("Unable to get data from storage");
         })
 
-this.noOfitem();
+        this.noOfitem();
     }
 
-    
+
     async AddToCart(order) {
 
-       
+
         let previousCartItmes: any[] = [];
         let cartArray: any[] = [];
 
@@ -177,17 +164,9 @@ this.noOfitem();
         orderObj.price = this.tempArray[0].price;
         orderObj.qty = this.qty;
         orderObj.productid = this.tempArray[0].productskey;
-        this.LoaderService.showLoader();
-
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
-
         this.authService.getDataFromStorage().then((userdata) => {
             this.uid = userdata.uid;
             let userCartPath = "user/" + this.uid + "/cart"
-            this.LoaderService.hideLoader();
-
             const userCartlist = this.afData.list(userCartPath).valueChanges().subscribe((itemArray) => {
                 this.LoaderService.hideLoader();
                 console.log(itemArray);
@@ -258,6 +237,6 @@ this.noOfitem();
             this.LoaderService.hideLoader();
             this.alert.presentAlert(err.message);
         });
-     
+
     }
 }

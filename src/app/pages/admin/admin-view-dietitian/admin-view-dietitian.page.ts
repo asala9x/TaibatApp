@@ -6,7 +6,6 @@ import { PopoverController } from '@ionic/angular';
 import { PopoverComponentPage } from '../../popover/popover-component/popover-component.page';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { AlertController } from '@ionic/angular';
-import { ToastController } from '@ionic/angular';
 
 @Component({
     selector: 'app-admin-view-dietitian',
@@ -21,7 +20,6 @@ export class AdminViewDietitianPage implements OnInit {
     private tempArray: any[] = [];
     setMessage: any;
     constructor(public alertController: AlertController,
-        public toastCtrl: ToastController,
         private afData: AngularFireDatabase,
         private LoaderService: LoadingserviceServiceService,
         private alert: AlertserviceService,
@@ -64,8 +62,18 @@ export class AdminViewDietitianPage implements OnInit {
 
         return phonevalid;
     }
-
-
+     isEmailValid(search: string){
+ 
+    	let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let result = re.test(search);
+        
+        if (!result) {
+        	return {
+        		'email:validation:fail' : true
+            }
+            return null;
+        }
+    }
     async updateDietitian(dietitianObj, data) {
 
         data.test = "Dietitian";
@@ -76,7 +84,9 @@ export class AdminViewDietitianPage implements OnInit {
             this.alert.presentAlert("Sorry We are unable to update , you are missing one or more data, Please update with correct information");
         } else if (data.phone == "") {
             this.alert.presentAlert("Sorry We are unable to update , you are missing one or more data, Please update with correct information");
-        } else if (data.email == "") {
+        }  else if (data.email=="") {
+            this.alert.presentAlert("Sorry We are unable to update , you are missing one or more data, Please update with correct information");
+        }else if (this.isEmailValid(data.email)) {
             this.alert.presentAlert("Sorry We are unable to update , you are missing one or more data, Please update with correct information");
         }
         else if(data.phone.length < 8){
@@ -88,11 +98,6 @@ export class AdminViewDietitianPage implements OnInit {
         else { 
 
         this.LoaderService.showLoader();
-
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
-    alert(data.name)
       
             this.afData.list('dietitian').update(dietitianObj.dietitiankey, data).then(() => {
                 this.LoaderService.hideLoader();

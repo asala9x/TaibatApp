@@ -39,7 +39,19 @@ export class AdminAddDietitianPage implements OnInit {
 
         return phonevalid;
     }
-
+    isEmailValid(search: string){
+ 
+    	let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let result = re.test(search);
+        
+        if (!result) {
+        	return {
+        		'email:validation:fail' : true
+            }
+            return null;
+        }
+    }
+    
 
     async addDietitian() {
        
@@ -59,6 +71,8 @@ export class AdminAddDietitianPage implements OnInit {
             this.alert.presentAlert("Phone number should start with 9 or 7")
         } else if (this.dietitianObj.email == "") {
             this.alert.presentAlert("Please Enter Dietitian Email");
+        }else if  (this.isEmailValid(this.dietitianObj.email )) {
+            this.alert.presentAlert("Format Dietitian Email ");
         } else if (this.base64Img == "../../../assets/icon/AddImage.png") {
             this.LoaderService.showLoader();
             this.dietitianObj.img = this.tempbase64Img;

@@ -12,13 +12,13 @@
             <ion-list>
                 <ion-item>
                     <ion-icon name="pencil" class="iconcolor" slot="start"></ion-icon>
-                    <ion-input type="text" [(ngModel)]="i.title" placeholder="Title"> </ion-input>
+                    <ion-input type="text" [(ngModel)]="i.title"  maxlength="20" placeholder="Title"> </ion-input>
                 </ion-item>
                 <br />
                 <ion-item>
                     <ion-icon name="calendar" class="iconcolor" slot="start"></ion-icon>
-                    <ion-datetime displayFormat="D MMM YYYY " min="2020" max="2040" value="D MMM YYYY"
-                        placeholder="Select Date" [(ngModel)]="i.date" class="datatimestyle">
+                    <ion-datetime displayFormat="D MMM YYYY " min="2021" max="2050" value="D MMM YYYY"
+                        placeholder="Select Date" [(ngModel)]="i.date" class="datatimestyle" [min]="minDate">
                     </ion-datetime>
                 </ion-item>
                 <br />
@@ -36,7 +36,7 @@
                 <br />
                 <ion-item>
                     <ion-icon name="pricetag" class="iconcolor" slot="start"></ion-icon>
-                    <ion-input type="text" [(ngModel)]="i.price" placeholder="Price"> </ion-input>
+                    <ion-input type="number [(ngModel)]="i.price" placeholder="Price"> </ion-input>
                 </ion-item>
                 <br />
                 <ion-item>

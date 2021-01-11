@@ -7,10 +7,19 @@
 
 <ion-content class="constyle">
     <div class="mainDivStyle" align="center">
-        <img *ngIf="imagesarray.length<2" src="../../../assets/icon/AddImage.png" class="adviceimg"
-            (click)="selectAdviceImage()" />
-        <div *ngIf="imagesarray.length>0">
-            <img *ngFor="let i of imagesarray" [src]="i" class="adviceimg" />
+
+        <!-- <img *ngIf="imagesarray.length<2" src="../../../assets/icon/AddImage.png" class="adviceimg"
+            (click)="selectAdviceImage()" /> -->
+
+        <div class="divimgparent">
+            <div *ngIf="imagesarray.length<2">
+                <img  src="../../../assets/icon/AddImage.png" class="adviceimg"
+                    (click)="selectAdviceImage()" />
+            </div>
+
+            <div *ngIf="imagesarray.length>0">
+                <img *ngFor="let i of imagesarray" [src]="i" class="adviceimg" />
+            </div>
         </div>
         <br />
         <br />
@@ -19,7 +28,8 @@
             <ion-list>
                 <ion-item>
                     <ion-icon name="pencil" class="iconcolor" slot="start"></ion-icon>
-                    <ion-input color="primary" type="text" [(ngModel)]="adviceObj.name" placeholder="Title">
+                    <ion-input color="primary" type="text" maxlength="20" [(ngModel)]="adviceObj.name"
+                        placeholder="Title">
                     </ion-input>
                 </ion-item>
                 <br />

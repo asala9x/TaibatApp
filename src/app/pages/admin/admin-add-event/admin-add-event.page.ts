@@ -22,6 +22,7 @@ export class AdminAddEventPage implements OnInit {
         "time": ""
     }
     private base64Img: string = "../../../assets/icon/AddImage.png";
+    private minDate: string = new Date().toISOString();
     constructor(public actionSheetController: ActionSheetController,
         private camera: Camera,
         private afstorage: AngularFireStorage,
@@ -31,18 +32,26 @@ export class AdminAddEventPage implements OnInit {
 
     ngOnInit() {
     }
+
+    isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); }
+
     async addEvents() {
 
         if (this.eventsObj.title == "") {
             this.alert.presentAlert("Please Enter Event Title");
         } else if (this.eventsObj.place == "") {
             this.alert.presentAlert("Please Enter Event Place");
-        } else if (this.eventsObj.datetime == "") {
-            this.alert.presentAlert("Please Enter Event DateTime");
+        } else if (this.eventsObj.date == "") {
+            this.alert.presentAlert("Please Enter Event Date")
+        }
+        else if (this.eventsObj.timer == "") {
+            this.alert.presentAlert("Please Enter Event Time")
         } else if (this.eventsObj.price == "") {
             this.alert.presentAlert("Please Enter Event Price");
         } else if (this.eventsObj.people == "") {
             this.alert.presentAlert("Please Enter  People Alawed for This Event");
+        } else if (!this.isNumber(this.eventsObj.people)) {
+            this.alert.presentAlert("Not Alawe");
         } else if (this.base64Img == "../../../assets/icon/AddImage.png") {
             this.alert.presentAlert("Please Upload Event Image");
         } else {
@@ -67,6 +76,7 @@ export class AdminAddEventPage implements OnInit {
                                 this.eventsObj.price = "";
                                 this.eventsObj.people = "";
                                 this.eventsObj.img = null;
+                                this.base64Img = "../../../assets/icon/AddImage.png";
                             }).catch((error) => {
                                 this.LoaderService.hideLoader();
                                 this.alert.presentAlert(error.message);

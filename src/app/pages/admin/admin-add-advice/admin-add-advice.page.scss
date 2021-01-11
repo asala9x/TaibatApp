@@ -20,11 +20,19 @@
     padding-top: 25px;  
 }
 .adviceimg{
-    //new
-    width: 110px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     padding:3px ;
-    
+}
+.divimgparent div{
+    display:inline-block;
+    vertical-align: middle;
+}
+.adviceimg1{
+    margin-right: 10px !important;
+    width: 130px;
+    height: 130px;
+    padding:3px ;
 }
 .inputDivStyle{
     padding-left: 30px;

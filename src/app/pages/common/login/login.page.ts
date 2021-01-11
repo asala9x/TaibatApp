@@ -56,10 +56,6 @@ export class LoginPage implements OnInit {
         }
         else { 
             this.LoaderService.showLoader();
-
-     
-
-
             this.fbauth.signInWithEmailAndPassword(this.data.email, this.data.password)
                 .then((authData) => {
                     if (authData.user.emailVerified) {
@@ -82,7 +78,7 @@ export class LoginPage implements OnInit {
                             }, (userdberror) => {
                                 this.LoaderService.hideLoader();
                                 this.alert.presentAlert(userdberror.message);
-
+                                
                             });
                     } else {
                         this.LoaderService.hideLoader();
@@ -90,7 +86,9 @@ export class LoginPage implements OnInit {
                     }
                 }).catch((authError) => {
                     this.LoaderService.hideLoader();
-                     this.alert.presentAlert(authError.message);
+                
+                    this.alert.presentAlert("wrong Email or Password, Please Try again!! ");
+
                    
                 })
         }

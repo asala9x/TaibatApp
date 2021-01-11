@@ -77,6 +77,7 @@ export class AdminAddProductPage implements OnInit {
                                 this.productsObj.qty = "";
                                 this.productsObj.img = "";
                                 this.productsObj.description = "";
+                                this.base64Img = "../../../assets/icon/AddImage.png";
                             }).catch((error) => {
                                 this.LoaderService.hideLoader();
                                 this.alert.presentAlert(error.message);

@@ -43,9 +43,7 @@ export class EventDetailsPage implements OnInit {
 
         this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+
         this.afData.list('event', ref => ref.orderByChild('eventkey').equalTo(eventkey)).valueChanges().subscribe((eveArray) => {
             this.LoaderService.hideLoader();
             this.eventArray = eveArray;
@@ -61,14 +59,10 @@ export class EventDetailsPage implements OnInit {
 
 
     async eventregister(NOofpeople) {
-        alert(this.currentdate)
-        this.LoaderService.showLoader();
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+        this.LoaderService.showLoader();
         if (!this.checkEvent(NOofpeople)) {
-            this.alertservice.presentAlert("Sorry  ")
+            this.alertservice.presentAlert("Sorry,This Event is Expired!")
         }
         else {
 
@@ -140,12 +134,11 @@ export class EventDetailsPage implements OnInit {
         currentdate.setHours(0, 0, 0, 0);
 
         let eventdate = new Date(obj.date);
-        let neweventdate=new Date(eventdate.getFullYear()+'/' + (eventdate.getMonth()+1) + '/'+eventdate.getDate());
+        let neweventdate = new Date(eventdate.getFullYear() + '/' + (eventdate.getMonth() + 1) + '/' + eventdate.getDate());
         neweventdate.setHours(0, 0, 0, 0);
 
-        
-        if (currentdate.getTime() > neweventdate.getTime())
-        {
+
+        if (currentdate.getTime() > neweventdate.getTime()) {
             showalert = true;
         }
 

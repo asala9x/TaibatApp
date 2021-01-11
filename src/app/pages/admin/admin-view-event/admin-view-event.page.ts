@@ -41,7 +41,7 @@ export class AdminViewEventPage implements OnInit {
 
 
     async retrieveDataFromFirebase() {
-        this.LoaderService.showLoader();
+    
 
         this.afData.list('event', ref => ref.orderByChild('time')).valueChanges().subscribe((eveArray) => {
             this.LoaderService.hideLoader();
