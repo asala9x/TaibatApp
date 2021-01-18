@@ -59,90 +59,65 @@ export class EventDetailsPage implements OnInit {
 
 
     async eventregister(NOofpeople) {
+        if (NOofpeople > 0) {
+            let newCapacity = NOofpeople - 1;
+            let newCapcityObj = { "people": newCapacity };
 
-        this.LoaderService.showLoader();
-        if (!this.checkEvent(NOofpeople)) {
-            this.alertservice.presentAlert("Sorry,This Event is Expired!")
+            this.afData.list('event/' + this.eventkey + '/peopleregistered').valueChanges().subscribe((peopleregArray) => {
+                this.peopleRegisterdArray = peopleregArray;
+                this.LoaderService.hideLoader();
+            }, (databaseError) => {
+                this.LoaderService.hideLoader();
+                this.alertservice.presentAlert(databaseError.message);
+            })
+
+
+            this.authService.getDataFromStorage().then((userdata) => {
+
+                var isUserRegistered = false
+
+                for (let regUser of this.peopleRegisterdArray) {
+                    if (regUser.userId == userdata.uid) {
+                        isUserRegistered = true
+                    }
+                }
+                if (isUserRegistered) {
+                    this.alertservice.presentAlert("You are already Registered");
+                } else {
+                    this.afData.list('event').update(this.eventkey, newCapcityObj).then(() => {
+                    }).catch((error) => {
+                        this.LoaderService.hideLoader();
+                        this.alertservice.presentAlert(error.message);
+                    });
+
+                    let peopleObj = {
+                        "userId": userdata.uid,
+                        "userName": userdata.name,
+                        "userEmail": userdata.email
+                    };
+
+                    this.afData.list("event/" + this.eventkey + "/peopleregistered").push(peopleObj).then(() => {
+                        this.LoaderService.hideLoader();
+                        this.alertservice.presentAlert("you have successfully registered for the event");
+
+                    }).catch(() => {
+                        this.LoaderService.hideLoader();
+                        this.alertservice.presentAlert("Error while registering for the event");
+                    });
+
+
+                }
+            }).catch((storageerror) => {
+                this.LoaderService.hideLoader();
+                this.alertservice.presentAlert("Unable to get data from storage");
+            })
+
         }
+
         else {
-
-
-            if (NOofpeople > 0) {
-                let newCapacity = NOofpeople - 1;
-                let newCapcityObj = { "people": newCapacity };
-
-                this.afData.list('event/' + this.eventkey + '/peopleregistered').valueChanges().subscribe((peopleregArray) => {
-                    this.peopleRegisterdArray = peopleregArray;
-                    this.LoaderService.hideLoader();
-                }, (databaseError) => {
-                    this.LoaderService.hideLoader();
-                    this.alertservice.presentAlert(databaseError.message);
-                })
-
-
-                this.authService.getDataFromStorage().then((userdata) => {
-
-                    var isUserRegistered = false
-
-                    for (let regUser of this.peopleRegisterdArray) {
-                        if (regUser.userId == userdata.uid) {
-                            isUserRegistered = true
-                        }
-                    }
-                    if (isUserRegistered) {
-                        this.alertservice.presentAlert("You are already Registered");
-                    } else {
-                        this.afData.list('event').update(this.eventkey, newCapcityObj).then(() => {
-                        }).catch((error) => {
-                            this.LoaderService.hideLoader();
-                            this.alertservice.presentAlert(error.message);
-                        });
-
-                        let peopleObj = {
-                            "userId": userdata.uid,
-                            "userName": userdata.name,
-                            "userEmail": userdata.email
-                        };
-
-                        this.afData.list("event/" + this.eventkey + "/peopleregistered").push(peopleObj).then(() => {
-                            this.LoaderService.hideLoader();
-                            this.alertservice.presentAlert("you have successfully registered for the event");
-
-                        }).catch(() => {
-                            this.LoaderService.hideLoader();
-                            this.alertservice.presentAlert("Error while registering for the event");
-                        });
-
-
-                    }
-                }).catch((storageerror) => {
-                    this.LoaderService.hideLoader();
-                    this.alertservice.presentAlert("Unable to get data from storage");
-                })
-
-            }
-
-            else {
-                this.alertservice.presentAlert("No slots left for this event");
-            }
-        }
-    }
-
-    checkEvent(obj) {
-        let showalert: boolean = false;
-        let currentdate = new Date();
-        currentdate.setHours(0, 0, 0, 0);
-
-        let eventdate = new Date(obj.date);
-        let neweventdate = new Date(eventdate.getFullYear() + '/' + (eventdate.getMonth() + 1) + '/' + eventdate.getDate());
-        neweventdate.setHours(0, 0, 0, 0);
-
-
-        if (currentdate.getTime() > neweventdate.getTime()) {
-            showalert = true;
+            this.alertservice.presentAlert("No slots left for this event");
         }
 
-        return showalert;
-
     }
+
 }

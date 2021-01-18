@@ -51,8 +51,10 @@ export class AdminAddEventPage implements OnInit {
         } else if (this.eventsObj.people == "") {
             this.alert.presentAlert("Please Enter  People Alawed for This Event");
         } else if (!this.isNumber(this.eventsObj.people)) {
-            this.alert.presentAlert("Not Alawe");
-        } else if (this.base64Img == "../../../assets/icon/AddImage.png") {
+            this.alert.presentAlert("Not Alawe point number");
+        } else if (this.eventsObj.people < 1) {
+            this.alert.presentAlert("Not Alawe less than 1 ");
+        }else if (this.base64Img == "../../../assets/icon/AddImage.png") {
             this.alert.presentAlert("Please Upload Event Image");
         } else {
             this.LoaderService.showLoader();

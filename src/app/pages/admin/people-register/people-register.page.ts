@@ -34,7 +34,6 @@ export class PeopleRegisterPage implements OnInit {
     async retrieveDataFromFirebase() {
         this.LoaderService.showLoader();
 
-   
         this.afData.list('event/' + this.eventkey + '/peopleregistered').valueChanges().subscribe((peopleregArray) => {
             this.peopleRegisterdArray = peopleregArray;
             this.LoaderService.hideLoader();

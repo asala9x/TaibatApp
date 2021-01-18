@@ -26,22 +26,30 @@ export class RegisterPage implements OnInit {
         public navCtrl: NavController) { }
     ngOnInit() {
     }
+    isEmailValid(search: string) {
 
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let result = re.test(search);
+
+        if (!result) {
+            return {
+                'email:validation:fail': true
+            }
+            return null;
+        }
+    }
     async registerUserInFB() {
-        this.LoaderService.showLoader();
-
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
 
         if (this.customerDetails.name == "") {
-            this.alert.presentAlert("plaes enter your name");
+            this.alert.presentAlert("Please enter your name");
         } else if (this.customerDetails.email == "") {
-            this.alert.presentAlert("plaes enter your Email");
+            this.alert.presentAlert("Please enter your Email");
+        } else if (this.isEmailValid(this.customerDetails.email)) {
+            this.alert.presentAlert("Format Your Email ");
         } else if (this.customerDetails.password == "") {
-            this.alert.presentAlert("plaes enter your Password");
+            this.alert.presentAlert("Please enter your Password");
         } else if (this.Confirmpassword == "") {
-            this.alert.presentAlert("plaes enter Confirm password");
+            this.alert.presentAlert("Please enter Confirm password");
         } else if (this.Confirmpassword != this.customerDetails.password) {
             this.alert.presentAlert("Password and Confirmpassword is not match");
         } else {

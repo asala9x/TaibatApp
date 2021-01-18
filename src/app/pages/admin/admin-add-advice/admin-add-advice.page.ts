@@ -36,7 +36,7 @@ export class AdminAddAdvicePage implements OnInit {
             this.alert.presentAlert("select atleast one image");
         }
         else if (this.imagesarray.length < 2) {
-            this.alert.presentAlert("please select 2 images");
+            this.alert.presentAlert("Please select 2 images");
         }
         else if (this.imagesarray.length > 2) {
             this.alert.presentAlert("you can select only two images");

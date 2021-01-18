@@ -27,9 +27,7 @@ export class ProfilePage implements OnInit {
         private alert: AlertserviceService,
         private afData: AngularFireDatabase) {
             this.subscribe = this.Platform.backButton.subscribeWithPriority(666666, () => {
-                // if (this.constructor.name == "ProfilePage") {
                     this.navCtrl.navigateForward('/customer-tab/advice');
-                // }
             })
         this.tempArray2 = this.viewAddressArray;
     }

@@ -38,25 +38,41 @@ export class EventListPage implements OnInit {
         this.retrieveDataFromFirebase();
     }
 
-    // Method for retrieve event data from DB
+
     async retrieveDataFromFirebase() {
         this.LoaderService.showLoader();
+        this.afData.list('event', ref => ref.orderByChild('time')).valueChanges().subscribe((eveArray: any[]) => {
 
-        setTimeout(() => {
-            this.LoaderService.hideLoader();
-        }, 2000);
+           this.tempArray=[];
+           this.eventArray=[];
 
-        this.afData.list('event', ref => ref.orderByChild('time')).valueChanges().subscribe((eveArray) => {
-            this.LoaderService.hideLoader();
-            this.eventArray = eveArray;
-            this.tempArray = eveArray;
+            for (let i = 0; i < eveArray.length; i++) {
+
+
+                let currentdate = new Date();
+                currentdate.setHours(0, 0, 0, 0);
+
+                let eventdate = new Date(eveArray[i].date);
+                let neweventdate = new Date(eventdate.getFullYear() + '/' + (eventdate.getMonth() + 1) + '/' + eventdate.getDate());
+                neweventdate.setHours(0, 0, 0, 0);
+
+                if (neweventdate.getTime() >= currentdate.getTime()) {
+                    this.tempArray.push(eveArray[i]);
+                }
+
+                if (i == (eveArray.length - 1)) {
+                    this.eventArray = this.tempArray;
+                    this.LoaderService.hideLoader();
+                }
+
+            }
+
         }, (databaseError) => {
             this.LoaderService.hideLoader();
             this.alert.presentAlert(databaseError.message);
         })
     }
 
-    //to move to details
     customereventdetails(eventkey) {
         let NavExtras: NavigationExtras = {
             queryParams: eventkey
@@ -79,7 +95,7 @@ export class EventListPage implements OnInit {
             if (this.eventArray[i].title.toLowerCase().startsWith(this.searchtxt.toLowerCase())) {
                 this.tempArray.push(this.eventArray[i]);
             }
-           else if (this.eventArray[i].title.toLowerCase().includes(this.searchtxt.toLowerCase())) {
+            else if (this.eventArray[i].title.toLowerCase().includes(this.searchtxt.toLowerCase())) {
                 this.tempArray.push(this.eventArray[i]);
             }
         }
@@ -93,7 +109,7 @@ export class EventListPage implements OnInit {
         }
         this.navCtr.navigateForward('customer-events-details', NavExtras);
     }
-    //startStopListening
+
     startStopListening() {
         this.isRecording = (!this.isRecording);
         if (this.isRecording) {
@@ -115,7 +131,7 @@ export class EventListPage implements OnInit {
             this.speechRecognition.stopListening()
         }
     }
-    //presentAlertRadio
+
     async presentAlertRadio() {
 
         let inputsArray: any[] = [];
